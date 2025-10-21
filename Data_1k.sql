@@ -1,0 +1,18801 @@
+--
+-- PostgreSQL database dump
+--
+
+\restrict bgxSr524R1EUbrA4MbfC7DZa1U9IJN2sJF0Iq2hlH7sdMgcCqzzfk4tsO5KJyEn
+
+-- Dumped from database version 17.6
+-- Dumped by pg_dump version 17.6
+
+-- Started on 2025-10-21 11:04:09
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 217 (class 1259 OID 18497)
+-- Name: Akun; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Akun" (
+    id character varying(10) NOT NULL,
+    username character varying(25) NOT NULL,
+    password character varying(25) NOT NULL
+);
+
+
+ALTER TABLE public."Akun" OWNER TO postgres;
+
+--
+-- TOC entry 218 (class 1259 OID 18500)
+-- Name: Buku; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Buku" (
+    isbn character varying(13) NOT NULL,
+    judul character varying(50) NOT NULL,
+    stok numeric(5,0) NOT NULL,
+    harga numeric(9,0) NOT NULL,
+    tahun_terbit numeric(4,0) NOT NULL,
+    id_penerbit character varying(10)
+);
+
+
+ALTER TABLE public."Buku" OWNER TO postgres;
+
+--
+-- TOC entry 219 (class 1259 OID 18503)
+-- Name: Ditulis; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Ditulis" (
+    isbn character varying(13) NOT NULL,
+    id_penulis character varying(10) NOT NULL
+);
+
+
+ALTER TABLE public."Ditulis" OWNER TO postgres;
+
+--
+-- TOC entry 220 (class 1259 OID 18506)
+-- Name: Karyawan; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Karyawan" (
+    id_karyawan character varying(10) NOT NULL,
+    nama_depan character varying(25) NOT NULL,
+    nama_belakang character varying(25) NOT NULL,
+    jenis_kelamin character varying(1) NOT NULL,
+    email character varying(25) NOT NULL,
+    jabatan character varying(25) NOT NULL,
+    alamat_nama_jalan character varying(50) NOT NULL,
+    kode_pos character varying(10) NOT NULL
+);
+
+
+ALTER TABLE public."Karyawan" OWNER TO postgres;
+
+--
+-- TOC entry 221 (class 1259 OID 18509)
+-- Name: Kategori; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Kategori" (
+    id_kategori character varying(10) NOT NULL,
+    nama character varying(25) NOT NULL
+);
+
+
+ALTER TABLE public."Kategori" OWNER TO postgres;
+
+--
+-- TOC entry 222 (class 1259 OID 18512)
+-- Name: Kode_Pos; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Kode_Pos" (
+    kode_pos character varying NOT NULL,
+    nama_provinsi character varying NOT NULL,
+    nama_kota character varying NOT NULL,
+    nama_kecamatan character varying NOT NULL,
+    nama_kelurahan character varying NOT NULL
+);
+
+
+ALTER TABLE public."Kode_Pos" OWNER TO postgres;
+
+--
+-- TOC entry 223 (class 1259 OID 18517)
+-- Name: Memiliki (Buku_Kategori); Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Memiliki (Buku_Kategori)" (
+    isbn character varying(13) NOT NULL,
+    id_kategori character varying(10) NOT NULL
+);
+
+
+ALTER TABLE public."Memiliki (Buku_Kategori)" OWNER TO postgres;
+
+--
+-- TOC entry 224 (class 1259 OID 18520)
+-- Name: Memiliki (Pembelian_Buku); Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Memiliki (Pembelian_Buku)" (
+    id_pembelian character varying(10) NOT NULL,
+    isbn character varying(13) NOT NULL,
+    harga_beli numeric(9,0) NOT NULL,
+    jumlah_beli numeric(9,0) NOT NULL
+);
+
+
+ALTER TABLE public."Memiliki (Pembelian_Buku)" OWNER TO postgres;
+
+--
+-- TOC entry 225 (class 1259 OID 18523)
+-- Name: Memiliki (Transaksi_Buku); Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Memiliki (Transaksi_Buku)" (
+    id_transaksi character varying(10) NOT NULL,
+    isbn character varying(13) NOT NULL,
+    jumlah numeric(3,0) NOT NULL
+);
+
+
+ALTER TABLE public."Memiliki (Transaksi_Buku)" OWNER TO postgres;
+
+--
+-- TOC entry 226 (class 1259 OID 18526)
+-- Name: Nomor_Hp_Karyawan; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Nomor_Hp_Karyawan" (
+    id_karyawan character varying(10) NOT NULL,
+    nomor_hp character varying(12) NOT NULL
+);
+
+
+ALTER TABLE public."Nomor_Hp_Karyawan" OWNER TO postgres;
+
+--
+-- TOC entry 227 (class 1259 OID 18529)
+-- Name: Nomor_Hp_Pelanggan; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Nomor_Hp_Pelanggan" (
+    id_pelanggan character varying(10) NOT NULL,
+    nomor_hp character varying(12) NOT NULL
+);
+
+
+ALTER TABLE public."Nomor_Hp_Pelanggan" OWNER TO postgres;
+
+--
+-- TOC entry 228 (class 1259 OID 18532)
+-- Name: Nomor_Hp_Penulis; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Nomor_Hp_Penulis" (
+    id_penulis character varying(10) NOT NULL,
+    nomor_hp character varying(12) NOT NULL
+);
+
+
+ALTER TABLE public."Nomor_Hp_Penulis" OWNER TO postgres;
+
+--
+-- TOC entry 229 (class 1259 OID 18535)
+-- Name: Pelanggan; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Pelanggan" (
+    id_pelanggan character varying(10) NOT NULL,
+    nama_depan character varying(25) NOT NULL,
+    nama_belakang character varying(25) NOT NULL
+);
+
+
+ALTER TABLE public."Pelanggan" OWNER TO postgres;
+
+--
+-- TOC entry 230 (class 1259 OID 18538)
+-- Name: Pemasok; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Pemasok" (
+    id_pemasok character varying(10) NOT NULL,
+    nama character varying(25) NOT NULL,
+    alamat_nama_jalan character varying(50) NOT NULL,
+    kode_pos character varying(10) NOT NULL
+);
+
+
+ALTER TABLE public."Pemasok" OWNER TO postgres;
+
+--
+-- TOC entry 231 (class 1259 OID 18541)
+-- Name: Pembelian; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Pembelian" (
+    id_pembelian character varying(10) NOT NULL,
+    tanggal_pembelian date NOT NULL,
+    id_pemasok character varying(10) NOT NULL
+);
+
+
+ALTER TABLE public."Pembelian" OWNER TO postgres;
+
+--
+-- TOC entry 232 (class 1259 OID 18544)
+-- Name: Penerbit; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Penerbit" (
+    id_penerbit character varying(10) NOT NULL,
+    nama character varying(25) NOT NULL,
+    email character varying(50) NOT NULL,
+    alamat_nama_jalan character varying(50) NOT NULL,
+    kode_pos character varying(10) NOT NULL
+);
+
+
+ALTER TABLE public."Penerbit" OWNER TO postgres;
+
+--
+-- TOC entry 233 (class 1259 OID 18547)
+-- Name: Penulis; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Penulis" (
+    id_penulis character varying(10) NOT NULL,
+    nama_depan character varying(25) NOT NULL,
+    nama_belakang character varying(25) NOT NULL
+);
+
+
+ALTER TABLE public."Penulis" OWNER TO postgres;
+
+--
+-- TOC entry 234 (class 1259 OID 18550)
+-- Name: Transaksi; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."Transaksi" (
+    id_transaksi character varying(10) NOT NULL,
+    tanggal_transaksi date NOT NULL,
+    metode_pembayaran character varying(25) NOT NULL,
+    id_pelanggan character varying(10) NOT NULL,
+    id_karyawan character varying(10) NOT NULL
+);
+
+
+ALTER TABLE public."Transaksi" OWNER TO postgres;
+
+--
+-- TOC entry 5008 (class 0 OID 18497)
+-- Dependencies: 217
+-- Data for Name: Akun; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Akun" (id, username, password) FROM stdin;
+1	user1	pass1
+10	user10	pass10
+11	user11	pass11
+12	user12	pass12
+13	user13	pass13
+14	user14	pass14
+15	user15	pass15
+16	user16	pass16
+17	user17	pass17
+18	user18	pass18
+100	user100	pass100
+101	user101	pass101
+102	user102	pass102
+103	user103	pass103
+104	user104	pass104
+105	user105	pass105
+106	user106	pass106
+107	user107	pass107
+108	user108	pass108
+109	user109	pass109
+110	user110	pass110
+111	user111	pass111
+112	user112	pass112
+113	user113	pass113
+114	user114	pass114
+115	user115	pass115
+116	user116	pass116
+117	user117	pass117
+118	user118	pass118
+119	user119	pass119
+120	user120	pass120
+121	user121	pass121
+122	user122	pass122
+123	user123	pass123
+124	user124	pass124
+125	user125	pass125
+126	user126	pass126
+127	user127	pass127
+128	user128	pass128
+129	user129	pass129
+130	user130	pass130
+131	user131	pass131
+132	user132	pass132
+133	user133	pass133
+134	user134	pass134
+135	user135	pass135
+136	user136	pass136
+137	user137	pass137
+138	user138	pass138
+139	user139	pass139
+140	user140	pass140
+141	user141	pass141
+142	user142	pass142
+143	user143	pass143
+144	user144	pass144
+145	user145	pass145
+146	user146	pass146
+147	user147	pass147
+148	user148	pass148
+149	user149	pass149
+150	user150	pass150
+151	user151	pass151
+152	user152	pass152
+153	user153	pass153
+154	user154	pass154
+155	user155	pass155
+156	user156	pass156
+157	user157	pass157
+158	user158	pass158
+159	user159	pass159
+160	user160	pass160
+161	user161	pass161
+162	user162	pass162
+163	user163	pass163
+164	user164	pass164
+165	user165	pass165
+166	user166	pass166
+167	user167	pass167
+168	user168	pass168
+169	user169	pass169
+170	user170	pass170
+171	user171	pass171
+172	user172	pass172
+173	user173	pass173
+174	user174	pass174
+175	user175	pass175
+176	user176	pass176
+177	user177	pass177
+178	user178	pass178
+179	user179	pass179
+180	user180	pass180
+181	user181	pass181
+182	user182	pass182
+183	user183	pass183
+184	user184	pass184
+185	user185	pass185
+186	user186	pass186
+187	user187	pass187
+188	user188	pass188
+189	user189	pass189
+1000	user1000	pass1000
+1001	user1001	pass1001
+1002	user1002	pass1002
+1003	user1003	pass1003
+1004	user1004	pass1004
+1005	user1005	pass1005
+1006	user1006	pass1006
+1007	user1007	pass1007
+1008	user1008	pass1008
+1009	user1009	pass1009
+1010	user1010	pass1010
+1011	user1011	pass1011
+1012	user1012	pass1012
+1013	user1013	pass1013
+1014	user1014	pass1014
+1015	user1015	pass1015
+1016	user1016	pass1016
+1017	user1017	pass1017
+1018	user1018	pass1018
+1019	user1019	pass1019
+1020	user1020	pass1020
+1021	user1021	pass1021
+1022	user1022	pass1022
+1023	user1023	pass1023
+1024	user1024	pass1024
+1025	user1025	pass1025
+1026	user1026	pass1026
+1027	user1027	pass1027
+1028	user1028	pass1028
+1029	user1029	pass1029
+1030	user1030	pass1030
+1031	user1031	pass1031
+1032	user1032	pass1032
+1033	user1033	pass1033
+1034	user1034	pass1034
+1035	user1035	pass1035
+1036	user1036	pass1036
+1037	user1037	pass1037
+1038	user1038	pass1038
+1039	user1039	pass1039
+1040	user1040	pass1040
+1041	user1041	pass1041
+1042	user1042	pass1042
+1043	user1043	pass1043
+1044	user1044	pass1044
+1045	user1045	pass1045
+1046	user1046	pass1046
+1047	user1047	pass1047
+1048	user1048	pass1048
+1049	user1049	pass1049
+1050	user1050	pass1050
+1051	user1051	pass1051
+1052	user1052	pass1052
+1053	user1053	pass1053
+1054	user1054	pass1054
+1055	user1055	pass1055
+1056	user1056	pass1056
+1057	user1057	pass1057
+1058	user1058	pass1058
+1059	user1059	pass1059
+1060	user1060	pass1060
+1061	user1061	pass1061
+1062	user1062	pass1062
+1063	user1063	pass1063
+1064	user1064	pass1064
+1065	user1065	pass1065
+1066	user1066	pass1066
+1067	user1067	pass1067
+1068	user1068	pass1068
+1069	user1069	pass1069
+1070	user1070	pass1070
+1071	user1071	pass1071
+1072	user1072	pass1072
+1073	user1073	pass1073
+1074	user1074	pass1074
+1075	user1075	pass1075
+1076	user1076	pass1076
+1077	user1077	pass1077
+1078	user1078	pass1078
+1079	user1079	pass1079
+1080	user1080	pass1080
+1081	user1081	pass1081
+1082	user1082	pass1082
+1083	user1083	pass1083
+1084	user1084	pass1084
+1085	user1085	pass1085
+1086	user1086	pass1086
+1087	user1087	pass1087
+1088	user1088	pass1088
+1089	user1089	pass1089
+1090	user1090	pass1090
+1091	user1091	pass1091
+1092	user1092	pass1092
+1093	user1093	pass1093
+1094	user1094	pass1094
+1095	user1095	pass1095
+1096	user1096	pass1096
+1097	user1097	pass1097
+1098	user1098	pass1098
+1099	user1099	pass1099
+1100	user1100	pass1100
+1101	user1101	pass1101
+1102	user1102	pass1102
+1103	user1103	pass1103
+1104	user1104	pass1104
+1105	user1105	pass1105
+1106	user1106	pass1106
+1107	user1107	pass1107
+1108	user1108	pass1108
+1109	user1109	pass1109
+1110	user1110	pass1110
+1111	user1111	pass1111
+1112	user1112	pass1112
+1113	user1113	pass1113
+1114	user1114	pass1114
+1115	user1115	pass1115
+1116	user1116	pass1116
+1117	user1117	pass1117
+1118	user1118	pass1118
+1119	user1119	pass1119
+1120	user1120	pass1120
+1121	user1121	pass1121
+1122	user1122	pass1122
+1123	user1123	pass1123
+1124	user1124	pass1124
+1125	user1125	pass1125
+1126	user1126	pass1126
+1127	user1127	pass1127
+1128	user1128	pass1128
+1129	user1129	pass1129
+1130	user1130	pass1130
+1131	user1131	pass1131
+1132	user1132	pass1132
+1133	user1133	pass1133
+1134	user1134	pass1134
+1135	user1135	pass1135
+1136	user1136	pass1136
+1137	user1137	pass1137
+1138	user1138	pass1138
+1139	user1139	pass1139
+1140	user1140	pass1140
+1141	user1141	pass1141
+1142	user1142	pass1142
+1143	user1143	pass1143
+1144	user1144	pass1144
+1145	user1145	pass1145
+1146	user1146	pass1146
+1147	user1147	pass1147
+1148	user1148	pass1148
+1149	user1149	pass1149
+1150	user1150	pass1150
+1151	user1151	pass1151
+1152	user1152	pass1152
+1153	user1153	pass1153
+1154	user1154	pass1154
+1155	user1155	pass1155
+1156	user1156	pass1156
+1157	user1157	pass1157
+1158	user1158	pass1158
+1159	user1159	pass1159
+1160	user1160	pass1160
+1161	user1161	pass1161
+1162	user1162	pass1162
+1163	user1163	pass1163
+1164	user1164	pass1164
+1165	user1165	pass1165
+1166	user1166	pass1166
+1167	user1167	pass1167
+1168	user1168	pass1168
+1169	user1169	pass1169
+1170	user1170	pass1170
+1171	user1171	pass1171
+1172	user1172	pass1172
+1173	user1173	pass1173
+1174	user1174	pass1174
+1175	user1175	pass1175
+1176	user1176	pass1176
+1177	user1177	pass1177
+1178	user1178	pass1178
+1179	user1179	pass1179
+1180	user1180	pass1180
+1181	user1181	pass1181
+1182	user1182	pass1182
+1183	user1183	pass1183
+1184	user1184	pass1184
+1185	user1185	pass1185
+1186	user1186	pass1186
+1187	user1187	pass1187
+1188	user1188	pass1188
+1189	user1189	pass1189
+1190	user1190	pass1190
+1191	user1191	pass1191
+1192	user1192	pass1192
+1193	user1193	pass1193
+1194	user1194	pass1194
+1195	user1195	pass1195
+1196	user1196	pass1196
+1197	user1197	pass1197
+1198	user1198	pass1198
+1199	user1199	pass1199
+1200	user1200	pass1200
+1201	user1201	pass1201
+1202	user1202	pass1202
+1203	user1203	pass1203
+1204	user1204	pass1204
+1205	user1205	pass1205
+1206	user1206	pass1206
+1207	user1207	pass1207
+1208	user1208	pass1208
+1209	user1209	pass1209
+1210	user1210	pass1210
+1211	user1211	pass1211
+1212	user1212	pass1212
+1213	user1213	pass1213
+1214	user1214	pass1214
+1215	user1215	pass1215
+1216	user1216	pass1216
+1217	user1217	pass1217
+1218	user1218	pass1218
+1219	user1219	pass1219
+1220	user1220	pass1220
+1221	user1221	pass1221
+1222	user1222	pass1222
+1223	user1223	pass1223
+1224	user1224	pass1224
+1225	user1225	pass1225
+1226	user1226	pass1226
+1227	user1227	pass1227
+1228	user1228	pass1228
+1229	user1229	pass1229
+1230	user1230	pass1230
+1231	user1231	pass1231
+1232	user1232	pass1232
+1233	user1233	pass1233
+1234	user1234	pass1234
+1235	user1235	pass1235
+1236	user1236	pass1236
+1237	user1237	pass1237
+1238	user1238	pass1238
+1239	user1239	pass1239
+1240	user1240	pass1240
+1241	user1241	pass1241
+1242	user1242	pass1242
+1243	user1243	pass1243
+1244	user1244	pass1244
+1245	user1245	pass1245
+1246	user1246	pass1246
+1247	user1247	pass1247
+1248	user1248	pass1248
+1249	user1249	pass1249
+1250	user1250	pass1250
+1251	user1251	pass1251
+1252	user1252	pass1252
+1253	user1253	pass1253
+1254	user1254	pass1254
+1255	user1255	pass1255
+1256	user1256	pass1256
+1257	user1257	pass1257
+1258	user1258	pass1258
+1259	user1259	pass1259
+1260	user1260	pass1260
+1261	user1261	pass1261
+1262	user1262	pass1262
+1263	user1263	pass1263
+1264	user1264	pass1264
+1265	user1265	pass1265
+1266	user1266	pass1266
+1267	user1267	pass1267
+1268	user1268	pass1268
+1269	user1269	pass1269
+1270	user1270	pass1270
+1271	user1271	pass1271
+1272	user1272	pass1272
+1273	user1273	pass1273
+1274	user1274	pass1274
+1275	user1275	pass1275
+1276	user1276	pass1276
+1277	user1277	pass1277
+1278	user1278	pass1278
+1279	user1279	pass1279
+1280	user1280	pass1280
+1281	user1281	pass1281
+1282	user1282	pass1282
+1283	user1283	pass1283
+1284	user1284	pass1284
+1285	user1285	pass1285
+1286	user1286	pass1286
+1287	user1287	pass1287
+1288	user1288	pass1288
+1289	user1289	pass1289
+1290	user1290	pass1290
+1291	user1291	pass1291
+1292	user1292	pass1292
+1293	user1293	pass1293
+1294	user1294	pass1294
+1295	user1295	pass1295
+1296	user1296	pass1296
+1297	user1297	pass1297
+1298	user1298	pass1298
+1299	user1299	pass1299
+1300	user1300	pass1300
+1301	user1301	pass1301
+1302	user1302	pass1302
+1303	user1303	pass1303
+1304	user1304	pass1304
+1305	user1305	pass1305
+1306	user1306	pass1306
+1307	user1307	pass1307
+1308	user1308	pass1308
+1309	user1309	pass1309
+1310	user1310	pass1310
+1311	user1311	pass1311
+1312	user1312	pass1312
+1313	user1313	pass1313
+1314	user1314	pass1314
+1315	user1315	pass1315
+1316	user1316	pass1316
+1317	user1317	pass1317
+1318	user1318	pass1318
+1319	user1319	pass1319
+1320	user1320	pass1320
+1321	user1321	pass1321
+1322	user1322	pass1322
+1323	user1323	pass1323
+1324	user1324	pass1324
+1325	user1325	pass1325
+1326	user1326	pass1326
+1327	user1327	pass1327
+1328	user1328	pass1328
+1329	user1329	pass1329
+1330	user1330	pass1330
+1331	user1331	pass1331
+1332	user1332	pass1332
+1333	user1333	pass1333
+1334	user1334	pass1334
+1335	user1335	pass1335
+1336	user1336	pass1336
+1337	user1337	pass1337
+1338	user1338	pass1338
+1339	user1339	pass1339
+1340	user1340	pass1340
+1341	user1341	pass1341
+1342	user1342	pass1342
+1343	user1343	pass1343
+1344	user1344	pass1344
+1345	user1345	pass1345
+1346	user1346	pass1346
+1347	user1347	pass1347
+1348	user1348	pass1348
+1349	user1349	pass1349
+1350	user1350	pass1350
+1351	user1351	pass1351
+1352	user1352	pass1352
+1353	user1353	pass1353
+1354	user1354	pass1354
+1355	user1355	pass1355
+1356	user1356	pass1356
+1357	user1357	pass1357
+1358	user1358	pass1358
+1359	user1359	pass1359
+1360	user1360	pass1360
+1361	user1361	pass1361
+1362	user1362	pass1362
+1363	user1363	pass1363
+1364	user1364	pass1364
+1365	user1365	pass1365
+1366	user1366	pass1366
+1367	user1367	pass1367
+1368	user1368	pass1368
+1369	user1369	pass1369
+1370	user1370	pass1370
+1371	user1371	pass1371
+1372	user1372	pass1372
+1373	user1373	pass1373
+1374	user1374	pass1374
+1375	user1375	pass1375
+1376	user1376	pass1376
+1377	user1377	pass1377
+1378	user1378	pass1378
+1379	user1379	pass1379
+1380	user1380	pass1380
+1381	user1381	pass1381
+1382	user1382	pass1382
+1383	user1383	pass1383
+1384	user1384	pass1384
+1385	user1385	pass1385
+1386	user1386	pass1386
+1387	user1387	pass1387
+1388	user1388	pass1388
+1389	user1389	pass1389
+1390	user1390	pass1390
+1391	user1391	pass1391
+1392	user1392	pass1392
+1393	user1393	pass1393
+1394	user1394	pass1394
+1395	user1395	pass1395
+1396	user1396	pass1396
+1397	user1397	pass1397
+1398	user1398	pass1398
+1399	user1399	pass1399
+1400	user1400	pass1400
+1401	user1401	pass1401
+1402	user1402	pass1402
+1403	user1403	pass1403
+1404	user1404	pass1404
+1405	user1405	pass1405
+1406	user1406	pass1406
+1407	user1407	pass1407
+1408	user1408	pass1408
+1409	user1409	pass1409
+1410	user1410	pass1410
+1411	user1411	pass1411
+1412	user1412	pass1412
+1413	user1413	pass1413
+1414	user1414	pass1414
+1415	user1415	pass1415
+1416	user1416	pass1416
+1417	user1417	pass1417
+1418	user1418	pass1418
+1419	user1419	pass1419
+1420	user1420	pass1420
+1421	user1421	pass1421
+1422	user1422	pass1422
+1423	user1423	pass1423
+1424	user1424	pass1424
+1425	user1425	pass1425
+1426	user1426	pass1426
+1427	user1427	pass1427
+1428	user1428	pass1428
+1429	user1429	pass1429
+1430	user1430	pass1430
+1431	user1431	pass1431
+1432	user1432	pass1432
+1433	user1433	pass1433
+1434	user1434	pass1434
+1435	user1435	pass1435
+1436	user1436	pass1436
+1437	user1437	pass1437
+1438	user1438	pass1438
+1439	user1439	pass1439
+1440	user1440	pass1440
+1441	user1441	pass1441
+1442	user1442	pass1442
+1443	user1443	pass1443
+1444	user1444	pass1444
+1445	user1445	pass1445
+1446	user1446	pass1446
+1447	user1447	pass1447
+1448	user1448	pass1448
+1449	user1449	pass1449
+1450	user1450	pass1450
+1451	user1451	pass1451
+1452	user1452	pass1452
+1453	user1453	pass1453
+1454	user1454	pass1454
+1455	user1455	pass1455
+1456	user1456	pass1456
+1457	user1457	pass1457
+1458	user1458	pass1458
+1459	user1459	pass1459
+1460	user1460	pass1460
+1461	user1461	pass1461
+1462	user1462	pass1462
+1463	user1463	pass1463
+1464	user1464	pass1464
+1465	user1465	pass1465
+1466	user1466	pass1466
+1467	user1467	pass1467
+1468	user1468	pass1468
+1469	user1469	pass1469
+1470	user1470	pass1470
+1471	user1471	pass1471
+1472	user1472	pass1472
+1473	user1473	pass1473
+1474	user1474	pass1474
+1475	user1475	pass1475
+1476	user1476	pass1476
+1477	user1477	pass1477
+1478	user1478	pass1478
+1479	user1479	pass1479
+1480	user1480	pass1480
+1481	user1481	pass1481
+1482	user1482	pass1482
+1483	user1483	pass1483
+1484	user1484	pass1484
+1485	user1485	pass1485
+1486	user1486	pass1486
+1487	user1487	pass1487
+1488	user1488	pass1488
+1489	user1489	pass1489
+1490	user1490	pass1490
+1491	user1491	pass1491
+1492	user1492	pass1492
+1493	user1493	pass1493
+1494	user1494	pass1494
+1495	user1495	pass1495
+1496	user1496	pass1496
+1497	user1497	pass1497
+1498	user1498	pass1498
+1499	user1499	pass1499
+1500	user1500	pass1500
+1501	user1501	pass1501
+1502	user1502	pass1502
+1503	user1503	pass1503
+1504	user1504	pass1504
+1505	user1505	pass1505
+1506	user1506	pass1506
+1507	user1507	pass1507
+1508	user1508	pass1508
+1509	user1509	pass1509
+1510	user1510	pass1510
+1511	user1511	pass1511
+1512	user1512	pass1512
+1513	user1513	pass1513
+1514	user1514	pass1514
+1515	user1515	pass1515
+1516	user1516	pass1516
+1517	user1517	pass1517
+1518	user1518	pass1518
+1519	user1519	pass1519
+1520	user1520	pass1520
+1521	user1521	pass1521
+1522	user1522	pass1522
+1523	user1523	pass1523
+1524	user1524	pass1524
+1525	user1525	pass1525
+1526	user1526	pass1526
+1527	user1527	pass1527
+1528	user1528	pass1528
+1529	user1529	pass1529
+1530	user1530	pass1530
+1531	user1531	pass1531
+1532	user1532	pass1532
+1533	user1533	pass1533
+1534	user1534	pass1534
+1535	user1535	pass1535
+1536	user1536	pass1536
+1537	user1537	pass1537
+1538	user1538	pass1538
+1539	user1539	pass1539
+1540	user1540	pass1540
+1541	user1541	pass1541
+1542	user1542	pass1542
+1543	user1543	pass1543
+1544	user1544	pass1544
+1545	user1545	pass1545
+1546	user1546	pass1546
+1547	user1547	pass1547
+1548	user1548	pass1548
+1549	user1549	pass1549
+1550	user1550	pass1550
+1551	user1551	pass1551
+1552	user1552	pass1552
+1553	user1553	pass1553
+1554	user1554	pass1554
+1555	user1555	pass1555
+1556	user1556	pass1556
+1557	user1557	pass1557
+1558	user1558	pass1558
+1559	user1559	pass1559
+1560	user1560	pass1560
+1561	user1561	pass1561
+1562	user1562	pass1562
+1563	user1563	pass1563
+1564	user1564	pass1564
+1565	user1565	pass1565
+1566	user1566	pass1566
+1567	user1567	pass1567
+1568	user1568	pass1568
+1569	user1569	pass1569
+1570	user1570	pass1570
+1571	user1571	pass1571
+1572	user1572	pass1572
+1573	user1573	pass1573
+1574	user1574	pass1574
+1575	user1575	pass1575
+1576	user1576	pass1576
+1577	user1577	pass1577
+1578	user1578	pass1578
+1579	user1579	pass1579
+1580	user1580	pass1580
+1581	user1581	pass1581
+1582	user1582	pass1582
+1583	user1583	pass1583
+1584	user1584	pass1584
+1585	user1585	pass1585
+1586	user1586	pass1586
+1587	user1587	pass1587
+1588	user1588	pass1588
+1589	user1589	pass1589
+1590	user1590	pass1590
+1591	user1591	pass1591
+1592	user1592	pass1592
+1593	user1593	pass1593
+1594	user1594	pass1594
+1595	user1595	pass1595
+1596	user1596	pass1596
+1597	user1597	pass1597
+1598	user1598	pass1598
+1599	user1599	pass1599
+1600	user1600	pass1600
+1601	user1601	pass1601
+1602	user1602	pass1602
+1603	user1603	pass1603
+1604	user1604	pass1604
+1605	user1605	pass1605
+1606	user1606	pass1606
+1607	user1607	pass1607
+1608	user1608	pass1608
+1609	user1609	pass1609
+1610	user1610	pass1610
+1611	user1611	pass1611
+1612	user1612	pass1612
+1613	user1613	pass1613
+1614	user1614	pass1614
+1615	user1615	pass1615
+1616	user1616	pass1616
+1617	user1617	pass1617
+1618	user1618	pass1618
+1619	user1619	pass1619
+1620	user1620	pass1620
+1621	user1621	pass1621
+1622	user1622	pass1622
+1623	user1623	pass1623
+1624	user1624	pass1624
+1625	user1625	pass1625
+1626	user1626	pass1626
+1627	user1627	pass1627
+1628	user1628	pass1628
+1629	user1629	pass1629
+1630	user1630	pass1630
+1631	user1631	pass1631
+1632	user1632	pass1632
+1633	user1633	pass1633
+1634	user1634	pass1634
+1635	user1635	pass1635
+1636	user1636	pass1636
+1637	user1637	pass1637
+1638	user1638	pass1638
+1639	user1639	pass1639
+1640	user1640	pass1640
+1641	user1641	pass1641
+1642	user1642	pass1642
+1643	user1643	pass1643
+1644	user1644	pass1644
+1645	user1645	pass1645
+1646	user1646	pass1646
+1647	user1647	pass1647
+1648	user1648	pass1648
+1649	user1649	pass1649
+1650	user1650	pass1650
+1651	user1651	pass1651
+1652	user1652	pass1652
+1653	user1653	pass1653
+1654	user1654	pass1654
+1655	user1655	pass1655
+1656	user1656	pass1656
+1657	user1657	pass1657
+1658	user1658	pass1658
+1659	user1659	pass1659
+1660	user1660	pass1660
+1661	user1661	pass1661
+1662	user1662	pass1662
+1663	user1663	pass1663
+1664	user1664	pass1664
+1665	user1665	pass1665
+1666	user1666	pass1666
+1667	user1667	pass1667
+1668	user1668	pass1668
+1669	user1669	pass1669
+1670	user1670	pass1670
+1671	user1671	pass1671
+1672	user1672	pass1672
+1673	user1673	pass1673
+1674	user1674	pass1674
+1675	user1675	pass1675
+1676	user1676	pass1676
+1677	user1677	pass1677
+1678	user1678	pass1678
+1679	user1679	pass1679
+1680	user1680	pass1680
+1681	user1681	pass1681
+1682	user1682	pass1682
+1683	user1683	pass1683
+1684	user1684	pass1684
+1685	user1685	pass1685
+1686	user1686	pass1686
+1687	user1687	pass1687
+1688	user1688	pass1688
+1689	user1689	pass1689
+1690	user1690	pass1690
+1691	user1691	pass1691
+1692	user1692	pass1692
+1693	user1693	pass1693
+1694	user1694	pass1694
+1695	user1695	pass1695
+1696	user1696	pass1696
+1697	user1697	pass1697
+1698	user1698	pass1698
+1699	user1699	pass1699
+1700	user1700	pass1700
+1701	user1701	pass1701
+1702	user1702	pass1702
+1703	user1703	pass1703
+1704	user1704	pass1704
+1705	user1705	pass1705
+1706	user1706	pass1706
+1707	user1707	pass1707
+1708	user1708	pass1708
+1709	user1709	pass1709
+1710	user1710	pass1710
+1711	user1711	pass1711
+1712	user1712	pass1712
+1713	user1713	pass1713
+1714	user1714	pass1714
+1715	user1715	pass1715
+1716	user1716	pass1716
+1717	user1717	pass1717
+1718	user1718	pass1718
+1719	user1719	pass1719
+1720	user1720	pass1720
+1721	user1721	pass1721
+1722	user1722	pass1722
+1723	user1723	pass1723
+1724	user1724	pass1724
+1725	user1725	pass1725
+1726	user1726	pass1726
+1727	user1727	pass1727
+1728	user1728	pass1728
+1729	user1729	pass1729
+1730	user1730	pass1730
+1731	user1731	pass1731
+1732	user1732	pass1732
+1733	user1733	pass1733
+1734	user1734	pass1734
+1735	user1735	pass1735
+1736	user1736	pass1736
+1737	user1737	pass1737
+1738	user1738	pass1738
+1739	user1739	pass1739
+1740	user1740	pass1740
+1741	user1741	pass1741
+1742	user1742	pass1742
+1743	user1743	pass1743
+1744	user1744	pass1744
+1745	user1745	pass1745
+1746	user1746	pass1746
+1747	user1747	pass1747
+1748	user1748	pass1748
+1749	user1749	pass1749
+1750	user1750	pass1750
+1751	user1751	pass1751
+1752	user1752	pass1752
+1753	user1753	pass1753
+1754	user1754	pass1754
+1755	user1755	pass1755
+1756	user1756	pass1756
+1757	user1757	pass1757
+1758	user1758	pass1758
+1759	user1759	pass1759
+1760	user1760	pass1760
+1761	user1761	pass1761
+1762	user1762	pass1762
+1763	user1763	pass1763
+1764	user1764	pass1764
+1765	user1765	pass1765
+1766	user1766	pass1766
+1767	user1767	pass1767
+1768	user1768	pass1768
+1769	user1769	pass1769
+1770	user1770	pass1770
+1771	user1771	pass1771
+1772	user1772	pass1772
+1773	user1773	pass1773
+1774	user1774	pass1774
+1775	user1775	pass1775
+1776	user1776	pass1776
+1777	user1777	pass1777
+1778	user1778	pass1778
+1779	user1779	pass1779
+1780	user1780	pass1780
+1781	user1781	pass1781
+1782	user1782	pass1782
+1783	user1783	pass1783
+1784	user1784	pass1784
+1785	user1785	pass1785
+1786	user1786	pass1786
+1787	user1787	pass1787
+1788	user1788	pass1788
+1789	user1789	pass1789
+1790	user1790	pass1790
+1791	user1791	pass1791
+1792	user1792	pass1792
+1793	user1793	pass1793
+1794	user1794	pass1794
+1795	user1795	pass1795
+1796	user1796	pass1796
+1797	user1797	pass1797
+1798	user1798	pass1798
+1799	user1799	pass1799
+1800	user1800	pass1800
+1801	user1801	pass1801
+1802	user1802	pass1802
+1803	user1803	pass1803
+1804	user1804	pass1804
+1805	user1805	pass1805
+1806	user1806	pass1806
+1807	user1807	pass1807
+1808	user1808	pass1808
+1809	user1809	pass1809
+1810	user1810	pass1810
+1811	user1811	pass1811
+1812	user1812	pass1812
+1813	user1813	pass1813
+1814	user1814	pass1814
+1815	user1815	pass1815
+1816	user1816	pass1816
+1817	user1817	pass1817
+1818	user1818	pass1818
+1819	user1819	pass1819
+1820	user1820	pass1820
+1821	user1821	pass1821
+1822	user1822	pass1822
+1823	user1823	pass1823
+1824	user1824	pass1824
+1825	user1825	pass1825
+1826	user1826	pass1826
+1827	user1827	pass1827
+1828	user1828	pass1828
+1829	user1829	pass1829
+1830	user1830	pass1830
+1831	user1831	pass1831
+1832	user1832	pass1832
+1833	user1833	pass1833
+1834	user1834	pass1834
+1835	user1835	pass1835
+1836	user1836	pass1836
+1837	user1837	pass1837
+1838	user1838	pass1838
+1839	user1839	pass1839
+1840	user1840	pass1840
+1841	user1841	pass1841
+1842	user1842	pass1842
+1843	user1843	pass1843
+1844	user1844	pass1844
+1845	user1845	pass1845
+1846	user1846	pass1846
+1847	user1847	pass1847
+1848	user1848	pass1848
+1849	user1849	pass1849
+1850	user1850	pass1850
+1851	user1851	pass1851
+1852	user1852	pass1852
+1853	user1853	pass1853
+1854	user1854	pass1854
+1855	user1855	pass1855
+1856	user1856	pass1856
+1857	user1857	pass1857
+1858	user1858	pass1858
+1859	user1859	pass1859
+1860	user1860	pass1860
+1861	user1861	pass1861
+1862	user1862	pass1862
+1863	user1863	pass1863
+1864	user1864	pass1864
+1865	user1865	pass1865
+1866	user1866	pass1866
+1867	user1867	pass1867
+1868	user1868	pass1868
+1869	user1869	pass1869
+1870	user1870	pass1870
+1871	user1871	pass1871
+1872	user1872	pass1872
+1873	user1873	pass1873
+1874	user1874	pass1874
+1875	user1875	pass1875
+1876	user1876	pass1876
+1877	user1877	pass1877
+1878	user1878	pass1878
+1879	user1879	pass1879
+1880	user1880	pass1880
+1881	user1881	pass1881
+1882	user1882	pass1882
+1883	user1883	pass1883
+1884	user1884	pass1884
+1885	user1885	pass1885
+1886	user1886	pass1886
+1887	user1887	pass1887
+1888	user1888	pass1888
+1889	user1889	pass1889
+1890	user1890	pass1890
+1891	user1891	pass1891
+1892	user1892	pass1892
+1893	user1893	pass1893
+1894	user1894	pass1894
+1895	user1895	pass1895
+1896	user1896	pass1896
+1897	user1897	pass1897
+1898	user1898	pass1898
+10000	user10000	pass10000
+\.
+
+
+--
+-- TOC entry 5009 (class 0 OID 18500)
+-- Dependencies: 218
+-- Data for Name: Buku; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Buku" (isbn, judul, stok, harga, tahun_terbit, id_penerbit) FROM stdin;
+9780000000001	Judul Buku 1	494	196569	2014	PB00001
+9780000000002	Judul Buku 2	384	97397	2001	PB00002
+9780000000003	Judul Buku 3	208	48455	2007	PB00003
+9780000000004	Judul Buku 4	168	146077	2005	PB00004
+9780000000005	Judul Buku 5	181	149262	2018	PB00005
+9780000000006	Judul Buku 6	198	289372	2023	PB00006
+9780000000007	Judul Buku 7	331	213385	2008	PB00007
+9780000000008	Judul Buku 8	48	201864	2008	PB00008
+9780000000009	Judul Buku 9	43	66555	2002	PB00009
+9780000000010	Judul Buku 10	143	271610	2019	PB00010
+9780000000011	Judul Buku 11	274	205974	2018	PB00011
+9780000000012	Judul Buku 12	477	264095	2021	PB00012
+9780000000013	Judul Buku 13	378	210885	2022	PB00013
+9780000000014	Judul Buku 14	409	296858	2009	PB00014
+9780000000015	Judul Buku 15	193	101943	2006	PB00015
+9780000000016	Judul Buku 16	110	96678	2004	PB00016
+9780000000017	Judul Buku 17	269	202546	2016	PB00017
+9780000000018	Judul Buku 18	343	69197	2016	PB00018
+9780000000019	Judul Buku 19	406	217218	2002	PB00019
+9780000000020	Judul Buku 20	227	74663	2004	PB00020
+9780000000021	Judul Buku 21	104	181596	2000	PB00021
+9780000000022	Judul Buku 22	196	106067	2022	PB00022
+9780000000023	Judul Buku 23	206	236989	2022	PB00023
+9780000000024	Judul Buku 24	343	278094	2008	PB00024
+9780000000025	Judul Buku 25	371	43945	2017	PB00025
+9780000000026	Judul Buku 26	491	194608	2017	PB00026
+9780000000027	Judul Buku 27	193	132757	2016	PB00027
+9780000000028	Judul Buku 28	419	55685	2003	PB00028
+9780000000029	Judul Buku 29	227	210422	2019	PB00029
+9780000000030	Judul Buku 30	145	77316	2009	PB00030
+9780000000031	Judul Buku 31	478	142269	2014	PB00031
+9780000000032	Judul Buku 32	2	226967	2010	PB00032
+9780000000033	Judul Buku 33	81	174558	2014	PB00033
+9780000000034	Judul Buku 34	194	32657	2005	PB00034
+9780000000035	Judul Buku 35	225	249045	2012	PB00035
+9780000000036	Judul Buku 36	36	292245	2020	PB00036
+9780000000037	Judul Buku 37	334	64188	2005	PB00037
+9780000000038	Judul Buku 38	409	107888	2002	PB00038
+9780000000039	Judul Buku 39	316	197124	2008	PB00039
+9780000000040	Judul Buku 40	348	204714	2021	PB00040
+9780000000041	Judul Buku 41	317	109796	2019	PB00041
+9780000000042	Judul Buku 42	317	51539	2007	PB00042
+9780000000043	Judul Buku 43	125	88979	2012	PB00043
+9780000000044	Judul Buku 44	476	228242	2010	PB00044
+9780000000045	Judul Buku 45	96	134835	2002	PB00045
+9780000000046	Judul Buku 46	492	69625	2016	PB00046
+9780000000047	Judul Buku 47	298	225071	2009	PB00047
+9780000000048	Judul Buku 48	116	188385	2024	PB00048
+9780000000049	Judul Buku 49	442	86717	2023	PB00049
+9780000000050	Judul Buku 50	64	150730	2016	PB00050
+9780000000051	Judul Buku 51	484	34566	2020	PB00051
+9780000000052	Judul Buku 52	415	102135	2024	PB00052
+9780000000053	Judul Buku 53	44	109466	2011	PB00053
+9780000000054	Judul Buku 54	189	121679	2000	PB00054
+9780000000055	Judul Buku 55	151	232362	2014	PB00055
+9780000000056	Judul Buku 56	135	81133	2005	PB00056
+9780000000057	Judul Buku 57	333	295409	2022	PB00057
+9780000000058	Judul Buku 58	57	190390	2018	PB00058
+9780000000059	Judul Buku 59	18	191907	2017	PB00059
+9780000000060	Judul Buku 60	38	271757	2016	PB00060
+9780000000061	Judul Buku 61	65	66152	2002	PB00061
+9780000000062	Judul Buku 62	165	83840	2002	PB00062
+9780000000063	Judul Buku 63	291	205709	2005	PB00063
+9780000000064	Judul Buku 64	500	186317	2001	PB00064
+9780000000065	Judul Buku 65	108	201856	2003	PB00065
+9780000000066	Judul Buku 66	225	65329	2009	PB00066
+9780000000067	Judul Buku 67	322	258894	2021	PB00067
+9780000000068	Judul Buku 68	354	269071	2017	PB00068
+9780000000069	Judul Buku 69	235	176052	2008	PB00069
+9780000000070	Judul Buku 70	23	207185	2021	PB00070
+9780000000071	Judul Buku 71	487	229962	2023	PB00071
+9780000000072	Judul Buku 72	476	66463	2009	PB00072
+9780000000073	Judul Buku 73	373	178656	2009	PB00073
+9780000000074	Judul Buku 74	67	54835	2013	PB00074
+9780000000075	Judul Buku 75	481	295784	2013	PB00075
+9780000000076	Judul Buku 76	393	36624	2007	PB00076
+9780000000077	Judul Buku 77	382	93070	2012	PB00077
+9780000000078	Judul Buku 78	260	229587	2011	PB00078
+9780000000079	Judul Buku 79	73	162330	2019	PB00079
+9780000000080	Judul Buku 80	300	201426	2003	PB00080
+9780000000081	Judul Buku 81	101	146007	2022	PB00081
+9780000000082	Judul Buku 82	150	179551	2004	PB00082
+9780000000083	Judul Buku 83	6	39924	2002	PB00083
+9780000000084	Judul Buku 84	371	200307	2002	PB00084
+9780000000085	Judul Buku 85	258	143325	2008	PB00085
+9780000000086	Judul Buku 86	39	292071	2020	PB00086
+9780000000087	Judul Buku 87	223	281279	2010	PB00087
+9780000000088	Judul Buku 88	113	270408	2016	PB00088
+9780000000089	Judul Buku 89	80	98063	2011	PB00089
+9780000000090	Judul Buku 90	31	288671	2024	PB00090
+9780000000091	Judul Buku 91	367	124020	2019	PB00091
+9780000000092	Judul Buku 92	454	179605	2004	PB00092
+9780000000093	Judul Buku 93	200	276618	2003	PB00093
+9780000000094	Judul Buku 94	219	112465	2005	PB00094
+9780000000095	Judul Buku 95	89	42996	2008	PB00095
+9780000000096	Judul Buku 96	89	151450	2001	PB00096
+9780000000097	Judul Buku 97	417	138801	2008	PB00097
+9780000000098	Judul Buku 98	338	211525	2004	PB00098
+9780000000099	Judul Buku 99	291	155803	2018	PB00099
+9780000000100	Judul Buku 100	461	191231	2024	PB00100
+9780000000101	Judul Buku 101	471	261335	2005	PB00101
+9780000000102	Judul Buku 102	325	55333	2005	PB00102
+9780000000103	Judul Buku 103	53	135843	2005	PB00103
+9780000000104	Judul Buku 104	217	133637	2010	PB00104
+9780000000105	Judul Buku 105	141	30702	2022	PB00105
+9780000000106	Judul Buku 106	354	256706	2001	PB00106
+9780000000107	Judul Buku 107	177	81129	2023	PB00107
+9780000000108	Judul Buku 108	300	63525	2018	PB00108
+9780000000109	Judul Buku 109	125	239097	2021	PB00109
+9780000000110	Judul Buku 110	459	166718	2021	PB00110
+9780000000111	Judul Buku 111	53	96402	2019	PB00111
+9780000000112	Judul Buku 112	292	64737	2011	PB00112
+9780000000113	Judul Buku 113	140	282382	2003	PB00113
+9780000000114	Judul Buku 114	333	188890	2001	PB00114
+9780000000115	Judul Buku 115	285	263899	2024	PB00115
+9780000000116	Judul Buku 116	481	169921	2019	PB00116
+9780000000117	Judul Buku 117	79	104937	2020	PB00117
+9780000000118	Judul Buku 118	307	31521	2009	PB00118
+9780000000119	Judul Buku 119	329	158284	2002	PB00119
+9780000000120	Judul Buku 120	71	130455	2017	PB00120
+9780000000121	Judul Buku 121	198	93065	2018	PB00121
+9780000000122	Judul Buku 122	466	32286	2002	PB00122
+9780000000123	Judul Buku 123	449	253417	2010	PB00123
+9780000000124	Judul Buku 124	5	258537	2015	PB00124
+9780000000125	Judul Buku 125	181	65956	2015	PB00125
+9780000000126	Judul Buku 126	357	62724	2024	PB00126
+9780000000127	Judul Buku 127	493	196571	2012	PB00127
+9780000000128	Judul Buku 128	43	173009	2011	PB00128
+9780000000129	Judul Buku 129	441	83769	2002	PB00129
+9780000000130	Judul Buku 130	296	175160	2023	PB00130
+9780000000131	Judul Buku 131	2	286058	2017	PB00131
+9780000000132	Judul Buku 132	83	198490	2021	PB00132
+9780000000133	Judul Buku 133	358	46913	2025	PB00133
+9780000000134	Judul Buku 134	200	59796	2007	PB00134
+9780000000135	Judul Buku 135	331	271553	2005	PB00135
+9780000000136	Judul Buku 136	4	172870	2006	PB00136
+9780000000137	Judul Buku 137	310	125815	2019	PB00137
+9780000000138	Judul Buku 138	9	217444	2020	PB00138
+9780000000139	Judul Buku 139	120	72904	2021	PB00139
+9780000000140	Judul Buku 140	196	83791	2016	PB00140
+9780000000141	Judul Buku 141	157	125130	2005	PB00141
+9780000000142	Judul Buku 142	109	270206	2009	PB00142
+9780000000143	Judul Buku 143	142	215945	2016	PB00143
+9780000000144	Judul Buku 144	24	204213	2017	PB00144
+9780000000145	Judul Buku 145	437	98507	2008	PB00145
+9780000000146	Judul Buku 146	270	117707	2022	PB00146
+9780000000147	Judul Buku 147	439	281105	2014	PB00147
+9780000000148	Judul Buku 148	64	133152	2025	PB00148
+9780000000149	Judul Buku 149	182	127753	2019	PB00149
+9780000000150	Judul Buku 150	174	225904	2008	PB00150
+9780000000151	Judul Buku 151	241	183937	2007	PB00151
+9780000000152	Judul Buku 152	163	151566	2022	PB00152
+9780000000153	Judul Buku 153	371	217356	2012	PB00153
+9780000000154	Judul Buku 154	232	284355	2018	PB00154
+9780000000155	Judul Buku 155	241	57958	2000	PB00155
+9780000000156	Judul Buku 156	450	198568	2001	PB00156
+9780000000157	Judul Buku 157	91	202098	2015	PB00157
+9780000000158	Judul Buku 158	204	200165	2002	PB00158
+9780000000159	Judul Buku 159	69	279539	2006	PB00159
+9780000000160	Judul Buku 160	446	171801	2019	PB00160
+9780000000161	Judul Buku 161	315	294632	2018	PB00161
+9780000000162	Judul Buku 162	297	168739	2006	PB00162
+9780000000163	Judul Buku 163	270	78462	2012	PB00163
+9780000000164	Judul Buku 164	155	64849	2009	PB00164
+9780000000165	Judul Buku 165	287	234563	2012	PB00165
+9780000000166	Judul Buku 166	340	77316	2005	PB00166
+9780000000167	Judul Buku 167	411	205938	2011	PB00167
+9780000000168	Judul Buku 168	269	86305	2008	PB00168
+9780000000169	Judul Buku 169	456	131452	2023	PB00169
+9780000000170	Judul Buku 170	327	46182	2025	PB00170
+9780000000171	Judul Buku 171	500	151037	2020	PB00171
+9780000000172	Judul Buku 172	91	228101	2022	PB00172
+9780000000173	Judul Buku 173	107	43196	2002	PB00173
+9780000000174	Judul Buku 174	33	46626	2012	PB00174
+9780000000175	Judul Buku 175	389	35859	2010	PB00175
+9780000000176	Judul Buku 176	454	148918	2021	PB00176
+9780000000177	Judul Buku 177	119	251409	2013	PB00177
+9780000000178	Judul Buku 178	329	46459	2016	PB00178
+9780000000179	Judul Buku 179	134	166438	2018	PB00179
+9780000000180	Judul Buku 180	278	243913	2007	PB00180
+9780000000181	Judul Buku 181	155	44684	2012	PB00181
+9780000000182	Judul Buku 182	437	157120	2011	PB00182
+9780000000183	Judul Buku 183	151	254909	2018	PB00183
+9780000000184	Judul Buku 184	146	239459	2013	PB00184
+9780000000185	Judul Buku 185	272	268859	2006	PB00185
+9780000000186	Judul Buku 186	0	99315	2012	PB00186
+9780000000187	Judul Buku 187	267	174291	2003	PB00187
+9780000000188	Judul Buku 188	368	110099	2025	PB00188
+9780000000189	Judul Buku 189	344	99623	2003	PB00189
+9780000000190	Judul Buku 190	316	235940	2002	PB00190
+9780000000191	Judul Buku 191	374	75148	2022	PB00191
+9780000000192	Judul Buku 192	425	149316	2023	PB00192
+9780000000193	Judul Buku 193	129	56132	2024	PB00193
+9780000000194	Judul Buku 194	135	93399	2002	PB00194
+9780000000195	Judul Buku 195	274	44795	2013	PB00195
+9780000000196	Judul Buku 196	75	299808	2022	PB00196
+9780000000197	Judul Buku 197	463	209279	2002	PB00197
+9780000000198	Judul Buku 198	16	244261	2011	PB00198
+9780000000199	Judul Buku 199	405	60930	2013	PB00199
+9780000000200	Judul Buku 200	257	87074	2017	PB00200
+9780000000201	Judul Buku 201	275	116747	2019	PB00201
+9780000000202	Judul Buku 202	113	127882	2012	PB00202
+9780000000203	Judul Buku 203	153	295669	2023	PB00203
+9780000000204	Judul Buku 204	194	119403	2010	PB00204
+9780000000205	Judul Buku 205	412	254603	2002	PB00205
+9780000000206	Judul Buku 206	3	67061	2011	PB00206
+9780000000207	Judul Buku 207	396	158222	2010	PB00207
+9780000000208	Judul Buku 208	171	205781	2004	PB00208
+9780000000209	Judul Buku 209	393	290589	2000	PB00209
+9780000000210	Judul Buku 210	114	112772	2009	PB00210
+9780000000211	Judul Buku 211	469	165073	2016	PB00211
+9780000000212	Judul Buku 212	324	151924	2014	PB00212
+9780000000213	Judul Buku 213	80	281884	2005	PB00213
+9780000000214	Judul Buku 214	57	197948	2005	PB00214
+9780000000215	Judul Buku 215	386	200998	2002	PB00215
+9780000000216	Judul Buku 216	55	89220	2019	PB00216
+9780000000217	Judul Buku 217	150	64033	2002	PB00217
+9780000000218	Judul Buku 218	188	240857	2012	PB00218
+9780000000219	Judul Buku 219	369	44881	2017	PB00219
+9780000000220	Judul Buku 220	418	140033	2023	PB00220
+9780000000221	Judul Buku 221	40	165757	2020	PB00221
+9780000000222	Judul Buku 222	71	220321	2018	PB00222
+9780000000223	Judul Buku 223	37	43751	2008	PB00223
+9780000000224	Judul Buku 224	27	101799	2002	PB00224
+9780000000225	Judul Buku 225	303	247492	2013	PB00225
+9780000000226	Judul Buku 226	388	223403	2002	PB00226
+9780000000227	Judul Buku 227	492	201860	2006	PB00227
+9780000000228	Judul Buku 228	496	51050	2021	PB00228
+9780000000229	Judul Buku 229	316	174748	2024	PB00229
+9780000000230	Judul Buku 230	219	145610	2025	PB00230
+9780000000231	Judul Buku 231	104	126567	2013	PB00231
+9780000000232	Judul Buku 232	27	91424	2005	PB00232
+9780000000233	Judul Buku 233	158	192179	2021	PB00233
+9780000000234	Judul Buku 234	467	127044	2019	PB00234
+9780000000235	Judul Buku 235	160	62613	2022	PB00235
+9780000000236	Judul Buku 236	7	258793	2004	PB00236
+9780000000237	Judul Buku 237	298	158442	2001	PB00237
+9780000000238	Judul Buku 238	119	75739	2006	PB00238
+9780000000239	Judul Buku 239	316	275148	2019	PB00239
+9780000000240	Judul Buku 240	28	112127	2007	PB00240
+9780000000241	Judul Buku 241	134	286725	2015	PB00241
+9780000000242	Judul Buku 242	49	91415	2013	PB00242
+9780000000243	Judul Buku 243	356	275917	2020	PB00243
+9780000000244	Judul Buku 244	313	291939	2011	PB00244
+9780000000245	Judul Buku 245	465	132917	2000	PB00245
+9780000000246	Judul Buku 246	134	195209	2018	PB00246
+9780000000247	Judul Buku 247	376	189031	2006	PB00247
+9780000000248	Judul Buku 248	475	295482	2007	PB00248
+9780000000249	Judul Buku 249	31	222074	2001	PB00249
+9780000000250	Judul Buku 250	459	286228	2021	PB00250
+9780000000251	Judul Buku 251	456	262052	2005	PB00251
+9780000000252	Judul Buku 252	428	58623	2018	PB00252
+9780000000253	Judul Buku 253	28	186749	2014	PB00253
+9780000000254	Judul Buku 254	252	40494	2002	PB00254
+9780000000255	Judul Buku 255	65	116341	2003	PB00255
+9780000000256	Judul Buku 256	28	166566	2019	PB00256
+9780000000257	Judul Buku 257	329	258071	2015	PB00257
+9780000000258	Judul Buku 258	379	279816	2023	PB00258
+9780000000259	Judul Buku 259	188	80681	2024	PB00259
+9780000000260	Judul Buku 260	159	238870	2001	PB00260
+9780000000261	Judul Buku 261	167	50727	2009	PB00261
+9780000000262	Judul Buku 262	350	236996	2016	PB00262
+9780000000263	Judul Buku 263	497	54691	2021	PB00263
+9780000000264	Judul Buku 264	177	92526	2018	PB00264
+9780000000265	Judul Buku 265	182	245236	2010	PB00265
+9780000000266	Judul Buku 266	7	257421	2024	PB00266
+9780000000267	Judul Buku 267	105	147142	2007	PB00267
+9780000000268	Judul Buku 268	196	75689	2016	PB00268
+9780000000269	Judul Buku 269	134	225851	2004	PB00269
+9780000000270	Judul Buku 270	146	133597	2013	PB00270
+9780000000271	Judul Buku 271	123	129637	2017	PB00271
+9780000000272	Judul Buku 272	373	57955	2013	PB00272
+9780000000273	Judul Buku 273	205	292236	2003	PB00273
+9780000000274	Judul Buku 274	201	103861	2024	PB00274
+9780000000275	Judul Buku 275	248	108440	2013	PB00275
+9780000000276	Judul Buku 276	46	85912	2023	PB00276
+9780000000277	Judul Buku 277	368	153159	2023	PB00277
+9780000000278	Judul Buku 278	13	268410	2018	PB00278
+9780000000279	Judul Buku 279	107	139911	2016	PB00279
+9780000000280	Judul Buku 280	143	182474	2019	PB00280
+9780000000281	Judul Buku 281	382	266706	2010	PB00281
+9780000000282	Judul Buku 282	112	283367	2018	PB00282
+9780000000283	Judul Buku 283	63	45818	2014	PB00283
+9780000000284	Judul Buku 284	348	53699	2023	PB00284
+9780000000285	Judul Buku 285	388	80860	2002	PB00285
+9780000000286	Judul Buku 286	458	42148	2013	PB00286
+9780000000287	Judul Buku 287	34	89884	2016	PB00287
+9780000000288	Judul Buku 288	410	47390	2003	PB00288
+9780000000289	Judul Buku 289	109	220749	2023	PB00289
+9780000000290	Judul Buku 290	170	143908	2021	PB00290
+9780000000291	Judul Buku 291	63	68246	2024	PB00291
+9780000000292	Judul Buku 292	257	248693	2001	PB00292
+9780000000293	Judul Buku 293	482	143753	2022	PB00293
+9780000000294	Judul Buku 294	203	139457	2009	PB00294
+9780000000295	Judul Buku 295	318	79723	2004	PB00295
+9780000000296	Judul Buku 296	460	87565	2023	PB00296
+9780000000297	Judul Buku 297	124	189797	2015	PB00297
+9780000000298	Judul Buku 298	178	44069	2008	PB00298
+9780000000299	Judul Buku 299	420	253342	2015	PB00299
+9780000000300	Judul Buku 300	277	133984	2006	PB00300
+9780000000301	Judul Buku 301	424	218104	2017	PB00301
+9780000000302	Judul Buku 302	313	96012	2014	PB00302
+9780000000303	Judul Buku 303	454	103767	2018	PB00303
+9780000000304	Judul Buku 304	151	179510	2010	PB00304
+9780000000305	Judul Buku 305	116	212886	2001	PB00305
+9780000000306	Judul Buku 306	220	233836	2016	PB00306
+9780000000307	Judul Buku 307	414	150925	2010	PB00307
+9780000000308	Judul Buku 308	310	203865	2014	PB00308
+9780000000309	Judul Buku 309	110	290455	2004	PB00309
+9780000000310	Judul Buku 310	368	168493	2002	PB00310
+9780000000311	Judul Buku 311	384	170767	2002	PB00311
+9780000000312	Judul Buku 312	64	293831	2021	PB00312
+9780000000313	Judul Buku 313	265	277745	2014	PB00313
+9780000000314	Judul Buku 314	452	108191	2017	PB00314
+9780000000315	Judul Buku 315	289	176760	2000	PB00315
+9780000000316	Judul Buku 316	232	208880	2023	PB00316
+9780000000317	Judul Buku 317	78	166652	2008	PB00317
+9780000000318	Judul Buku 318	80	62874	2013	PB00318
+9780000000319	Judul Buku 319	442	200187	2016	PB00319
+9780000000320	Judul Buku 320	442	43000	2023	PB00320
+9780000000321	Judul Buku 321	209	221671	2011	PB00321
+9780000000322	Judul Buku 322	237	136069	2016	PB00322
+9780000000323	Judul Buku 323	100	239220	2010	PB00323
+9780000000324	Judul Buku 324	106	44088	2009	PB00324
+9780000000325	Judul Buku 325	261	181071	2014	PB00325
+9780000000326	Judul Buku 326	46	134507	2016	PB00326
+9780000000327	Judul Buku 327	308	152609	2021	PB00327
+9780000000328	Judul Buku 328	6	156213	2007	PB00328
+9780000000329	Judul Buku 329	352	212801	2004	PB00329
+9780000000330	Judul Buku 330	356	187312	2023	PB00330
+9780000000331	Judul Buku 331	143	137751	2021	PB00331
+9780000000332	Judul Buku 332	208	266618	2003	PB00332
+9780000000333	Judul Buku 333	265	227925	2018	PB00333
+9780000000334	Judul Buku 334	352	221501	2020	PB00334
+9780000000335	Judul Buku 335	28	39467	2007	PB00335
+9780000000336	Judul Buku 336	365	250023	2019	PB00336
+9780000000337	Judul Buku 337	338	295274	2023	PB00337
+9780000000338	Judul Buku 338	296	183822	2006	PB00338
+9780000000339	Judul Buku 339	401	128114	2021	PB00339
+9780000000340	Judul Buku 340	29	202423	2017	PB00340
+9780000000341	Judul Buku 341	490	154941	2019	PB00341
+9780000000342	Judul Buku 342	229	39906	2006	PB00342
+9780000000343	Judul Buku 343	328	252535	2022	PB00343
+9780000000344	Judul Buku 344	100	274736	2011	PB00344
+9780000000345	Judul Buku 345	140	178258	2022	PB00345
+9780000000346	Judul Buku 346	96	108339	2025	PB00346
+9780000000347	Judul Buku 347	27	30407	2008	PB00347
+9780000000348	Judul Buku 348	255	221957	2010	PB00348
+9780000000349	Judul Buku 349	3	164115	2022	PB00349
+9780000000350	Judul Buku 350	295	145379	2024	PB00350
+9780000000351	Judul Buku 351	469	299507	2025	PB00351
+9780000000352	Judul Buku 352	330	85125	2009	PB00352
+9780000000353	Judul Buku 353	410	168069	2007	PB00353
+9780000000354	Judul Buku 354	143	130192	2007	PB00354
+9780000000355	Judul Buku 355	157	84330	2015	PB00355
+9780000000356	Judul Buku 356	273	133250	2019	PB00356
+9780000000357	Judul Buku 357	161	196717	2021	PB00357
+9780000000358	Judul Buku 358	196	205237	2018	PB00358
+9780000000359	Judul Buku 359	83	182954	2005	PB00359
+9780000000360	Judul Buku 360	476	293200	2007	PB00360
+9780000000361	Judul Buku 361	412	187479	2017	PB00361
+9780000000362	Judul Buku 362	479	86105	2020	PB00362
+9780000000363	Judul Buku 363	496	154348	2022	PB00363
+9780000000364	Judul Buku 364	4	32389	2008	PB00364
+9780000000365	Judul Buku 365	287	125682	2003	PB00365
+9780000000366	Judul Buku 366	147	184781	2011	PB00366
+9780000000367	Judul Buku 367	480	297729	2004	PB00367
+9780000000368	Judul Buku 368	368	57042	2005	PB00368
+9780000000369	Judul Buku 369	308	194564	2020	PB00369
+9780000000370	Judul Buku 370	146	84370	2012	PB00370
+9780000000371	Judul Buku 371	448	167277	2016	PB00371
+9780000000372	Judul Buku 372	476	131542	2009	PB00372
+9780000000373	Judul Buku 373	181	230160	2022	PB00373
+9780000000374	Judul Buku 374	318	292628	2022	PB00374
+9780000000375	Judul Buku 375	189	202335	2004	PB00375
+9780000000376	Judul Buku 376	485	172217	2023	PB00376
+9780000000377	Judul Buku 377	346	285628	2007	PB00377
+9780000000378	Judul Buku 378	301	158440	2025	PB00378
+9780000000379	Judul Buku 379	152	42437	2012	PB00379
+9780000000380	Judul Buku 380	319	254752	2010	PB00380
+9780000000381	Judul Buku 381	277	52651	2012	PB00381
+9780000000382	Judul Buku 382	229	249845	2001	PB00382
+9780000000383	Judul Buku 383	424	262204	2023	PB00383
+9780000000384	Judul Buku 384	355	286987	2003	PB00384
+9780000000385	Judul Buku 385	90	45754	2025	PB00385
+9780000000386	Judul Buku 386	228	166737	2006	PB00386
+9780000000387	Judul Buku 387	1	107591	2014	PB00387
+9780000000388	Judul Buku 388	460	167827	2007	PB00388
+9780000000389	Judul Buku 389	418	46556	2002	PB00389
+9780000000390	Judul Buku 390	382	201348	2002	PB00390
+9780000000391	Judul Buku 391	245	252273	2009	PB00391
+9780000000392	Judul Buku 392	85	271355	2018	PB00392
+9780000000393	Judul Buku 393	306	97816	2019	PB00393
+9780000000394	Judul Buku 394	172	227398	2015	PB00394
+9780000000395	Judul Buku 395	365	148481	2013	PB00395
+9780000000396	Judul Buku 396	51	182705	2008	PB00396
+9780000000397	Judul Buku 397	163	51593	2017	PB00397
+9780000000398	Judul Buku 398	321	200592	2024	PB00398
+9780000000399	Judul Buku 399	45	199216	2020	PB00399
+9780000000400	Judul Buku 400	241	175681	2020	PB00400
+9780000000401	Judul Buku 401	135	295639	2019	PB00401
+9780000000402	Judul Buku 402	285	198513	2002	PB00402
+9780000000403	Judul Buku 403	11	71022	2002	PB00403
+9780000000404	Judul Buku 404	179	46036	2024	PB00404
+9780000000405	Judul Buku 405	472	137634	2021	PB00405
+9780000000406	Judul Buku 406	45	280225	2008	PB00406
+9780000000407	Judul Buku 407	145	73960	2018	PB00407
+9780000000408	Judul Buku 408	404	105101	2012	PB00408
+9780000000409	Judul Buku 409	204	84442	2009	PB00409
+9780000000410	Judul Buku 410	280	130847	2015	PB00410
+9780000000411	Judul Buku 411	86	55518	2006	PB00411
+9780000000412	Judul Buku 412	240	194794	2007	PB00412
+9780000000413	Judul Buku 413	440	157066	2015	PB00413
+9780000000414	Judul Buku 414	42	185968	2014	PB00414
+9780000000415	Judul Buku 415	382	136154	2003	PB00415
+9780000000416	Judul Buku 416	444	212430	2007	PB00416
+9780000000417	Judul Buku 417	486	99007	2021	PB00417
+9780000000418	Judul Buku 418	400	263361	2023	PB00418
+9780000000419	Judul Buku 419	462	152414	2003	PB00419
+9780000000420	Judul Buku 420	409	74644	2024	PB00420
+9780000000421	Judul Buku 421	213	168771	2016	PB00421
+9780000000422	Judul Buku 422	493	52808	2022	PB00422
+9780000000423	Judul Buku 423	423	242452	2002	PB00423
+9780000000424	Judul Buku 424	56	296040	2001	PB00424
+9780000000425	Judul Buku 425	205	188598	2013	PB00425
+9780000000426	Judul Buku 426	108	160728	2011	PB00426
+9780000000427	Judul Buku 427	273	235767	2006	PB00427
+9780000000428	Judul Buku 428	257	265973	2018	PB00428
+9780000000429	Judul Buku 429	166	202465	2011	PB00429
+9780000000430	Judul Buku 430	100	203196	2005	PB00430
+9780000000431	Judul Buku 431	437	106838	2009	PB00431
+9780000000432	Judul Buku 432	69	243573	2013	PB00432
+9780000000433	Judul Buku 433	6	148940	2007	PB00433
+9780000000434	Judul Buku 434	366	101474	2021	PB00434
+9780000000435	Judul Buku 435	31	267985	2009	PB00435
+9780000000436	Judul Buku 436	451	130705	2013	PB00436
+9780000000437	Judul Buku 437	474	158330	2009	PB00437
+9780000000438	Judul Buku 438	40	72614	2009	PB00438
+9780000000439	Judul Buku 439	185	107940	2011	PB00439
+9780000000440	Judul Buku 440	73	291958	2019	PB00440
+9780000000441	Judul Buku 441	320	83182	2006	PB00441
+9780000000442	Judul Buku 442	291	158087	2013	PB00442
+9780000000443	Judul Buku 443	331	159772	2025	PB00443
+9780000000444	Judul Buku 444	268	269047	2007	PB00444
+9780000000445	Judul Buku 445	396	80927	2009	PB00445
+9780000000446	Judul Buku 446	344	246598	2019	PB00446
+9780000000447	Judul Buku 447	182	56870	2008	PB00447
+9780000000448	Judul Buku 448	331	297968	2005	PB00448
+9780000000449	Judul Buku 449	317	117921	2008	PB00449
+9780000000450	Judul Buku 450	116	179261	2008	PB00450
+9780000000451	Judul Buku 451	372	187036	2023	PB00451
+9780000000452	Judul Buku 452	403	143181	2015	PB00452
+9780000000453	Judul Buku 453	399	275273	2014	PB00453
+9780000000454	Judul Buku 454	160	207118	2021	PB00454
+9780000000455	Judul Buku 455	283	130530	2006	PB00455
+9780000000456	Judul Buku 456	258	239765	2012	PB00456
+9780000000457	Judul Buku 457	279	125180	2019	PB00457
+9780000000458	Judul Buku 458	47	294820	2010	PB00458
+9780000000459	Judul Buku 459	131	81499	2007	PB00459
+9780000000460	Judul Buku 460	489	194266	2002	PB00460
+9780000000461	Judul Buku 461	446	54744	2019	PB00461
+9780000000462	Judul Buku 462	361	203997	2018	PB00462
+9780000000463	Judul Buku 463	85	34578	2013	PB00463
+9780000000464	Judul Buku 464	151	44340	2007	PB00464
+9780000000465	Judul Buku 465	355	206220	2001	PB00465
+9780000000466	Judul Buku 466	60	76014	2011	PB00466
+9780000000467	Judul Buku 467	229	228201	2006	PB00467
+9780000000468	Judul Buku 468	424	242430	2009	PB00468
+9780000000469	Judul Buku 469	86	113585	2010	PB00469
+9780000000470	Judul Buku 470	240	134942	2008	PB00470
+9780000000471	Judul Buku 471	351	250427	2016	PB00471
+9780000000472	Judul Buku 472	232	158636	2025	PB00472
+9780000000473	Judul Buku 473	13	219955	2024	PB00473
+9780000000474	Judul Buku 474	141	97689	2024	PB00474
+9780000000475	Judul Buku 475	135	169078	2014	PB00475
+9780000000476	Judul Buku 476	149	42535	2021	PB00476
+9780000000477	Judul Buku 477	351	178726	2003	PB00477
+9780000000478	Judul Buku 478	13	96088	2023	PB00478
+9780000000479	Judul Buku 479	139	237489	2003	PB00479
+9780000000480	Judul Buku 480	17	261799	2000	PB00480
+9780000000481	Judul Buku 481	213	265136	2005	PB00481
+9780000000482	Judul Buku 482	278	179794	2010	PB00482
+9780000000483	Judul Buku 483	187	97452	2009	PB00483
+9780000000484	Judul Buku 484	145	239281	2007	PB00484
+9780000000485	Judul Buku 485	319	169319	2009	PB00485
+9780000000486	Judul Buku 486	24	256019	2003	PB00486
+9780000000487	Judul Buku 487	182	83238	2016	PB00487
+9780000000488	Judul Buku 488	49	99688	2023	PB00488
+9780000000489	Judul Buku 489	193	240139	2011	PB00489
+9780000000490	Judul Buku 490	164	129540	2001	PB00490
+9780000000491	Judul Buku 491	142	75454	2018	PB00491
+9780000000492	Judul Buku 492	66	242449	2005	PB00492
+9780000000493	Judul Buku 493	372	262999	2020	PB00493
+9780000000494	Judul Buku 494	468	60390	2009	PB00494
+9780000000495	Judul Buku 495	233	223939	2001	PB00495
+9780000000496	Judul Buku 496	262	162493	2023	PB00496
+9780000000497	Judul Buku 497	326	37156	2009	PB00497
+9780000000498	Judul Buku 498	191	193400	2004	PB00498
+9780000000499	Judul Buku 499	314	291112	2003	PB00499
+9780000000500	Judul Buku 500	361	101300	2008	PB00500
+9780000000501	Judul Buku 501	47	42299	2013	PB00501
+9780000000502	Judul Buku 502	345	121246	2017	PB00502
+9780000000503	Judul Buku 503	31	200422	2018	PB00503
+9780000000504	Judul Buku 504	176	39932	2005	PB00504
+9780000000505	Judul Buku 505	21	226882	2021	PB00505
+9780000000506	Judul Buku 506	1	66246	2009	PB00506
+9780000000507	Judul Buku 507	494	218670	2005	PB00507
+9780000000508	Judul Buku 508	113	274018	2003	PB00508
+9780000000509	Judul Buku 509	28	249114	2017	PB00509
+9780000000510	Judul Buku 510	253	123436	2020	PB00510
+9780000000511	Judul Buku 511	204	164517	2011	PB00511
+9780000000512	Judul Buku 512	276	271229	2024	PB00512
+9780000000513	Judul Buku 513	282	69425	2020	PB00513
+9780000000514	Judul Buku 514	463	256283	2023	PB00514
+9780000000515	Judul Buku 515	376	76719	2023	PB00515
+9780000000516	Judul Buku 516	138	200310	2022	PB00516
+9780000000517	Judul Buku 517	271	205514	2002	PB00517
+9780000000518	Judul Buku 518	388	243874	2008	PB00518
+9780000000519	Judul Buku 519	229	40801	2011	PB00519
+9780000000520	Judul Buku 520	244	131827	2003	PB00520
+9780000000521	Judul Buku 521	487	271742	2006	PB00521
+9780000000522	Judul Buku 522	5	183954	2024	PB00522
+9780000000523	Judul Buku 523	488	213534	2013	PB00523
+9780000000524	Judul Buku 524	154	174564	2011	PB00524
+9780000000525	Judul Buku 525	210	123824	2015	PB00525
+9780000000526	Judul Buku 526	179	200589	2024	PB00526
+9780000000527	Judul Buku 527	441	211062	2024	PB00527
+9780000000528	Judul Buku 528	138	131704	2013	PB00528
+9780000000529	Judul Buku 529	318	166147	2020	PB00529
+9780000000530	Judul Buku 530	162	37947	2020	PB00530
+9780000000531	Judul Buku 531	340	206136	2003	PB00531
+9780000000532	Judul Buku 532	162	31357	2007	PB00532
+9780000000533	Judul Buku 533	49	251534	2023	PB00533
+9780000000534	Judul Buku 534	354	273061	2015	PB00534
+9780000000535	Judul Buku 535	374	217957	2020	PB00535
+9780000000536	Judul Buku 536	333	258869	2008	PB00536
+9780000000537	Judul Buku 537	348	94568	2007	PB00537
+9780000000538	Judul Buku 538	487	197441	2024	PB00538
+9780000000539	Judul Buku 539	494	133227	2022	PB00539
+9780000000540	Judul Buku 540	111	234973	2001	PB00540
+9780000000541	Judul Buku 541	390	146410	2024	PB00541
+9780000000542	Judul Buku 542	133	78840	2012	PB00542
+9780000000543	Judul Buku 543	174	292154	2016	PB00543
+9780000000544	Judul Buku 544	152	187739	2020	PB00544
+9780000000545	Judul Buku 545	234	211800	2002	PB00545
+9780000000546	Judul Buku 546	190	230315	2015	PB00546
+9780000000547	Judul Buku 547	301	255426	2017	PB00547
+9780000000548	Judul Buku 548	216	39405	2018	PB00548
+9780000000549	Judul Buku 549	21	255315	2017	PB00549
+9780000000550	Judul Buku 550	391	162751	2001	PB00550
+9780000000551	Judul Buku 551	320	298260	2011	PB00551
+9780000000552	Judul Buku 552	256	251675	2019	PB00552
+9780000000553	Judul Buku 553	3	105298	2014	PB00553
+9780000000554	Judul Buku 554	194	260160	2011	PB00554
+9780000000555	Judul Buku 555	312	64085	2016	PB00555
+9780000000556	Judul Buku 556	351	150635	2005	PB00556
+9780000000557	Judul Buku 557	421	279404	2010	PB00557
+9780000000558	Judul Buku 558	423	235395	2013	PB00558
+9780000000559	Judul Buku 559	337	47335	2013	PB00559
+9780000000560	Judul Buku 560	174	265572	2002	PB00560
+9780000000561	Judul Buku 561	190	161189	2009	PB00561
+9780000000562	Judul Buku 562	129	172204	2007	PB00562
+9780000000563	Judul Buku 563	242	97351	2007	PB00563
+9780000000564	Judul Buku 564	321	110988	2005	PB00564
+9780000000565	Judul Buku 565	190	211054	2007	PB00565
+9780000000566	Judul Buku 566	449	165050	2024	PB00566
+9780000000567	Judul Buku 567	143	143020	2018	PB00567
+9780000000568	Judul Buku 568	268	139753	2015	PB00568
+9780000000569	Judul Buku 569	334	203103	2016	PB00569
+9780000000570	Judul Buku 570	484	119647	2014	PB00570
+9780000000571	Judul Buku 571	487	78870	2018	PB00571
+9780000000572	Judul Buku 572	164	221512	2005	PB00572
+9780000000573	Judul Buku 573	93	219133	2009	PB00573
+9780000000574	Judul Buku 574	199	264156	2002	PB00574
+9780000000575	Judul Buku 575	377	75286	2023	PB00575
+9780000000576	Judul Buku 576	82	233233	2012	PB00576
+9780000000577	Judul Buku 577	357	214029	2021	PB00577
+9780000000578	Judul Buku 578	142	112306	2024	PB00578
+9780000000579	Judul Buku 579	499	161615	2019	PB00579
+9780000000580	Judul Buku 580	441	183368	2023	PB00580
+9780000000581	Judul Buku 581	4	46560	2018	PB00581
+9780000000582	Judul Buku 582	285	249615	2022	PB00582
+9780000000583	Judul Buku 583	158	127756	2011	PB00583
+9780000000584	Judul Buku 584	271	294682	2019	PB00584
+9780000000585	Judul Buku 585	274	116363	2000	PB00585
+9780000000586	Judul Buku 586	262	180624	2008	PB00586
+9780000000587	Judul Buku 587	386	79359	2007	PB00587
+9780000000588	Judul Buku 588	297	31685	2011	PB00588
+9780000000589	Judul Buku 589	354	61620	2014	PB00589
+9780000000590	Judul Buku 590	247	116368	2001	PB00590
+9780000000591	Judul Buku 591	176	116412	2019	PB00591
+9780000000592	Judul Buku 592	431	125427	2003	PB00592
+9780000000593	Judul Buku 593	52	222977	2005	PB00593
+9780000000594	Judul Buku 594	300	211461	2016	PB00594
+9780000000595	Judul Buku 595	237	121494	2006	PB00595
+9780000000596	Judul Buku 596	268	125405	2014	PB00596
+9780000000597	Judul Buku 597	156	212514	2013	PB00597
+9780000000598	Judul Buku 598	144	274068	2002	PB00598
+9780000000599	Judul Buku 599	262	91366	2011	PB00599
+9780000000600	Judul Buku 600	246	51844	2012	PB00600
+9780000000601	Judul Buku 601	271	164308	2009	PB00601
+9780000000602	Judul Buku 602	356	270337	2021	PB00602
+9780000000603	Judul Buku 603	152	156801	2011	PB00603
+9780000000604	Judul Buku 604	17	97063	2021	PB00604
+9780000000605	Judul Buku 605	200	30061	2020	PB00605
+9780000000606	Judul Buku 606	80	223675	2001	PB00606
+9780000000607	Judul Buku 607	453	206555	2003	PB00607
+9780000000608	Judul Buku 608	2	88503	2017	PB00608
+9780000000609	Judul Buku 609	11	97837	2013	PB00609
+9780000000610	Judul Buku 610	218	149533	2017	PB00610
+9780000000611	Judul Buku 611	47	273823	2006	PB00611
+9780000000612	Judul Buku 612	17	293487	2011	PB00612
+9780000000613	Judul Buku 613	8	259619	2017	PB00613
+9780000000614	Judul Buku 614	322	189513	2019	PB00614
+9780000000615	Judul Buku 615	318	139230	2004	PB00615
+9780000000616	Judul Buku 616	192	258606	2005	PB00616
+9780000000617	Judul Buku 617	26	254504	2004	PB00617
+9780000000618	Judul Buku 618	449	169437	2019	PB00618
+9780000000619	Judul Buku 619	84	267870	2013	PB00619
+9780000000620	Judul Buku 620	299	43054	2024	PB00620
+9780000000621	Judul Buku 621	120	193114	2001	PB00621
+9780000000622	Judul Buku 622	346	169620	2023	PB00622
+9780000000623	Judul Buku 623	364	286589	2020	PB00623
+9780000000624	Judul Buku 624	231	287890	2009	PB00624
+9780000000625	Judul Buku 625	185	221188	2018	PB00625
+9780000000626	Judul Buku 626	300	66239	2001	PB00626
+9780000000627	Judul Buku 627	257	200267	2008	PB00627
+9780000000628	Judul Buku 628	65	142152	2007	PB00628
+9780000000629	Judul Buku 629	327	227690	2009	PB00629
+9780000000630	Judul Buku 630	229	195599	2023	PB00630
+9780000000631	Judul Buku 631	286	189103	2015	PB00631
+9780000000632	Judul Buku 632	221	47454	2001	PB00632
+9780000000633	Judul Buku 633	357	278173	2017	PB00633
+9780000000634	Judul Buku 634	310	74382	2023	PB00634
+9780000000635	Judul Buku 635	97	178310	2017	PB00635
+9780000000636	Judul Buku 636	484	59442	2011	PB00636
+9780000000637	Judul Buku 637	435	138100	2023	PB00637
+9780000000638	Judul Buku 638	52	252329	2018	PB00638
+9780000000639	Judul Buku 639	225	85746	2017	PB00639
+9780000000640	Judul Buku 640	273	186710	2008	PB00640
+9780000000641	Judul Buku 641	468	283255	2018	PB00641
+9780000000642	Judul Buku 642	210	230046	2015	PB00642
+9780000000643	Judul Buku 643	187	165946	2024	PB00643
+9780000000644	Judul Buku 644	211	210699	2021	PB00644
+9780000000645	Judul Buku 645	414	248731	2018	PB00645
+9780000000646	Judul Buku 646	115	177263	2008	PB00646
+9780000000647	Judul Buku 647	398	245305	2018	PB00647
+9780000000648	Judul Buku 648	218	185919	2021	PB00648
+9780000000649	Judul Buku 649	328	287569	2020	PB00649
+9780000000650	Judul Buku 650	416	259979	2001	PB00650
+9780000000651	Judul Buku 651	52	296096	2011	PB00651
+9780000000652	Judul Buku 652	468	279632	2019	PB00652
+9780000000653	Judul Buku 653	37	60107	2008	PB00653
+9780000000654	Judul Buku 654	167	167331	2013	PB00654
+9780000000655	Judul Buku 655	1	49632	2016	PB00655
+9780000000656	Judul Buku 656	446	116568	2010	PB00656
+9780000000657	Judul Buku 657	359	162409	2014	PB00657
+9780000000658	Judul Buku 658	334	175113	2006	PB00658
+9780000000659	Judul Buku 659	332	176926	2009	PB00659
+9780000000660	Judul Buku 660	31	173422	2022	PB00660
+9780000000661	Judul Buku 661	485	40136	2006	PB00661
+9780000000662	Judul Buku 662	195	264515	2017	PB00662
+9780000000663	Judul Buku 663	16	297266	2001	PB00663
+9780000000664	Judul Buku 664	372	168044	2008	PB00664
+9780000000665	Judul Buku 665	474	76569	2007	PB00665
+9780000000666	Judul Buku 666	36	147862	2019	PB00666
+9780000000667	Judul Buku 667	265	183139	2007	PB00667
+9780000000668	Judul Buku 668	377	157998	2011	PB00668
+9780000000669	Judul Buku 669	235	213912	2009	PB00669
+9780000000670	Judul Buku 670	110	237295	2022	PB00670
+9780000000671	Judul Buku 671	245	75439	2015	PB00671
+9780000000672	Judul Buku 672	394	144356	2001	PB00672
+9780000000673	Judul Buku 673	140	222255	2023	PB00673
+9780000000674	Judul Buku 674	144	246547	2006	PB00674
+9780000000675	Judul Buku 675	294	231389	2005	PB00675
+9780000000676	Judul Buku 676	100	81945	2009	PB00676
+9780000000677	Judul Buku 677	397	168773	2006	PB00677
+9780000000678	Judul Buku 678	48	282476	2021	PB00678
+9780000000679	Judul Buku 679	481	267327	2001	PB00679
+9780000000680	Judul Buku 680	185	117745	2009	PB00680
+9780000000681	Judul Buku 681	480	274493	2011	PB00681
+9780000000682	Judul Buku 682	17	190140	2014	PB00682
+9780000000683	Judul Buku 683	445	56020	2015	PB00683
+9780000000684	Judul Buku 684	163	123537	2002	PB00684
+9780000000685	Judul Buku 685	265	92890	2001	PB00685
+9780000000686	Judul Buku 686	377	240763	2017	PB00686
+9780000000687	Judul Buku 687	473	50612	2015	PB00687
+9780000000688	Judul Buku 688	293	269303	2004	PB00688
+9780000000689	Judul Buku 689	371	262326	2014	PB00689
+9780000000690	Judul Buku 690	79	207685	2020	PB00690
+9780000000691	Judul Buku 691	222	86383	2022	PB00691
+9780000000692	Judul Buku 692	17	87019	2007	PB00692
+9780000000693	Judul Buku 693	460	43008	2004	PB00693
+9780000000694	Judul Buku 694	159	252530	2008	PB00694
+9780000000695	Judul Buku 695	445	298866	2009	PB00695
+9780000000696	Judul Buku 696	394	199326	2014	PB00696
+9780000000697	Judul Buku 697	446	235466	2006	PB00697
+9780000000698	Judul Buku 698	153	215371	2010	PB00698
+9780000000699	Judul Buku 699	341	211861	2001	PB00699
+9780000000700	Judul Buku 700	324	50487	2007	PB00700
+9780000000701	Judul Buku 701	341	31993	2015	PB00701
+9780000000702	Judul Buku 702	150	141268	2009	PB00702
+9780000000703	Judul Buku 703	10	234846	2025	PB00703
+9780000000704	Judul Buku 704	306	123097	2009	PB00704
+9780000000705	Judul Buku 705	458	282239	2021	PB00705
+9780000000706	Judul Buku 706	334	184689	2007	PB00706
+9780000000707	Judul Buku 707	133	174030	2025	PB00707
+9780000000708	Judul Buku 708	431	125071	2004	PB00708
+9780000000709	Judul Buku 709	347	256808	2022	PB00709
+9780000000710	Judul Buku 710	496	33985	2008	PB00710
+9780000000711	Judul Buku 711	229	54081	2019	PB00711
+9780000000712	Judul Buku 712	298	227982	2008	PB00712
+9780000000713	Judul Buku 713	143	253235	2017	PB00713
+9780000000714	Judul Buku 714	490	269823	2022	PB00714
+9780000000715	Judul Buku 715	55	44765	2011	PB00715
+9780000000716	Judul Buku 716	376	99597	2001	PB00716
+9780000000717	Judul Buku 717	92	115459	2008	PB00717
+9780000000718	Judul Buku 718	419	276457	2002	PB00718
+9780000000719	Judul Buku 719	290	261878	2017	PB00719
+9780000000720	Judul Buku 720	414	229593	2017	PB00720
+9780000000721	Judul Buku 721	183	34491	2002	PB00721
+9780000000722	Judul Buku 722	471	71049	2020	PB00722
+9780000000723	Judul Buku 723	244	63179	2018	PB00723
+9780000000724	Judul Buku 724	368	89149	2006	PB00724
+9780000000725	Judul Buku 725	368	239538	2020	PB00725
+9780000000726	Judul Buku 726	111	84314	2001	PB00726
+9780000000727	Judul Buku 727	36	147719	2001	PB00727
+9780000000728	Judul Buku 728	176	105445	2003	PB00728
+9780000000729	Judul Buku 729	465	174713	2011	PB00729
+9780000000730	Judul Buku 730	2	117905	2005	PB00730
+9780000000731	Judul Buku 731	347	69004	2014	PB00731
+9780000000732	Judul Buku 732	393	33618	2014	PB00732
+9780000000733	Judul Buku 733	454	57958	2022	PB00733
+9780000000734	Judul Buku 734	365	269560	2011	PB00734
+9780000000735	Judul Buku 735	82	200973	2021	PB00735
+9780000000736	Judul Buku 736	496	50872	2002	PB00736
+9780000000737	Judul Buku 737	294	166448	2005	PB00737
+9780000000738	Judul Buku 738	201	107687	2013	PB00738
+9780000000739	Judul Buku 739	100	57879	2005	PB00739
+9780000000740	Judul Buku 740	78	177514	2022	PB00740
+9780000000741	Judul Buku 741	202	295737	2016	PB00741
+9780000000742	Judul Buku 742	209	92921	2021	PB00742
+9780000000743	Judul Buku 743	445	279734	2007	PB00743
+9780000000744	Judul Buku 744	349	153856	2000	PB00744
+9780000000745	Judul Buku 745	76	286213	2009	PB00745
+9780000000746	Judul Buku 746	499	275176	2003	PB00746
+9780000000747	Judul Buku 747	453	61206	2021	PB00747
+9780000000748	Judul Buku 748	132	213486	2020	PB00748
+9780000000749	Judul Buku 749	227	287608	2013	PB00749
+9780000000750	Judul Buku 750	288	88176	2000	PB00750
+9780000000751	Judul Buku 751	246	175325	2012	PB00751
+9780000000752	Judul Buku 752	215	264234	2013	PB00752
+9780000000753	Judul Buku 753	169	170241	2014	PB00753
+9780000000754	Judul Buku 754	490	187712	2014	PB00754
+9780000000755	Judul Buku 755	323	162008	2007	PB00755
+9780000000756	Judul Buku 756	478	38373	2009	PB00756
+9780000000757	Judul Buku 757	275	184469	2006	PB00757
+9780000000758	Judul Buku 758	343	98175	2008	PB00758
+9780000000759	Judul Buku 759	354	82555	2024	PB00759
+9780000000760	Judul Buku 760	47	210091	2012	PB00760
+9780000000761	Judul Buku 761	110	91403	2016	PB00761
+9780000000762	Judul Buku 762	343	61688	2022	PB00762
+9780000000763	Judul Buku 763	339	59677	2004	PB00763
+9780000000764	Judul Buku 764	99	241453	2019	PB00764
+9780000000765	Judul Buku 765	411	188998	2018	PB00765
+9780000000766	Judul Buku 766	355	297025	2011	PB00766
+9780000000767	Judul Buku 767	195	148367	2010	PB00767
+9780000000768	Judul Buku 768	161	186501	2021	PB00768
+9780000000769	Judul Buku 769	27	215393	2004	PB00769
+9780000000770	Judul Buku 770	333	42891	2006	PB00770
+9780000000771	Judul Buku 771	22	265545	2006	PB00771
+9780000000772	Judul Buku 772	25	65996	2007	PB00772
+9780000000773	Judul Buku 773	19	194260	2017	PB00773
+9780000000774	Judul Buku 774	197	87236	2018	PB00774
+9780000000775	Judul Buku 775	347	241635	2018	PB00775
+9780000000776	Judul Buku 776	314	72361	2014	PB00776
+9780000000777	Judul Buku 777	243	163761	2023	PB00777
+9780000000778	Judul Buku 778	228	146750	2010	PB00778
+9780000000779	Judul Buku 779	360	250459	2023	PB00779
+9780000000780	Judul Buku 780	455	194500	2018	PB00780
+9780000000781	Judul Buku 781	134	223238	2004	PB00781
+9780000000782	Judul Buku 782	233	206324	2004	PB00782
+9780000000783	Judul Buku 783	317	267834	2005	PB00783
+9780000000784	Judul Buku 784	268	161942	2015	PB00784
+9780000000785	Judul Buku 785	242	164923	2001	PB00785
+9780000000786	Judul Buku 786	11	129842	2007	PB00786
+9780000000787	Judul Buku 787	338	121122	2012	PB00787
+9780000000788	Judul Buku 788	295	101906	2025	PB00788
+9780000000789	Judul Buku 789	88	284464	2005	PB00789
+9780000000790	Judul Buku 790	121	256828	2009	PB00790
+9780000000791	Judul Buku 791	348	68422	2003	PB00791
+9780000000792	Judul Buku 792	410	278803	2016	PB00792
+9780000000793	Judul Buku 793	370	60453	2012	PB00793
+9780000000794	Judul Buku 794	172	91787	2006	PB00794
+9780000000795	Judul Buku 795	52	75136	2024	PB00795
+9780000000796	Judul Buku 796	299	243509	2010	PB00796
+9780000000797	Judul Buku 797	303	210171	2007	PB00797
+9780000000798	Judul Buku 798	283	123052	2004	PB00798
+9780000000799	Judul Buku 799	287	52207	2002	PB00799
+9780000000800	Judul Buku 800	252	201184	2000	PB00800
+9780000000801	Judul Buku 801	244	66215	2019	PB00801
+9780000000802	Judul Buku 802	308	68535	2018	PB00802
+9780000000803	Judul Buku 803	359	153743	2007	PB00803
+9780000000804	Judul Buku 804	396	102876	2013	PB00804
+9780000000805	Judul Buku 805	166	156170	2010	PB00805
+9780000000806	Judul Buku 806	241	66565	2013	PB00806
+9780000000807	Judul Buku 807	230	251161	2024	PB00807
+9780000000808	Judul Buku 808	106	214145	2014	PB00808
+9780000000809	Judul Buku 809	70	133321	2022	PB00809
+9780000000810	Judul Buku 810	5	230178	2015	PB00810
+9780000000811	Judul Buku 811	342	108006	2004	PB00811
+9780000000812	Judul Buku 812	192	112948	2023	PB00812
+9780000000813	Judul Buku 813	414	205344	2010	PB00813
+9780000000814	Judul Buku 814	207	188789	2013	PB00814
+9780000000815	Judul Buku 815	299	126082	2012	PB00815
+9780000000816	Judul Buku 816	36	118159	2010	PB00816
+9780000000817	Judul Buku 817	428	172253	2012	PB00817
+9780000000818	Judul Buku 818	336	237540	2004	PB00818
+9780000000819	Judul Buku 819	215	60226	2012	PB00819
+9780000000820	Judul Buku 820	246	148121	2007	PB00820
+9780000000821	Judul Buku 821	495	167630	2016	PB00821
+9780000000822	Judul Buku 822	56	144821	2002	PB00822
+9780000000823	Judul Buku 823	107	111443	2018	PB00823
+9780000000824	Judul Buku 824	260	56713	2013	PB00824
+9780000000825	Judul Buku 825	82	121044	2017	PB00825
+9780000000826	Judul Buku 826	370	246873	2009	PB00826
+9780000000827	Judul Buku 827	124	33328	2011	PB00827
+9780000000828	Judul Buku 828	99	68297	2001	PB00828
+9780000000829	Judul Buku 829	346	145107	2008	PB00829
+9780000000830	Judul Buku 830	14	144077	2011	PB00830
+9780000000831	Judul Buku 831	188	90688	2005	PB00831
+9780000000832	Judul Buku 832	262	287625	2004	PB00832
+9780000000833	Judul Buku 833	427	65097	2024	PB00833
+9780000000834	Judul Buku 834	219	45522	2024	PB00834
+9780000000835	Judul Buku 835	475	129185	2020	PB00835
+9780000000836	Judul Buku 836	301	249537	2020	PB00836
+9780000000837	Judul Buku 837	384	155229	2015	PB00837
+9780000000838	Judul Buku 838	256	149377	2019	PB00838
+9780000000839	Judul Buku 839	223	105741	2016	PB00839
+9780000000840	Judul Buku 840	292	262611	2005	PB00840
+9780000000841	Judul Buku 841	42	64704	2018	PB00841
+9780000000842	Judul Buku 842	5	124560	2007	PB00842
+9780000000843	Judul Buku 843	15	135409	2016	PB00843
+9780000000844	Judul Buku 844	14	106786	2007	PB00844
+9780000000845	Judul Buku 845	302	100159	2019	PB00845
+9780000000846	Judul Buku 846	130	123914	2014	PB00846
+9780000000847	Judul Buku 847	40	161338	2015	PB00847
+9780000000848	Judul Buku 848	105	74203	2003	PB00848
+9780000000849	Judul Buku 849	356	228098	2025	PB00849
+9780000000850	Judul Buku 850	25	173526	2002	PB00850
+9780000000851	Judul Buku 851	134	180688	2016	PB00851
+9780000000852	Judul Buku 852	262	273882	2015	PB00852
+9780000000853	Judul Buku 853	342	144555	2025	PB00853
+9780000000854	Judul Buku 854	269	245900	2018	PB00854
+9780000000855	Judul Buku 855	113	99155	2016	PB00855
+9780000000856	Judul Buku 856	167	64232	2018	PB00856
+9780000000857	Judul Buku 857	323	283945	2019	PB00857
+9780000000858	Judul Buku 858	301	212455	2005	PB00858
+9780000000859	Judul Buku 859	402	280088	2011	PB00859
+9780000000860	Judul Buku 860	31	246128	2019	PB00860
+9780000000861	Judul Buku 861	4	187639	2018	PB00861
+9780000000862	Judul Buku 862	84	117979	2016	PB00862
+9780000000863	Judul Buku 863	193	189941	2009	PB00863
+9780000000864	Judul Buku 864	117	74813	2001	PB00864
+9780000000865	Judul Buku 865	9	80276	2024	PB00865
+9780000000866	Judul Buku 866	310	107141	2016	PB00866
+9780000000867	Judul Buku 867	267	230466	2007	PB00867
+9780000000868	Judul Buku 868	52	173818	2009	PB00868
+9780000000869	Judul Buku 869	174	187045	2013	PB00869
+9780000000870	Judul Buku 870	391	41742	2004	PB00870
+9780000000871	Judul Buku 871	183	104453	2021	PB00871
+9780000000872	Judul Buku 872	469	88047	2019	PB00872
+9780000000873	Judul Buku 873	50	191655	2012	PB00873
+9780000000874	Judul Buku 874	53	131355	2012	PB00874
+9780000000875	Judul Buku 875	217	284164	2015	PB00875
+9780000000876	Judul Buku 876	93	35497	2003	PB00876
+9780000000877	Judul Buku 877	336	187577	2012	PB00877
+9780000000878	Judul Buku 878	412	109580	2009	PB00878
+9780000000879	Judul Buku 879	277	258564	2007	PB00879
+9780000000880	Judul Buku 880	435	65250	2002	PB00880
+9780000000881	Judul Buku 881	487	156884	2003	PB00881
+9780000000882	Judul Buku 882	172	150569	2025	PB00882
+9780000000883	Judul Buku 883	68	113605	2005	PB00883
+9780000000884	Judul Buku 884	261	93344	2011	PB00884
+9780000000885	Judul Buku 885	223	70286	2014	PB00885
+9780000000886	Judul Buku 886	137	179683	2006	PB00886
+9780000000887	Judul Buku 887	115	233572	2002	PB00887
+9780000000888	Judul Buku 888	54	93503	2025	PB00888
+9780000000889	Judul Buku 889	392	95133	2005	PB00889
+9780000000890	Judul Buku 890	434	133967	2003	PB00890
+9780000000891	Judul Buku 891	432	284636	2011	PB00891
+9780000000892	Judul Buku 892	89	255097	2008	PB00892
+9780000000893	Judul Buku 893	219	110510	2022	PB00893
+9780000000894	Judul Buku 894	391	42035	2001	PB00894
+9780000000895	Judul Buku 895	54	293265	2000	PB00895
+9780000000896	Judul Buku 896	383	144717	2023	PB00896
+9780000000897	Judul Buku 897	223	145659	2002	PB00897
+9780000000898	Judul Buku 898	37	295285	2007	PB00898
+9780000000899	Judul Buku 899	327	98093	2005	PB00899
+9780000000900	Judul Buku 900	191	138603	2011	PB00900
+9780000000901	Judul Buku 901	35	254804	2019	PB00901
+9780000000902	Judul Buku 902	148	263282	2002	PB00902
+9780000000903	Judul Buku 903	479	173192	2015	PB00903
+9780000000904	Judul Buku 904	475	176846	2014	PB00904
+9780000000905	Judul Buku 905	108	169028	2003	PB00905
+9780000000906	Judul Buku 906	441	181899	2007	PB00906
+9780000000907	Judul Buku 907	366	162273	2022	PB00907
+9780000000908	Judul Buku 908	231	120366	2010	PB00908
+9780000000909	Judul Buku 909	137	106955	2003	PB00909
+9780000000910	Judul Buku 910	359	257243	2024	PB00910
+9780000000911	Judul Buku 911	489	87663	2014	PB00911
+9780000000912	Judul Buku 912	102	253767	2005	PB00912
+9780000000913	Judul Buku 913	66	222423	2009	PB00913
+9780000000914	Judul Buku 914	251	230164	2004	PB00914
+9780000000915	Judul Buku 915	331	191048	2010	PB00915
+9780000000916	Judul Buku 916	150	279497	2016	PB00916
+9780000000917	Judul Buku 917	95	295096	2025	PB00917
+9780000000918	Judul Buku 918	129	136273	2010	PB00918
+9780000000919	Judul Buku 919	232	184414	2013	PB00919
+9780000000920	Judul Buku 920	117	150801	2011	PB00920
+9780000000921	Judul Buku 921	340	69868	2014	PB00921
+9780000000922	Judul Buku 922	224	252381	2006	PB00922
+9780000000923	Judul Buku 923	318	36334	2020	PB00923
+9780000000924	Judul Buku 924	66	156147	2017	PB00924
+9780000000925	Judul Buku 925	94	214070	2009	PB00925
+9780000000926	Judul Buku 926	271	291934	2021	PB00926
+9780000000927	Judul Buku 927	154	268635	2001	PB00927
+9780000000928	Judul Buku 928	13	150921	2021	PB00928
+9780000000929	Judul Buku 929	46	139190	2011	PB00929
+9780000000930	Judul Buku 930	256	36091	2022	PB00930
+9780000000931	Judul Buku 931	196	56301	2022	PB00931
+9780000000932	Judul Buku 932	255	218501	2022	PB00932
+9780000000933	Judul Buku 933	244	291797	2017	PB00933
+9780000000934	Judul Buku 934	413	212294	2002	PB00934
+9780000000935	Judul Buku 935	95	208364	2008	PB00935
+9780000000936	Judul Buku 936	76	118564	2018	PB00936
+9780000000937	Judul Buku 937	42	87826	2020	PB00937
+9780000000938	Judul Buku 938	240	287341	2014	PB00938
+9780000000939	Judul Buku 939	346	147515	2015	PB00939
+9780000000940	Judul Buku 940	385	147378	2012	PB00940
+9780000000941	Judul Buku 941	326	285875	2000	PB00941
+9780000000942	Judul Buku 942	493	203116	2024	PB00942
+9780000000943	Judul Buku 943	141	265804	2001	PB00943
+9780000000944	Judul Buku 944	493	117536	2014	PB00944
+9780000000945	Judul Buku 945	424	230840	2017	PB00945
+9780000000946	Judul Buku 946	282	73252	2017	PB00946
+9780000000947	Judul Buku 947	106	277682	2016	PB00947
+9780000000948	Judul Buku 948	101	93137	2008	PB00948
+9780000000949	Judul Buku 949	399	226163	2017	PB00949
+9780000000950	Judul Buku 950	84	197042	2003	PB00950
+9780000000951	Judul Buku 951	423	239145	2017	PB00951
+9780000000952	Judul Buku 952	145	110300	2006	PB00952
+9780000000953	Judul Buku 953	73	64892	2024	PB00953
+9780000000954	Judul Buku 954	433	105347	2016	PB00954
+9780000000955	Judul Buku 955	157	233833	2014	PB00955
+9780000000956	Judul Buku 956	311	93162	2005	PB00956
+9780000000957	Judul Buku 957	300	75326	2012	PB00957
+9780000000958	Judul Buku 958	169	33241	2020	PB00958
+9780000000959	Judul Buku 959	120	231525	2008	PB00959
+9780000000960	Judul Buku 960	369	33529	2020	PB00960
+9780000000961	Judul Buku 961	146	34469	2016	PB00961
+9780000000962	Judul Buku 962	406	103900	2024	PB00962
+9780000000963	Judul Buku 963	411	215924	2024	PB00963
+9780000000964	Judul Buku 964	329	182745	2004	PB00964
+9780000000965	Judul Buku 965	418	252166	2000	PB00965
+9780000000966	Judul Buku 966	364	283811	2001	PB00966
+9780000000967	Judul Buku 967	347	113842	2018	PB00967
+9780000000968	Judul Buku 968	152	297524	2010	PB00968
+9780000000969	Judul Buku 969	71	269491	2013	PB00969
+9780000000970	Judul Buku 970	419	64561	2003	PB00970
+9780000000971	Judul Buku 971	398	145359	2021	PB00971
+9780000000972	Judul Buku 972	55	181649	2005	PB00972
+9780000000973	Judul Buku 973	455	259798	2001	PB00973
+9780000000974	Judul Buku 974	260	120551	2006	PB00974
+9780000000975	Judul Buku 975	241	78368	2009	PB00975
+9780000000976	Judul Buku 976	195	51182	2019	PB00976
+9780000000977	Judul Buku 977	400	247845	2010	PB00977
+9780000000978	Judul Buku 978	220	132473	2019	PB00978
+9780000000979	Judul Buku 979	82	156360	2005	PB00979
+9780000000980	Judul Buku 980	235	179335	2006	PB00980
+9780000000981	Judul Buku 981	497	224985	2018	PB00981
+9780000000982	Judul Buku 982	225	133575	2022	PB00982
+9780000000983	Judul Buku 983	153	299920	2013	PB00983
+9780000000984	Judul Buku 984	60	223213	2022	PB00984
+9780000000985	Judul Buku 985	127	295050	2020	PB00985
+9780000000986	Judul Buku 986	117	144293	2007	PB00986
+9780000000987	Judul Buku 987	95	214438	2011	PB00987
+9780000000988	Judul Buku 988	399	216784	2015	PB00988
+9780000000989	Judul Buku 989	347	189244	2006	PB00989
+9780000000990	Judul Buku 990	353	82674	2016	PB00990
+9780000000991	Judul Buku 991	182	259329	2000	PB00991
+9780000000992	Judul Buku 992	249	110915	2011	PB00992
+9780000000993	Judul Buku 993	16	274886	2023	PB00993
+9780000000994	Judul Buku 994	167	284003	2001	PB00994
+9780000000995	Judul Buku 995	85	59754	2008	PB00995
+9780000000996	Judul Buku 996	131	247159	2015	PB00996
+9780000000997	Judul Buku 997	239	192163	2007	PB00997
+9780000000998	Judul Buku 998	50	263125	2004	PB00998
+9780000000999	Judul Buku 999	243	30242	2023	PB00999
+9780000001000	Judul Buku 1000	246	225131	2000	PB01000
+\.
+
+
+--
+-- TOC entry 5010 (class 0 OID 18503)
+-- Dependencies: 219
+-- Data for Name: Ditulis; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Ditulis" (isbn, id_penulis) FROM stdin;
+9780000000001	P00106
+9780000000002	P00106
+9780000000003	P00106
+9780000000004	P00106
+9780000000005	P00106
+9780000000006	P00106
+9780000000007	P00106
+9780000000008	P00106
+9780000000009	P00106
+9780000000010	P00106
+9780000000011	P00106
+9780000000012	P00106
+9780000000013	P00106
+9780000000014	P00106
+9780000000015	P00106
+9780000000016	P00106
+9780000000017	P00106
+9780000000018	P00106
+9780000000019	P00106
+9780000000020	P00106
+9780000000021	P00106
+9780000000022	P00106
+9780000000023	P00106
+9780000000024	P00106
+9780000000025	P00106
+9780000000026	P00106
+9780000000027	P00106
+9780000000028	P00106
+9780000000029	P00106
+9780000000030	P00106
+9780000000031	P00106
+9780000000032	P00106
+9780000000033	P00106
+9780000000034	P00106
+9780000000035	P00106
+9780000000036	P00106
+9780000000037	P00106
+9780000000038	P00106
+9780000000039	P00106
+9780000000040	P00106
+9780000000041	P00106
+9780000000042	P00106
+9780000000043	P00106
+9780000000044	P00106
+9780000000045	P00106
+9780000000046	P00106
+9780000000047	P00106
+9780000000048	P00106
+9780000000049	P00106
+9780000000050	P00106
+9780000000051	P00106
+9780000000052	P00106
+9780000000053	P00106
+9780000000054	P00106
+9780000000055	P00106
+9780000000056	P00106
+9780000000057	P00106
+9780000000058	P00106
+9780000000059	P00106
+9780000000060	P00106
+9780000000061	P00106
+9780000000062	P00106
+9780000000063	P00106
+9780000000064	P00106
+9780000000065	P00106
+9780000000066	P00106
+9780000000067	P00106
+9780000000068	P00106
+9780000000069	P00106
+9780000000070	P00106
+9780000000071	P00106
+9780000000072	P00106
+9780000000073	P00106
+9780000000074	P00106
+9780000000075	P00106
+9780000000076	P00106
+9780000000077	P00106
+9780000000078	P00106
+9780000000079	P00106
+9780000000080	P00106
+9780000000081	P00106
+9780000000082	P00106
+9780000000083	P00106
+9780000000084	P00106
+9780000000085	P00106
+9780000000086	P00106
+9780000000087	P00106
+9780000000088	P00106
+9780000000089	P00106
+9780000000090	P00106
+9780000000091	P00106
+9780000000092	P00106
+9780000000093	P00106
+9780000000094	P00106
+9780000000095	P00106
+9780000000096	P00106
+9780000000097	P00106
+9780000000098	P00106
+9780000000099	P00106
+9780000000100	P00106
+9780000000101	P00106
+9780000000102	P00106
+9780000000103	P00106
+9780000000104	P00106
+9780000000105	P00106
+9780000000106	P00106
+9780000000107	P00106
+9780000000108	P00106
+9780000000109	P00106
+9780000000110	P00106
+9780000000111	P00106
+9780000000112	P00106
+9780000000113	P00106
+9780000000114	P00106
+9780000000115	P00106
+9780000000116	P00106
+9780000000117	P00106
+9780000000118	P00106
+9780000000119	P00106
+9780000000120	P00106
+9780000000121	P00106
+9780000000122	P00106
+9780000000123	P00106
+9780000000124	P00106
+9780000000125	P00106
+9780000000126	P00106
+9780000000127	P00106
+9780000000128	P00106
+9780000000129	P00106
+9780000000130	P00106
+9780000000131	P00106
+9780000000132	P00106
+9780000000133	P00106
+9780000000134	P00106
+9780000000135	P00106
+9780000000136	P00106
+9780000000137	P00106
+9780000000138	P00106
+9780000000139	P00106
+9780000000140	P00106
+9780000000141	P00106
+9780000000142	P00106
+9780000000143	P00106
+9780000000144	P00106
+9780000000145	P00106
+9780000000146	P00106
+9780000000147	P00106
+9780000000148	P00106
+9780000000149	P00106
+9780000000150	P00106
+9780000000151	P00106
+9780000000152	P00106
+9780000000153	P00106
+9780000000154	P00106
+9780000000155	P00106
+9780000000156	P00106
+9780000000157	P00106
+9780000000158	P00106
+9780000000159	P00106
+9780000000160	P00106
+9780000000161	P00106
+9780000000162	P00106
+9780000000163	P00106
+9780000000164	P00106
+9780000000165	P00106
+9780000000166	P00106
+9780000000167	P00106
+9780000000168	P00106
+9780000000169	P00106
+9780000000170	P00106
+9780000000171	P00106
+9780000000172	P00106
+9780000000173	P00106
+9780000000174	P00106
+9780000000175	P00106
+9780000000176	P00106
+9780000000177	P00106
+9780000000178	P00106
+9780000000179	P00106
+9780000000180	P00106
+9780000000181	P00106
+9780000000182	P00106
+9780000000183	P00106
+9780000000184	P00106
+9780000000185	P00106
+9780000000186	P00106
+9780000000187	P00106
+9780000000188	P00106
+9780000000189	P00106
+9780000000190	P00106
+9780000000191	P00106
+9780000000192	P00106
+9780000000193	P00106
+9780000000194	P00106
+9780000000195	P00106
+9780000000196	P00106
+9780000000197	P00106
+9780000000198	P00106
+9780000000199	P00106
+9780000000200	P00106
+9780000000201	P00106
+9780000000202	P00106
+9780000000203	P00106
+9780000000204	P00106
+9780000000205	P00106
+9780000000206	P00106
+9780000000207	P00106
+9780000000208	P00106
+9780000000209	P00106
+9780000000210	P00106
+9780000000211	P00106
+9780000000212	P00106
+9780000000213	P00106
+9780000000214	P00106
+9780000000215	P00106
+9780000000216	P00106
+9780000000217	P00106
+9780000000218	P00106
+9780000000219	P00106
+9780000000220	P00106
+9780000000221	P00106
+9780000000222	P00106
+9780000000223	P00106
+9780000000224	P00106
+9780000000225	P00106
+9780000000226	P00106
+9780000000227	P00106
+9780000000228	P00106
+9780000000229	P00106
+9780000000230	P00106
+9780000000231	P00106
+9780000000232	P00106
+9780000000233	P00106
+9780000000234	P00106
+9780000000235	P00106
+9780000000236	P00106
+9780000000237	P00106
+9780000000238	P00106
+9780000000239	P00106
+9780000000240	P00106
+9780000000241	P00106
+9780000000242	P00106
+9780000000243	P00106
+9780000000244	P00106
+9780000000245	P00106
+9780000000246	P00106
+9780000000247	P00106
+9780000000248	P00106
+9780000000249	P00106
+9780000000250	P00106
+9780000000251	P00106
+9780000000252	P00106
+9780000000253	P00106
+9780000000254	P00106
+9780000000255	P00106
+9780000000256	P00106
+9780000000257	P00106
+9780000000258	P00106
+9780000000259	P00106
+9780000000260	P00106
+9780000000261	P00106
+9780000000262	P00106
+9780000000263	P00106
+9780000000264	P00106
+9780000000265	P00106
+9780000000266	P00106
+9780000000267	P00106
+9780000000268	P00106
+9780000000269	P00106
+9780000000270	P00106
+9780000000271	P00106
+9780000000272	P00106
+9780000000273	P00106
+9780000000274	P00106
+9780000000275	P00106
+9780000000276	P00106
+9780000000277	P00106
+9780000000278	P00106
+9780000000279	P00106
+9780000000280	P00106
+9780000000281	P00106
+9780000000282	P00106
+9780000000283	P00106
+9780000000284	P00106
+9780000000285	P00106
+9780000000286	P00106
+9780000000287	P00106
+9780000000288	P00106
+9780000000289	P00106
+9780000000290	P00106
+9780000000291	P00106
+9780000000292	P00106
+9780000000293	P00106
+9780000000294	P00106
+9780000000295	P00106
+9780000000296	P00106
+9780000000297	P00106
+9780000000298	P00106
+9780000000299	P00106
+9780000000300	P00106
+9780000000301	P00106
+9780000000302	P00106
+9780000000303	P00106
+9780000000304	P00106
+9780000000305	P00106
+9780000000306	P00106
+9780000000307	P00106
+9780000000308	P00106
+9780000000309	P00106
+9780000000310	P00106
+9780000000311	P00106
+9780000000312	P00106
+9780000000313	P00106
+9780000000314	P00106
+9780000000315	P00106
+9780000000316	P00106
+9780000000317	P00106
+9780000000318	P00106
+9780000000319	P00106
+9780000000320	P00106
+9780000000321	P00106
+9780000000322	P00106
+9780000000323	P00106
+9780000000324	P00106
+9780000000325	P00106
+9780000000326	P00106
+9780000000327	P00106
+9780000000328	P00106
+9780000000329	P00106
+9780000000330	P00106
+9780000000331	P00106
+9780000000332	P00106
+9780000000333	P00106
+9780000000334	P00106
+9780000000335	P00106
+9780000000336	P00106
+9780000000337	P00106
+9780000000338	P00106
+9780000000339	P00106
+9780000000340	P00106
+9780000000341	P00106
+9780000000342	P00106
+9780000000343	P00106
+9780000000344	P00106
+9780000000345	P00106
+9780000000346	P00106
+9780000000347	P00106
+9780000000348	P00106
+9780000000349	P00106
+9780000000350	P00106
+9780000000351	P00106
+9780000000352	P00106
+9780000000353	P00106
+9780000000354	P00106
+9780000000355	P00106
+9780000000356	P00106
+9780000000357	P00106
+9780000000358	P00106
+9780000000359	P00106
+9780000000360	P00106
+9780000000361	P00106
+9780000000362	P00106
+9780000000363	P00106
+9780000000364	P00106
+9780000000365	P00106
+9780000000366	P00106
+9780000000367	P00106
+9780000000368	P00106
+9780000000369	P00106
+9780000000370	P00106
+9780000000371	P00106
+9780000000372	P00106
+9780000000373	P00106
+9780000000374	P00106
+9780000000375	P00106
+9780000000376	P00106
+9780000000377	P00106
+9780000000378	P00106
+9780000000379	P00106
+9780000000380	P00106
+9780000000381	P00106
+9780000000382	P00106
+9780000000383	P00106
+9780000000384	P00106
+9780000000385	P00106
+9780000000386	P00106
+9780000000387	P00106
+9780000000388	P00106
+9780000000389	P00106
+9780000000390	P00106
+9780000000391	P00106
+9780000000392	P00106
+9780000000393	P00106
+9780000000394	P00106
+9780000000395	P00106
+9780000000396	P00106
+9780000000397	P00106
+9780000000398	P00106
+9780000000399	P00106
+9780000000400	P00106
+9780000000401	P00106
+9780000000402	P00106
+9780000000403	P00106
+9780000000404	P00106
+9780000000405	P00106
+9780000000406	P00106
+9780000000407	P00106
+9780000000408	P00106
+9780000000409	P00106
+9780000000410	P00106
+9780000000411	P00106
+9780000000412	P00106
+9780000000413	P00106
+9780000000414	P00106
+9780000000415	P00106
+9780000000416	P00106
+9780000000417	P00106
+9780000000418	P00106
+9780000000419	P00106
+9780000000420	P00106
+9780000000421	P00106
+9780000000422	P00106
+9780000000423	P00106
+9780000000424	P00106
+9780000000425	P00106
+9780000000426	P00106
+9780000000427	P00106
+9780000000428	P00106
+9780000000429	P00106
+9780000000430	P00106
+9780000000431	P00106
+9780000000432	P00106
+9780000000433	P00106
+9780000000434	P00106
+9780000000435	P00106
+9780000000436	P00106
+9780000000437	P00106
+9780000000438	P00106
+9780000000439	P00106
+9780000000440	P00106
+9780000000441	P00106
+9780000000442	P00106
+9780000000443	P00106
+9780000000444	P00106
+9780000000445	P00106
+9780000000446	P00106
+9780000000447	P00106
+9780000000448	P00106
+9780000000449	P00106
+9780000000450	P00106
+9780000000451	P00106
+9780000000452	P00106
+9780000000453	P00106
+9780000000454	P00106
+9780000000455	P00106
+9780000000456	P00106
+9780000000457	P00106
+9780000000458	P00106
+9780000000459	P00106
+9780000000460	P00106
+9780000000461	P00106
+9780000000462	P00106
+9780000000463	P00106
+9780000000464	P00106
+9780000000465	P00106
+9780000000466	P00106
+9780000000467	P00106
+9780000000468	P00106
+9780000000469	P00106
+9780000000470	P00106
+9780000000471	P00106
+9780000000472	P00106
+9780000000473	P00106
+9780000000474	P00106
+9780000000475	P00106
+9780000000476	P00106
+9780000000477	P00106
+9780000000478	P00106
+9780000000479	P00106
+9780000000480	P00106
+9780000000481	P00106
+9780000000482	P00106
+9780000000483	P00106
+9780000000484	P00106
+9780000000485	P00106
+9780000000486	P00106
+9780000000487	P00106
+9780000000488	P00106
+9780000000489	P00106
+9780000000490	P00106
+9780000000491	P00106
+9780000000492	P00106
+9780000000493	P00106
+9780000000494	P00106
+9780000000495	P00106
+9780000000496	P00106
+9780000000497	P00106
+9780000000498	P00106
+9780000000499	P00106
+9780000000500	P00106
+9780000000501	P00106
+9780000000502	P00106
+9780000000503	P00106
+9780000000504	P00106
+9780000000505	P00106
+9780000000506	P00106
+9780000000507	P00106
+9780000000508	P00106
+9780000000509	P00106
+9780000000510	P00106
+9780000000511	P00106
+9780000000512	P00106
+9780000000513	P00106
+9780000000514	P00106
+9780000000515	P00106
+9780000000516	P00106
+9780000000517	P00106
+9780000000518	P00106
+9780000000519	P00106
+9780000000520	P00106
+9780000000521	P00106
+9780000000522	P00106
+9780000000523	P00106
+9780000000524	P00106
+9780000000525	P00106
+9780000000526	P00106
+9780000000527	P00106
+9780000000528	P00106
+9780000000529	P00106
+9780000000530	P00106
+9780000000531	P00106
+9780000000532	P00106
+9780000000533	P00106
+9780000000534	P00106
+9780000000535	P00106
+9780000000536	P00106
+9780000000537	P00106
+9780000000538	P00106
+9780000000539	P00106
+9780000000540	P00106
+9780000000541	P00106
+9780000000542	P00106
+9780000000543	P00106
+9780000000544	P00106
+9780000000545	P00106
+9780000000546	P00106
+9780000000547	P00106
+9780000000548	P00106
+9780000000549	P00106
+9780000000550	P00106
+9780000000551	P00106
+9780000000552	P00106
+9780000000553	P00106
+9780000000554	P00106
+9780000000555	P00106
+9780000000556	P00106
+9780000000557	P00106
+9780000000558	P00106
+9780000000559	P00106
+9780000000560	P00106
+9780000000561	P00106
+9780000000562	P00106
+9780000000563	P00106
+9780000000564	P00106
+9780000000565	P00106
+9780000000566	P00106
+9780000000567	P00106
+9780000000568	P00106
+9780000000569	P00106
+9780000000570	P00106
+9780000000571	P00106
+9780000000572	P00106
+9780000000573	P00106
+9780000000574	P00106
+9780000000575	P00106
+9780000000576	P00106
+9780000000577	P00106
+9780000000578	P00106
+9780000000579	P00106
+9780000000580	P00106
+9780000000581	P00106
+9780000000582	P00106
+9780000000583	P00106
+9780000000584	P00106
+9780000000585	P00106
+9780000000586	P00106
+9780000000587	P00106
+9780000000588	P00106
+9780000000589	P00106
+9780000000590	P00106
+9780000000591	P00106
+9780000000592	P00106
+9780000000593	P00106
+9780000000594	P00106
+9780000000595	P00106
+9780000000596	P00106
+9780000000597	P00106
+9780000000598	P00106
+9780000000599	P00106
+9780000000600	P00106
+9780000000601	P00106
+9780000000602	P00106
+9780000000603	P00106
+9780000000604	P00106
+9780000000605	P00106
+9780000000606	P00106
+9780000000607	P00106
+9780000000608	P00106
+9780000000609	P00106
+9780000000610	P00106
+9780000000611	P00106
+9780000000612	P00106
+9780000000613	P00106
+9780000000614	P00106
+9780000000615	P00106
+9780000000616	P00106
+9780000000617	P00106
+9780000000618	P00106
+9780000000619	P00106
+9780000000620	P00106
+9780000000621	P00106
+9780000000622	P00106
+9780000000623	P00106
+9780000000624	P00106
+9780000000625	P00106
+9780000000626	P00106
+9780000000627	P00106
+9780000000628	P00106
+9780000000629	P00106
+9780000000630	P00106
+9780000000631	P00106
+9780000000632	P00106
+9780000000633	P00106
+9780000000634	P00106
+9780000000635	P00106
+9780000000636	P00106
+9780000000637	P00106
+9780000000638	P00106
+9780000000639	P00106
+9780000000640	P00106
+9780000000641	P00106
+9780000000642	P00106
+9780000000643	P00106
+9780000000644	P00106
+9780000000645	P00106
+9780000000646	P00106
+9780000000647	P00106
+9780000000648	P00106
+9780000000649	P00106
+9780000000650	P00106
+9780000000651	P00106
+9780000000652	P00106
+9780000000653	P00106
+9780000000654	P00106
+9780000000655	P00106
+9780000000656	P00106
+9780000000657	P00106
+9780000000658	P00106
+9780000000659	P00106
+9780000000660	P00106
+9780000000661	P00106
+9780000000662	P00106
+9780000000663	P00106
+9780000000664	P00106
+9780000000665	P00106
+9780000000666	P00106
+9780000000667	P00106
+9780000000668	P00106
+9780000000669	P00106
+9780000000670	P00106
+9780000000671	P00106
+9780000000672	P00106
+9780000000673	P00106
+9780000000674	P00106
+9780000000675	P00106
+9780000000676	P00106
+9780000000677	P00106
+9780000000678	P00106
+9780000000679	P00106
+9780000000680	P00106
+9780000000681	P00106
+9780000000682	P00106
+9780000000683	P00106
+9780000000684	P00106
+9780000000685	P00106
+9780000000686	P00106
+9780000000687	P00106
+9780000000688	P00106
+9780000000689	P00106
+9780000000690	P00106
+9780000000691	P00106
+9780000000692	P00106
+9780000000693	P00106
+9780000000694	P00106
+9780000000695	P00106
+9780000000696	P00106
+9780000000697	P00106
+9780000000698	P00106
+9780000000699	P00106
+9780000000700	P00106
+9780000000701	P00106
+9780000000702	P00106
+9780000000703	P00106
+9780000000704	P00106
+9780000000705	P00106
+9780000000706	P00106
+9780000000707	P00106
+9780000000708	P00106
+9780000000709	P00106
+9780000000710	P00106
+9780000000711	P00106
+9780000000712	P00106
+9780000000713	P00106
+9780000000714	P00106
+9780000000715	P00106
+9780000000716	P00106
+9780000000717	P00106
+9780000000718	P00106
+9780000000719	P00106
+9780000000720	P00106
+9780000000721	P00106
+9780000000722	P00106
+9780000000723	P00106
+9780000000724	P00106
+9780000000725	P00106
+9780000000726	P00106
+9780000000727	P00106
+9780000000728	P00106
+9780000000729	P00106
+9780000000730	P00106
+9780000000731	P00106
+9780000000732	P00106
+9780000000733	P00106
+9780000000734	P00106
+9780000000735	P00106
+9780000000736	P00106
+9780000000737	P00106
+9780000000738	P00106
+9780000000739	P00106
+9780000000740	P00106
+9780000000741	P00106
+9780000000742	P00106
+9780000000743	P00106
+9780000000744	P00106
+9780000000745	P00106
+9780000000746	P00106
+9780000000747	P00106
+9780000000748	P00106
+9780000000749	P00106
+9780000000750	P00106
+9780000000751	P00106
+9780000000752	P00106
+9780000000753	P00106
+9780000000754	P00106
+9780000000755	P00106
+9780000000756	P00106
+9780000000757	P00106
+9780000000758	P00106
+9780000000759	P00106
+9780000000760	P00106
+9780000000761	P00106
+9780000000762	P00106
+9780000000763	P00106
+9780000000764	P00106
+9780000000765	P00106
+9780000000766	P00106
+9780000000767	P00106
+9780000000768	P00106
+9780000000769	P00106
+9780000000770	P00106
+9780000000771	P00106
+9780000000772	P00106
+9780000000773	P00106
+9780000000774	P00106
+9780000000775	P00106
+9780000000776	P00106
+9780000000777	P00106
+9780000000778	P00106
+9780000000779	P00106
+9780000000780	P00106
+9780000000781	P00106
+9780000000782	P00106
+9780000000783	P00106
+9780000000784	P00106
+9780000000785	P00106
+9780000000786	P00106
+9780000000787	P00106
+9780000000788	P00106
+9780000000789	P00106
+9780000000790	P00106
+9780000000791	P00106
+9780000000792	P00106
+9780000000793	P00106
+9780000000794	P00106
+9780000000795	P00106
+9780000000796	P00106
+9780000000797	P00106
+9780000000798	P00106
+9780000000799	P00106
+9780000000800	P00106
+9780000000801	P00106
+9780000000802	P00106
+9780000000803	P00106
+9780000000804	P00106
+9780000000805	P00106
+9780000000806	P00106
+9780000000807	P00106
+9780000000808	P00106
+9780000000809	P00106
+9780000000810	P00106
+9780000000811	P00106
+9780000000812	P00106
+9780000000813	P00106
+9780000000814	P00106
+9780000000815	P00106
+9780000000816	P00106
+9780000000817	P00106
+9780000000818	P00106
+9780000000819	P00106
+9780000000820	P00106
+9780000000821	P00106
+9780000000822	P00106
+9780000000823	P00106
+9780000000824	P00106
+9780000000825	P00106
+9780000000826	P00106
+9780000000827	P00106
+9780000000828	P00106
+9780000000829	P00106
+9780000000830	P00106
+9780000000831	P00106
+9780000000832	P00106
+9780000000833	P00106
+9780000000834	P00106
+9780000000835	P00106
+9780000000836	P00106
+9780000000837	P00106
+9780000000838	P00106
+9780000000839	P00106
+9780000000840	P00106
+9780000000841	P00106
+9780000000842	P00106
+9780000000843	P00106
+9780000000844	P00106
+9780000000845	P00106
+9780000000846	P00106
+9780000000847	P00106
+9780000000848	P00106
+9780000000849	P00106
+9780000000850	P00106
+9780000000851	P00106
+9780000000852	P00106
+9780000000853	P00106
+9780000000854	P00106
+9780000000855	P00106
+9780000000856	P00106
+9780000000857	P00106
+9780000000858	P00106
+9780000000859	P00106
+9780000000860	P00106
+9780000000861	P00106
+9780000000862	P00106
+9780000000863	P00106
+9780000000864	P00106
+9780000000865	P00106
+9780000000866	P00106
+9780000000867	P00106
+9780000000868	P00106
+9780000000869	P00106
+9780000000870	P00106
+9780000000871	P00106
+9780000000872	P00106
+9780000000873	P00106
+9780000000874	P00106
+9780000000875	P00106
+9780000000876	P00106
+9780000000877	P00106
+9780000000878	P00106
+9780000000879	P00106
+9780000000880	P00106
+9780000000881	P00106
+9780000000882	P00106
+9780000000883	P00106
+9780000000884	P00106
+9780000000885	P00106
+9780000000886	P00106
+9780000000887	P00106
+9780000000888	P00106
+9780000000889	P00106
+9780000000890	P00106
+9780000000891	P00106
+9780000000892	P00106
+9780000000893	P00106
+9780000000894	P00106
+9780000000895	P00106
+9780000000896	P00106
+9780000000897	P00106
+9780000000898	P00106
+9780000000899	P00106
+9780000000900	P00106
+9780000000901	P00106
+9780000000902	P00106
+9780000000903	P00106
+9780000000904	P00106
+9780000000905	P00106
+9780000000906	P00106
+9780000000907	P00106
+9780000000908	P00106
+9780000000909	P00106
+9780000000910	P00106
+9780000000911	P00106
+9780000000912	P00106
+9780000000913	P00106
+9780000000914	P00106
+9780000000915	P00106
+9780000000916	P00106
+9780000000917	P00106
+9780000000918	P00106
+9780000000919	P00106
+9780000000920	P00106
+9780000000921	P00106
+9780000000922	P00106
+9780000000923	P00106
+9780000000924	P00106
+9780000000925	P00106
+9780000000926	P00106
+9780000000927	P00106
+9780000000928	P00106
+9780000000929	P00106
+9780000000930	P00106
+9780000000931	P00106
+9780000000932	P00106
+9780000000933	P00106
+9780000000934	P00106
+9780000000935	P00106
+9780000000936	P00106
+9780000000937	P00106
+9780000000938	P00106
+9780000000939	P00106
+9780000000940	P00106
+9780000000941	P00106
+9780000000942	P00106
+9780000000943	P00106
+9780000000944	P00106
+9780000000945	P00106
+9780000000946	P00106
+9780000000947	P00106
+9780000000948	P00106
+9780000000949	P00106
+9780000000950	P00106
+9780000000951	P00106
+9780000000952	P00106
+9780000000953	P00106
+9780000000954	P00106
+9780000000955	P00106
+9780000000956	P00106
+9780000000957	P00106
+9780000000958	P00106
+9780000000959	P00106
+9780000000960	P00106
+9780000000961	P00106
+9780000000962	P00106
+9780000000963	P00106
+9780000000964	P00106
+9780000000965	P00106
+9780000000966	P00106
+9780000000967	P00106
+9780000000968	P00106
+9780000000969	P00106
+9780000000970	P00106
+9780000000971	P00106
+9780000000972	P00106
+9780000000973	P00106
+9780000000974	P00106
+9780000000975	P00106
+9780000000976	P00106
+9780000000977	P00106
+9780000000978	P00106
+9780000000979	P00106
+9780000000980	P00106
+9780000000981	P00106
+9780000000982	P00106
+9780000000983	P00106
+9780000000984	P00106
+9780000000985	P00106
+9780000000986	P00106
+9780000000987	P00106
+9780000000988	P00106
+9780000000989	P00106
+9780000000990	P00106
+9780000000991	P00106
+9780000000992	P00106
+9780000000993	P00106
+9780000000994	P00106
+9780000000995	P00106
+9780000000996	P00106
+9780000000997	P00106
+9780000000998	P00106
+9780000000999	P00106
+9780000001000	P00106
+\.
+
+
+--
+-- TOC entry 5011 (class 0 OID 18506)
+-- Dependencies: 220
+-- Data for Name: Karyawan; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Karyawan" (id_karyawan, nama_depan, nama_belakang, jenis_kelamin, email, jabatan, alamat_nama_jalan, kode_pos) FROM stdin;
+K00001	Zahra	Susanto	L	k1@ex.id	Kasir	Jl. Bougenville No. 196	00001
+K00002	Hendra	Susanto	L	k2@ex.id	Manajer	Jl. Kenanga No. 27	00002
+K00003	Tono	Wulandari	P	k3@ex.id	Manajer	Jl. Mawar No. 24	00003
+K00004	Citra	Wijaya	L	k4@ex.id	Manajer	Jl. Flamboyan No. 160	00004
+K00005	Hendra	Amalia	P	k5@ex.id	IT Support	Jl. Melati No. 164	00005
+K00006	Nanda	Nurhaliza	P	k6@ex.id	Marketing	Jl. Anggrek No. 152	00006
+K00007	Umi	Wijayanto	P	k7@ex.id	Keuangan	Jl. Melati No. 190	00007
+K00008	Joko	Khalimah	P	k8@ex.id	Admin	Jl. Dahlia No. 45	00008
+K00009	Eko	Anggraini	L	k9@ex.id	IT Support	Jl. Trembesi No. 82	00009
+K00010	Qori	Nurhaliza	P	k10@ex.id	Supervisor	Jl. Kenanga No. 152	00010
+K00011	Gita	Kurniawati	P	k11@ex.id	Gudang	Jl. Bougenville No. 160	00011
+K00012	Zahra	Ramadhan	P	k12@ex.id	HRD	Jl. Kenanga No. 122	00012
+K00013	Vina	Ramadhan	P	k13@ex.id	HRD	Jl. Flamboyan No. 45	00013
+K00014	Fajar	Anggraini	L	k14@ex.id	IT Support	Jl. Dahlia No. 72	00014
+K00015	Gita	Wulandari	L	k15@ex.id	Staff	Jl. Trembesi No. 20	00015
+K00016	Eko	Putri	P	k16@ex.id	Kasir	Jl. Melati No. 42	00016
+K00017	Umi	Firmansyah	L	k17@ex.id	Keuangan	Jl. Melati No. 75	00017
+K00018	Oka	Fitriani	P	k18@ex.id	Admin	Jl. Sakura No. 53	00018
+K00019	Tono	Wijaya	L	k19@ex.id	Admin	Jl. Anggrek No. 48	00019
+K00020	Fajar	Khalimah	P	k20@ex.id	Keuangan	Jl. Sakura No. 162	00020
+K00021	Putri	Susanto	P	k21@ex.id	Gudang	Jl. Sakura No. 99	00021
+K00022	Joko	Wijayanto	P	k22@ex.id	Admin	Jl. Flamboyan No. 33	00022
+K00023	Rian	Hadi	P	k23@ex.id	HRD	Jl. Anggrek No. 60	00023
+K00024	Wahyu	Wijaya	P	k24@ex.id	Gudang	Jl. Melati No. 112	00024
+K00025	Karin	Hidayat	L	k25@ex.id	Supervisor	Jl. Dahlia No. 37	00025
+K00026	Putri	Santoso	L	k26@ex.id	HRD	Jl. Jati No. 13	00026
+K00027	Fajar	Sari	L	k27@ex.id	Gudang	Jl. Dahlia No. 168	00027
+K00028	Fajar	Santoso	L	k28@ex.id	Keuangan	Jl. Anggrek No. 54	00028
+K00029	Maya	Wijaya	L	k29@ex.id	Supervisor	Jl. Anggrek No. 92	00029
+K00030	Eko	Santoso	L	k30@ex.id	Manajer	Jl. Kenanga No. 44	00030
+K00031	Vina	Khalimah	L	k31@ex.id	Gudang	Jl. Flamboyan No. 84	00031
+K00032	Putri	Amalia	L	k32@ex.id	Supervisor	Jl. Kenanga No. 39	00032
+K00033	Rian	Pratama	P	k33@ex.id	Supervisor	Jl. Trembesi No. 39	00033
+K00034	Vina	Khalimah	L	k34@ex.id	IT Support	Jl. Dahlia No. 43	00034
+K00035	Wahyu	Putri	L	k35@ex.id	Staff	Jl. Trembesi No. 89	00035
+K00036	Qori	Saputra	L	k36@ex.id	Admin	Jl. Dahlia No. 86	00036
+K00037	Vina	Saputra	L	k37@ex.id	Supervisor	Jl. Melati No. 117	00037
+K00038	Yusuf	Rahmawati	L	k38@ex.id	Keuangan	Jl. Kenanga No. 144	00038
+K00039	Indah	Permata	P	k39@ex.id	Supervisor	Jl. Anggrek No. 36	00039
+K00040	Fajar	Permata	P	k40@ex.id	Marketing	Jl. Dahlia No. 139	00040
+K00041	Joko	Ramadhan	P	k41@ex.id	HRD	Jl. Kenanga No. 29	00041
+K00042	Siti	Wijaya	P	k42@ex.id	Staff	Jl. Dahlia No. 149	00042
+K00043	Maya	Lestari	L	k43@ex.id	Supervisor	Jl. Trembesi No. 167	00043
+K00044	Zahra	Kurniawati	L	k44@ex.id	Manajer	Jl. Anggrek No. 25	00044
+K00045	Qori	Amalia	P	k45@ex.id	IT Support	Jl. Sakura No. 117	00045
+K00046	Citra	Wijaya	P	k46@ex.id	HRD	Jl. Flamboyan No. 84	00046
+K00047	Joko	Nurhaliza	L	k47@ex.id	Keuangan	Jl. Dahlia No. 165	00047
+K00048	Fajar	Rahmawati	P	k48@ex.id	Marketing	Jl. Sakura No. 81	00048
+K00049	Indah	Susanto	L	k49@ex.id	Kasir	Jl. Flamboyan No. 121	00049
+K00050	Fajar	Kurniawati	P	k50@ex.id	HRD	Jl. Jati No. 8	00050
+K00051	Siti	Ramadhan	L	k51@ex.id	HRD	Jl. Jati No. 93	00051
+K00052	Tono	Ramadhan	P	k52@ex.id	Gudang	Jl. Melati No. 158	00052
+K00053	Dewi	Kurniawati	L	k53@ex.id	HRD	Jl. Mawar No. 154	00053
+K00054	Lukman	Nurhaliza	L	k54@ex.id	Manajer	Jl. Anggrek No. 140	00054
+K00055	Rian	Wulandari	L	k55@ex.id	HRD	Jl. Dahlia No. 125	00055
+K00056	Nanda	Ramadhan	P	k56@ex.id	IT Support	Jl. Dahlia No. 187	00056
+K00057	Qori	Nurhaliza	P	k57@ex.id	Marketing	Jl. Bougenville No. 16	00057
+K00058	Vina	Pratama	L	k58@ex.id	IT Support	Jl. Trembesi No. 60	00058
+K00059	Umi	Putri	L	k59@ex.id	Marketing	Jl. Trembesi No. 21	00059
+K00060	Maya	Nurhaliza	P	k60@ex.id	Staff	Jl. Kenanga No. 188	00060
+K00061	Fajar	Nurhaliza	L	k61@ex.id	Staff	Jl. Melati No. 83	00061
+K00062	Karin	Lestari	P	k62@ex.id	IT Support	Jl. Mawar No. 189	00062
+K00063	Joko	Susanto	L	k63@ex.id	HRD	Jl. Melati No. 96	00063
+K00064	Joko	Pratama	P	k64@ex.id	Marketing	Jl. Dahlia No. 146	00064
+K00065	Gita	Khalimah	P	k65@ex.id	Keuangan	Jl. Dahlia No. 134	00065
+K00066	Siti	Khalimah	P	k66@ex.id	Supervisor	Jl. Anggrek No. 130	00066
+K00067	Fajar	Wulandari	P	k67@ex.id	Supervisor	Jl. Bougenville No. 24	00067
+K00068	Zahra	Pratama	L	k68@ex.id	Staff	Jl. Melati No. 2	00068
+K00069	Oka	Wijaya	P	k69@ex.id	Supervisor	Jl. Trembesi No. 111	00069
+K00070	Yusuf	Prasetyo	P	k70@ex.id	Supervisor	Jl. Jati No. 88	00070
+K00071	Oka	Maulana	L	k71@ex.id	Marketing	Jl. Sakura No. 45	00071
+K00072	Indah	Hidayat	L	k72@ex.id	Staff	Jl. Sakura No. 117	00072
+K00073	Indah	Khalimah	L	k73@ex.id	Gudang	Jl. Sakura No. 59	00073
+K00074	Zahra	Saputra	P	k74@ex.id	Gudang	Jl. Anggrek No. 183	00074
+K00075	Fajar	Hidayat	L	k75@ex.id	Gudang	Jl. Flamboyan No. 177	00075
+K00076	Budi	Amalia	L	k76@ex.id	HRD	Jl. Bougenville No. 87	00076
+K00077	Budi	Aulia	P	k77@ex.id	IT Support	Jl. Sakura No. 172	00077
+K00078	Hendra	Khalimah	P	k78@ex.id	Manajer	Jl. Jati No. 81	00078
+K00079	Siti	Pratama	P	k79@ex.id	Manajer	Jl. Melati No. 136	00079
+K00080	Lukman	Putri	L	k80@ex.id	Marketing	Jl. Trembesi No. 121	00080
+K00081	Rian	Putri	L	k81@ex.id	Kasir	Jl. Flamboyan No. 127	00081
+K00082	Joko	Putri	P	k82@ex.id	HRD	Jl. Sakura No. 2	00082
+K00083	Rian	Putri	P	k83@ex.id	IT Support	Jl. Sakura No. 177	00083
+K00084	Tono	Pratama	P	k84@ex.id	Manajer	Jl. Dahlia No. 77	00084
+K00085	Tono	Anggraini	P	k85@ex.id	Gudang	Jl. Melati No. 43	00085
+K00086	Indah	Santoso	L	k86@ex.id	IT Support	Jl. Melati No. 138	00086
+K00087	Fajar	Sari	P	k87@ex.id	Kasir	Jl. Sakura No. 145	00087
+K00088	Vina	Khalimah	L	k88@ex.id	Gudang	Jl. Anggrek No. 93	00088
+K00089	Umi	Wijaya	P	k89@ex.id	Gudang	Jl. Sakura No. 141	00089
+K00090	Wahyu	Fitriani	P	k90@ex.id	Admin	Jl. Dahlia No. 38	00090
+K00091	Umi	Rahmawati	P	k91@ex.id	HRD	Jl. Sakura No. 18	00091
+K00092	Tono	Wijayanto	P	k92@ex.id	HRD	Jl. Sakura No. 66	00092
+K00093	Qori	Susanto	L	k93@ex.id	HRD	Jl. Flamboyan No. 20	00093
+K00094	Rian	Firmansyah	L	k94@ex.id	Gudang	Jl. Jati No. 199	00094
+K00095	Wahyu	Ramadhan	P	k95@ex.id	Marketing	Jl. Dahlia No. 138	00095
+K00096	Yusuf	Wijayanto	P	k96@ex.id	Gudang	Jl. Sakura No. 33	00096
+K00097	Lukman	Rahmawati	P	k97@ex.id	Admin	Jl. Bougenville No. 104	00097
+K00098	Fajar	Firmansyah	L	k98@ex.id	HRD	Jl. Sakura No. 198	00098
+K00099	Wahyu	Khalimah	P	k99@ex.id	Marketing	Jl. Melati No. 46	00099
+K00100	Karin	Rahmawati	L	k100@ex.id	Manajer	Jl. Mawar No. 42	00100
+K00101	Andi	Susanto	P	k101@ex.id	Marketing	Jl. Melati No. 122	00101
+K00102	Tono	Susanto	L	k102@ex.id	Manajer	Jl. Sakura No. 153	00102
+K00103	Indah	Hadi	L	k103@ex.id	Kasir	Jl. Melati No. 189	00103
+K00104	Budi	Prasetyo	L	k104@ex.id	Manajer	Jl. Trembesi No. 187	00104
+K00105	Eko	Rahmawati	L	k105@ex.id	Marketing	Jl. Anggrek No. 38	00105
+K00106	Citra	Susanto	P	k106@ex.id	Supervisor	Jl. Jati No. 41	00106
+K00107	Wahyu	Rahmawati	L	k107@ex.id	Supervisor	Jl. Bougenville No. 72	00107
+K00108	Vina	Putri	L	k108@ex.id	Kasir	Jl. Jati No. 121	00108
+K00109	Vina	Ramadhan	P	k109@ex.id	Supervisor	Jl. Anggrek No. 29	00109
+K00110	Vina	Putri	L	k110@ex.id	HRD	Jl. Melati No. 87	00110
+K00111	Rian	Kurniawati	P	k111@ex.id	Admin	Jl. Dahlia No. 100	00111
+K00112	Hendra	Permata	P	k112@ex.id	Admin	Jl. Melati No. 131	00112
+K00113	Umi	Santoso	L	k113@ex.id	Kasir	Jl. Dahlia No. 141	00113
+K00114	Nanda	Hidayat	P	k114@ex.id	Admin	Jl. Bougenville No. 200	00114
+K00115	Tono	Wijayanto	P	k115@ex.id	HRD	Jl. Sakura No. 200	00115
+K00116	Karin	Ramadhan	P	k116@ex.id	Keuangan	Jl. Sakura No. 104	00116
+K00117	Joko	Lestari	P	k117@ex.id	Manajer	Jl. Melati No. 17	00117
+K00118	Siti	Saputra	L	k118@ex.id	Marketing	Jl. Jati No. 44	00118
+K00119	Dewi	Santoso	L	k119@ex.id	IT Support	Jl. Dahlia No. 93	00119
+K00120	Karin	Khalimah	L	k120@ex.id	Admin	Jl. Kenanga No. 147	00120
+K00121	Putri	Aulia	L	k121@ex.id	Gudang	Jl. Flamboyan No. 120	00121
+K00122	Nanda	Firmansyah	P	k122@ex.id	Gudang	Jl. Sakura No. 55	00122
+K00123	Nanda	Fitriani	P	k123@ex.id	Keuangan	Jl. Flamboyan No. 117	00123
+K00124	Qori	Hadi	P	k124@ex.id	Marketing	Jl. Trembesi No. 53	00124
+K00125	Maya	Khalimah	P	k125@ex.id	HRD	Jl. Kenanga No. 39	00125
+K00126	Nanda	Sari	P	k126@ex.id	HRD	Jl. Sakura No. 95	00126
+K00127	Eko	Sari	P	k127@ex.id	Manajer	Jl. Bougenville No. 6	00127
+K00128	Karin	Sari	L	k128@ex.id	HRD	Jl. Kenanga No. 43	00128
+K00129	Karin	Ramadhan	L	k129@ex.id	Keuangan	Jl. Flamboyan No. 125	00129
+K00130	Oka	Putri	P	k130@ex.id	Marketing	Jl. Flamboyan No. 146	00130
+K00131	Indah	Lestari	P	k131@ex.id	Supervisor	Jl. Kenanga No. 195	00131
+K00132	Wahyu	Prasetyo	L	k132@ex.id	Gudang	Jl. Bougenville No. 174	00132
+K00133	Lukman	Wijayanto	L	k133@ex.id	Staff	Jl. Sakura No. 154	00133
+K00134	Eko	Wijaya	L	k134@ex.id	HRD	Jl. Jati No. 52	00134
+K00135	Indah	Hadi	P	k135@ex.id	Supervisor	Jl. Bougenville No. 117	00135
+K00136	Budi	Wijayanto	P	k136@ex.id	Admin	Jl. Anggrek No. 119	00136
+K00137	Joko	Khalimah	L	k137@ex.id	Gudang	Jl. Anggrek No. 86	00137
+K00138	Eko	Santoso	P	k138@ex.id	Supervisor	Jl. Melati No. 130	00138
+K00139	Oka	Sari	L	k139@ex.id	Admin	Jl. Kenanga No. 118	00139
+K00140	Tono	Lestari	P	k140@ex.id	Manajer	Jl. Dahlia No. 95	00140
+K00141	Joko	Saputra	L	k141@ex.id	Manajer	Jl. Kenanga No. 125	00141
+K00142	Qori	Prasetyo	L	k142@ex.id	Gudang	Jl. Melati No. 39	00142
+K00143	Maya	Wulandari	L	k143@ex.id	Gudang	Jl. Dahlia No. 31	00143
+K00144	Oka	Susanto	L	k144@ex.id	Keuangan	Jl. Kenanga No. 196	00144
+K00145	Citra	Lestari	P	k145@ex.id	IT Support	Jl. Mawar No. 144	00145
+K00146	Andi	Hidayat	P	k146@ex.id	Keuangan	Jl. Flamboyan No. 174	00146
+K00147	Vina	Kurniawati	P	k147@ex.id	Gudang	Jl. Dahlia No. 140	00147
+K00148	Nanda	Maulana	P	k148@ex.id	Keuangan	Jl. Dahlia No. 24	00148
+K00149	Qori	Wijayanto	L	k149@ex.id	Manajer	Jl. Anggrek No. 9	00149
+K00150	Nanda	Rahmawati	L	k150@ex.id	HRD	Jl. Anggrek No. 94	00150
+K00151	Qori	Maulana	P	k151@ex.id	Supervisor	Jl. Melati No. 30	00151
+K00152	Eko	Fitriani	L	k152@ex.id	Gudang	Jl. Sakura No. 182	00152
+K00153	Umi	Wulandari	L	k153@ex.id	Gudang	Jl. Kenanga No. 76	00153
+K00459	Wahyu	Lestari	P	k459@ex.id	Admin	Jl. Mawar No. 172	00459
+K00154	Putri	Lestari	P	k154@ex.id	Manajer	Jl. Bougenville No. 131	00154
+K00155	Fajar	Permata	L	k155@ex.id	Keuangan	Jl. Trembesi No. 176	00155
+K00156	Qori	Hidayat	P	k156@ex.id	Admin	Jl. Flamboyan No. 131	00156
+K00157	Karin	Hidayat	L	k157@ex.id	Supervisor	Jl. Mawar No. 81	00157
+K00158	Eko	Nurhaliza	P	k158@ex.id	IT Support	Jl. Sakura No. 20	00158
+K00159	Dewi	Nurhaliza	L	k159@ex.id	Supervisor	Jl. Trembesi No. 142	00159
+K00160	Wahyu	Hadi	P	k160@ex.id	HRD	Jl. Sakura No. 38	00160
+K00161	Indah	Firmansyah	L	k161@ex.id	Manajer	Jl. Trembesi No. 76	00161
+K00162	Eko	Firmansyah	P	k162@ex.id	HRD	Jl. Anggrek No. 101	00162
+K00163	Tono	Hadi	L	k163@ex.id	Supervisor	Jl. Dahlia No. 195	00163
+K00164	Fajar	Lestari	P	k164@ex.id	Keuangan	Jl. Anggrek No. 185	00164
+K00165	Wahyu	Wijaya	P	k165@ex.id	Keuangan	Jl. Bougenville No. 137	00165
+K00166	Umi	Saputra	L	k166@ex.id	Manajer	Jl. Trembesi No. 14	00166
+K00167	Hendra	Santoso	L	k167@ex.id	Manajer	Jl. Trembesi No. 109	00167
+K00168	Rian	Wulandari	L	k168@ex.id	HRD	Jl. Dahlia No. 144	00168
+K00169	Putri	Susanto	P	k169@ex.id	IT Support	Jl. Melati No. 126	00169
+K00170	Indah	Nurhaliza	P	k170@ex.id	Marketing	Jl. Bougenville No. 132	00170
+K00171	Vina	Wijaya	P	k171@ex.id	Admin	Jl. Melati No. 90	00171
+K00172	Budi	Amalia	L	k172@ex.id	Keuangan	Jl. Dahlia No. 34	00172
+K00173	Fajar	Ramadhan	L	k173@ex.id	Admin	Jl. Mawar No. 100	00173
+K00174	Joko	Sari	L	k174@ex.id	Gudang	Jl. Mawar No. 53	00174
+K00175	Rian	Anggraini	P	k175@ex.id	Supervisor	Jl. Flamboyan No. 2	00175
+K00176	Rian	Lestari	L	k176@ex.id	Staff	Jl. Bougenville No. 15	00176
+K00177	Oka	Wijaya	P	k177@ex.id	IT Support	Jl. Melati No. 190	00177
+K00178	Gita	Ramadhan	P	k178@ex.id	Keuangan	Jl. Melati No. 141	00178
+K00179	Citra	Fitriani	P	k179@ex.id	HRD	Jl. Melati No. 185	00179
+K00180	Dewi	Hadi	L	k180@ex.id	Admin	Jl. Sakura No. 143	00180
+K00181	Nanda	Rahmawati	P	k181@ex.id	Admin	Jl. Bougenville No. 112	00181
+K00182	Lukman	Hidayat	P	k182@ex.id	Staff	Jl. Bougenville No. 150	00182
+K00183	Gita	Santoso	P	k183@ex.id	Keuangan	Jl. Trembesi No. 101	00183
+K00184	Siti	Hidayat	P	k184@ex.id	Admin	Jl. Bougenville No. 53	00184
+K00185	Wahyu	Anggraini	P	k185@ex.id	Gudang	Jl. Melati No. 109	00185
+K00186	Indah	Susanto	L	k186@ex.id	Kasir	Jl. Dahlia No. 62	00186
+K00187	Rian	Saputra	P	k187@ex.id	Gudang	Jl. Trembesi No. 81	00187
+K00188	Yusuf	Wijayanto	P	k188@ex.id	HRD	Jl. Melati No. 47	00188
+K00189	Andi	Pratama	L	k189@ex.id	Marketing	Jl. Kenanga No. 194	00189
+K00190	Joko	Firmansyah	L	k190@ex.id	IT Support	Jl. Bougenville No. 57	00190
+K00191	Wahyu	Aulia	P	k191@ex.id	Supervisor	Jl. Dahlia No. 12	00191
+K00192	Indah	Wijayanto	L	k192@ex.id	IT Support	Jl. Sakura No. 78	00192
+K00193	Maya	Hidayat	L	k193@ex.id	Admin	Jl. Sakura No. 116	00193
+K00194	Tono	Hidayat	P	k194@ex.id	Keuangan	Jl. Flamboyan No. 54	00194
+K00195	Siti	Sari	L	k195@ex.id	Marketing	Jl. Anggrek No. 58	00195
+K00196	Lukman	Khalimah	L	k196@ex.id	IT Support	Jl. Kenanga No. 47	00196
+K00197	Rian	Nurhaliza	L	k197@ex.id	Manajer	Jl. Anggrek No. 195	00197
+K00198	Eko	Prasetyo	L	k198@ex.id	Gudang	Jl. Anggrek No. 47	00198
+K00199	Lukman	Saputra	L	k199@ex.id	Admin	Jl. Trembesi No. 186	00199
+K00200	Qori	Anggraini	L	k200@ex.id	Kasir	Jl. Dahlia No. 173	00200
+K00201	Joko	Putri	L	k201@ex.id	Admin	Jl. Melati No. 178	00201
+K00202	Citra	Susanto	P	k202@ex.id	Keuangan	Jl. Anggrek No. 123	00202
+K00203	Fajar	Prasetyo	L	k203@ex.id	Kasir	Jl. Flamboyan No. 65	00203
+K00204	Siti	Prasetyo	L	k204@ex.id	Marketing	Jl. Melati No. 160	00204
+K00205	Gita	Kurniawati	P	k205@ex.id	Marketing	Jl. Sakura No. 94	00205
+K00206	Maya	Fitriani	P	k206@ex.id	Kasir	Jl. Trembesi No. 55	00206
+K00207	Lukman	Ramadhan	L	k207@ex.id	Manajer	Jl. Anggrek No. 79	00207
+K00208	Hendra	Santoso	P	k208@ex.id	Staff	Jl. Jati No. 62	00208
+K00209	Eko	Hadi	P	k209@ex.id	Admin	Jl. Melati No. 121	00209
+K00210	Joko	Kurniawati	L	k210@ex.id	Admin	Jl. Bougenville No. 65	00210
+K00211	Karin	Lestari	L	k211@ex.id	Marketing	Jl. Melati No. 23	00211
+K00212	Dewi	Wijayanto	L	k212@ex.id	IT Support	Jl. Kenanga No. 73	00212
+K00213	Rian	Santoso	P	k213@ex.id	Manajer	Jl. Melati No. 178	00213
+K00214	Putri	Khalimah	P	k214@ex.id	IT Support	Jl. Jati No. 126	00214
+K00215	Citra	Rahmawati	P	k215@ex.id	Supervisor	Jl. Anggrek No. 197	00215
+K00216	Hendra	Anggraini	L	k216@ex.id	Keuangan	Jl. Trembesi No. 91	00216
+K00217	Dewi	Hidayat	L	k217@ex.id	HRD	Jl. Kenanga No. 109	00217
+K00218	Maya	Hadi	P	k218@ex.id	Supervisor	Jl. Trembesi No. 20	00218
+K00219	Rian	Hidayat	L	k219@ex.id	Marketing	Jl. Kenanga No. 184	00219
+K00220	Qori	Wijayanto	L	k220@ex.id	Keuangan	Jl. Mawar No. 200	00220
+K00221	Indah	Santoso	L	k221@ex.id	Staff	Jl. Dahlia No. 123	00221
+K00222	Tono	Prasetyo	L	k222@ex.id	Keuangan	Jl. Anggrek No. 60	00222
+K00223	Maya	Maulana	L	k223@ex.id	Admin	Jl. Jati No. 92	00223
+K00224	Citra	Wijayanto	L	k224@ex.id	HRD	Jl. Trembesi No. 138	00224
+K00225	Lukman	Saputra	P	k225@ex.id	HRD	Jl. Mawar No. 34	00225
+K00226	Eko	Permata	P	k226@ex.id	Gudang	Jl. Anggrek No. 3	00226
+K00227	Fajar	Nurhaliza	P	k227@ex.id	Keuangan	Jl. Bougenville No. 46	00227
+K00228	Joko	Kurniawati	L	k228@ex.id	Supervisor	Jl. Jati No. 119	00228
+K00229	Nanda	Wijaya	L	k229@ex.id	Manajer	Jl. Flamboyan No. 146	00229
+K00230	Siti	Susanto	L	k230@ex.id	Marketing	Jl. Jati No. 178	00230
+K00231	Gita	Nurhaliza	P	k231@ex.id	Manajer	Jl. Dahlia No. 191	00231
+K00232	Hendra	Rahmawati	L	k232@ex.id	Staff	Jl. Sakura No. 50	00232
+K00233	Hendra	Amalia	P	k233@ex.id	Marketing	Jl. Bougenville No. 27	00233
+K00234	Maya	Anggraini	L	k234@ex.id	HRD	Jl. Sakura No. 72	00234
+K00235	Lukman	Sari	P	k235@ex.id	HRD	Jl. Bougenville No. 161	00235
+K00236	Oka	Susanto	L	k236@ex.id	Marketing	Jl. Melati No. 155	00236
+K00237	Budi	Anggraini	P	k237@ex.id	Gudang	Jl. Bougenville No. 198	00237
+K00238	Gita	Hadi	P	k238@ex.id	IT Support	Jl. Dahlia No. 59	00238
+K00239	Putri	Putri	P	k239@ex.id	Marketing	Jl. Jati No. 192	00239
+K00240	Fajar	Ramadhan	P	k240@ex.id	Kasir	Jl. Melati No. 107	00240
+K00241	Karin	Fitriani	L	k241@ex.id	IT Support	Jl. Mawar No. 197	00241
+K00242	Yusuf	Firmansyah	L	k242@ex.id	Manajer	Jl. Anggrek No. 115	00242
+K00243	Maya	Aulia	P	k243@ex.id	Gudang	Jl. Melati No. 165	00243
+K00244	Umi	Hadi	L	k244@ex.id	Supervisor	Jl. Jati No. 56	00244
+K00245	Tono	Hadi	P	k245@ex.id	Manajer	Jl. Jati No. 135	00245
+K00246	Tono	Ramadhan	L	k246@ex.id	Marketing	Jl. Sakura No. 48	00246
+K00247	Hendra	Putri	L	k247@ex.id	Admin	Jl. Kenanga No. 62	00247
+K00248	Gita	Hidayat	P	k248@ex.id	Admin	Jl. Anggrek No. 150	00248
+K00249	Karin	Khalimah	L	k249@ex.id	Staff	Jl. Jati No. 16	00249
+K00250	Karin	Hidayat	P	k250@ex.id	Manajer	Jl. Sakura No. 153	00250
+K00251	Eko	Lestari	L	k251@ex.id	Staff	Jl. Mawar No. 8	00251
+K00252	Gita	Hidayat	P	k252@ex.id	Admin	Jl. Trembesi No. 157	00252
+K00253	Nanda	Aulia	L	k253@ex.id	Keuangan	Jl. Sakura No. 41	00253
+K00254	Indah	Hadi	L	k254@ex.id	Gudang	Jl. Anggrek No. 45	00254
+K00255	Andi	Ramadhan	P	k255@ex.id	Gudang	Jl. Kenanga No. 146	00255
+K00256	Tono	Anggraini	P	k256@ex.id	HRD	Jl. Dahlia No. 67	00256
+K00257	Eko	Prasetyo	P	k257@ex.id	HRD	Jl. Dahlia No. 151	00257
+K00258	Fajar	Rahmawati	P	k258@ex.id	Keuangan	Jl. Flamboyan No. 23	00258
+K00259	Putri	Lestari	L	k259@ex.id	Manajer	Jl. Jati No. 177	00259
+K00260	Hendra	Fitriani	P	k260@ex.id	Marketing	Jl. Mawar No. 181	00260
+K00261	Siti	Hidayat	L	k261@ex.id	Marketing	Jl. Dahlia No. 34	00261
+K00262	Karin	Maulana	P	k262@ex.id	Keuangan	Jl. Dahlia No. 196	00262
+K00263	Budi	Hidayat	L	k263@ex.id	Supervisor	Jl. Sakura No. 117	00263
+K00264	Dewi	Wulandari	L	k264@ex.id	Keuangan	Jl. Trembesi No. 200	00264
+K00265	Andi	Prasetyo	P	k265@ex.id	Supervisor	Jl. Mawar No. 155	00265
+K00266	Karin	Hidayat	P	k266@ex.id	Keuangan	Jl. Melati No. 98	00266
+K00267	Andi	Ramadhan	P	k267@ex.id	HRD	Jl. Jati No. 111	00267
+K00268	Hendra	Maulana	P	k268@ex.id	Marketing	Jl. Melati No. 167	00268
+K00269	Citra	Firmansyah	P	k269@ex.id	Supervisor	Jl. Bougenville No. 171	00269
+K00270	Siti	Fitriani	P	k270@ex.id	Keuangan	Jl. Trembesi No. 99	00270
+K00271	Eko	Khalimah	L	k271@ex.id	Gudang	Jl. Kenanga No. 178	00271
+K00272	Citra	Hadi	P	k272@ex.id	Keuangan	Jl. Kenanga No. 199	00272
+K00273	Putri	Nurhaliza	P	k273@ex.id	IT Support	Jl. Anggrek No. 17	00273
+K00274	Dewi	Santoso	P	k274@ex.id	Marketing	Jl. Kenanga No. 65	00274
+K00275	Eko	Permata	P	k275@ex.id	Marketing	Jl. Jati No. 81	00275
+K00276	Budi	Lestari	P	k276@ex.id	Gudang	Jl. Trembesi No. 161	00276
+K00277	Indah	Wijaya	P	k277@ex.id	Keuangan	Jl. Bougenville No. 59	00277
+K00278	Joko	Rahmawati	P	k278@ex.id	Supervisor	Jl. Jati No. 111	00278
+K00279	Joko	Rahmawati	L	k279@ex.id	Supervisor	Jl. Anggrek No. 133	00279
+K00280	Siti	Kurniawati	P	k280@ex.id	Gudang	Jl. Anggrek No. 97	00280
+K00281	Tono	Rahmawati	L	k281@ex.id	IT Support	Jl. Sakura No. 199	00281
+K00282	Karin	Ramadhan	P	k282@ex.id	Keuangan	Jl. Jati No. 17	00282
+K00283	Wahyu	Lestari	L	k283@ex.id	Staff	Jl. Kenanga No. 99	00283
+K00284	Budi	Ramadhan	P	k284@ex.id	Gudang	Jl. Kenanga No. 23	00284
+K00285	Siti	Kurniawati	L	k285@ex.id	Admin	Jl. Melati No. 81	00285
+K00286	Karin	Putri	P	k286@ex.id	Gudang	Jl. Melati No. 119	00286
+K00287	Fajar	Amalia	P	k287@ex.id	Manajer	Jl. Bougenville No. 177	00287
+K00288	Citra	Saputra	P	k288@ex.id	Marketing	Jl. Anggrek No. 79	00288
+K00289	Joko	Maulana	L	k289@ex.id	Kasir	Jl. Sakura No. 116	00289
+K00290	Indah	Santoso	P	k290@ex.id	Kasir	Jl. Melati No. 13	00290
+K00291	Siti	Hidayat	P	k291@ex.id	Staff	Jl. Dahlia No. 90	00291
+K00292	Umi	Saputra	P	k292@ex.id	Manajer	Jl. Mawar No. 167	00292
+K00293	Eko	Anggraini	L	k293@ex.id	Keuangan	Jl. Sakura No. 188	00293
+K00294	Joko	Pratama	L	k294@ex.id	Staff	Jl. Mawar No. 9	00294
+K00295	Dewi	Permata	P	k295@ex.id	IT Support	Jl. Mawar No. 20	00295
+K00296	Indah	Permata	P	k296@ex.id	HRD	Jl. Kenanga No. 91	00296
+K00297	Siti	Hidayat	P	k297@ex.id	HRD	Jl. Trembesi No. 198	00297
+K00298	Tono	Rahmawati	P	k298@ex.id	Marketing	Jl. Flamboyan No. 89	00298
+K00299	Eko	Rahmawati	P	k299@ex.id	Kasir	Jl. Flamboyan No. 66	00299
+K00300	Budi	Lestari	L	k300@ex.id	Gudang	Jl. Sakura No. 171	00300
+K00301	Karin	Santoso	L	k301@ex.id	Kasir	Jl. Sakura No. 146	00301
+K00302	Indah	Amalia	L	k302@ex.id	Supervisor	Jl. Sakura No. 59	00302
+K00303	Budi	Khalimah	L	k303@ex.id	Kasir	Jl. Jati No. 17	00303
+K00304	Oka	Amalia	P	k304@ex.id	Kasir	Jl. Trembesi No. 84	00304
+K00305	Gita	Kurniawati	L	k305@ex.id	Keuangan	Jl. Dahlia No. 57	00305
+K00306	Joko	Maulana	L	k306@ex.id	Gudang	Jl. Anggrek No. 49	00306
+K00307	Maya	Prasetyo	P	k307@ex.id	HRD	Jl. Flamboyan No. 57	00307
+K00308	Oka	Putri	P	k308@ex.id	Marketing	Jl. Sakura No. 176	00308
+K00309	Hendra	Amalia	L	k309@ex.id	IT Support	Jl. Sakura No. 24	00309
+K00310	Putri	Permata	P	k310@ex.id	HRD	Jl. Sakura No. 73	00310
+K00311	Eko	Ramadhan	P	k311@ex.id	Supervisor	Jl. Sakura No. 89	00311
+K00312	Citra	Hidayat	L	k312@ex.id	Manajer	Jl. Bougenville No. 12	00312
+K00313	Karin	Rahmawati	L	k313@ex.id	Admin	Jl. Trembesi No. 151	00313
+K00314	Indah	Saputra	P	k314@ex.id	HRD	Jl. Trembesi No. 190	00314
+K00315	Lukman	Maulana	P	k315@ex.id	Gudang	Jl. Melati No. 86	00315
+K00316	Hendra	Prasetyo	P	k316@ex.id	Gudang	Jl. Flamboyan No. 167	00316
+K00317	Maya	Rahmawati	P	k317@ex.id	Staff	Jl. Dahlia No. 178	00317
+K00318	Hendra	Prasetyo	L	k318@ex.id	Marketing	Jl. Dahlia No. 128	00318
+K00319	Andi	Ramadhan	L	k319@ex.id	Kasir	Jl. Sakura No. 91	00319
+K00320	Andi	Prasetyo	L	k320@ex.id	Manajer	Jl. Flamboyan No. 185	00320
+K00321	Karin	Sari	L	k321@ex.id	Keuangan	Jl. Jati No. 76	00321
+K00322	Budi	Hadi	P	k322@ex.id	IT Support	Jl. Bougenville No. 160	00322
+K00323	Joko	Santoso	L	k323@ex.id	Marketing	Jl. Melati No. 172	00323
+K00324	Fajar	Khalimah	L	k324@ex.id	HRD	Jl. Sakura No. 158	00324
+K00325	Maya	Nurhaliza	P	k325@ex.id	Marketing	Jl. Jati No. 124	00325
+K00326	Yusuf	Maulana	L	k326@ex.id	Manajer	Jl. Kenanga No. 136	00326
+K00327	Citra	Ramadhan	L	k327@ex.id	Keuangan	Jl. Flamboyan No. 173	00327
+K00328	Umi	Rahmawati	L	k328@ex.id	IT Support	Jl. Bougenville No. 185	00328
+K00329	Tono	Sari	P	k329@ex.id	Keuangan	Jl. Trembesi No. 107	00329
+K00330	Hendra	Firmansyah	P	k330@ex.id	Gudang	Jl. Sakura No. 38	00330
+K00331	Wahyu	Hidayat	L	k331@ex.id	Keuangan	Jl. Sakura No. 85	00331
+K00332	Budi	Firmansyah	L	k332@ex.id	Supervisor	Jl. Dahlia No. 121	00332
+K00333	Vina	Hidayat	L	k333@ex.id	Keuangan	Jl. Kenanga No. 49	00333
+K00334	Eko	Santoso	L	k334@ex.id	Manajer	Jl. Kenanga No. 120	00334
+K00335	Tono	Amalia	P	k335@ex.id	Admin	Jl. Mawar No. 140	00335
+K00336	Nanda	Wulandari	L	k336@ex.id	Admin	Jl. Jati No. 133	00336
+K00337	Nanda	Ramadhan	P	k337@ex.id	Gudang	Jl. Dahlia No. 114	00337
+K00338	Umi	Pratama	P	k338@ex.id	Marketing	Jl. Sakura No. 23	00338
+K00339	Dewi	Wijaya	L	k339@ex.id	IT Support	Jl. Dahlia No. 125	00339
+K00340	Budi	Amalia	P	k340@ex.id	Supervisor	Jl. Dahlia No. 99	00340
+K00341	Vina	Permata	P	k341@ex.id	Gudang	Jl. Melati No. 24	00341
+K00342	Maya	Fitriani	L	k342@ex.id	Admin	Jl. Dahlia No. 179	00342
+K00343	Joko	Susanto	P	k343@ex.id	HRD	Jl. Anggrek No. 132	00343
+K00344	Fajar	Firmansyah	P	k344@ex.id	Manajer	Jl. Sakura No. 69	00344
+K00345	Siti	Anggraini	P	k345@ex.id	HRD	Jl. Bougenville No. 149	00345
+K00346	Rian	Amalia	L	k346@ex.id	IT Support	Jl. Dahlia No. 106	00346
+K00347	Rian	Hidayat	P	k347@ex.id	Admin	Jl. Jati No. 124	00347
+K00348	Qori	Santoso	P	k348@ex.id	Gudang	Jl. Melati No. 8	00348
+K00349	Karin	Anggraini	P	k349@ex.id	Gudang	Jl. Melati No. 50	00349
+K00350	Wahyu	Fitriani	P	k350@ex.id	IT Support	Jl. Anggrek No. 103	00350
+K00351	Tono	Maulana	L	k351@ex.id	HRD	Jl. Trembesi No. 195	00351
+K00352	Tono	Saputra	L	k352@ex.id	IT Support	Jl. Flamboyan No. 113	00352
+K00353	Oka	Fitriani	L	k353@ex.id	Gudang	Jl. Sakura No. 61	00353
+K00354	Qori	Hadi	L	k354@ex.id	IT Support	Jl. Flamboyan No. 123	00354
+K00355	Umi	Rahmawati	L	k355@ex.id	Gudang	Jl. Sakura No. 33	00355
+K00356	Putri	Hadi	L	k356@ex.id	IT Support	Jl. Dahlia No. 116	00356
+K00357	Karin	Sari	L	k357@ex.id	Manajer	Jl. Dahlia No. 87	00357
+K00358	Umi	Permata	L	k358@ex.id	Keuangan	Jl. Trembesi No. 145	00358
+K00359	Vina	Permata	L	k359@ex.id	Keuangan	Jl. Trembesi No. 35	00359
+K00360	Qori	Kurniawati	P	k360@ex.id	Keuangan	Jl. Trembesi No. 141	00360
+K00361	Maya	Prasetyo	L	k361@ex.id	Supervisor	Jl. Bougenville No. 6	00361
+K00362	Tono	Kurniawati	P	k362@ex.id	HRD	Jl. Anggrek No. 152	00362
+K00363	Karin	Saputra	P	k363@ex.id	Manajer	Jl. Melati No. 56	00363
+K00364	Dewi	Lestari	L	k364@ex.id	Admin	Jl. Flamboyan No. 189	00364
+K00365	Tono	Saputra	L	k365@ex.id	Keuangan	Jl. Bougenville No. 5	00365
+K00366	Karin	Rahmawati	P	k366@ex.id	Keuangan	Jl. Sakura No. 107	00366
+K00367	Citra	Nurhaliza	P	k367@ex.id	Keuangan	Jl. Flamboyan No. 110	00367
+K00368	Joko	Santoso	P	k368@ex.id	Kasir	Jl. Anggrek No. 122	00368
+K00369	Qori	Prasetyo	L	k369@ex.id	Admin	Jl. Anggrek No. 38	00369
+K00370	Qori	Wijayanto	P	k370@ex.id	Supervisor	Jl. Trembesi No. 28	00370
+K00371	Qori	Putri	P	k371@ex.id	Manajer	Jl. Melati No. 60	00371
+K00372	Budi	Wijayanto	P	k372@ex.id	Gudang	Jl. Bougenville No. 140	00372
+K00373	Vina	Kurniawati	P	k373@ex.id	IT Support	Jl. Dahlia No. 181	00373
+K00374	Indah	Hidayat	L	k374@ex.id	Keuangan	Jl. Bougenville No. 151	00374
+K00375	Indah	Lestari	L	k375@ex.id	Supervisor	Jl. Melati No. 10	00375
+K00376	Dewi	Kurniawati	L	k376@ex.id	IT Support	Jl. Flamboyan No. 35	00376
+K00377	Karin	Anggraini	P	k377@ex.id	HRD	Jl. Mawar No. 91	00377
+K00378	Umi	Saputra	L	k378@ex.id	HRD	Jl. Flamboyan No. 61	00378
+K00379	Eko	Firmansyah	P	k379@ex.id	Gudang	Jl. Bougenville No. 125	00379
+K00380	Fajar	Amalia	P	k380@ex.id	Marketing	Jl. Trembesi No. 4	00380
+K00381	Nanda	Aulia	L	k381@ex.id	IT Support	Jl. Melati No. 15	00381
+K00382	Qori	Firmansyah	L	k382@ex.id	HRD	Jl. Bougenville No. 181	00382
+K00383	Budi	Anggraini	L	k383@ex.id	Admin	Jl. Trembesi No. 178	00383
+K00384	Hendra	Rahmawati	P	k384@ex.id	Manajer	Jl. Sakura No. 139	00384
+K00385	Nanda	Prasetyo	P	k385@ex.id	Admin	Jl. Sakura No. 80	00385
+K00386	Gita	Saputra	L	k386@ex.id	Kasir	Jl. Bougenville No. 80	00386
+K00387	Lukman	Hidayat	P	k387@ex.id	Staff	Jl. Kenanga No. 175	00387
+K00388	Hendra	Aulia	P	k388@ex.id	IT Support	Jl. Jati No. 78	00388
+K00389	Nanda	Wulandari	P	k389@ex.id	Gudang	Jl. Dahlia No. 69	00389
+K00390	Siti	Sari	P	k390@ex.id	HRD	Jl. Flamboyan No. 17	00390
+K00391	Gita	Santoso	L	k391@ex.id	Gudang	Jl. Flamboyan No. 44	00391
+K00392	Yusuf	Ramadhan	L	k392@ex.id	Keuangan	Jl. Dahlia No. 162	00392
+K00393	Wahyu	Susanto	P	k393@ex.id	HRD	Jl. Sakura No. 85	00393
+K00394	Putri	Kurniawati	P	k394@ex.id	Keuangan	Jl. Melati No. 132	00394
+K00395	Vina	Saputra	P	k395@ex.id	Staff	Jl. Trembesi No. 64	00395
+K00396	Dewi	Prasetyo	L	k396@ex.id	Manajer	Jl. Trembesi No. 95	00396
+K00397	Tono	Sari	L	k397@ex.id	Staff	Jl. Flamboyan No. 167	00397
+K00398	Qori	Amalia	L	k398@ex.id	Manajer	Jl. Dahlia No. 1	00398
+K00399	Maya	Saputra	L	k399@ex.id	Marketing	Jl. Trembesi No. 86	00399
+K00400	Lukman	Putri	P	k400@ex.id	Manajer	Jl. Kenanga No. 90	00400
+K00401	Putri	Nurhaliza	P	k401@ex.id	HRD	Jl. Kenanga No. 3	00401
+K00402	Vina	Hadi	P	k402@ex.id	Keuangan	Jl. Dahlia No. 151	00402
+K00403	Putri	Anggraini	P	k403@ex.id	Kasir	Jl. Flamboyan No. 164	00403
+K00404	Lukman	Permata	L	k404@ex.id	IT Support	Jl. Jati No. 86	00404
+K00405	Fajar	Santoso	L	k405@ex.id	Staff	Jl. Trembesi No. 190	00405
+K00406	Citra	Wijaya	L	k406@ex.id	Supervisor	Jl. Dahlia No. 118	00406
+K00407	Vina	Susanto	P	k407@ex.id	Supervisor	Jl. Melati No. 48	00407
+K00408	Yusuf	Saputra	L	k408@ex.id	Kasir	Jl. Mawar No. 18	00408
+K00409	Tono	Putri	P	k409@ex.id	Keuangan	Jl. Dahlia No. 127	00409
+K00410	Indah	Wijayanto	L	k410@ex.id	Marketing	Jl. Flamboyan No. 36	00410
+K00411	Qori	Maulana	P	k411@ex.id	IT Support	Jl. Anggrek No. 117	00411
+K00412	Maya	Fitriani	P	k412@ex.id	IT Support	Jl. Kenanga No. 11	00412
+K00413	Hendra	Firmansyah	P	k413@ex.id	Staff	Jl. Kenanga No. 30	00413
+K00414	Lukman	Amalia	L	k414@ex.id	Gudang	Jl. Anggrek No. 55	00414
+K00415	Nanda	Rahmawati	L	k415@ex.id	Staff	Jl. Melati No. 149	00415
+K00416	Putri	Ramadhan	P	k416@ex.id	IT Support	Jl. Dahlia No. 150	00416
+K00417	Citra	Permata	L	k417@ex.id	Marketing	Jl. Melati No. 93	00417
+K00418	Siti	Susanto	P	k418@ex.id	HRD	Jl. Flamboyan No. 180	00418
+K00419	Yusuf	Santoso	L	k419@ex.id	Admin	Jl. Dahlia No. 28	00419
+K00420	Putri	Kurniawati	L	k420@ex.id	HRD	Jl. Melati No. 25	00420
+K00421	Lukman	Anggraini	P	k421@ex.id	Gudang	Jl. Jati No. 85	00421
+K00422	Qori	Khalimah	P	k422@ex.id	IT Support	Jl. Dahlia No. 26	00422
+K00423	Karin	Anggraini	L	k423@ex.id	Keuangan	Jl. Sakura No. 45	00423
+K00424	Oka	Kurniawati	L	k424@ex.id	IT Support	Jl. Sakura No. 180	00424
+K00425	Andi	Khalimah	P	k425@ex.id	Manajer	Jl. Trembesi No. 69	00425
+K00426	Lukman	Sari	P	k426@ex.id	Admin	Jl. Trembesi No. 156	00426
+K00427	Budi	Kurniawati	P	k427@ex.id	Supervisor	Jl. Melati No. 130	00427
+K00428	Tono	Firmansyah	L	k428@ex.id	Marketing	Jl. Anggrek No. 38	00428
+K00429	Gita	Amalia	P	k429@ex.id	Supervisor	Jl. Dahlia No. 199	00429
+K00430	Oka	Khalimah	P	k430@ex.id	IT Support	Jl. Melati No. 109	00430
+K00431	Budi	Fitriani	L	k431@ex.id	Keuangan	Jl. Kenanga No. 181	00431
+K00432	Siti	Hidayat	P	k432@ex.id	Admin	Jl. Anggrek No. 183	00432
+K00433	Siti	Lestari	L	k433@ex.id	Marketing	Jl. Sakura No. 199	00433
+K00434	Putri	Susanto	P	k434@ex.id	IT Support	Jl. Trembesi No. 60	00434
+K00435	Joko	Wijayanto	L	k435@ex.id	Keuangan	Jl. Jati No. 83	00435
+K00436	Nanda	Nurhaliza	P	k436@ex.id	Manajer	Jl. Sakura No. 17	00436
+K00437	Joko	Firmansyah	P	k437@ex.id	Gudang	Jl. Flamboyan No. 166	00437
+K00438	Eko	Fitriani	L	k438@ex.id	Manajer	Jl. Bougenville No. 21	00438
+K00439	Fajar	Kurniawati	L	k439@ex.id	Manajer	Jl. Dahlia No. 107	00439
+K00440	Andi	Saputra	L	k440@ex.id	HRD	Jl. Anggrek No. 27	00440
+K00441	Indah	Permata	L	k441@ex.id	Marketing	Jl. Dahlia No. 22	00441
+K00442	Yusuf	Susanto	L	k442@ex.id	Kasir	Jl. Dahlia No. 92	00442
+K00443	Qori	Santoso	P	k443@ex.id	HRD	Jl. Flamboyan No. 156	00443
+K00444	Fajar	Aulia	L	k444@ex.id	Marketing	Jl. Flamboyan No. 71	00444
+K00445	Oka	Ramadhan	P	k445@ex.id	HRD	Jl. Trembesi No. 86	00445
+K00446	Rian	Fitriani	L	k446@ex.id	Marketing	Jl. Flamboyan No. 7	00446
+K00447	Qori	Nurhaliza	L	k447@ex.id	Manajer	Jl. Anggrek No. 173	00447
+K00448	Karin	Wijaya	P	k448@ex.id	Gudang	Jl. Jati No. 102	00448
+K00449	Hendra	Wulandari	L	k449@ex.id	Keuangan	Jl. Bougenville No. 136	00449
+K00450	Rian	Anggraini	L	k450@ex.id	Manajer	Jl. Trembesi No. 20	00450
+K00451	Eko	Aulia	L	k451@ex.id	Manajer	Jl. Dahlia No. 171	00451
+K00452	Hendra	Nurhaliza	P	k452@ex.id	HRD	Jl. Sakura No. 43	00452
+K00453	Vina	Susanto	L	k453@ex.id	Staff	Jl. Kenanga No. 103	00453
+K00454	Andi	Maulana	L	k454@ex.id	Manajer	Jl. Dahlia No. 115	00454
+K00455	Siti	Saputra	P	k455@ex.id	Gudang	Jl. Anggrek No. 150	00455
+K00456	Nanda	Hidayat	P	k456@ex.id	Admin	Jl. Dahlia No. 114	00456
+K00457	Zahra	Fitriani	L	k457@ex.id	Admin	Jl. Dahlia No. 116	00457
+K00458	Hendra	Fitriani	P	k458@ex.id	Admin	Jl. Bougenville No. 196	00458
+K00460	Hendra	Wulandari	P	k460@ex.id	Kasir	Jl. Melati No. 102	00460
+K00461	Eko	Susanto	L	k461@ex.id	Admin	Jl. Flamboyan No. 98	00461
+K00462	Gita	Amalia	P	k462@ex.id	Keuangan	Jl. Dahlia No. 130	00462
+K00463	Lukman	Hidayat	L	k463@ex.id	Gudang	Jl. Dahlia No. 168	00463
+K00464	Karin	Maulana	L	k464@ex.id	Supervisor	Jl. Kenanga No. 106	00464
+K00465	Yusuf	Hidayat	P	k465@ex.id	Supervisor	Jl. Dahlia No. 121	00465
+K00466	Umi	Wulandari	P	k466@ex.id	Manajer	Jl. Trembesi No. 154	00466
+K00467	Lukman	Pratama	P	k467@ex.id	Admin	Jl. Jati No. 30	00467
+K00468	Budi	Saputra	P	k468@ex.id	Gudang	Jl. Flamboyan No. 20	00468
+K00469	Dewi	Putri	P	k469@ex.id	Supervisor	Jl. Trembesi No. 153	00469
+K00470	Karin	Putri	L	k470@ex.id	HRD	Jl. Bougenville No. 106	00470
+K00471	Oka	Nurhaliza	L	k471@ex.id	Admin	Jl. Flamboyan No. 26	00471
+K00472	Yusuf	Santoso	L	k472@ex.id	Marketing	Jl. Dahlia No. 102	00472
+K00473	Budi	Khalimah	P	k473@ex.id	Admin	Jl. Dahlia No. 171	00473
+K00474	Tono	Rahmawati	P	k474@ex.id	HRD	Jl. Bougenville No. 48	00474
+K00475	Tono	Maulana	P	k475@ex.id	Gudang	Jl. Sakura No. 158	00475
+K00476	Joko	Sari	P	k476@ex.id	Marketing	Jl. Anggrek No. 180	00476
+K00477	Rian	Rahmawati	L	k477@ex.id	IT Support	Jl. Jati No. 73	00477
+K00478	Lukman	Sari	P	k478@ex.id	Keuangan	Jl. Trembesi No. 36	00478
+K00479	Indah	Wijayanto	P	k479@ex.id	Keuangan	Jl. Flamboyan No. 122	00479
+K00480	Nanda	Permata	P	k480@ex.id	IT Support	Jl. Sakura No. 17	00480
+K00481	Fajar	Wulandari	L	k481@ex.id	HRD	Jl. Dahlia No. 104	00481
+K00482	Fajar	Anggraini	P	k482@ex.id	HRD	Jl. Mawar No. 35	00482
+K00483	Qori	Nurhaliza	P	k483@ex.id	HRD	Jl. Trembesi No. 98	00483
+K00484	Oka	Hadi	L	k484@ex.id	Gudang	Jl. Trembesi No. 177	00484
+K00485	Citra	Wijaya	P	k485@ex.id	IT Support	Jl. Kenanga No. 89	00485
+K00486	Yusuf	Santoso	L	k486@ex.id	IT Support	Jl. Bougenville No. 162	00486
+K00487	Lukman	Wijayanto	L	k487@ex.id	HRD	Jl. Flamboyan No. 61	00487
+K00488	Joko	Anggraini	L	k488@ex.id	Keuangan	Jl. Dahlia No. 93	00488
+K00489	Hendra	Santoso	L	k489@ex.id	HRD	Jl. Kenanga No. 6	00489
+K00490	Oka	Firmansyah	L	k490@ex.id	Keuangan	Jl. Anggrek No. 82	00490
+K00491	Karin	Hadi	L	k491@ex.id	Kasir	Jl. Flamboyan No. 65	00491
+K00492	Indah	Anggraini	P	k492@ex.id	Gudang	Jl. Melati No. 57	00492
+K00493	Qori	Saputra	L	k493@ex.id	Marketing	Jl. Anggrek No. 74	00493
+K00494	Putri	Khalimah	P	k494@ex.id	Kasir	Jl. Jati No. 63	00494
+K00495	Nanda	Sari	L	k495@ex.id	Manajer	Jl. Jati No. 193	00495
+K00496	Fajar	Sari	P	k496@ex.id	IT Support	Jl. Anggrek No. 171	00496
+K00497	Rian	Santoso	P	k497@ex.id	Marketing	Jl. Dahlia No. 178	00497
+K00498	Lukman	Wijayanto	L	k498@ex.id	IT Support	Jl. Kenanga No. 187	00498
+K00499	Putri	Wijaya	L	k499@ex.id	Admin	Jl. Anggrek No. 65	00499
+K00500	Umi	Susanto	P	k500@ex.id	Admin	Jl. Melati No. 131	00500
+K00501	Budi	Lestari	P	k501@ex.id	IT Support	Jl. Melati No. 138	00501
+K00502	Vina	Prasetyo	L	k502@ex.id	Manajer	Jl. Jati No. 180	00502
+K00503	Dewi	Wijayanto	P	k503@ex.id	HRD	Jl. Trembesi No. 135	00503
+K00504	Hendra	Susanto	P	k504@ex.id	Admin	Jl. Trembesi No. 120	00504
+K00505	Qori	Saputra	P	k505@ex.id	Marketing	Jl. Bougenville No. 109	00505
+K00506	Eko	Wulandari	P	k506@ex.id	Supervisor	Jl. Sakura No. 75	00506
+K00507	Joko	Lestari	L	k507@ex.id	Keuangan	Jl. Sakura No. 177	00507
+K00508	Gita	Hadi	L	k508@ex.id	IT Support	Jl. Bougenville No. 8	00508
+K00509	Maya	Khalimah	P	k509@ex.id	Supervisor	Jl. Trembesi No. 172	00509
+K00510	Gita	Wijayanto	P	k510@ex.id	Admin	Jl. Bougenville No. 121	00510
+K00511	Budi	Ramadhan	L	k511@ex.id	Gudang	Jl. Kenanga No. 63	00511
+K00512	Gita	Santoso	L	k512@ex.id	Keuangan	Jl. Anggrek No. 92	00512
+K00513	Qori	Kurniawati	P	k513@ex.id	HRD	Jl. Sakura No. 168	00513
+K00514	Tono	Putri	P	k514@ex.id	Supervisor	Jl. Dahlia No. 10	00514
+K00515	Andi	Susanto	L	k515@ex.id	Manajer	Jl. Melati No. 116	00515
+K00516	Karin	Permata	L	k516@ex.id	Admin	Jl. Flamboyan No. 39	00516
+K00517	Nanda	Wijayanto	P	k517@ex.id	HRD	Jl. Trembesi No. 14	00517
+K00518	Joko	Prasetyo	P	k518@ex.id	Staff	Jl. Melati No. 164	00518
+K00519	Fajar	Khalimah	P	k519@ex.id	Kasir	Jl. Anggrek No. 179	00519
+K00520	Rian	Nurhaliza	L	k520@ex.id	Manajer	Jl. Flamboyan No. 41	00520
+K00521	Andi	Nurhaliza	P	k521@ex.id	Gudang	Jl. Anggrek No. 102	00521
+K00522	Citra	Rahmawati	L	k522@ex.id	Admin	Jl. Kenanga No. 34	00522
+K00523	Yusuf	Permata	L	k523@ex.id	HRD	Jl. Bougenville No. 117	00523
+K00524	Maya	Lestari	P	k524@ex.id	Marketing	Jl. Flamboyan No. 147	00524
+K00525	Yusuf	Fitriani	P	k525@ex.id	Staff	Jl. Trembesi No. 96	00525
+K00526	Tono	Fitriani	L	k526@ex.id	Marketing	Jl. Dahlia No. 63	00526
+K00527	Fajar	Permata	L	k527@ex.id	Supervisor	Jl. Flamboyan No. 102	00527
+K00528	Eko	Sari	P	k528@ex.id	Supervisor	Jl. Bougenville No. 141	00528
+K00529	Qori	Aulia	L	k529@ex.id	Supervisor	Jl. Dahlia No. 32	00529
+K00530	Eko	Putri	L	k530@ex.id	Keuangan	Jl. Kenanga No. 122	00530
+K00531	Nanda	Rahmawati	P	k531@ex.id	Gudang	Jl. Dahlia No. 152	00531
+K00532	Dewi	Permata	P	k532@ex.id	Gudang	Jl. Bougenville No. 164	00532
+K00533	Maya	Santoso	P	k533@ex.id	Manajer	Jl. Flamboyan No. 166	00533
+K00534	Wahyu	Nurhaliza	P	k534@ex.id	HRD	Jl. Kenanga No. 16	00534
+K00535	Tono	Fitriani	P	k535@ex.id	Gudang	Jl. Flamboyan No. 103	00535
+K00536	Joko	Saputra	L	k536@ex.id	IT Support	Jl. Anggrek No. 34	00536
+K00537	Siti	Ramadhan	L	k537@ex.id	Staff	Jl. Melati No. 57	00537
+K00538	Oka	Aulia	P	k538@ex.id	Manajer	Jl. Bougenville No. 59	00538
+K00539	Vina	Permata	L	k539@ex.id	Staff	Jl. Dahlia No. 177	00539
+K00540	Putri	Wulandari	P	k540@ex.id	IT Support	Jl. Trembesi No. 180	00540
+K00541	Wahyu	Sari	P	k541@ex.id	HRD	Jl. Trembesi No. 118	00541
+K00542	Citra	Susanto	L	k542@ex.id	Supervisor	Jl. Trembesi No. 120	00542
+K00543	Karin	Amalia	L	k543@ex.id	Staff	Jl. Flamboyan No. 162	00543
+K00544	Umi	Wijaya	L	k544@ex.id	Manajer	Jl. Anggrek No. 75	00544
+K00545	Joko	Wulandari	P	k545@ex.id	IT Support	Jl. Trembesi No. 39	00545
+K00546	Yusuf	Susanto	P	k546@ex.id	Supervisor	Jl. Kenanga No. 51	00546
+K00547	Tono	Ramadhan	L	k547@ex.id	Gudang	Jl. Sakura No. 184	00547
+K00548	Nanda	Rahmawati	P	k548@ex.id	HRD	Jl. Dahlia No. 103	00548
+K00549	Zahra	Nurhaliza	L	k549@ex.id	Supervisor	Jl. Bougenville No. 88	00549
+K00550	Karin	Prasetyo	P	k550@ex.id	Supervisor	Jl. Mawar No. 63	00550
+K00551	Lukman	Ramadhan	L	k551@ex.id	Supervisor	Jl. Anggrek No. 90	00551
+K00552	Gita	Amalia	P	k552@ex.id	Marketing	Jl. Bougenville No. 164	00552
+K00553	Karin	Maulana	L	k553@ex.id	IT Support	Jl. Trembesi No. 82	00553
+K00554	Citra	Sari	L	k554@ex.id	Keuangan	Jl. Sakura No. 102	00554
+K00555	Karin	Susanto	P	k555@ex.id	IT Support	Jl. Dahlia No. 130	00555
+K00556	Wahyu	Santoso	P	k556@ex.id	HRD	Jl. Bougenville No. 100	00556
+K00557	Nanda	Rahmawati	L	k557@ex.id	Keuangan	Jl. Anggrek No. 39	00557
+K00558	Oka	Ramadhan	L	k558@ex.id	Marketing	Jl. Mawar No. 183	00558
+K00559	Budi	Prasetyo	P	k559@ex.id	HRD	Jl. Kenanga No. 20	00559
+K00560	Wahyu	Wijaya	P	k560@ex.id	Admin	Jl. Anggrek No. 17	00560
+K00561	Andi	Khalimah	L	k561@ex.id	Marketing	Jl. Sakura No. 173	00561
+K00562	Joko	Maulana	L	k562@ex.id	Supervisor	Jl. Anggrek No. 36	00562
+K00563	Dewi	Anggraini	L	k563@ex.id	IT Support	Jl. Flamboyan No. 61	00563
+K00564	Nanda	Fitriani	L	k564@ex.id	Admin	Jl. Bougenville No. 192	00564
+K00565	Eko	Maulana	P	k565@ex.id	IT Support	Jl. Melati No. 12	00565
+K00566	Fajar	Susanto	L	k566@ex.id	Supervisor	Jl. Trembesi No. 135	00566
+K00567	Dewi	Susanto	P	k567@ex.id	Manajer	Jl. Bougenville No. 111	00567
+K00568	Indah	Ramadhan	P	k568@ex.id	Marketing	Jl. Melati No. 95	00568
+K00569	Joko	Anggraini	L	k569@ex.id	Supervisor	Jl. Kenanga No. 200	00569
+K00570	Wahyu	Susanto	L	k570@ex.id	Kasir	Jl. Dahlia No. 96	00570
+K00571	Tono	Sari	L	k571@ex.id	HRD	Jl. Anggrek No. 115	00571
+K00572	Hendra	Saputra	L	k572@ex.id	Gudang	Jl. Bougenville No. 13	00572
+K00573	Andi	Lestari	P	k573@ex.id	Admin	Jl. Anggrek No. 58	00573
+K00574	Umi	Pratama	L	k574@ex.id	Manajer	Jl. Trembesi No. 123	00574
+K00575	Oka	Saputra	L	k575@ex.id	Supervisor	Jl. Anggrek No. 68	00575
+K00576	Qori	Permata	L	k576@ex.id	Manajer	Jl. Mawar No. 5	00576
+K00577	Umi	Anggraini	P	k577@ex.id	IT Support	Jl. Trembesi No. 34	00577
+K00578	Citra	Khalimah	P	k578@ex.id	Manajer	Jl. Bougenville No. 167	00578
+K00579	Indah	Kurniawati	P	k579@ex.id	Supervisor	Jl. Bougenville No. 153	00579
+K00580	Joko	Aulia	L	k580@ex.id	HRD	Jl. Sakura No. 81	00580
+K00581	Eko	Pratama	L	k581@ex.id	Kasir	Jl. Flamboyan No. 121	00581
+K00582	Joko	Rahmawati	P	k582@ex.id	IT Support	Jl. Kenanga No. 177	00582
+K00583	Budi	Rahmawati	L	k583@ex.id	Manajer	Jl. Kenanga No. 49	00583
+K00584	Wahyu	Hidayat	P	k584@ex.id	Marketing	Jl. Mawar No. 182	00584
+K00585	Yusuf	Khalimah	P	k585@ex.id	Marketing	Jl. Sakura No. 11	00585
+K00586	Citra	Permata	L	k586@ex.id	Manajer	Jl. Jati No. 121	00586
+K00587	Wahyu	Wijaya	L	k587@ex.id	HRD	Jl. Sakura No. 19	00587
+K00588	Lukman	Hadi	P	k588@ex.id	IT Support	Jl. Mawar No. 21	00588
+K00589	Umi	Fitriani	P	k589@ex.id	Admin	Jl. Melati No. 82	00589
+K00590	Budi	Wijaya	P	k590@ex.id	Manajer	Jl. Anggrek No. 121	00590
+K00591	Maya	Wijayanto	P	k591@ex.id	Kasir	Jl. Jati No. 159	00591
+K00592	Oka	Kurniawati	P	k592@ex.id	Marketing	Jl. Trembesi No. 136	00592
+K00593	Citra	Ramadhan	P	k593@ex.id	Admin	Jl. Melati No. 38	00593
+K00594	Lukman	Permata	L	k594@ex.id	Manajer	Jl. Sakura No. 63	00594
+K00595	Siti	Fitriani	P	k595@ex.id	Keuangan	Jl. Flamboyan No. 157	00595
+K00596	Siti	Fitriani	P	k596@ex.id	HRD	Jl. Melati No. 101	00596
+K00597	Citra	Prasetyo	P	k597@ex.id	Admin	Jl. Jati No. 147	00597
+K00598	Qori	Maulana	P	k598@ex.id	Marketing	Jl. Sakura No. 190	00598
+K00599	Siti	Wijaya	L	k599@ex.id	Staff	Jl. Dahlia No. 172	00599
+K00600	Siti	Aulia	L	k600@ex.id	IT Support	Jl. Trembesi No. 163	00600
+K00601	Umi	Kurniawati	L	k601@ex.id	Manajer	Jl. Melati No. 38	00601
+K00602	Nanda	Ramadhan	L	k602@ex.id	Marketing	Jl. Melati No. 141	00602
+K00603	Rian	Putri	L	k603@ex.id	Kasir	Jl. Trembesi No. 174	00603
+K00604	Rian	Santoso	P	k604@ex.id	IT Support	Jl. Kenanga No. 9	00604
+K00605	Dewi	Prasetyo	L	k605@ex.id	Keuangan	Jl. Flamboyan No. 155	00605
+K00606	Umi	Nurhaliza	L	k606@ex.id	Gudang	Jl. Kenanga No. 31	00606
+K00607	Qori	Susanto	L	k607@ex.id	Admin	Jl. Flamboyan No. 80	00607
+K00608	Putri	Hidayat	P	k608@ex.id	HRD	Jl. Kenanga No. 55	00608
+K00609	Maya	Rahmawati	L	k609@ex.id	Manajer	Jl. Flamboyan No. 134	00609
+K00610	Yusuf	Amalia	P	k610@ex.id	Admin	Jl. Flamboyan No. 137	00610
+K00611	Fajar	Nurhaliza	P	k611@ex.id	Gudang	Jl. Sakura No. 187	00611
+K00612	Rian	Pratama	L	k612@ex.id	Keuangan	Jl. Trembesi No. 193	00612
+K00613	Wahyu	Maulana	P	k613@ex.id	Manajer	Jl. Jati No. 196	00613
+K00614	Budi	Rahmawati	L	k614@ex.id	Keuangan	Jl. Flamboyan No. 15	00614
+K00615	Citra	Lestari	L	k615@ex.id	Kasir	Jl. Sakura No. 110	00615
+K00616	Putri	Putri	P	k616@ex.id	Keuangan	Jl. Sakura No. 178	00616
+K00617	Indah	Hidayat	L	k617@ex.id	Manajer	Jl. Trembesi No. 52	00617
+K00618	Indah	Hidayat	L	k618@ex.id	Marketing	Jl. Anggrek No. 186	00618
+K00619	Putri	Maulana	P	k619@ex.id	IT Support	Jl. Anggrek No. 75	00619
+K00620	Budi	Sari	P	k620@ex.id	IT Support	Jl. Sakura No. 9	00620
+K00621	Fajar	Putri	P	k621@ex.id	Admin	Jl. Sakura No. 99	00621
+K00622	Indah	Amalia	P	k622@ex.id	Gudang	Jl. Jati No. 63	00622
+K00623	Joko	Hadi	P	k623@ex.id	HRD	Jl. Sakura No. 135	00623
+K00624	Karin	Rahmawati	L	k624@ex.id	Keuangan	Jl. Flamboyan No. 11	00624
+K00625	Oka	Prasetyo	P	k625@ex.id	Supervisor	Jl. Melati No. 42	00625
+K00626	Budi	Wulandari	L	k626@ex.id	Marketing	Jl. Flamboyan No. 191	00626
+K00627	Karin	Sari	P	k627@ex.id	Supervisor	Jl. Bougenville No. 116	00627
+K00628	Oka	Hidayat	L	k628@ex.id	Admin	Jl. Kenanga No. 135	00628
+K00629	Zahra	Ramadhan	L	k629@ex.id	Marketing	Jl. Anggrek No. 146	00629
+K00630	Vina	Nurhaliza	L	k630@ex.id	IT Support	Jl. Trembesi No. 143	00630
+K00631	Yusuf	Saputra	P	k631@ex.id	Supervisor	Jl. Mawar No. 10	00631
+K00632	Dewi	Nurhaliza	L	k632@ex.id	Marketing	Jl. Melati No. 54	00632
+K00633	Nanda	Kurniawati	P	k633@ex.id	Gudang	Jl. Melati No. 182	00633
+K00634	Qori	Ramadhan	P	k634@ex.id	Keuangan	Jl. Kenanga No. 171	00634
+K00635	Umi	Permata	P	k635@ex.id	Manajer	Jl. Bougenville No. 47	00635
+K00636	Maya	Nurhaliza	P	k636@ex.id	Staff	Jl. Anggrek No. 139	00636
+K00637	Hendra	Hidayat	P	k637@ex.id	IT Support	Jl. Trembesi No. 140	00637
+K00638	Andi	Susanto	L	k638@ex.id	Gudang	Jl. Sakura No. 57	00638
+K00639	Karin	Pratama	L	k639@ex.id	Staff	Jl. Kenanga No. 195	00639
+K00640	Lukman	Kurniawati	L	k640@ex.id	IT Support	Jl. Kenanga No. 190	00640
+K00641	Andi	Fitriani	L	k641@ex.id	HRD	Jl. Dahlia No. 191	00641
+K00642	Karin	Wulandari	L	k642@ex.id	Manajer	Jl. Jati No. 57	00642
+K00643	Citra	Wijayanto	P	k643@ex.id	Admin	Jl. Flamboyan No. 35	00643
+K00644	Joko	Khalimah	L	k644@ex.id	IT Support	Jl. Flamboyan No. 17	00644
+K00645	Karin	Hidayat	L	k645@ex.id	Admin	Jl. Jati No. 158	00645
+K00646	Putri	Putri	P	k646@ex.id	Supervisor	Jl. Trembesi No. 196	00646
+K00647	Hendra	Wulandari	L	k647@ex.id	Staff	Jl. Kenanga No. 20	00647
+K00648	Siti	Wijaya	L	k648@ex.id	IT Support	Jl. Trembesi No. 89	00648
+K00649	Fajar	Sari	P	k649@ex.id	Gudang	Jl. Flamboyan No. 160	00649
+K00650	Maya	Prasetyo	P	k650@ex.id	Gudang	Jl. Bougenville No. 150	00650
+K00651	Budi	Nurhaliza	L	k651@ex.id	Marketing	Jl. Anggrek No. 170	00651
+K00652	Wahyu	Ramadhan	L	k652@ex.id	Staff	Jl. Trembesi No. 9	00652
+K00653	Qori	Hidayat	L	k653@ex.id	Marketing	Jl. Melati No. 59	00653
+K00654	Yusuf	Anggraini	P	k654@ex.id	Marketing	Jl. Kenanga No. 115	00654
+K00655	Karin	Saputra	P	k655@ex.id	Gudang	Jl. Sakura No. 61	00655
+K00656	Siti	Wulandari	L	k656@ex.id	HRD	Jl. Trembesi No. 116	00656
+K00657	Gita	Firmansyah	P	k657@ex.id	IT Support	Jl. Kenanga No. 157	00657
+K00658	Vina	Anggraini	L	k658@ex.id	Admin	Jl. Flamboyan No. 114	00658
+K00659	Nanda	Anggraini	P	k659@ex.id	Kasir	Jl. Dahlia No. 103	00659
+K00660	Joko	Maulana	P	k660@ex.id	Admin	Jl. Melati No. 63	00660
+K00661	Oka	Saputra	P	k661@ex.id	Marketing	Jl. Dahlia No. 105	00661
+K00662	Budi	Amalia	L	k662@ex.id	Manajer	Jl. Anggrek No. 19	00662
+K00663	Tono	Wijaya	L	k663@ex.id	IT Support	Jl. Kenanga No. 53	00663
+K00664	Budi	Saputra	P	k664@ex.id	Kasir	Jl. Bougenville No. 42	00664
+K00665	Nanda	Saputra	L	k665@ex.id	Manajer	Jl. Anggrek No. 134	00665
+K00666	Vina	Khalimah	P	k666@ex.id	Admin	Jl. Kenanga No. 162	00666
+K00667	Vina	Anggraini	P	k667@ex.id	IT Support	Jl. Kenanga No. 106	00667
+K00668	Tono	Hidayat	L	k668@ex.id	Supervisor	Jl. Mawar No. 3	00668
+K00669	Dewi	Wijayanto	L	k669@ex.id	Gudang	Jl. Melati No. 15	00669
+K00670	Umi	Firmansyah	P	k670@ex.id	Gudang	Jl. Bougenville No. 161	00670
+K00671	Qori	Wijaya	P	k671@ex.id	IT Support	Jl. Melati No. 122	00671
+K00672	Eko	Lestari	P	k672@ex.id	HRD	Jl. Flamboyan No. 43	00672
+K00673	Hendra	Maulana	L	k673@ex.id	IT Support	Jl. Sakura No. 42	00673
+K00674	Budi	Susanto	P	k674@ex.id	HRD	Jl. Bougenville No. 189	00674
+K00675	Indah	Hadi	L	k675@ex.id	Manajer	Jl. Mawar No. 26	00675
+K00676	Yusuf	Putri	P	k676@ex.id	Marketing	Jl. Flamboyan No. 96	00676
+K00677	Maya	Hidayat	L	k677@ex.id	Marketing	Jl. Melati No. 107	00677
+K00678	Indah	Susanto	L	k678@ex.id	Staff	Jl. Sakura No. 2	00678
+K00679	Lukman	Putri	L	k679@ex.id	Manajer	Jl. Anggrek No. 127	00679
+K00680	Siti	Putri	P	k680@ex.id	Manajer	Jl. Melati No. 14	00680
+K00681	Andi	Fitriani	P	k681@ex.id	Gudang	Jl. Melati No. 200	00681
+K00682	Gita	Maulana	L	k682@ex.id	Supervisor	Jl. Flamboyan No. 91	00682
+K00683	Umi	Khalimah	L	k683@ex.id	Keuangan	Jl. Kenanga No. 52	00683
+K00684	Karin	Kurniawati	P	k684@ex.id	IT Support	Jl. Trembesi No. 10	00684
+K00685	Gita	Wulandari	L	k685@ex.id	Admin	Jl. Trembesi No. 193	00685
+K00686	Siti	Prasetyo	P	k686@ex.id	Gudang	Jl. Dahlia No. 28	00686
+K00687	Eko	Santoso	P	k687@ex.id	IT Support	Jl. Sakura No. 199	00687
+K00688	Fajar	Wijaya	P	k688@ex.id	Marketing	Jl. Melati No. 198	00688
+K00689	Fajar	Ramadhan	L	k689@ex.id	Marketing	Jl. Melati No. 94	00689
+K00690	Putri	Nurhaliza	P	k690@ex.id	Kasir	Jl. Mawar No. 30	00690
+K00691	Siti	Sari	P	k691@ex.id	Gudang	Jl. Bougenville No. 142	00691
+K00692	Nanda	Wijayanto	P	k692@ex.id	Kasir	Jl. Trembesi No. 138	00692
+K00693	Putri	Prasetyo	L	k693@ex.id	Marketing	Jl. Melati No. 66	00693
+K00694	Dewi	Firmansyah	P	k694@ex.id	Manajer	Jl. Bougenville No. 52	00694
+K00695	Citra	Ramadhan	L	k695@ex.id	Marketing	Jl. Trembesi No. 81	00695
+K00696	Yusuf	Pratama	P	k696@ex.id	HRD	Jl. Sakura No. 162	00696
+K00697	Vina	Wijayanto	L	k697@ex.id	Kasir	Jl. Anggrek No. 101	00697
+K00698	Karin	Saputra	L	k698@ex.id	Admin	Jl. Melati No. 82	00698
+K00699	Budi	Kurniawati	P	k699@ex.id	Admin	Jl. Dahlia No. 104	00699
+K00700	Budi	Maulana	L	k700@ex.id	Supervisor	Jl. Flamboyan No. 171	00700
+K00701	Qori	Firmansyah	P	k701@ex.id	HRD	Jl. Dahlia No. 171	00701
+K00702	Hendra	Saputra	P	k702@ex.id	Gudang	Jl. Sakura No. 39	00702
+K00703	Gita	Lestari	P	k703@ex.id	Supervisor	Jl. Melati No. 178	00703
+K00704	Maya	Rahmawati	L	k704@ex.id	Gudang	Jl. Flamboyan No. 33	00704
+K00705	Lukman	Wijayanto	L	k705@ex.id	Admin	Jl. Melati No. 78	00705
+K00706	Yusuf	Maulana	P	k706@ex.id	Marketing	Jl. Flamboyan No. 138	00706
+K00707	Joko	Permata	P	k707@ex.id	Keuangan	Jl. Kenanga No. 57	00707
+K00708	Yusuf	Permata	P	k708@ex.id	IT Support	Jl. Flamboyan No. 94	00708
+K00709	Tono	Wijayanto	L	k709@ex.id	Manajer	Jl. Jati No. 8	00709
+K00710	Putri	Ramadhan	L	k710@ex.id	HRD	Jl. Bougenville No. 113	00710
+K00711	Siti	Susanto	L	k711@ex.id	Supervisor	Jl. Mawar No. 101	00711
+K00712	Hendra	Aulia	L	k712@ex.id	Keuangan	Jl. Anggrek No. 131	00712
+K00713	Citra	Hidayat	L	k713@ex.id	Staff	Jl. Dahlia No. 89	00713
+K00714	Zahra	Putri	P	k714@ex.id	Manajer	Jl. Melati No. 92	00714
+K00715	Fajar	Wijayanto	P	k715@ex.id	Supervisor	Jl. Kenanga No. 38	00715
+K00716	Hendra	Sari	P	k716@ex.id	Admin	Jl. Kenanga No. 144	00716
+K00717	Rian	Fitriani	L	k717@ex.id	Gudang	Jl. Kenanga No. 133	00717
+K00718	Wahyu	Wijaya	P	k718@ex.id	Marketing	Jl. Flamboyan No. 187	00718
+K00719	Yusuf	Hidayat	L	k719@ex.id	Manajer	Jl. Melati No. 165	00719
+K00720	Oka	Sari	P	k720@ex.id	Kasir	Jl. Kenanga No. 61	00720
+K00721	Citra	Sari	L	k721@ex.id	Manajer	Jl. Dahlia No. 61	00721
+K00722	Dewi	Khalimah	L	k722@ex.id	Gudang	Jl. Flamboyan No. 36	00722
+K00723	Siti	Permata	P	k723@ex.id	Manajer	Jl. Kenanga No. 64	00723
+K00724	Citra	Ramadhan	L	k724@ex.id	HRD	Jl. Melati No. 64	00724
+K00725	Rian	Amalia	P	k725@ex.id	Supervisor	Jl. Dahlia No. 4	00725
+K00726	Oka	Anggraini	L	k726@ex.id	IT Support	Jl. Anggrek No. 157	00726
+K00727	Vina	Lestari	P	k727@ex.id	Admin	Jl. Anggrek No. 131	00727
+K00728	Vina	Lestari	P	k728@ex.id	Gudang	Jl. Melati No. 163	00728
+K00729	Karin	Susanto	L	k729@ex.id	Gudang	Jl. Melati No. 104	00729
+K00730	Nanda	Anggraini	P	k730@ex.id	Gudang	Jl. Mawar No. 74	00730
+K00731	Karin	Ramadhan	L	k731@ex.id	Gudang	Jl. Flamboyan No. 169	00731
+K00732	Oka	Kurniawati	P	k732@ex.id	HRD	Jl. Trembesi No. 127	00732
+K00733	Vina	Lestari	P	k733@ex.id	IT Support	Jl. Dahlia No. 10	00733
+K00734	Andi	Susanto	L	k734@ex.id	Gudang	Jl. Mawar No. 22	00734
+K00735	Qori	Ramadhan	P	k735@ex.id	Gudang	Jl. Anggrek No. 149	00735
+K00736	Fajar	Rahmawati	L	k736@ex.id	Admin	Jl. Trembesi No. 70	00736
+K00737	Qori	Ramadhan	L	k737@ex.id	Manajer	Jl. Flamboyan No. 105	00737
+K00738	Nanda	Amalia	P	k738@ex.id	Keuangan	Jl. Jati No. 187	00738
+K00739	Umi	Hidayat	L	k739@ex.id	Manajer	Jl. Flamboyan No. 114	00739
+K00740	Lukman	Ramadhan	P	k740@ex.id	HRD	Jl. Mawar No. 64	00740
+K00741	Yusuf	Santoso	L	k741@ex.id	Gudang	Jl. Kenanga No. 182	00741
+K00742	Siti	Hadi	L	k742@ex.id	Staff	Jl. Melati No. 69	00742
+K00743	Lukman	Nurhaliza	L	k743@ex.id	Staff	Jl. Bougenville No. 135	00743
+K00744	Tono	Anggraini	P	k744@ex.id	Supervisor	Jl. Kenanga No. 177	00744
+K00745	Citra	Saputra	L	k745@ex.id	Supervisor	Jl. Flamboyan No. 190	00745
+K00746	Qori	Lestari	P	k746@ex.id	Supervisor	Jl. Flamboyan No. 116	00746
+K00747	Yusuf	Santoso	L	k747@ex.id	HRD	Jl. Dahlia No. 162	00747
+K00748	Eko	Anggraini	P	k748@ex.id	Kasir	Jl. Bougenville No. 49	00748
+K00749	Dewi	Kurniawati	P	k749@ex.id	Gudang	Jl. Kenanga No. 2	00749
+K00750	Karin	Santoso	P	k750@ex.id	Admin	Jl. Dahlia No. 61	00750
+K00751	Joko	Amalia	P	k751@ex.id	HRD	Jl. Melati No. 91	00751
+K00752	Dewi	Maulana	L	k752@ex.id	Marketing	Jl. Bougenville No. 142	00752
+K00753	Hendra	Susanto	P	k753@ex.id	Gudang	Jl. Trembesi No. 145	00753
+K00754	Budi	Rahmawati	L	k754@ex.id	Kasir	Jl. Kenanga No. 95	00754
+K00755	Vina	Permata	L	k755@ex.id	Marketing	Jl. Dahlia No. 43	00755
+K00756	Citra	Putri	L	k756@ex.id	Keuangan	Jl. Flamboyan No. 159	00756
+K00757	Fajar	Hadi	L	k757@ex.id	IT Support	Jl. Flamboyan No. 153	00757
+K00758	Karin	Prasetyo	P	k758@ex.id	Admin	Jl. Bougenville No. 199	00758
+K00759	Fajar	Nurhaliza	L	k759@ex.id	Marketing	Jl. Kenanga No. 67	00759
+K00760	Joko	Putri	P	k760@ex.id	Supervisor	Jl. Dahlia No. 87	00760
+K00761	Indah	Amalia	L	k761@ex.id	Manajer	Jl. Dahlia No. 92	00761
+K00762	Lukman	Fitriani	P	k762@ex.id	IT Support	Jl. Dahlia No. 86	00762
+K00763	Citra	Amalia	L	k763@ex.id	Manajer	Jl. Bougenville No. 195	00763
+K00764	Maya	Hadi	L	k764@ex.id	HRD	Jl. Melati No. 191	00764
+K00765	Fajar	Wijayanto	L	k765@ex.id	Keuangan	Jl. Anggrek No. 57	00765
+K00766	Oka	Maulana	P	k766@ex.id	IT Support	Jl. Bougenville No. 85	00766
+K00767	Qori	Saputra	L	k767@ex.id	Manajer	Jl. Anggrek No. 56	00767
+K00768	Siti	Rahmawati	P	k768@ex.id	Gudang	Jl. Sakura No. 162	00768
+K00769	Citra	Amalia	P	k769@ex.id	HRD	Jl. Melati No. 200	00769
+K00770	Nanda	Maulana	P	k770@ex.id	Manajer	Jl. Mawar No. 9	00770
+K00771	Gita	Sari	L	k771@ex.id	Manajer	Jl. Jati No. 164	00771
+K00772	Tono	Amalia	L	k772@ex.id	Admin	Jl. Kenanga No. 159	00772
+K00773	Qori	Wulandari	L	k773@ex.id	Manajer	Jl. Dahlia No. 69	00773
+K00774	Maya	Putri	P	k774@ex.id	Manajer	Jl. Dahlia No. 20	00774
+K00775	Yusuf	Kurniawati	P	k775@ex.id	Gudang	Jl. Bougenville No. 80	00775
+K00776	Tono	Maulana	P	k776@ex.id	Supervisor	Jl. Melati No. 131	00776
+K00777	Dewi	Wijaya	P	k777@ex.id	Manajer	Jl. Melati No. 134	00777
+K00778	Nanda	Hidayat	P	k778@ex.id	Manajer	Jl. Jati No. 95	00778
+K00779	Dewi	Prasetyo	L	k779@ex.id	Keuangan	Jl. Anggrek No. 198	00779
+K00780	Fajar	Hidayat	L	k780@ex.id	Gudang	Jl. Bougenville No. 89	00780
+K00781	Maya	Anggraini	L	k781@ex.id	Marketing	Jl. Sakura No. 188	00781
+K00782	Dewi	Putri	L	k782@ex.id	HRD	Jl. Dahlia No. 118	00782
+K00783	Dewi	Wijaya	L	k783@ex.id	IT Support	Jl. Anggrek No. 100	00783
+K00784	Vina	Ramadhan	P	k784@ex.id	Gudang	Jl. Jati No. 116	00784
+K00785	Karin	Santoso	P	k785@ex.id	IT Support	Jl. Dahlia No. 73	00785
+K00786	Joko	Amalia	L	k786@ex.id	Gudang	Jl. Flamboyan No. 185	00786
+K00787	Zahra	Fitriani	L	k787@ex.id	Keuangan	Jl. Melati No. 65	00787
+K00788	Yusuf	Hadi	L	k788@ex.id	Keuangan	Jl. Anggrek No. 137	00788
+K00789	Fajar	Kurniawati	L	k789@ex.id	Manajer	Jl. Anggrek No. 38	00789
+K00790	Lukman	Khalimah	P	k790@ex.id	Manajer	Jl. Kenanga No. 24	00790
+K00791	Budi	Nurhaliza	L	k791@ex.id	IT Support	Jl. Dahlia No. 119	00791
+K00792	Joko	Amalia	L	k792@ex.id	Manajer	Jl. Kenanga No. 27	00792
+K00793	Yusuf	Fitriani	L	k793@ex.id	Kasir	Jl. Kenanga No. 18	00793
+K00794	Citra	Anggraini	P	k794@ex.id	Marketing	Jl. Mawar No. 62	00794
+K00795	Umi	Hidayat	P	k795@ex.id	HRD	Jl. Dahlia No. 197	00795
+K00796	Hendra	Hadi	L	k796@ex.id	Manajer	Jl. Flamboyan No. 25	00796
+K00797	Putri	Prasetyo	L	k797@ex.id	IT Support	Jl. Flamboyan No. 74	00797
+K00798	Umi	Santoso	P	k798@ex.id	Gudang	Jl. Mawar No. 65	00798
+K00799	Indah	Wijaya	L	k799@ex.id	Manajer	Jl. Kenanga No. 18	00799
+K00800	Oka	Hidayat	L	k800@ex.id	Admin	Jl. Anggrek No. 138	00800
+K00801	Budi	Pratama	P	k801@ex.id	Staff	Jl. Jati No. 45	00801
+K00802	Rian	Wijaya	L	k802@ex.id	Staff	Jl. Kenanga No. 147	00802
+K00803	Siti	Permata	L	k803@ex.id	HRD	Jl. Flamboyan No. 109	00803
+K00804	Dewi	Prasetyo	P	k804@ex.id	Keuangan	Jl. Jati No. 146	00804
+K00805	Oka	Kurniawati	P	k805@ex.id	IT Support	Jl. Flamboyan No. 72	00805
+K00806	Qori	Firmansyah	P	k806@ex.id	IT Support	Jl. Sakura No. 180	00806
+K00807	Tono	Fitriani	L	k807@ex.id	Kasir	Jl. Trembesi No. 181	00807
+K00808	Yusuf	Putri	P	k808@ex.id	Kasir	Jl. Mawar No. 169	00808
+K00809	Joko	Firmansyah	P	k809@ex.id	Staff	Jl. Melati No. 165	00809
+K00810	Citra	Aulia	P	k810@ex.id	IT Support	Jl. Kenanga No. 18	00810
+K00811	Qori	Hidayat	L	k811@ex.id	Marketing	Jl. Dahlia No. 123	00811
+K00812	Gita	Aulia	L	k812@ex.id	HRD	Jl. Flamboyan No. 189	00812
+K00813	Indah	Ramadhan	L	k813@ex.id	HRD	Jl. Sakura No. 34	00813
+K00814	Oka	Amalia	L	k814@ex.id	Staff	Jl. Sakura No. 49	00814
+K00815	Siti	Firmansyah	P	k815@ex.id	HRD	Jl. Anggrek No. 141	00815
+K00816	Joko	Santoso	P	k816@ex.id	Gudang	Jl. Dahlia No. 187	00816
+K00817	Hendra	Khalimah	L	k817@ex.id	Manajer	Jl. Flamboyan No. 15	00817
+K00818	Yusuf	Prasetyo	L	k818@ex.id	HRD	Jl. Trembesi No. 20	00818
+K00819	Siti	Maulana	L	k819@ex.id	Manajer	Jl. Kenanga No. 35	00819
+K00820	Tono	Anggraini	P	k820@ex.id	Admin	Jl. Trembesi No. 127	00820
+K00821	Indah	Maulana	P	k821@ex.id	Manajer	Jl. Jati No. 188	00821
+K00822	Andi	Firmansyah	L	k822@ex.id	Gudang	Jl. Anggrek No. 45	00822
+K00823	Budi	Firmansyah	L	k823@ex.id	Staff	Jl. Dahlia No. 17	00823
+K00824	Karin	Wijayanto	L	k824@ex.id	Manajer	Jl. Mawar No. 71	00824
+K00825	Umi	Anggraini	P	k825@ex.id	Marketing	Jl. Kenanga No. 1	00825
+K00826	Wahyu	Putri	P	k826@ex.id	Supervisor	Jl. Mawar No. 88	00826
+K00827	Citra	Saputra	L	k827@ex.id	Marketing	Jl. Trembesi No. 1	00827
+K00828	Oka	Kurniawati	L	k828@ex.id	Admin	Jl. Bougenville No. 158	00828
+K00829	Lukman	Amalia	L	k829@ex.id	Keuangan	Jl. Melati No. 7	00829
+K00830	Vina	Saputra	P	k830@ex.id	Marketing	Jl. Trembesi No. 196	00830
+K00831	Citra	Lestari	P	k831@ex.id	Staff	Jl. Mawar No. 176	00831
+K00832	Fajar	Rahmawati	L	k832@ex.id	Gudang	Jl. Trembesi No. 165	00832
+K00833	Rian	Wijayanto	P	k833@ex.id	Keuangan	Jl. Flamboyan No. 144	00833
+K00834	Wahyu	Kurniawati	L	k834@ex.id	HRD	Jl. Dahlia No. 124	00834
+K00835	Rian	Lestari	L	k835@ex.id	Gudang	Jl. Kenanga No. 81	00835
+K00836	Gita	Firmansyah	L	k836@ex.id	HRD	Jl. Melati No. 41	00836
+K00837	Fajar	Susanto	L	k837@ex.id	Admin	Jl. Melati No. 71	00837
+K00838	Dewi	Sari	P	k838@ex.id	Gudang	Jl. Anggrek No. 164	00838
+K00839	Yusuf	Aulia	L	k839@ex.id	Keuangan	Jl. Bougenville No. 37	00839
+K00840	Lukman	Sari	P	k840@ex.id	IT Support	Jl. Flamboyan No. 1	00840
+K00841	Dewi	Permata	P	k841@ex.id	HRD	Jl. Jati No. 30	00841
+K00842	Eko	Sari	L	k842@ex.id	IT Support	Jl. Anggrek No. 100	00842
+K00843	Umi	Lestari	L	k843@ex.id	Marketing	Jl. Mawar No. 8	00843
+K00844	Wahyu	Anggraini	L	k844@ex.id	HRD	Jl. Dahlia No. 26	00844
+K00845	Karin	Nurhaliza	L	k845@ex.id	HRD	Jl. Bougenville No. 143	00845
+K00846	Wahyu	Nurhaliza	L	k846@ex.id	Marketing	Jl. Flamboyan No. 189	00846
+K00847	Dewi	Ramadhan	P	k847@ex.id	Admin	Jl. Trembesi No. 53	00847
+K00848	Karin	Hadi	L	k848@ex.id	Keuangan	Jl. Melati No. 133	00848
+K00849	Yusuf	Pratama	P	k849@ex.id	Manajer	Jl. Melati No. 163	00849
+K00850	Maya	Khalimah	P	k850@ex.id	HRD	Jl. Sakura No. 83	00850
+K00851	Qori	Amalia	L	k851@ex.id	Supervisor	Jl. Anggrek No. 142	00851
+K00852	Vina	Wijaya	L	k852@ex.id	Manajer	Jl. Bougenville No. 73	00852
+K00853	Tono	Rahmawati	P	k853@ex.id	Gudang	Jl. Melati No. 19	00853
+K00854	Citra	Fitriani	P	k854@ex.id	Admin	Jl. Anggrek No. 14	00854
+K00855	Siti	Lestari	P	k855@ex.id	Kasir	Jl. Flamboyan No. 96	00855
+K00856	Wahyu	Maulana	P	k856@ex.id	Staff	Jl. Dahlia No. 118	00856
+K00857	Joko	Fitriani	L	k857@ex.id	Staff	Jl. Mawar No. 108	00857
+K00858	Budi	Kurniawati	L	k858@ex.id	Admin	Jl. Jati No. 57	00858
+K00859	Joko	Wulandari	L	k859@ex.id	Marketing	Jl. Jati No. 124	00859
+K00860	Rian	Susanto	L	k860@ex.id	HRD	Jl. Bougenville No. 8	00860
+K00861	Gita	Aulia	P	k861@ex.id	Gudang	Jl. Bougenville No. 146	00861
+K00862	Joko	Santoso	L	k862@ex.id	IT Support	Jl. Bougenville No. 2	00862
+K00863	Nanda	Permata	P	k863@ex.id	IT Support	Jl. Kenanga No. 22	00863
+K00864	Putri	Anggraini	L	k864@ex.id	Marketing	Jl. Dahlia No. 77	00864
+K00865	Nanda	Rahmawati	P	k865@ex.id	IT Support	Jl. Melati No. 32	00865
+K00866	Joko	Sari	L	k866@ex.id	IT Support	Jl. Jati No. 9	00866
+K00867	Fajar	Rahmawati	L	k867@ex.id	Admin	Jl. Trembesi No. 104	00867
+K00868	Fajar	Wijayanto	L	k868@ex.id	Marketing	Jl. Flamboyan No. 23	00868
+K00869	Oka	Khalimah	P	k869@ex.id	HRD	Jl. Melati No. 196	00869
+K00870	Umi	Permata	P	k870@ex.id	Keuangan	Jl. Bougenville No. 91	00870
+K00871	Budi	Permata	L	k871@ex.id	HRD	Jl. Kenanga No. 19	00871
+K00872	Joko	Ramadhan	P	k872@ex.id	Keuangan	Jl. Trembesi No. 19	00872
+K00873	Oka	Prasetyo	L	k873@ex.id	IT Support	Jl. Mawar No. 9	00873
+K00874	Vina	Lestari	P	k874@ex.id	HRD	Jl. Jati No. 66	00874
+K00875	Dewi	Prasetyo	L	k875@ex.id	HRD	Jl. Sakura No. 146	00875
+K00876	Indah	Amalia	P	k876@ex.id	Admin	Jl. Bougenville No. 43	00876
+K00877	Budi	Hidayat	P	k877@ex.id	Manajer	Jl. Trembesi No. 100	00877
+K00878	Rian	Wijaya	P	k878@ex.id	Gudang	Jl. Dahlia No. 165	00878
+K00879	Gita	Hidayat	L	k879@ex.id	Keuangan	Jl. Sakura No. 66	00879
+K00880	Qori	Sari	P	k880@ex.id	Gudang	Jl. Sakura No. 35	00880
+K00881	Karin	Prasetyo	L	k881@ex.id	Manajer	Jl. Mawar No. 59	00881
+K00882	Umi	Nurhaliza	P	k882@ex.id	IT Support	Jl. Melati No. 198	00882
+K00883	Nanda	Anggraini	P	k883@ex.id	Keuangan	Jl. Anggrek No. 173	00883
+K00884	Nanda	Saputra	L	k884@ex.id	Supervisor	Jl. Melati No. 17	00884
+K00885	Gita	Pratama	P	k885@ex.id	Gudang	Jl. Mawar No. 160	00885
+K00886	Maya	Khalimah	L	k886@ex.id	Marketing	Jl. Melati No. 185	00886
+K00887	Siti	Kurniawati	P	k887@ex.id	Admin	Jl. Jati No. 153	00887
+K00888	Maya	Wijaya	P	k888@ex.id	Supervisor	Jl. Mawar No. 139	00888
+K00889	Tono	Ramadhan	P	k889@ex.id	Admin	Jl. Melati No. 20	00889
+K00890	Dewi	Amalia	P	k890@ex.id	IT Support	Jl. Anggrek No. 106	00890
+K00891	Karin	Hidayat	P	k891@ex.id	IT Support	Jl. Trembesi No. 55	00891
+K00892	Wahyu	Firmansyah	L	k892@ex.id	Marketing	Jl. Sakura No. 65	00892
+K00893	Zahra	Wijaya	L	k893@ex.id	Supervisor	Jl. Melati No. 122	00893
+K00894	Budi	Firmansyah	L	k894@ex.id	Keuangan	Jl. Sakura No. 79	00894
+K00895	Tono	Nurhaliza	P	k895@ex.id	Supervisor	Jl. Flamboyan No. 126	00895
+K00896	Joko	Saputra	L	k896@ex.id	IT Support	Jl. Anggrek No. 135	00896
+K00897	Siti	Prasetyo	L	k897@ex.id	Manajer	Jl. Sakura No. 84	00897
+K00898	Siti	Permata	P	k898@ex.id	Gudang	Jl. Jati No. 80	00898
+K00899	Budi	Wijayanto	P	k899@ex.id	IT Support	Jl. Jati No. 147	00899
+K00900	Maya	Putri	P	k900@ex.id	IT Support	Jl. Dahlia No. 123	00900
+K00901	Citra	Amalia	L	k901@ex.id	Admin	Jl. Mawar No. 196	00901
+K00902	Siti	Lestari	L	k902@ex.id	Staff	Jl. Flamboyan No. 170	00902
+K00903	Siti	Prasetyo	L	k903@ex.id	Manajer	Jl. Bougenville No. 118	00903
+K00904	Joko	Putri	P	k904@ex.id	Supervisor	Jl. Trembesi No. 194	00904
+K00905	Oka	Lestari	P	k905@ex.id	Staff	Jl. Melati No. 189	00905
+K00906	Rian	Wijayanto	L	k906@ex.id	Gudang	Jl. Trembesi No. 94	00906
+K00907	Budi	Wulandari	L	k907@ex.id	Kasir	Jl. Anggrek No. 137	00907
+K00908	Joko	Khalimah	L	k908@ex.id	Admin	Jl. Kenanga No. 13	00908
+K00909	Hendra	Khalimah	L	k909@ex.id	HRD	Jl. Melati No. 191	00909
+K00910	Umi	Hadi	P	k910@ex.id	Admin	Jl. Anggrek No. 49	00910
+K00911	Tono	Firmansyah	P	k911@ex.id	Admin	Jl. Anggrek No. 142	00911
+K00912	Karin	Hadi	L	k912@ex.id	Staff	Jl. Sakura No. 70	00912
+K00913	Joko	Permata	P	k913@ex.id	Manajer	Jl. Flamboyan No. 33	00913
+K00914	Nanda	Rahmawati	L	k914@ex.id	Supervisor	Jl. Anggrek No. 57	00914
+K00915	Vina	Sari	L	k915@ex.id	Kasir	Jl. Mawar No. 81	00915
+K00916	Citra	Lestari	L	k916@ex.id	Manajer	Jl. Anggrek No. 116	00916
+K00917	Budi	Hadi	L	k917@ex.id	HRD	Jl. Flamboyan No. 145	00917
+K00918	Karin	Amalia	L	k918@ex.id	Keuangan	Jl. Jati No. 122	00918
+K00919	Gita	Hidayat	P	k919@ex.id	Keuangan	Jl. Trembesi No. 82	00919
+K00920	Eko	Wulandari	L	k920@ex.id	Keuangan	Jl. Trembesi No. 3	00920
+K00921	Nanda	Firmansyah	L	k921@ex.id	Staff	Jl. Dahlia No. 197	00921
+K00922	Gita	Kurniawati	P	k922@ex.id	Supervisor	Jl. Anggrek No. 169	00922
+K00923	Hendra	Kurniawati	P	k923@ex.id	Kasir	Jl. Trembesi No. 122	00923
+K00924	Putri	Rahmawati	L	k924@ex.id	Admin	Jl. Trembesi No. 164	00924
+K00925	Dewi	Nurhaliza	P	k925@ex.id	Staff	Jl. Trembesi No. 145	00925
+K00926	Qori	Sari	P	k926@ex.id	Manajer	Jl. Sakura No. 102	00926
+K00927	Indah	Wijayanto	P	k927@ex.id	Admin	Jl. Anggrek No. 139	00927
+K00928	Yusuf	Wijayanto	L	k928@ex.id	Gudang	Jl. Bougenville No. 63	00928
+K00929	Nanda	Kurniawati	L	k929@ex.id	Gudang	Jl. Bougenville No. 140	00929
+K00930	Umi	Fitriani	L	k930@ex.id	Keuangan	Jl. Melati No. 168	00930
+K00931	Gita	Kurniawati	P	k931@ex.id	HRD	Jl. Sakura No. 170	00931
+K00932	Gita	Permata	L	k932@ex.id	Manajer	Jl. Kenanga No. 44	00932
+K00933	Putri	Permata	L	k933@ex.id	Supervisor	Jl. Mawar No. 66	00933
+K00934	Gita	Hadi	P	k934@ex.id	IT Support	Jl. Kenanga No. 78	00934
+K00935	Umi	Sari	L	k935@ex.id	Admin	Jl. Dahlia No. 125	00935
+K00936	Lukman	Kurniawati	P	k936@ex.id	HRD	Jl. Anggrek No. 55	00936
+K00937	Zahra	Permata	P	k937@ex.id	Admin	Jl. Trembesi No. 39	00937
+K00938	Fajar	Hadi	L	k938@ex.id	Staff	Jl. Kenanga No. 82	00938
+K00939	Wahyu	Hidayat	P	k939@ex.id	Supervisor	Jl. Bougenville No. 105	00939
+K00940	Vina	Amalia	P	k940@ex.id	Keuangan	Jl. Dahlia No. 56	00940
+K00941	Putri	Santoso	P	k941@ex.id	Admin	Jl. Melati No. 29	00941
+K00942	Eko	Rahmawati	L	k942@ex.id	Keuangan	Jl. Anggrek No. 44	00942
+K00943	Karin	Prasetyo	P	k943@ex.id	HRD	Jl. Trembesi No. 118	00943
+K00944	Gita	Putri	P	k944@ex.id	Kasir	Jl. Anggrek No. 3	00944
+K00945	Putri	Prasetyo	P	k945@ex.id	HRD	Jl. Kenanga No. 66	00945
+K00946	Indah	Wijaya	L	k946@ex.id	HRD	Jl. Melati No. 60	00946
+K00947	Eko	Wijaya	L	k947@ex.id	Staff	Jl. Sakura No. 88	00947
+K00948	Vina	Maulana	L	k948@ex.id	Manajer	Jl. Melati No. 39	00948
+K00949	Tono	Prasetyo	L	k949@ex.id	HRD	Jl. Bougenville No. 20	00949
+K00950	Yusuf	Kurniawati	L	k950@ex.id	HRD	Jl. Dahlia No. 159	00950
+K00951	Nanda	Wijayanto	P	k951@ex.id	Gudang	Jl. Kenanga No. 116	00951
+K00952	Indah	Maulana	P	k952@ex.id	IT Support	Jl. Dahlia No. 72	00952
+K00953	Vina	Saputra	L	k953@ex.id	HRD	Jl. Sakura No. 150	00953
+K00954	Karin	Firmansyah	L	k954@ex.id	IT Support	Jl. Anggrek No. 121	00954
+K00955	Nanda	Putri	L	k955@ex.id	HRD	Jl. Bougenville No. 130	00955
+K00956	Hendra	Fitriani	L	k956@ex.id	Gudang	Jl. Melati No. 171	00956
+K00957	Oka	Putri	P	k957@ex.id	IT Support	Jl. Flamboyan No. 46	00957
+K00958	Lukman	Hidayat	P	k958@ex.id	IT Support	Jl. Sakura No. 59	00958
+K00959	Hendra	Kurniawati	P	k959@ex.id	Supervisor	Jl. Dahlia No. 173	00959
+K00960	Eko	Rahmawati	P	k960@ex.id	Marketing	Jl. Kenanga No. 7	00960
+K00961	Nanda	Susanto	L	k961@ex.id	HRD	Jl. Dahlia No. 99	00961
+K00962	Citra	Ramadhan	P	k962@ex.id	HRD	Jl. Dahlia No. 131	00962
+K00963	Maya	Amalia	L	k963@ex.id	Marketing	Jl. Bougenville No. 52	00963
+K00964	Hendra	Wijaya	L	k964@ex.id	Manajer	Jl. Trembesi No. 50	00964
+K00965	Fajar	Santoso	L	k965@ex.id	Manajer	Jl. Mawar No. 80	00965
+K00966	Putri	Santoso	P	k966@ex.id	HRD	Jl. Anggrek No. 140	00966
+K00967	Hendra	Prasetyo	P	k967@ex.id	Manajer	Jl. Melati No. 80	00967
+K00968	Karin	Aulia	L	k968@ex.id	Manajer	Jl. Bougenville No. 22	00968
+K00969	Siti	Putri	L	k969@ex.id	Supervisor	Jl. Kenanga No. 148	00969
+K00970	Nanda	Hidayat	P	k970@ex.id	Admin	Jl. Anggrek No. 128	00970
+K00971	Umi	Permata	P	k971@ex.id	Supervisor	Jl. Flamboyan No. 198	00971
+K00972	Indah	Prasetyo	L	k972@ex.id	Admin	Jl. Kenanga No. 53	00972
+K00973	Citra	Aulia	L	k973@ex.id	Gudang	Jl. Melati No. 160	00973
+K00974	Qori	Lestari	L	k974@ex.id	Supervisor	Jl. Melati No. 16	00974
+K00975	Tono	Permata	L	k975@ex.id	Marketing	Jl. Mawar No. 43	00975
+K00976	Joko	Amalia	P	k976@ex.id	Keuangan	Jl. Sakura No. 133	00976
+K00977	Yusuf	Putri	P	k977@ex.id	Supervisor	Jl. Mawar No. 82	00977
+K00978	Nanda	Susanto	L	k978@ex.id	Staff	Jl. Anggrek No. 98	00978
+K00979	Maya	Maulana	P	k979@ex.id	Marketing	Jl. Bougenville No. 142	00979
+K00980	Umi	Lestari	L	k980@ex.id	Gudang	Jl. Flamboyan No. 52	00980
+K00981	Putri	Kurniawati	L	k981@ex.id	Marketing	Jl. Trembesi No. 90	00981
+K00982	Siti	Hidayat	L	k982@ex.id	HRD	Jl. Sakura No. 77	00982
+K00983	Qori	Khalimah	L	k983@ex.id	Gudang	Jl. Jati No. 169	00983
+K00984	Siti	Nurhaliza	L	k984@ex.id	HRD	Jl. Bougenville No. 133	00984
+K00985	Zahra	Hidayat	L	k985@ex.id	Marketing	Jl. Trembesi No. 191	00985
+K00986	Yusuf	Lestari	P	k986@ex.id	Gudang	Jl. Kenanga No. 184	00986
+K00987	Eko	Wijayanto	P	k987@ex.id	Admin	Jl. Flamboyan No. 166	00987
+K00988	Indah	Putri	L	k988@ex.id	Supervisor	Jl. Anggrek No. 4	00988
+K00989	Dewi	Maulana	P	k989@ex.id	Keuangan	Jl. Jati No. 95	00989
+K00990	Eko	Wijaya	P	k990@ex.id	Kasir	Jl. Kenanga No. 2	00990
+K00991	Karin	Firmansyah	P	k991@ex.id	Keuangan	Jl. Mawar No. 151	00991
+K00992	Yusuf	Maulana	L	k992@ex.id	Kasir	Jl. Sakura No. 150	00992
+K00993	Fajar	Anggraini	P	k993@ex.id	Admin	Jl. Melati No. 25	00993
+K00994	Wahyu	Hidayat	L	k994@ex.id	Gudang	Jl. Flamboyan No. 105	00994
+K00995	Umi	Khalimah	L	k995@ex.id	Kasir	Jl. Sakura No. 57	00995
+K00996	Maya	Ramadhan	L	k996@ex.id	IT Support	Jl. Flamboyan No. 39	00996
+K00997	Umi	Maulana	P	k997@ex.id	HRD	Jl. Dahlia No. 135	00997
+K00998	Qori	Aulia	L	k998@ex.id	Manajer	Jl. Dahlia No. 97	00998
+K00999	Eko	Amalia	P	k999@ex.id	Manajer	Jl. Bougenville No. 41	00999
+K01000	Qori	Fitriani	L	k1000@ex.id	Manajer	Jl. Flamboyan No. 190	01000
+\.
+
+
+--
+-- TOC entry 5012 (class 0 OID 18509)
+-- Dependencies: 221
+-- Data for Name: Kategori; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Kategori" (id_kategori, nama) FROM stdin;
+KT00001	Kuliner Terapan
+KT00002	Fotografi Umum
+KT00003	Biografi Modern
+KT00004	Desain Populer
+KT00005	Bahasa Lanjut
+KT00006	Majalah Populer
+KT00007	Musik Modern
+KT00008	Remaja Lanjut
+KT00009	Majalah Dasar
+KT00010	Psikologi Lanjut
+KT00011	Akuntansi Umum
+KT00012	Agama Lanjut
+KT00013	Hukum Terapan
+KT00014	Kamus Populer
+KT00015	Lingkungan Terapan
+KT00016	Kamus Populer
+KT00017	Filsafat Umum
+KT00018	Musik Umum
+KT00019	Komputer Terapan
+KT00020	Psikologi Terapan
+KT00021	Politik Umum
+KT00022	Hukum Dasar
+KT00023	Ekonomi Terapan
+KT00024	Sejarah Lanjut
+KT00025	Desain Lanjut
+KT00026	Psikologi Lanjut
+KT00027	Sosial Umum
+KT00028	Kuliner Terapan
+KT00029	Kamus Terapan
+KT00030	Ekonomi Umum
+KT00031	Matematika Populer
+KT00032	Desain Dasar
+KT00033	Sejarah Umum
+KT00034	Pendidikan Lanjut
+KT00035	Hukum Lanjut
+KT00036	Matematika Umum
+KT00037	Non-Fiksi Terapan
+KT00038	Remaja Umum
+KT00039	Akuntansi Dasar
+KT00040	Majalah Umum
+KT00041	Politik Umum
+KT00042	Ekonomi Terapan
+KT00043	Non-Fiksi Umum
+KT00044	Sejarah Lanjut
+KT00045	Kesehatan Modern
+KT00046	Majalah Dasar
+KT00047	Kuliner Dasar
+KT00048	Non-Fiksi Populer
+KT00049	Fotografi Dasar
+KT00050	Sastra Umum
+KT00051	Matematika Lanjut
+KT00052	Sastra Dasar
+KT00053	Teknologi Lanjut
+KT00054	Agama Modern
+KT00055	Psikologi Lanjut
+KT00056	Sosial Lanjut
+KT00057	Agama Populer
+KT00058	Novel Modern
+KT00059	Sains Umum
+KT00060	Majalah Lanjut
+KT00061	Fotografi Umum
+KT00062	Teknologi Umum
+KT00063	Desain Populer
+KT00064	Agama Terapan
+KT00065	Petualangan Umum
+KT00066	Bisnis Populer
+KT00067	Fotografi Populer
+KT00068	Musik Dasar
+KT00069	Desain Lanjut
+KT00070	Agama Umum
+KT00071	Akuntansi Terapan
+KT00072	Kesehatan Terapan
+KT00073	Majalah Populer
+KT00074	Fotografi Lanjut
+KT00075	Psikologi Umum
+KT00076	Psikologi Terapan
+KT00077	Politik Lanjut
+KT00078	Bahasa Umum
+KT00079	Agama Umum
+KT00080	Kesehatan Lanjut
+KT00081	Matematika Modern
+KT00082	Fotografi Populer
+KT00083	Teknologi Populer
+KT00084	Kuliner Terapan
+KT00085	Lingkungan Populer
+KT00086	Anak Populer
+KT00087	Non-Fiksi Terapan
+KT00088	Kamus Umum
+KT00089	Remaja Terapan
+KT00090	Remaja Lanjut
+KT00091	Sains Dasar
+KT00092	Akuntansi Lanjut
+KT00093	Petualangan Umum
+KT00094	Desain Lanjut
+KT00095	Matematika Terapan
+KT00096	Ensiklopedia Umum
+KT00097	Biografi Dasar
+KT00098	Sejarah Terapan
+KT00099	Psikologi Populer
+KT00100	Ensiklopedia Terapan
+KT00101	Hukum Populer
+KT00102	Komik Populer
+KT00103	Novel Terapan
+KT00104	Agama Terapan
+KT00105	Desain Terapan
+KT00106	Kuliner Modern
+KT00107	Non-Fiksi Lanjut
+KT00108	Filsafat Umum
+KT00109	Psikologi Terapan
+KT00110	Remaja Lanjut
+KT00111	Politik Umum
+KT00112	Sains Modern
+KT00113	Filsafat Lanjut
+KT00114	Akuntansi Populer
+KT00115	Biografi Lanjut
+KT00116	Anak Terapan
+KT00117	Sejarah Dasar
+KT00118	Teknik Modern
+KT00119	Ensiklopedia Lanjut
+KT00120	Bahasa Populer
+KT00121	Majalah Lanjut
+KT00122	Biografi Umum
+KT00123	Pendidikan Terapan
+KT00124	Komputer Dasar
+KT00125	Bisnis Populer
+KT00126	Akuntansi Lanjut
+KT00127	Remaja Populer
+KT00128	Anak Umum
+KT00129	Bisnis Modern
+KT00130	Anak Populer
+KT00131	Psikologi Populer
+KT00132	Kesehatan Populer
+KT00133	Desain Modern
+KT00134	Hukum Umum
+KT00135	Remaja Populer
+KT00136	Hukum Modern
+KT00137	Lingkungan Populer
+KT00138	Petualangan Lanjut
+KT00139	Lingkungan Populer
+KT00140	Sosial Populer
+KT00141	Bahasa Umum
+KT00142	Politik Umum
+KT00143	Anak Dasar
+KT00144	Akuntansi Lanjut
+KT00145	Filsafat Lanjut
+KT00146	Sejarah Lanjut
+KT00147	Ekonomi Terapan
+KT00148	Kuliner Umum
+KT00149	Sejarah Populer
+KT00150	Petualangan Dasar
+KT00151	Komputer Terapan
+KT00152	Sastra Populer
+KT00153	Psikologi Lanjut
+KT00154	Akuntansi Umum
+KT00155	Psikologi Populer
+KT00156	Lingkungan Lanjut
+KT00157	Politik Lanjut
+KT00158	Musik Lanjut
+KT00159	Sosial Terapan
+KT00160	Sosial Umum
+KT00161	Lingkungan Populer
+KT00162	Bahasa Modern
+KT00163	Hukum Umum
+KT00164	Fotografi Lanjut
+KT00165	Ekonomi Terapan
+KT00166	Sejarah Umum
+KT00167	Novel Terapan
+KT00168	Sastra Lanjut
+KT00169	Pendidikan Umum
+KT00170	Bahasa Lanjut
+KT00171	Sastra Umum
+KT00172	Pendidikan Dasar
+KT00173	Biografi Dasar
+KT00174	Ekonomi Lanjut
+KT00175	Majalah Populer
+KT00176	Teknologi Terapan
+KT00177	Politik Dasar
+KT00178	Komputer Modern
+KT00179	Teknologi Lanjut
+KT00180	Anak Dasar
+KT00181	Komik Umum
+KT00182	Lingkungan Dasar
+KT00183	Matematika Dasar
+KT00184	Komik Umum
+KT00185	Hukum Lanjut
+KT00186	Novel Modern
+KT00187	Ekonomi Lanjut
+KT00188	Teknik Lanjut
+KT00189	Teknik Populer
+KT00190	Akuntansi Populer
+KT00191	Sastra Umum
+KT00192	Ensiklopedia Populer
+KT00193	Kuliner Umum
+KT00194	Ensiklopedia Terapan
+KT00195	Biografi Modern
+KT00196	Kuliner Populer
+KT00197	Ensiklopedia Umum
+KT00198	Politik Modern
+KT00199	Majalah Terapan
+KT00200	Non-Fiksi Terapan
+KT00201	Hukum Umum
+KT00202	Politik Umum
+KT00203	Teknologi Umum
+KT00204	Ekonomi Umum
+KT00205	Pendidikan Dasar
+KT00206	Bahasa Modern
+KT00207	Majalah Populer
+KT00208	Fotografi Lanjut
+KT00209	Akuntansi Umum
+KT00210	Fotografi Umum
+KT00211	Non-Fiksi Terapan
+KT00212	Teknologi Terapan
+KT00213	Politik Populer
+KT00214	Matematika Populer
+KT00215	Filsafat Umum
+KT00216	Sains Umum
+KT00217	Pendidikan Populer
+KT00218	Agama Umum
+KT00219	Akuntansi Populer
+KT00220	Politik Lanjut
+KT00221	Hukum Modern
+KT00222	Biografi Umum
+KT00223	Teknologi Umum
+KT00224	Ekonomi Umum
+KT00225	Komik Terapan
+KT00226	Pendidikan Lanjut
+KT00227	Desain Populer
+KT00228	Lingkungan Lanjut
+KT00229	Majalah Lanjut
+KT00230	Kesehatan Lanjut
+KT00231	Ekonomi Lanjut
+KT00232	Psikologi Terapan
+KT00233	Komputer Umum
+KT00234	Komputer Umum
+KT00235	Fotografi Populer
+KT00236	Remaja Umum
+KT00237	Sosial Terapan
+KT00238	Anak Dasar
+KT00239	Kamus Populer
+KT00240	Matematika Terapan
+KT00241	Akuntansi Lanjut
+KT00242	Biografi Lanjut
+KT00243	Bisnis Modern
+KT00244	Matematika Umum
+KT00245	Fotografi Populer
+KT00246	Agama Lanjut
+KT00247	Bisnis Populer
+KT00248	Sosial Dasar
+KT00249	Kamus Terapan
+KT00250	Ekonomi Populer
+KT00251	Anak Modern
+KT00252	Desain Lanjut
+KT00253	Psikologi Umum
+KT00254	Sejarah Umum
+KT00255	Desain Terapan
+KT00256	Komputer Populer
+KT00257	Psikologi Populer
+KT00258	Sains Lanjut
+KT00259	Ensiklopedia Populer
+KT00260	Bahasa Terapan
+KT00261	Teknologi Terapan
+KT00262	Pendidikan Umum
+KT00263	Akuntansi Populer
+KT00264	Non-Fiksi Dasar
+KT00265	Biografi Lanjut
+KT00266	Musik Dasar
+KT00267	Kuliner Terapan
+KT00268	Matematika Terapan
+KT00269	Pendidikan Populer
+KT00270	Novel Terapan
+KT00271	Kuliner Lanjut
+KT00272	Akuntansi Populer
+KT00273	Sastra Terapan
+KT00274	Sosial Populer
+KT00275	Petualangan Dasar
+KT00276	Politik Umum
+KT00277	Sains Umum
+KT00278	Remaja Modern
+KT00279	Fotografi Populer
+KT00280	Ensiklopedia Umum
+KT00281	Biografi Modern
+KT00282	Novel Lanjut
+KT00283	Hukum Dasar
+KT00284	Teknik Populer
+KT00285	Musik Lanjut
+KT00286	Hukum Modern
+KT00287	Lingkungan Modern
+KT00288	Anak Lanjut
+KT00289	Musik Terapan
+KT00290	Sejarah Lanjut
+KT00291	Remaja Lanjut
+KT00292	Fotografi Lanjut
+KT00293	Hukum Terapan
+KT00294	Majalah Populer
+KT00295	Hukum Dasar
+KT00296	Desain Dasar
+KT00297	Kuliner Dasar
+KT00298	Pendidikan Umum
+KT00299	Desain Terapan
+KT00300	Filsafat Populer
+KT00301	Fotografi Lanjut
+KT00302	Kamus Umum
+KT00303	Hukum Populer
+KT00304	Teknologi Terapan
+KT00305	Kuliner Populer
+KT00306	Komputer Dasar
+KT00307	Hukum Populer
+KT00308	Pendidikan Lanjut
+KT00309	Kamus Terapan
+KT00310	Ensiklopedia Terapan
+KT00311	Lingkungan Terapan
+KT00312	Ensiklopedia Modern
+KT00313	Kamus Populer
+KT00314	Majalah Umum
+KT00315	Non-Fiksi Dasar
+KT00316	Ensiklopedia Terapan
+KT00317	Agama Umum
+KT00318	Anak Umum
+KT00319	Non-Fiksi Populer
+KT00320	Bisnis Lanjut
+KT00321	Bisnis Umum
+KT00322	Hukum Populer
+KT00323	Komik Populer
+KT00324	Sosial Terapan
+KT00325	Biografi Terapan
+KT00326	Anak Umum
+KT00327	Komputer Populer
+KT00328	Kamus Populer
+KT00329	Hukum Umum
+KT00330	Desain Umum
+KT00331	Kamus Lanjut
+KT00332	Anak Lanjut
+KT00333	Sosial Terapan
+KT00334	Matematika Umum
+KT00335	Kuliner Populer
+KT00336	Politik Terapan
+KT00337	Fiksi Lanjut
+KT00338	Bisnis Populer
+KT00339	Psikologi Lanjut
+KT00340	Novel Terapan
+KT00341	Non-Fiksi Populer
+KT00342	Biografi Populer
+KT00343	Ensiklopedia Populer
+KT00344	Pendidikan Umum
+KT00345	Sastra Dasar
+KT00346	Petualangan Populer
+KT00347	Matematika Modern
+KT00348	Musik Umum
+KT00349	Matematika Terapan
+KT00350	Ekonomi Terapan
+KT00351	Filsafat Populer
+KT00352	Desain Terapan
+KT00353	Anak Lanjut
+KT00354	Bisnis Terapan
+KT00355	Petualangan Terapan
+KT00356	Bahasa Dasar
+KT00357	Matematika Dasar
+KT00358	Teknologi Dasar
+KT00359	Ekonomi Umum
+KT00360	Petualangan Lanjut
+KT00361	Majalah Terapan
+KT00362	Ekonomi Populer
+KT00363	Ekonomi Terapan
+KT00364	Komputer Dasar
+KT00365	Fotografi Modern
+KT00366	Anak Lanjut
+KT00367	Teknologi Terapan
+KT00368	Kesehatan Terapan
+KT00369	Non-Fiksi Lanjut
+KT00370	Petualangan Umum
+KT00371	Fotografi Terapan
+KT00372	Teknik Lanjut
+KT00373	Desain Modern
+KT00374	Remaja Umum
+KT00375	Biografi Lanjut
+KT00376	Desain Umum
+KT00377	Bahasa Umum
+KT00378	Akuntansi Umum
+KT00379	Sastra Lanjut
+KT00380	Kesehatan Populer
+KT00381	Filsafat Umum
+KT00382	Hukum Umum
+KT00383	Sastra Umum
+KT00384	Remaja Umum
+KT00385	Petualangan Populer
+KT00386	Sejarah Dasar
+KT00387	Kamus Terapan
+KT00388	Kesehatan Populer
+KT00389	Agama Umum
+KT00390	Biografi Lanjut
+KT00391	Ensiklopedia Dasar
+KT00392	Teknologi Dasar
+KT00393	Novel Modern
+KT00394	Teknologi Populer
+KT00395	Musik Terapan
+KT00396	Agama Lanjut
+KT00397	Hukum Terapan
+KT00398	Agama Terapan
+KT00399	Akuntansi Lanjut
+KT00400	Teknologi Terapan
+KT00401	Kuliner Terapan
+KT00402	Sosial Terapan
+KT00403	Petualangan Terapan
+KT00404	Bahasa Lanjut
+KT00405	Komputer Lanjut
+KT00406	Novel Terapan
+KT00407	Psikologi Terapan
+KT00408	Kamus Modern
+KT00409	Teknologi Terapan
+KT00410	Fotografi Umum
+KT00411	Psikologi Lanjut
+KT00412	Biografi Populer
+KT00413	Anak Populer
+KT00414	Kuliner Populer
+KT00415	Musik Terapan
+KT00416	Hukum Populer
+KT00417	Ekonomi Lanjut
+KT00418	Sains Umum
+KT00419	Kesehatan Populer
+KT00420	Hukum Terapan
+KT00421	Sejarah Terapan
+KT00422	Bisnis Dasar
+KT00423	Desain Populer
+KT00424	Kamus Umum
+KT00425	Biografi Terapan
+KT00426	Komik Umum
+KT00427	Majalah Terapan
+KT00428	Kuliner Terapan
+KT00429	Agama Umum
+KT00430	Fotografi Populer
+KT00431	Biografi Terapan
+KT00432	Sains Dasar
+KT00433	Fotografi Modern
+KT00434	Majalah Terapan
+KT00435	Sastra Lanjut
+KT00436	Komik Modern
+KT00437	Non-Fiksi Lanjut
+KT00438	Kamus Dasar
+KT00439	Bahasa Umum
+KT00440	Teknologi Populer
+KT00441	Kuliner Umum
+KT00442	Politik Umum
+KT00443	Agama Lanjut
+KT00444	Lingkungan Terapan
+KT00445	Komik Modern
+KT00446	Fotografi Terapan
+KT00447	Filsafat Populer
+KT00448	Musik Terapan
+KT00449	Teknologi Umum
+KT00450	Kesehatan Lanjut
+KT00451	Matematika Modern
+KT00452	Fotografi Populer
+KT00453	Komik Dasar
+KT00454	Sastra Umum
+KT00455	Komputer Dasar
+KT00456	Novel Dasar
+KT00457	Novel Dasar
+KT00458	Musik Terapan
+KT00459	Non-Fiksi Modern
+KT00460	Komputer Lanjut
+KT00461	Akuntansi Lanjut
+KT00462	Majalah Lanjut
+KT00463	Agama Populer
+KT00464	Petualangan Modern
+KT00465	Bahasa Modern
+KT00466	Bisnis Populer
+KT00467	Hukum Umum
+KT00468	Majalah Dasar
+KT00469	Petualangan Lanjut
+KT00470	Fiksi Terapan
+KT00471	Petualangan Populer
+KT00472	Desain Umum
+KT00473	Remaja Terapan
+KT00474	Sastra Dasar
+KT00475	Filsafat Modern
+KT00476	Kesehatan Terapan
+KT00477	Ensiklopedia Populer
+KT00478	Komputer Terapan
+KT00479	Agama Terapan
+KT00480	Bisnis Populer
+KT00481	Hukum Umum
+KT00482	Novel Populer
+KT00483	Komik Populer
+KT00484	Ekonomi Umum
+KT00485	Hukum Lanjut
+KT00486	Akuntansi Lanjut
+KT00487	Hukum Terapan
+KT00488	Majalah Umum
+KT00489	Biografi Modern
+KT00490	Non-Fiksi Terapan
+KT00491	Komik Populer
+KT00492	Kamus Umum
+KT00493	Agama Lanjut
+KT00494	Teknologi Lanjut
+KT00495	Kesehatan Umum
+KT00496	Sastra Populer
+KT00497	Sejarah Lanjut
+KT00498	Musik Umum
+KT00499	Agama Populer
+KT00500	Kesehatan Modern
+KT00501	Akuntansi Lanjut
+KT00502	Pendidikan Dasar
+KT00503	Filsafat Umum
+KT00504	Komputer Populer
+KT00505	Akuntansi Lanjut
+KT00506	Fotografi Umum
+KT00507	Teknologi Populer
+KT00508	Fiksi Modern
+KT00509	Petualangan Populer
+KT00510	Desain Populer
+KT00511	Anak Populer
+KT00512	Fiksi Dasar
+KT00513	Fotografi Umum
+KT00514	Ensiklopedia Populer
+KT00515	Desain Terapan
+KT00516	Teknologi Umum
+KT00517	Sains Lanjut
+KT00518	Bahasa Populer
+KT00519	Sains Terapan
+KT00520	Kamus Umum
+KT00521	Anak Lanjut
+KT00522	Ekonomi Terapan
+KT00523	Fotografi Lanjut
+KT00524	Sejarah Umum
+KT00525	Komputer Dasar
+KT00526	Petualangan Terapan
+KT00527	Komputer Umum
+KT00528	Sejarah Terapan
+KT00529	Fotografi Lanjut
+KT00530	Komputer Lanjut
+KT00531	Pendidikan Populer
+KT00532	Hukum Umum
+KT00533	Lingkungan Terapan
+KT00534	Politik Populer
+KT00535	Remaja Terapan
+KT00536	Novel Modern
+KT00537	Kuliner Populer
+KT00538	Agama Terapan
+KT00539	Musik Modern
+KT00540	Non-Fiksi Populer
+KT00541	Teknik Lanjut
+KT00542	Sains Dasar
+KT00543	Fiksi Terapan
+KT00544	Teknologi Lanjut
+KT00545	Matematika Lanjut
+KT00546	Musik Lanjut
+KT00547	Sains Modern
+KT00548	Ekonomi Lanjut
+KT00549	Biografi Populer
+KT00550	Akuntansi Populer
+KT00551	Sejarah Populer
+KT00552	Lingkungan Umum
+KT00553	Biografi Modern
+KT00554	Petualangan Umum
+KT00555	Filsafat Dasar
+KT00556	Sejarah Umum
+KT00557	Bahasa Dasar
+KT00558	Komik Terapan
+KT00559	Lingkungan Umum
+KT00560	Agama Terapan
+KT00561	Non-Fiksi Populer
+KT00562	Fotografi Dasar
+KT00563	Ensiklopedia Modern
+KT00564	Fiksi Populer
+KT00565	Agama Terapan
+KT00566	Remaja Lanjut
+KT00567	Sosial Umum
+KT00568	Hukum Umum
+KT00569	Remaja Umum
+KT00570	Agama Lanjut
+KT00571	Petualangan Lanjut
+KT00572	Bisnis Umum
+KT00573	Bahasa Umum
+KT00574	Novel Dasar
+KT00575	Anak Lanjut
+KT00576	Desain Lanjut
+KT00577	Psikologi Dasar
+KT00578	Bahasa Umum
+KT00579	Pendidikan Lanjut
+KT00580	Akuntansi Umum
+KT00581	Teknik Lanjut
+KT00582	Sastra Dasar
+KT00583	Bisnis Lanjut
+KT00584	Komputer Terapan
+KT00585	Psikologi Lanjut
+KT00586	Sains Lanjut
+KT00587	Bahasa Dasar
+KT00588	Kamus Lanjut
+KT00589	Hukum Populer
+KT00590	Bisnis Populer
+KT00591	Kamus Populer
+KT00592	Petualangan Terapan
+KT00593	Remaja Lanjut
+KT00594	Teknologi Lanjut
+KT00595	Fiksi Dasar
+KT00596	Sejarah Modern
+KT00597	Novel Populer
+KT00598	Bahasa Populer
+KT00599	Politik Terapan
+KT00600	Agama Terapan
+KT00601	Sejarah Lanjut
+KT00602	Agama Populer
+KT00603	Biografi Lanjut
+KT00604	Politik Dasar
+KT00605	Pendidikan Modern
+KT00606	Sosial Populer
+KT00607	Politik Populer
+KT00608	Kamus Populer
+KT00609	Komputer Populer
+KT00610	Kamus Dasar
+KT00611	Musik Terapan
+KT00612	Novel Terapan
+KT00613	Bahasa Terapan
+KT00614	Bahasa Lanjut
+KT00615	Sains Populer
+KT00616	Non-Fiksi Terapan
+KT00617	Ensiklopedia Populer
+KT00618	Lingkungan Lanjut
+KT00619	Remaja Terapan
+KT00620	Agama Populer
+KT00621	Sastra Lanjut
+KT00622	Sastra Umum
+KT00623	Politik Populer
+KT00624	Komputer Umum
+KT00625	Anak Lanjut
+KT00626	Politik Lanjut
+KT00627	Psikologi Modern
+KT00628	Bahasa Terapan
+KT00629	Fotografi Populer
+KT00630	Teknologi Dasar
+KT00631	Majalah Umum
+KT00632	Lingkungan Terapan
+KT00633	Bahasa Populer
+KT00634	Matematika Lanjut
+KT00635	Kamus Terapan
+KT00636	Agama Lanjut
+KT00637	Bisnis Lanjut
+KT00638	Lingkungan Populer
+KT00639	Sejarah Lanjut
+KT00640	Kesehatan Lanjut
+KT00641	Kuliner Dasar
+KT00642	Teknologi Modern
+KT00643	Lingkungan Dasar
+KT00644	Desain Lanjut
+KT00645	Kuliner Modern
+KT00646	Pendidikan Terapan
+KT00647	Remaja Modern
+KT00648	Filsafat Umum
+KT00649	Kamus Umum
+KT00650	Filsafat Populer
+KT00651	Fiksi Modern
+KT00652	Politik Lanjut
+KT00653	Lingkungan Dasar
+KT00654	Sastra Umum
+KT00655	Akuntansi Populer
+KT00656	Kuliner Populer
+KT00657	Sains Terapan
+KT00658	Politik Terapan
+KT00659	Sains Lanjut
+KT00660	Komputer Lanjut
+KT00661	Biografi Modern
+KT00662	Hukum Populer
+KT00663	Teknik Modern
+KT00664	Novel Populer
+KT00665	Komputer Modern
+KT00666	Hukum Lanjut
+KT00667	Sosial Umum
+KT00668	Teknologi Umum
+KT00669	Sains Populer
+KT00670	Lingkungan Populer
+KT00671	Agama Lanjut
+KT00672	Filsafat Lanjut
+KT00673	Filsafat Lanjut
+KT00674	Bisnis Terapan
+KT00675	Bisnis Umum
+KT00676	Filsafat Umum
+KT00677	Novel Terapan
+KT00678	Novel Terapan
+KT00679	Sejarah Terapan
+KT00680	Novel Terapan
+KT00681	Anak Dasar
+KT00682	Bahasa Modern
+KT00683	Ekonomi Lanjut
+KT00684	Non-Fiksi Populer
+KT00685	Sastra Umum
+KT00686	Politik Dasar
+KT00687	Teknologi Modern
+KT00688	Komputer Terapan
+KT00689	Sains Modern
+KT00690	Teknologi Dasar
+KT00691	Majalah Terapan
+KT00692	Agama Lanjut
+KT00693	Remaja Terapan
+KT00694	Kuliner Lanjut
+KT00695	Teknik Lanjut
+KT00696	Desain Lanjut
+KT00697	Teknologi Terapan
+KT00698	Komputer Lanjut
+KT00699	Politik Lanjut
+KT00700	Desain Populer
+KT00701	Pendidikan Modern
+KT00702	Kuliner Terapan
+KT00703	Agama Lanjut
+KT00704	Matematika Terapan
+KT00705	Kesehatan Populer
+KT00706	Matematika Populer
+KT00707	Fotografi Umum
+KT00708	Teknik Umum
+KT00709	Agama Terapan
+KT00710	Lingkungan Populer
+KT00711	Bisnis Modern
+KT00712	Novel Umum
+KT00713	Ensiklopedia Lanjut
+KT00714	Pendidikan Modern
+KT00715	Non-Fiksi Populer
+KT00716	Sosial Umum
+KT00717	Ensiklopedia Umum
+KT00718	Desain Lanjut
+KT00719	Lingkungan Terapan
+KT00720	Remaja Lanjut
+KT00721	Sosial Populer
+KT00722	Komik Populer
+KT00723	Agama Populer
+KT00724	Kuliner Populer
+KT00725	Bahasa Umum
+KT00726	Musik Dasar
+KT00727	Psikologi Terapan
+KT00728	Petualangan Lanjut
+KT00729	Akuntansi Populer
+KT00730	Akuntansi Umum
+KT00731	Ensiklopedia Umum
+KT00732	Sastra Dasar
+KT00733	Komik Populer
+KT00734	Hukum Dasar
+KT00735	Sains Populer
+KT00736	Majalah Terapan
+KT00737	Komik Lanjut
+KT00738	Non-Fiksi Modern
+KT00739	Majalah Lanjut
+KT00740	Agama Terapan
+KT00741	Bisnis Dasar
+KT00742	Novel Dasar
+KT00743	Ensiklopedia Populer
+KT00744	Biografi Terapan
+KT00745	Teknik Modern
+KT00746	Bahasa Umum
+KT00747	Sosial Umum
+KT00748	Agama Umum
+KT00749	Fotografi Lanjut
+KT00750	Komik Terapan
+KT00751	Desain Populer
+KT00752	Lingkungan Lanjut
+KT00753	Lingkungan Dasar
+KT00754	Desain Populer
+KT00755	Musik Populer
+KT00756	Non-Fiksi Lanjut
+KT00757	Komik Lanjut
+KT00758	Kesehatan Umum
+KT00759	Novel Umum
+KT00760	Sastra Terapan
+KT00761	Matematika Lanjut
+KT00762	Akuntansi Umum
+KT00763	Akuntansi Modern
+KT00764	Lingkungan Terapan
+KT00765	Petualangan Lanjut
+KT00766	Sains Terapan
+KT00767	Kuliner Umum
+KT00768	Psikologi Modern
+KT00769	Ekonomi Populer
+KT00770	Lingkungan Terapan
+KT00771	Fotografi Umum
+KT00772	Hukum Modern
+KT00773	Hukum Populer
+KT00774	Psikologi Populer
+KT00775	Petualangan Lanjut
+KT00776	Desain Populer
+KT00777	Sastra Umum
+KT00778	Petualangan Modern
+KT00779	Kamus Lanjut
+KT00780	Novel Terapan
+KT00781	Musik Populer
+KT00782	Hukum Dasar
+KT00783	Ekonomi Modern
+KT00784	Teknologi Lanjut
+KT00785	Remaja Lanjut
+KT00786	Musik Umum
+KT00787	Agama Lanjut
+KT00788	Sastra Lanjut
+KT00789	Komik Terapan
+KT00790	Anak Umum
+KT00791	Kamus Umum
+KT00792	Psikologi Terapan
+KT00793	Non-Fiksi Umum
+KT00794	Matematika Dasar
+KT00795	Sains Populer
+KT00796	Petualangan Umum
+KT00797	Lingkungan Lanjut
+KT00798	Psikologi Populer
+KT00799	Bisnis Populer
+KT00800	Sejarah Umum
+KT00801	Novel Terapan
+KT00802	Sastra Modern
+KT00803	Desain Lanjut
+KT00804	Komputer Umum
+KT00805	Kuliner Populer
+KT00806	Kuliner Terapan
+KT00807	Bahasa Populer
+KT00808	Kuliner Lanjut
+KT00809	Fiksi Modern
+KT00810	Novel Populer
+KT00811	Lingkungan Populer
+KT00812	Komik Populer
+KT00813	Biografi Dasar
+KT00814	Politik Terapan
+KT00815	Matematika Lanjut
+KT00816	Politik Umum
+KT00817	Remaja Terapan
+KT00818	Komputer Dasar
+KT00819	Kuliner Modern
+KT00820	Komik Terapan
+KT00821	Akuntansi Lanjut
+KT00822	Non-Fiksi Modern
+KT00823	Pendidikan Terapan
+KT00824	Remaja Lanjut
+KT00825	Hukum Populer
+KT00826	Kesehatan Modern
+KT00827	Musik Modern
+KT00828	Ensiklopedia Dasar
+KT00829	Remaja Dasar
+KT00830	Fotografi Terapan
+KT00831	Kesehatan Terapan
+KT00832	Anak Populer
+KT00833	Teknologi Populer
+KT00834	Anak Modern
+KT00835	Petualangan Terapan
+KT00836	Non-Fiksi Dasar
+KT00837	Sastra Modern
+KT00838	Majalah Lanjut
+KT00839	Sains Populer
+KT00840	Kuliner Lanjut
+KT00841	Kuliner Umum
+KT00842	Politik Umum
+KT00843	Ekonomi Umum
+KT00844	Kuliner Terapan
+KT00845	Bahasa Modern
+KT00846	Fotografi Terapan
+KT00847	Sains Populer
+KT00848	Musik Lanjut
+KT00849	Ensiklopedia Dasar
+KT00850	Sains Umum
+KT00851	Komik Modern
+KT00852	Komik Populer
+KT00853	Komputer Lanjut
+KT00854	Akuntansi Umum
+KT00855	Sejarah Umum
+KT00856	Fotografi Lanjut
+KT00857	Novel Umum
+KT00858	Ekonomi Terapan
+KT00859	Ensiklopedia Populer
+KT00860	Sastra Modern
+KT00861	Kesehatan Dasar
+KT00862	Politik Populer
+KT00863	Kuliner Lanjut
+KT00864	Biografi Terapan
+KT00865	Kesehatan Modern
+KT00866	Biografi Populer
+KT00867	Musik Populer
+KT00868	Filsafat Terapan
+KT00869	Pendidikan Lanjut
+KT00870	Fotografi Lanjut
+KT00871	Psikologi Populer
+KT00872	Matematika Populer
+KT00873	Majalah Populer
+KT00874	Novel Lanjut
+KT00875	Matematika Terapan
+KT00876	Ekonomi Lanjut
+KT00877	Majalah Populer
+KT00878	Filsafat Lanjut
+KT00879	Kamus Umum
+KT00880	Biografi Populer
+KT00881	Pendidikan Terapan
+KT00882	Agama Populer
+KT00883	Sains Lanjut
+KT00884	Ekonomi Lanjut
+KT00885	Non-Fiksi Umum
+KT00886	Bisnis Populer
+KT00887	Musik Terapan
+KT00888	Desain Terapan
+KT00889	Sejarah Lanjut
+KT00890	Bahasa Modern
+KT00891	Non-Fiksi Terapan
+KT00892	Biografi Lanjut
+KT00893	Anak Umum
+KT00894	Bisnis Terapan
+KT00895	Non-Fiksi Umum
+KT00896	Filsafat Lanjut
+KT00897	Ekonomi Terapan
+KT00898	Sastra Modern
+KT00899	Bisnis Umum
+KT00900	Ensiklopedia Populer
+KT00901	Psikologi Modern
+KT00902	Anak Terapan
+KT00903	Kesehatan Terapan
+KT00904	Anak Lanjut
+KT00905	Ensiklopedia Dasar
+KT00906	Sastra Lanjut
+KT00907	Bahasa Umum
+KT00908	Lingkungan Dasar
+KT00909	Sains Terapan
+KT00910	Musik Umum
+KT00911	Fotografi Terapan
+KT00912	Hukum Terapan
+KT00913	Novel Umum
+KT00914	Pendidikan Umum
+KT00915	Teknologi Lanjut
+KT00916	Fotografi Terapan
+KT00917	Biografi Umum
+KT00918	Fotografi Lanjut
+KT00919	Majalah Terapan
+KT00920	Bahasa Populer
+KT00921	Bisnis Dasar
+KT00922	Bisnis Populer
+KT00923	Fotografi Modern
+KT00924	Lingkungan Umum
+KT00925	Kamus Populer
+KT00926	Sosial Populer
+KT00927	Sains Lanjut
+KT00928	Anak Populer
+KT00929	Biografi Lanjut
+KT00930	Filsafat Umum
+KT00931	Petualangan Lanjut
+KT00932	Fotografi Dasar
+KT00933	Hukum Lanjut
+KT00934	Pendidikan Dasar
+KT00935	Lingkungan Lanjut
+KT00936	Sains Terapan
+KT00937	Matematika Terapan
+KT00938	Bisnis Terapan
+KT00939	Ensiklopedia Umum
+KT00940	Sosial Populer
+KT00941	Kuliner Umum
+KT00942	Remaja Umum
+KT00943	Matematika Populer
+KT00944	Petualangan Lanjut
+KT00945	Non-Fiksi Terapan
+KT00946	Ekonomi Umum
+KT00947	Sastra Terapan
+KT00948	Biografi Lanjut
+KT00949	Sains Populer
+KT00950	Psikologi Modern
+KT00951	Pendidikan Umum
+KT00952	Bisnis Umum
+KT00953	Non-Fiksi Lanjut
+KT00954	Kesehatan Populer
+KT00955	Matematika Terapan
+KT00956	Hukum Populer
+KT00957	Filsafat Umum
+KT00958	Akuntansi Terapan
+KT00959	Komik Terapan
+KT00960	Anak Modern
+KT00961	Fotografi Modern
+KT00962	Fotografi Umum
+KT00963	Petualangan Terapan
+KT00964	Desain Populer
+KT00965	Filsafat Lanjut
+KT00966	Petualangan Umum
+KT00967	Kamus Umum
+KT00968	Majalah Populer
+KT00969	Kuliner Modern
+KT00970	Teknik Terapan
+KT00971	Petualangan Terapan
+KT00972	Bisnis Dasar
+KT00973	Fotografi Lanjut
+KT00974	Non-Fiksi Populer
+KT00975	Hukum Umum
+KT00976	Remaja Lanjut
+KT00977	Ensiklopedia Dasar
+KT00978	Sains Populer
+KT00979	Teknik Modern
+KT00980	Kamus Umum
+KT00981	Ensiklopedia Terapan
+KT00982	Pendidikan Dasar
+KT00983	Ensiklopedia Populer
+KT00984	Ensiklopedia Terapan
+KT00985	Politik Dasar
+KT00986	Sains Populer
+KT00987	Bisnis Populer
+KT00988	Lingkungan Lanjut
+KT00989	Filsafat Umum
+KT00990	Sosial Populer
+KT00991	Politik Dasar
+KT00992	Fotografi Lanjut
+KT00993	Politik Populer
+KT00994	Biografi Terapan
+KT00995	Bisnis Populer
+KT00996	Hukum Modern
+KT00997	Teknik Terapan
+KT00998	Kesehatan Umum
+KT00999	Filsafat Umum
+KT01000	Ekonomi Terapan
+\.
+
+
+--
+-- TOC entry 5013 (class 0 OID 18512)
+-- Dependencies: 222
+-- Data for Name: Kode_Pos; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Kode_Pos" (kode_pos, nama_provinsi, nama_kota, nama_kecamatan, nama_kelurahan) FROM stdin;
+00001	Jawa Timur	Pasuruan	Kecamatan 1	Kelurahan 1
+00002	Jawa Timur	Madiun	Kecamatan 2	Kelurahan 2
+00003	Jawa Barat	Kediri	Kecamatan 3	Kelurahan 3
+00004	Jawa Tengah	Malang	Kecamatan 4	Kelurahan 4
+00005	Jawa Timur	Kediri	Kecamatan 5	Kelurahan 5
+00006	Jawa Barat	Kediri	Kecamatan 6	Kelurahan 6
+00007	Jawa Timur	Probolinggo	Kecamatan 7	Kelurahan 7
+00008	Jawa Tengah	Madiun	Kecamatan 8	Kelurahan 8
+00009	Jawa Timur	Gresik	Kecamatan 9	Kelurahan 9
+00010	Jawa Tengah	Malang	Kecamatan 10	Kelurahan 10
+00011	Jawa Timur	Jember	Kecamatan 11	Kelurahan 11
+00012	Jawa Timur	Kediri	Kecamatan 12	Kelurahan 12
+00013	Jawa Timur	Pasuruan	Kecamatan 13	Kelurahan 13
+00014	Jawa Timur	Probolinggo	Kecamatan 14	Kelurahan 14
+00015	Jawa Timur	Pasuruan	Kecamatan 15	Kelurahan 15
+00016	Jawa Barat	Blitar	Kecamatan 16	Kelurahan 16
+00017	Jawa Timur	Malang	Kecamatan 17	Kelurahan 17
+00018	Jawa Tengah	Probolinggo	Kecamatan 18	Kelurahan 18
+00019	Jawa Tengah	Malang	Kecamatan 19	Kelurahan 19
+00020	Jawa Timur	Kediri	Kecamatan 20	Kelurahan 20
+00021	Jawa Timur	Jember	Kecamatan 21	Kelurahan 21
+00022	Jawa Timur	Jember	Kecamatan 22	Kelurahan 22
+00023	Jawa Tengah	Probolinggo	Kecamatan 23	Kelurahan 23
+00024	Jawa Timur	Probolinggo	Kecamatan 24	Kelurahan 24
+00025	Jawa Timur	Blitar	Kecamatan 25	Kelurahan 25
+00026	Jawa Timur	Pasuruan	Kecamatan 26	Kelurahan 26
+00027	Jawa Tengah	Kediri	Kecamatan 27	Kelurahan 27
+00028	Jawa Timur	Sidoarjo	Kecamatan 28	Kelurahan 28
+00029	Jawa Barat	Gresik	Kecamatan 29	Kelurahan 29
+00030	Jawa Timur	Gresik	Kecamatan 30	Kelurahan 30
+00031	Jawa Timur	Sidoarjo	Kecamatan 31	Kelurahan 31
+00032	Jawa Timur	Jember	Kecamatan 32	Kelurahan 32
+00033	Jawa Tengah	Probolinggo	Kecamatan 33	Kelurahan 33
+00034	Jawa Tengah	Kediri	Kecamatan 34	Kelurahan 34
+00035	Jawa Timur	Probolinggo	Kecamatan 35	Kelurahan 35
+00036	Jawa Timur	Kediri	Kecamatan 36	Kelurahan 36
+00037	Jawa Timur	Kediri	Kecamatan 37	Kelurahan 37
+00038	Jawa Barat	Sidoarjo	Kecamatan 38	Kelurahan 38
+00039	Jawa Barat	Sidoarjo	Kecamatan 39	Kelurahan 39
+00040	Jawa Tengah	Sidoarjo	Kecamatan 40	Kelurahan 40
+00041	Jawa Timur	Gresik	Kecamatan 41	Kelurahan 41
+00042	Jawa Barat	Pasuruan	Kecamatan 42	Kelurahan 42
+00043	Jawa Tengah	Surabaya	Kecamatan 43	Kelurahan 43
+00044	Jawa Timur	Gresik	Kecamatan 44	Kelurahan 44
+00045	Jawa Tengah	Malang	Kecamatan 45	Kelurahan 45
+00046	Jawa Timur	Kediri	Kecamatan 46	Kelurahan 46
+00047	Jawa Barat	Surabaya	Kecamatan 47	Kelurahan 47
+00048	Jawa Tengah	Probolinggo	Kecamatan 48	Kelurahan 48
+00049	Jawa Timur	Gresik	Kecamatan 49	Kelurahan 49
+00050	Jawa Timur	Blitar	Kecamatan 50	Kelurahan 50
+00051	Jawa Timur	Madiun	Kecamatan 51	Kelurahan 51
+00052	Jawa Timur	Sidoarjo	Kecamatan 52	Kelurahan 52
+00053	Jawa Timur	Surabaya	Kecamatan 53	Kelurahan 53
+00054	Jawa Tengah	Pasuruan	Kecamatan 54	Kelurahan 54
+00055	Jawa Timur	Pasuruan	Kecamatan 55	Kelurahan 55
+00056	Jawa Timur	Gresik	Kecamatan 56	Kelurahan 56
+00057	Jawa Timur	Probolinggo	Kecamatan 57	Kelurahan 57
+00058	Jawa Timur	Kediri	Kecamatan 58	Kelurahan 58
+00059	Jawa Tengah	Malang	Kecamatan 59	Kelurahan 59
+00060	Jawa Timur	Kediri	Kecamatan 60	Kelurahan 60
+00061	Jawa Timur	Kediri	Kecamatan 61	Kelurahan 61
+00062	Jawa Timur	Sidoarjo	Kecamatan 62	Kelurahan 62
+00063	Jawa Tengah	Pasuruan	Kecamatan 63	Kelurahan 63
+00064	Jawa Timur	Madiun	Kecamatan 64	Kelurahan 64
+00065	Jawa Tengah	Surabaya	Kecamatan 65	Kelurahan 65
+00066	Jawa Timur	Malang	Kecamatan 66	Kelurahan 66
+00067	Jawa Tengah	Jember	Kecamatan 67	Kelurahan 67
+00068	Jawa Timur	Madiun	Kecamatan 68	Kelurahan 68
+00069	Jawa Timur	Sidoarjo	Kecamatan 69	Kelurahan 69
+00070	Jawa Timur	Jember	Kecamatan 70	Kelurahan 70
+00071	Jawa Timur	Gresik	Kecamatan 71	Kelurahan 71
+00072	Jawa Tengah	Gresik	Kecamatan 72	Kelurahan 72
+00073	Jawa Barat	Probolinggo	Kecamatan 73	Kelurahan 73
+00074	Jawa Barat	Kediri	Kecamatan 74	Kelurahan 74
+00075	Jawa Timur	Probolinggo	Kecamatan 75	Kelurahan 75
+00076	Jawa Barat	Gresik	Kecamatan 76	Kelurahan 76
+00077	Jawa Timur	Gresik	Kecamatan 77	Kelurahan 77
+00078	Jawa Timur	Jember	Kecamatan 78	Kelurahan 78
+00079	Jawa Timur	Probolinggo	Kecamatan 79	Kelurahan 79
+00080	Jawa Barat	Blitar	Kecamatan 80	Kelurahan 80
+00081	Jawa Timur	Blitar	Kecamatan 81	Kelurahan 81
+00082	Jawa Timur	Kediri	Kecamatan 82	Kelurahan 82
+00083	Jawa Barat	Kediri	Kecamatan 83	Kelurahan 83
+00084	Jawa Barat	Madiun	Kecamatan 84	Kelurahan 84
+00085	Jawa Timur	Sidoarjo	Kecamatan 85	Kelurahan 85
+00086	Jawa Timur	Blitar	Kecamatan 86	Kelurahan 86
+00087	Jawa Timur	Probolinggo	Kecamatan 87	Kelurahan 87
+00088	Jawa Tengah	Pasuruan	Kecamatan 88	Kelurahan 88
+00089	Jawa Tengah	Sidoarjo	Kecamatan 89	Kelurahan 89
+00090	Jawa Timur	Sidoarjo	Kecamatan 90	Kelurahan 90
+00091	Jawa Barat	Kediri	Kecamatan 91	Kelurahan 91
+00092	Jawa Timur	Surabaya	Kecamatan 92	Kelurahan 92
+00093	Jawa Timur	Jember	Kecamatan 93	Kelurahan 93
+00094	Jawa Tengah	Blitar	Kecamatan 94	Kelurahan 94
+00095	Jawa Barat	Jember	Kecamatan 95	Kelurahan 95
+00096	Jawa Barat	Sidoarjo	Kecamatan 96	Kelurahan 96
+00097	Jawa Timur	Gresik	Kecamatan 97	Kelurahan 97
+00098	Jawa Tengah	Malang	Kecamatan 98	Kelurahan 98
+00099	Jawa Timur	Pasuruan	Kecamatan 99	Kelurahan 99
+00100	Jawa Timur	Jember	Kecamatan 100	Kelurahan 100
+00101	Jawa Timur	Blitar	Kecamatan 101	Kelurahan 101
+00102	Jawa Timur	Madiun	Kecamatan 102	Kelurahan 102
+00103	Jawa Barat	Probolinggo	Kecamatan 103	Kelurahan 103
+00104	Jawa Tengah	Sidoarjo	Kecamatan 104	Kelurahan 104
+00105	Jawa Timur	Blitar	Kecamatan 105	Kelurahan 105
+00106	Jawa Timur	Probolinggo	Kecamatan 106	Kelurahan 106
+00107	Jawa Timur	Madiun	Kecamatan 107	Kelurahan 107
+00108	Jawa Timur	Kediri	Kecamatan 108	Kelurahan 108
+00109	Jawa Tengah	Pasuruan	Kecamatan 109	Kelurahan 109
+00110	Jawa Timur	Jember	Kecamatan 110	Kelurahan 110
+00111	Jawa Timur	Pasuruan	Kecamatan 111	Kelurahan 111
+00112	Jawa Timur	Pasuruan	Kecamatan 112	Kelurahan 112
+00113	Jawa Tengah	Surabaya	Kecamatan 113	Kelurahan 113
+00114	Jawa Timur	Jember	Kecamatan 114	Kelurahan 114
+00115	Jawa Tengah	Madiun	Kecamatan 115	Kelurahan 115
+00116	Jawa Tengah	Sidoarjo	Kecamatan 116	Kelurahan 116
+00117	Jawa Timur	Malang	Kecamatan 117	Kelurahan 117
+00118	Jawa Tengah	Sidoarjo	Kecamatan 118	Kelurahan 118
+00119	Jawa Timur	Probolinggo	Kecamatan 119	Kelurahan 119
+00120	Jawa Timur	Gresik	Kecamatan 120	Kelurahan 120
+00121	Jawa Timur	Jember	Kecamatan 121	Kelurahan 121
+00122	Jawa Timur	Sidoarjo	Kecamatan 122	Kelurahan 122
+00123	Jawa Timur	Probolinggo	Kecamatan 123	Kelurahan 123
+00124	Jawa Timur	Kediri	Kecamatan 124	Kelurahan 124
+00125	Jawa Timur	Gresik	Kecamatan 125	Kelurahan 125
+00126	Jawa Timur	Malang	Kecamatan 126	Kelurahan 126
+00127	Jawa Timur	Madiun	Kecamatan 127	Kelurahan 127
+00128	Jawa Tengah	Gresik	Kecamatan 128	Kelurahan 128
+00129	Jawa Timur	Malang	Kecamatan 129	Kelurahan 129
+00130	Jawa Tengah	Gresik	Kecamatan 130	Kelurahan 130
+00131	Jawa Timur	Kediri	Kecamatan 131	Kelurahan 131
+00132	Jawa Tengah	Probolinggo	Kecamatan 132	Kelurahan 132
+00133	Jawa Timur	Kediri	Kecamatan 133	Kelurahan 133
+00134	Jawa Timur	Madiun	Kecamatan 134	Kelurahan 134
+00135	Jawa Timur	Pasuruan	Kecamatan 135	Kelurahan 135
+00136	Jawa Tengah	Gresik	Kecamatan 136	Kelurahan 136
+00137	Jawa Tengah	Sidoarjo	Kecamatan 137	Kelurahan 137
+00138	Jawa Timur	Sidoarjo	Kecamatan 138	Kelurahan 138
+00139	Jawa Timur	Probolinggo	Kecamatan 139	Kelurahan 139
+00140	Jawa Barat	Kediri	Kecamatan 140	Kelurahan 140
+00141	Jawa Barat	Probolinggo	Kecamatan 141	Kelurahan 141
+00142	Jawa Barat	Madiun	Kecamatan 142	Kelurahan 142
+00143	Jawa Barat	Pasuruan	Kecamatan 143	Kelurahan 143
+00144	Jawa Timur	Gresik	Kecamatan 144	Kelurahan 144
+00145	Jawa Timur	Kediri	Kecamatan 145	Kelurahan 145
+00146	Jawa Timur	Jember	Kecamatan 146	Kelurahan 146
+00147	Jawa Barat	Jember	Kecamatan 147	Kelurahan 147
+00148	Jawa Tengah	Blitar	Kecamatan 148	Kelurahan 148
+00149	Jawa Timur	Pasuruan	Kecamatan 149	Kelurahan 149
+00150	Jawa Timur	Sidoarjo	Kecamatan 150	Kelurahan 150
+00151	Jawa Tengah	Surabaya	Kecamatan 151	Kelurahan 151
+00152	Jawa Tengah	Kediri	Kecamatan 152	Kelurahan 152
+00153	Jawa Timur	Malang	Kecamatan 153	Kelurahan 153
+00154	Jawa Timur	Sidoarjo	Kecamatan 154	Kelurahan 154
+00155	Jawa Tengah	Kediri	Kecamatan 155	Kelurahan 155
+00156	Jawa Timur	Malang	Kecamatan 156	Kelurahan 156
+00157	Jawa Barat	Malang	Kecamatan 157	Kelurahan 157
+00158	Jawa Timur	Probolinggo	Kecamatan 158	Kelurahan 158
+00159	Jawa Timur	Madiun	Kecamatan 159	Kelurahan 159
+00160	Jawa Timur	Probolinggo	Kecamatan 160	Kelurahan 160
+00161	Jawa Timur	Probolinggo	Kecamatan 161	Kelurahan 161
+00162	Jawa Tengah	Kediri	Kecamatan 162	Kelurahan 162
+00163	Jawa Timur	Surabaya	Kecamatan 163	Kelurahan 163
+00164	Jawa Barat	Kediri	Kecamatan 164	Kelurahan 164
+00165	Jawa Timur	Probolinggo	Kecamatan 165	Kelurahan 165
+00166	Jawa Timur	Kediri	Kecamatan 166	Kelurahan 166
+00167	Jawa Timur	Blitar	Kecamatan 167	Kelurahan 167
+00168	Jawa Timur	Sidoarjo	Kecamatan 168	Kelurahan 168
+00169	Jawa Barat	Surabaya	Kecamatan 169	Kelurahan 169
+00170	Jawa Tengah	Malang	Kecamatan 170	Kelurahan 170
+00171	Jawa Timur	Pasuruan	Kecamatan 171	Kelurahan 171
+00172	Jawa Tengah	Sidoarjo	Kecamatan 172	Kelurahan 172
+00173	Jawa Timur	Malang	Kecamatan 173	Kelurahan 173
+00174	Jawa Barat	Probolinggo	Kecamatan 174	Kelurahan 174
+00175	Jawa Timur	Madiun	Kecamatan 175	Kelurahan 175
+00176	Jawa Timur	Gresik	Kecamatan 176	Kelurahan 176
+00177	Jawa Timur	Sidoarjo	Kecamatan 177	Kelurahan 177
+00178	Jawa Tengah	Gresik	Kecamatan 178	Kelurahan 178
+00179	Jawa Timur	Pasuruan	Kecamatan 179	Kelurahan 179
+00180	Jawa Timur	Blitar	Kecamatan 180	Kelurahan 180
+00181	Jawa Timur	Surabaya	Kecamatan 181	Kelurahan 181
+00182	Jawa Barat	Kediri	Kecamatan 182	Kelurahan 182
+00183	Jawa Timur	Madiun	Kecamatan 183	Kelurahan 183
+00184	Jawa Tengah	Sidoarjo	Kecamatan 184	Kelurahan 184
+00185	Jawa Tengah	Sidoarjo	Kecamatan 185	Kelurahan 185
+00186	Jawa Timur	Madiun	Kecamatan 186	Kelurahan 186
+00187	Jawa Tengah	Blitar	Kecamatan 187	Kelurahan 187
+00188	Jawa Tengah	Madiun	Kecamatan 188	Kelurahan 188
+00189	Jawa Tengah	Pasuruan	Kecamatan 189	Kelurahan 189
+00190	Jawa Timur	Gresik	Kecamatan 190	Kelurahan 190
+00191	Jawa Tengah	Madiun	Kecamatan 191	Kelurahan 191
+00192	Jawa Timur	Malang	Kecamatan 192	Kelurahan 192
+00193	Jawa Timur	Gresik	Kecamatan 193	Kelurahan 193
+00194	Jawa Timur	Probolinggo	Kecamatan 194	Kelurahan 194
+00195	Jawa Tengah	Sidoarjo	Kecamatan 195	Kelurahan 195
+00196	Jawa Tengah	Jember	Kecamatan 196	Kelurahan 196
+00197	Jawa Tengah	Madiun	Kecamatan 197	Kelurahan 197
+00198	Jawa Tengah	Surabaya	Kecamatan 198	Kelurahan 198
+00199	Jawa Barat	Probolinggo	Kecamatan 199	Kelurahan 199
+00200	Jawa Barat	Pasuruan	Kecamatan 200	Kelurahan 200
+00201	Jawa Barat	Gresik	Kecamatan 1	Kelurahan 201
+00202	Jawa Timur	Kediri	Kecamatan 2	Kelurahan 202
+00203	Jawa Tengah	Sidoarjo	Kecamatan 3	Kelurahan 203
+00204	Jawa Tengah	Gresik	Kecamatan 4	Kelurahan 204
+00205	Jawa Timur	Gresik	Kecamatan 5	Kelurahan 205
+00206	Jawa Timur	Pasuruan	Kecamatan 6	Kelurahan 206
+00207	Jawa Tengah	Jember	Kecamatan 7	Kelurahan 207
+00208	Jawa Tengah	Malang	Kecamatan 8	Kelurahan 208
+00209	Jawa Barat	Sidoarjo	Kecamatan 9	Kelurahan 209
+00210	Jawa Barat	Probolinggo	Kecamatan 10	Kelurahan 210
+00211	Jawa Tengah	Probolinggo	Kecamatan 11	Kelurahan 211
+00212	Jawa Timur	Jember	Kecamatan 12	Kelurahan 212
+00213	Jawa Timur	Kediri	Kecamatan 13	Kelurahan 213
+00214	Jawa Tengah	Blitar	Kecamatan 14	Kelurahan 214
+00215	Jawa Tengah	Gresik	Kecamatan 15	Kelurahan 215
+00216	Jawa Tengah	Madiun	Kecamatan 16	Kelurahan 216
+00217	Jawa Timur	Pasuruan	Kecamatan 17	Kelurahan 217
+00218	Jawa Timur	Madiun	Kecamatan 18	Kelurahan 218
+00219	Jawa Tengah	Probolinggo	Kecamatan 19	Kelurahan 219
+00220	Jawa Timur	Madiun	Kecamatan 20	Kelurahan 220
+00221	Jawa Tengah	Probolinggo	Kecamatan 21	Kelurahan 221
+00222	Jawa Tengah	Malang	Kecamatan 22	Kelurahan 222
+00223	Jawa Timur	Malang	Kecamatan 23	Kelurahan 223
+00224	Jawa Timur	Madiun	Kecamatan 24	Kelurahan 224
+00225	Jawa Tengah	Kediri	Kecamatan 25	Kelurahan 225
+00226	Jawa Timur	Sidoarjo	Kecamatan 26	Kelurahan 226
+00227	Jawa Timur	Kediri	Kecamatan 27	Kelurahan 227
+00228	Jawa Timur	Madiun	Kecamatan 28	Kelurahan 228
+00229	Jawa Barat	Malang	Kecamatan 29	Kelurahan 229
+00230	Jawa Timur	Sidoarjo	Kecamatan 30	Kelurahan 230
+00231	Jawa Timur	Blitar	Kecamatan 31	Kelurahan 231
+00232	Jawa Barat	Gresik	Kecamatan 32	Kelurahan 232
+00233	Jawa Timur	Sidoarjo	Kecamatan 33	Kelurahan 233
+00234	Jawa Timur	Kediri	Kecamatan 34	Kelurahan 234
+00235	Jawa Barat	Madiun	Kecamatan 35	Kelurahan 235
+00236	Jawa Barat	Malang	Kecamatan 36	Kelurahan 236
+00237	Jawa Tengah	Sidoarjo	Kecamatan 37	Kelurahan 237
+00238	Jawa Timur	Pasuruan	Kecamatan 38	Kelurahan 238
+00239	Jawa Timur	Probolinggo	Kecamatan 39	Kelurahan 239
+00240	Jawa Timur	Gresik	Kecamatan 40	Kelurahan 240
+00241	Jawa Timur	Gresik	Kecamatan 41	Kelurahan 241
+00242	Jawa Timur	Sidoarjo	Kecamatan 42	Kelurahan 242
+00243	Jawa Timur	Jember	Kecamatan 43	Kelurahan 243
+00244	Jawa Timur	Madiun	Kecamatan 44	Kelurahan 244
+00245	Jawa Timur	Malang	Kecamatan 45	Kelurahan 245
+00246	Jawa Timur	Sidoarjo	Kecamatan 46	Kelurahan 246
+00247	Jawa Barat	Madiun	Kecamatan 47	Kelurahan 247
+00248	Jawa Timur	Blitar	Kecamatan 48	Kelurahan 248
+00249	Jawa Timur	Pasuruan	Kecamatan 49	Kelurahan 249
+00250	Jawa Barat	Malang	Kecamatan 50	Kelurahan 250
+00251	Jawa Timur	Madiun	Kecamatan 51	Kelurahan 251
+00252	Jawa Barat	Pasuruan	Kecamatan 52	Kelurahan 252
+00253	Jawa Timur	Jember	Kecamatan 53	Kelurahan 253
+00254	Jawa Tengah	Pasuruan	Kecamatan 54	Kelurahan 254
+00255	Jawa Timur	Blitar	Kecamatan 55	Kelurahan 255
+00256	Jawa Tengah	Pasuruan	Kecamatan 56	Kelurahan 256
+00257	Jawa Tengah	Probolinggo	Kecamatan 57	Kelurahan 257
+00258	Jawa Tengah	Malang	Kecamatan 58	Kelurahan 258
+00259	Jawa Barat	Malang	Kecamatan 59	Kelurahan 259
+00260	Jawa Tengah	Malang	Kecamatan 60	Kelurahan 260
+00261	Jawa Timur	Pasuruan	Kecamatan 61	Kelurahan 261
+00262	Jawa Timur	Madiun	Kecamatan 62	Kelurahan 262
+00263	Jawa Timur	Probolinggo	Kecamatan 63	Kelurahan 263
+00264	Jawa Barat	Jember	Kecamatan 64	Kelurahan 264
+00265	Jawa Timur	Kediri	Kecamatan 65	Kelurahan 265
+00266	Jawa Timur	Sidoarjo	Kecamatan 66	Kelurahan 266
+00267	Jawa Timur	Jember	Kecamatan 67	Kelurahan 267
+00268	Jawa Barat	Surabaya	Kecamatan 68	Kelurahan 268
+00269	Jawa Timur	Malang	Kecamatan 69	Kelurahan 269
+00270	Jawa Tengah	Sidoarjo	Kecamatan 70	Kelurahan 270
+00271	Jawa Timur	Kediri	Kecamatan 71	Kelurahan 271
+00272	Jawa Timur	Blitar	Kecamatan 72	Kelurahan 272
+00273	Jawa Timur	Surabaya	Kecamatan 73	Kelurahan 273
+00274	Jawa Timur	Gresik	Kecamatan 74	Kelurahan 274
+00275	Jawa Timur	Sidoarjo	Kecamatan 75	Kelurahan 275
+00276	Jawa Tengah	Probolinggo	Kecamatan 76	Kelurahan 276
+00277	Jawa Timur	Madiun	Kecamatan 77	Kelurahan 277
+00278	Jawa Timur	Madiun	Kecamatan 78	Kelurahan 278
+00279	Jawa Timur	Malang	Kecamatan 79	Kelurahan 279
+00280	Jawa Timur	Gresik	Kecamatan 80	Kelurahan 280
+00281	Jawa Barat	Madiun	Kecamatan 81	Kelurahan 281
+00282	Jawa Tengah	Madiun	Kecamatan 82	Kelurahan 282
+00283	Jawa Timur	Pasuruan	Kecamatan 83	Kelurahan 283
+00284	Jawa Timur	Blitar	Kecamatan 84	Kelurahan 284
+00285	Jawa Timur	Kediri	Kecamatan 85	Kelurahan 285
+00286	Jawa Timur	Pasuruan	Kecamatan 86	Kelurahan 286
+00287	Jawa Timur	Gresik	Kecamatan 87	Kelurahan 287
+00288	Jawa Tengah	Malang	Kecamatan 88	Kelurahan 288
+00289	Jawa Timur	Blitar	Kecamatan 89	Kelurahan 289
+00290	Jawa Timur	Jember	Kecamatan 90	Kelurahan 290
+00291	Jawa Timur	Madiun	Kecamatan 91	Kelurahan 291
+00292	Jawa Timur	Malang	Kecamatan 92	Kelurahan 292
+00293	Jawa Timur	Kediri	Kecamatan 93	Kelurahan 293
+00294	Jawa Timur	Surabaya	Kecamatan 94	Kelurahan 294
+00295	Jawa Tengah	Probolinggo	Kecamatan 95	Kelurahan 295
+00296	Jawa Timur	Malang	Kecamatan 96	Kelurahan 296
+00297	Jawa Timur	Jember	Kecamatan 97	Kelurahan 297
+00298	Jawa Timur	Sidoarjo	Kecamatan 98	Kelurahan 298
+00299	Jawa Timur	Probolinggo	Kecamatan 99	Kelurahan 299
+00300	Jawa Timur	Blitar	Kecamatan 100	Kelurahan 300
+00301	Jawa Timur	Gresik	Kecamatan 101	Kelurahan 301
+00302	Jawa Timur	Malang	Kecamatan 102	Kelurahan 302
+00303	Jawa Timur	Pasuruan	Kecamatan 103	Kelurahan 303
+00304	Jawa Timur	Madiun	Kecamatan 104	Kelurahan 304
+00305	Jawa Tengah	Malang	Kecamatan 105	Kelurahan 305
+00306	Jawa Timur	Gresik	Kecamatan 106	Kelurahan 306
+00307	Jawa Tengah	Kediri	Kecamatan 107	Kelurahan 307
+00308	Jawa Tengah	Madiun	Kecamatan 108	Kelurahan 308
+00309	Jawa Tengah	Sidoarjo	Kecamatan 109	Kelurahan 309
+00310	Jawa Timur	Kediri	Kecamatan 110	Kelurahan 310
+00311	Jawa Timur	Sidoarjo	Kecamatan 111	Kelurahan 311
+00312	Jawa Tengah	Pasuruan	Kecamatan 112	Kelurahan 312
+00313	Jawa Tengah	Sidoarjo	Kecamatan 113	Kelurahan 313
+00314	Jawa Timur	Surabaya	Kecamatan 114	Kelurahan 314
+00315	Jawa Timur	Madiun	Kecamatan 115	Kelurahan 315
+00316	Jawa Timur	Kediri	Kecamatan 116	Kelurahan 316
+00317	Jawa Barat	Jember	Kecamatan 117	Kelurahan 317
+00318	Jawa Tengah	Malang	Kecamatan 118	Kelurahan 318
+00319	Jawa Timur	Malang	Kecamatan 119	Kelurahan 319
+00320	Jawa Timur	Sidoarjo	Kecamatan 120	Kelurahan 320
+00321	Jawa Tengah	Malang	Kecamatan 121	Kelurahan 321
+00322	Jawa Barat	Pasuruan	Kecamatan 122	Kelurahan 322
+00323	Jawa Timur	Blitar	Kecamatan 123	Kelurahan 323
+00324	Jawa Timur	Blitar	Kecamatan 124	Kelurahan 324
+00325	Jawa Tengah	Jember	Kecamatan 125	Kelurahan 325
+00326	Jawa Tengah	Probolinggo	Kecamatan 126	Kelurahan 326
+00327	Jawa Timur	Sidoarjo	Kecamatan 127	Kelurahan 327
+00328	Jawa Tengah	Surabaya	Kecamatan 128	Kelurahan 328
+00329	Jawa Tengah	Surabaya	Kecamatan 129	Kelurahan 329
+00330	Jawa Timur	Kediri	Kecamatan 130	Kelurahan 330
+00331	Jawa Timur	Sidoarjo	Kecamatan 131	Kelurahan 331
+00332	Jawa Tengah	Gresik	Kecamatan 132	Kelurahan 332
+00333	Jawa Tengah	Gresik	Kecamatan 133	Kelurahan 333
+00334	Jawa Tengah	Sidoarjo	Kecamatan 134	Kelurahan 334
+00335	Jawa Timur	Kediri	Kecamatan 135	Kelurahan 335
+00336	Jawa Timur	Malang	Kecamatan 136	Kelurahan 336
+00337	Jawa Tengah	Gresik	Kecamatan 137	Kelurahan 337
+00338	Jawa Timur	Surabaya	Kecamatan 138	Kelurahan 338
+00339	Jawa Timur	Gresik	Kecamatan 139	Kelurahan 339
+00340	Jawa Timur	Madiun	Kecamatan 140	Kelurahan 340
+00341	Jawa Barat	Pasuruan	Kecamatan 141	Kelurahan 341
+00342	Jawa Timur	Malang	Kecamatan 142	Kelurahan 342
+00343	Jawa Timur	Surabaya	Kecamatan 143	Kelurahan 343
+00344	Jawa Barat	Surabaya	Kecamatan 144	Kelurahan 344
+00345	Jawa Timur	Jember	Kecamatan 145	Kelurahan 345
+00346	Jawa Timur	Surabaya	Kecamatan 146	Kelurahan 346
+00347	Jawa Timur	Pasuruan	Kecamatan 147	Kelurahan 347
+00348	Jawa Tengah	Blitar	Kecamatan 148	Kelurahan 348
+00349	Jawa Tengah	Probolinggo	Kecamatan 149	Kelurahan 349
+00350	Jawa Timur	Blitar	Kecamatan 150	Kelurahan 350
+00351	Jawa Timur	Sidoarjo	Kecamatan 151	Kelurahan 351
+00352	Jawa Tengah	Sidoarjo	Kecamatan 152	Kelurahan 352
+00353	Jawa Timur	Gresik	Kecamatan 153	Kelurahan 353
+00354	Jawa Timur	Blitar	Kecamatan 154	Kelurahan 354
+00355	Jawa Timur	Sidoarjo	Kecamatan 155	Kelurahan 355
+00356	Jawa Tengah	Surabaya	Kecamatan 156	Kelurahan 356
+00357	Jawa Timur	Madiun	Kecamatan 157	Kelurahan 357
+00358	Jawa Timur	Madiun	Kecamatan 158	Kelurahan 358
+00359	Jawa Timur	Surabaya	Kecamatan 159	Kelurahan 359
+00360	Jawa Timur	Madiun	Kecamatan 160	Kelurahan 360
+00361	Jawa Timur	Pasuruan	Kecamatan 161	Kelurahan 361
+00362	Jawa Tengah	Kediri	Kecamatan 162	Kelurahan 362
+00363	Jawa Tengah	Pasuruan	Kecamatan 163	Kelurahan 363
+00364	Jawa Timur	Kediri	Kecamatan 164	Kelurahan 364
+00365	Jawa Timur	Pasuruan	Kecamatan 165	Kelurahan 365
+00366	Jawa Tengah	Pasuruan	Kecamatan 166	Kelurahan 366
+00367	Jawa Timur	Gresik	Kecamatan 167	Kelurahan 367
+00368	Jawa Timur	Jember	Kecamatan 168	Kelurahan 368
+00369	Jawa Timur	Probolinggo	Kecamatan 169	Kelurahan 369
+00370	Jawa Tengah	Malang	Kecamatan 170	Kelurahan 370
+00371	Jawa Timur	Jember	Kecamatan 171	Kelurahan 371
+00372	Jawa Timur	Madiun	Kecamatan 172	Kelurahan 372
+00373	Jawa Timur	Kediri	Kecamatan 173	Kelurahan 373
+00374	Jawa Tengah	Blitar	Kecamatan 174	Kelurahan 374
+00375	Jawa Barat	Surabaya	Kecamatan 175	Kelurahan 375
+00376	Jawa Timur	Gresik	Kecamatan 176	Kelurahan 376
+00377	Jawa Timur	Sidoarjo	Kecamatan 177	Kelurahan 377
+00378	Jawa Tengah	Jember	Kecamatan 178	Kelurahan 378
+00379	Jawa Tengah	Sidoarjo	Kecamatan 179	Kelurahan 379
+00380	Jawa Barat	Surabaya	Kecamatan 180	Kelurahan 380
+00381	Jawa Tengah	Gresik	Kecamatan 181	Kelurahan 381
+00382	Jawa Barat	Surabaya	Kecamatan 182	Kelurahan 382
+00383	Jawa Timur	Pasuruan	Kecamatan 183	Kelurahan 383
+00384	Jawa Timur	Pasuruan	Kecamatan 184	Kelurahan 384
+00385	Jawa Tengah	Kediri	Kecamatan 185	Kelurahan 385
+00386	Jawa Barat	Surabaya	Kecamatan 186	Kelurahan 386
+00387	Jawa Timur	Kediri	Kecamatan 187	Kelurahan 387
+00388	Jawa Tengah	Probolinggo	Kecamatan 188	Kelurahan 388
+00389	Jawa Timur	Jember	Kecamatan 189	Kelurahan 389
+00390	Jawa Tengah	Gresik	Kecamatan 190	Kelurahan 390
+00391	Jawa Timur	Madiun	Kecamatan 191	Kelurahan 391
+00392	Jawa Timur	Malang	Kecamatan 192	Kelurahan 392
+00393	Jawa Timur	Madiun	Kecamatan 193	Kelurahan 393
+00394	Jawa Timur	Jember	Kecamatan 194	Kelurahan 394
+00395	Jawa Timur	Gresik	Kecamatan 195	Kelurahan 395
+00396	Jawa Timur	Gresik	Kecamatan 196	Kelurahan 396
+00397	Jawa Timur	Jember	Kecamatan 197	Kelurahan 397
+00398	Jawa Timur	Blitar	Kecamatan 198	Kelurahan 398
+00399	Jawa Barat	Malang	Kecamatan 199	Kelurahan 399
+00400	Jawa Barat	Malang	Kecamatan 200	Kelurahan 400
+00401	Jawa Tengah	Pasuruan	Kecamatan 1	Kelurahan 401
+00402	Jawa Barat	Madiun	Kecamatan 2	Kelurahan 402
+00403	Jawa Timur	Gresik	Kecamatan 3	Kelurahan 403
+00404	Jawa Tengah	Probolinggo	Kecamatan 4	Kelurahan 404
+00405	Jawa Barat	Blitar	Kecamatan 5	Kelurahan 405
+00406	Jawa Timur	Probolinggo	Kecamatan 6	Kelurahan 406
+00407	Jawa Timur	Probolinggo	Kecamatan 7	Kelurahan 407
+00408	Jawa Tengah	Probolinggo	Kecamatan 8	Kelurahan 408
+00409	Jawa Timur	Gresik	Kecamatan 9	Kelurahan 409
+00410	Jawa Timur	Pasuruan	Kecamatan 10	Kelurahan 410
+00411	Jawa Timur	Malang	Kecamatan 11	Kelurahan 411
+00412	Jawa Timur	Probolinggo	Kecamatan 12	Kelurahan 412
+00413	Jawa Timur	Pasuruan	Kecamatan 13	Kelurahan 413
+00414	Jawa Tengah	Kediri	Kecamatan 14	Kelurahan 414
+00415	Jawa Timur	Sidoarjo	Kecamatan 15	Kelurahan 415
+00416	Jawa Tengah	Jember	Kecamatan 16	Kelurahan 416
+00417	Jawa Timur	Pasuruan	Kecamatan 17	Kelurahan 417
+00418	Jawa Timur	Gresik	Kecamatan 18	Kelurahan 418
+00419	Jawa Tengah	Sidoarjo	Kecamatan 19	Kelurahan 419
+00420	Jawa Timur	Probolinggo	Kecamatan 20	Kelurahan 420
+00421	Jawa Tengah	Sidoarjo	Kecamatan 21	Kelurahan 421
+00422	Jawa Timur	Sidoarjo	Kecamatan 22	Kelurahan 422
+00423	Jawa Tengah	Malang	Kecamatan 23	Kelurahan 423
+00424	Jawa Timur	Kediri	Kecamatan 24	Kelurahan 424
+00425	Jawa Barat	Sidoarjo	Kecamatan 25	Kelurahan 425
+00426	Jawa Timur	Madiun	Kecamatan 26	Kelurahan 426
+00427	Jawa Timur	Kediri	Kecamatan 27	Kelurahan 427
+00428	Jawa Barat	Probolinggo	Kecamatan 28	Kelurahan 428
+00429	Jawa Tengah	Sidoarjo	Kecamatan 29	Kelurahan 429
+00430	Jawa Tengah	Malang	Kecamatan 30	Kelurahan 430
+00431	Jawa Timur	Sidoarjo	Kecamatan 31	Kelurahan 431
+00432	Jawa Timur	Malang	Kecamatan 32	Kelurahan 432
+00433	Jawa Tengah	Jember	Kecamatan 33	Kelurahan 433
+00434	Jawa Timur	Kediri	Kecamatan 34	Kelurahan 434
+00435	Jawa Tengah	Pasuruan	Kecamatan 35	Kelurahan 435
+00436	Jawa Timur	Sidoarjo	Kecamatan 36	Kelurahan 436
+00437	Jawa Tengah	Probolinggo	Kecamatan 37	Kelurahan 437
+00438	Jawa Timur	Kediri	Kecamatan 38	Kelurahan 438
+00439	Jawa Timur	Sidoarjo	Kecamatan 39	Kelurahan 439
+00440	Jawa Timur	Kediri	Kecamatan 40	Kelurahan 440
+00441	Jawa Tengah	Kediri	Kecamatan 41	Kelurahan 441
+00442	Jawa Barat	Pasuruan	Kecamatan 42	Kelurahan 442
+00443	Jawa Tengah	Probolinggo	Kecamatan 43	Kelurahan 443
+00444	Jawa Timur	Gresik	Kecamatan 44	Kelurahan 444
+00445	Jawa Timur	Pasuruan	Kecamatan 45	Kelurahan 445
+00446	Jawa Tengah	Surabaya	Kecamatan 46	Kelurahan 446
+00447	Jawa Tengah	Pasuruan	Kecamatan 47	Kelurahan 447
+00448	Jawa Timur	Sidoarjo	Kecamatan 48	Kelurahan 448
+00449	Jawa Tengah	Kediri	Kecamatan 49	Kelurahan 449
+00450	Jawa Timur	Probolinggo	Kecamatan 50	Kelurahan 450
+00451	Jawa Tengah	Probolinggo	Kecamatan 51	Kelurahan 451
+00452	Jawa Timur	Surabaya	Kecamatan 52	Kelurahan 452
+00453	Jawa Timur	Sidoarjo	Kecamatan 53	Kelurahan 453
+00454	Jawa Barat	Pasuruan	Kecamatan 54	Kelurahan 454
+00455	Jawa Timur	Probolinggo	Kecamatan 55	Kelurahan 455
+00456	Jawa Timur	Sidoarjo	Kecamatan 56	Kelurahan 456
+00457	Jawa Tengah	Gresik	Kecamatan 57	Kelurahan 457
+00458	Jawa Tengah	Madiun	Kecamatan 58	Kelurahan 458
+00459	Jawa Timur	Probolinggo	Kecamatan 59	Kelurahan 459
+00460	Jawa Tengah	Pasuruan	Kecamatan 60	Kelurahan 460
+00461	Jawa Tengah	Sidoarjo	Kecamatan 61	Kelurahan 461
+00462	Jawa Tengah	Pasuruan	Kecamatan 62	Kelurahan 462
+00463	Jawa Tengah	Pasuruan	Kecamatan 63	Kelurahan 463
+00464	Jawa Barat	Jember	Kecamatan 64	Kelurahan 464
+00465	Jawa Tengah	Kediri	Kecamatan 65	Kelurahan 465
+00466	Jawa Barat	Probolinggo	Kecamatan 66	Kelurahan 466
+00467	Jawa Tengah	Pasuruan	Kecamatan 67	Kelurahan 467
+00468	Jawa Timur	Malang	Kecamatan 68	Kelurahan 468
+00469	Jawa Timur	Sidoarjo	Kecamatan 69	Kelurahan 469
+00470	Jawa Timur	Malang	Kecamatan 70	Kelurahan 470
+00471	Jawa Timur	Malang	Kecamatan 71	Kelurahan 471
+00472	Jawa Barat	Probolinggo	Kecamatan 72	Kelurahan 472
+00473	Jawa Barat	Probolinggo	Kecamatan 73	Kelurahan 473
+00474	Jawa Timur	Kediri	Kecamatan 74	Kelurahan 474
+00475	Jawa Barat	Madiun	Kecamatan 75	Kelurahan 475
+00476	Jawa Tengah	Madiun	Kecamatan 76	Kelurahan 476
+00477	Jawa Timur	Madiun	Kecamatan 77	Kelurahan 477
+00478	Jawa Timur	Blitar	Kecamatan 78	Kelurahan 478
+00479	Jawa Timur	Probolinggo	Kecamatan 79	Kelurahan 479
+00480	Jawa Tengah	Blitar	Kecamatan 80	Kelurahan 480
+00481	Jawa Tengah	Probolinggo	Kecamatan 81	Kelurahan 481
+00482	Jawa Timur	Pasuruan	Kecamatan 82	Kelurahan 482
+00483	Jawa Tengah	Pasuruan	Kecamatan 83	Kelurahan 483
+00484	Jawa Timur	Sidoarjo	Kecamatan 84	Kelurahan 484
+00485	Jawa Timur	Probolinggo	Kecamatan 85	Kelurahan 485
+00486	Jawa Tengah	Jember	Kecamatan 86	Kelurahan 486
+00487	Jawa Timur	Pasuruan	Kecamatan 87	Kelurahan 487
+00488	Jawa Timur	Kediri	Kecamatan 88	Kelurahan 488
+00489	Jawa Barat	Jember	Kecamatan 89	Kelurahan 489
+00490	Jawa Timur	Gresik	Kecamatan 90	Kelurahan 490
+00491	Jawa Timur	Sidoarjo	Kecamatan 91	Kelurahan 491
+00492	Jawa Timur	Kediri	Kecamatan 92	Kelurahan 492
+00493	Jawa Timur	Gresik	Kecamatan 93	Kelurahan 493
+00494	Jawa Timur	Malang	Kecamatan 94	Kelurahan 494
+00495	Jawa Timur	Jember	Kecamatan 95	Kelurahan 495
+00496	Jawa Timur	Kediri	Kecamatan 96	Kelurahan 496
+00497	Jawa Timur	Kediri	Kecamatan 97	Kelurahan 497
+00498	Jawa Timur	Malang	Kecamatan 98	Kelurahan 498
+00499	Jawa Timur	Kediri	Kecamatan 99	Kelurahan 499
+00500	Jawa Timur	Gresik	Kecamatan 100	Kelurahan 500
+00501	Jawa Barat	Sidoarjo	Kecamatan 101	Kelurahan 1
+00502	Jawa Tengah	Sidoarjo	Kecamatan 102	Kelurahan 2
+00503	Jawa Timur	Kediri	Kecamatan 103	Kelurahan 3
+00504	Jawa Tengah	Pasuruan	Kecamatan 104	Kelurahan 4
+00505	Jawa Tengah	Sidoarjo	Kecamatan 105	Kelurahan 5
+00506	Jawa Tengah	Madiun	Kecamatan 106	Kelurahan 6
+00507	Jawa Timur	Surabaya	Kecamatan 107	Kelurahan 7
+00508	Jawa Timur	Sidoarjo	Kecamatan 108	Kelurahan 8
+00509	Jawa Tengah	Pasuruan	Kecamatan 109	Kelurahan 9
+00510	Jawa Timur	Jember	Kecamatan 110	Kelurahan 10
+00511	Jawa Timur	Probolinggo	Kecamatan 111	Kelurahan 11
+00512	Jawa Tengah	Pasuruan	Kecamatan 112	Kelurahan 12
+00513	Jawa Timur	Jember	Kecamatan 113	Kelurahan 13
+00514	Jawa Timur	Jember	Kecamatan 114	Kelurahan 14
+00515	Jawa Timur	Madiun	Kecamatan 115	Kelurahan 15
+00516	Jawa Timur	Malang	Kecamatan 116	Kelurahan 16
+00517	Jawa Tengah	Jember	Kecamatan 117	Kelurahan 17
+00518	Jawa Timur	Sidoarjo	Kecamatan 118	Kelurahan 18
+00519	Jawa Timur	Probolinggo	Kecamatan 119	Kelurahan 19
+00520	Jawa Timur	Sidoarjo	Kecamatan 120	Kelurahan 20
+00521	Jawa Timur	Kediri	Kecamatan 121	Kelurahan 21
+00522	Jawa Tengah	Malang	Kecamatan 122	Kelurahan 22
+00523	Jawa Tengah	Kediri	Kecamatan 123	Kelurahan 23
+00524	Jawa Tengah	Gresik	Kecamatan 124	Kelurahan 24
+00525	Jawa Timur	Gresik	Kecamatan 125	Kelurahan 25
+00526	Jawa Tengah	Kediri	Kecamatan 126	Kelurahan 26
+00527	Jawa Timur	Sidoarjo	Kecamatan 127	Kelurahan 27
+00528	Jawa Tengah	Madiun	Kecamatan 128	Kelurahan 28
+00529	Jawa Timur	Blitar	Kecamatan 129	Kelurahan 29
+00530	Jawa Timur	Pasuruan	Kecamatan 130	Kelurahan 30
+00531	Jawa Barat	Kediri	Kecamatan 131	Kelurahan 31
+00532	Jawa Tengah	Sidoarjo	Kecamatan 132	Kelurahan 32
+00533	Jawa Timur	Malang	Kecamatan 133	Kelurahan 33
+00534	Jawa Tengah	Malang	Kecamatan 134	Kelurahan 34
+00535	Jawa Tengah	Jember	Kecamatan 135	Kelurahan 35
+00536	Jawa Tengah	Probolinggo	Kecamatan 136	Kelurahan 36
+00537	Jawa Timur	Jember	Kecamatan 137	Kelurahan 37
+00538	Jawa Timur	Gresik	Kecamatan 138	Kelurahan 38
+00539	Jawa Timur	Malang	Kecamatan 139	Kelurahan 39
+00540	Jawa Timur	Sidoarjo	Kecamatan 140	Kelurahan 40
+00541	Jawa Tengah	Jember	Kecamatan 141	Kelurahan 41
+00542	Jawa Timur	Malang	Kecamatan 142	Kelurahan 42
+00543	Jawa Timur	Surabaya	Kecamatan 143	Kelurahan 43
+00544	Jawa Timur	Pasuruan	Kecamatan 144	Kelurahan 44
+00545	Jawa Timur	Surabaya	Kecamatan 145	Kelurahan 45
+00546	Jawa Timur	Jember	Kecamatan 146	Kelurahan 46
+00547	Jawa Tengah	Surabaya	Kecamatan 147	Kelurahan 47
+00548	Jawa Timur	Surabaya	Kecamatan 148	Kelurahan 48
+00549	Jawa Timur	Madiun	Kecamatan 149	Kelurahan 49
+00550	Jawa Timur	Blitar	Kecamatan 150	Kelurahan 50
+00551	Jawa Timur	Blitar	Kecamatan 151	Kelurahan 51
+00552	Jawa Tengah	Kediri	Kecamatan 152	Kelurahan 52
+00553	Jawa Timur	Madiun	Kecamatan 153	Kelurahan 53
+00554	Jawa Timur	Madiun	Kecamatan 154	Kelurahan 54
+00555	Jawa Timur	Madiun	Kecamatan 155	Kelurahan 55
+00556	Jawa Timur	Pasuruan	Kecamatan 156	Kelurahan 56
+00557	Jawa Timur	Madiun	Kecamatan 157	Kelurahan 57
+00558	Jawa Timur	Malang	Kecamatan 158	Kelurahan 58
+00559	Jawa Tengah	Probolinggo	Kecamatan 159	Kelurahan 59
+00560	Jawa Timur	Sidoarjo	Kecamatan 160	Kelurahan 60
+00561	Jawa Tengah	Malang	Kecamatan 161	Kelurahan 61
+00562	Jawa Timur	Probolinggo	Kecamatan 162	Kelurahan 62
+00563	Jawa Timur	Probolinggo	Kecamatan 163	Kelurahan 63
+00564	Jawa Barat	Kediri	Kecamatan 164	Kelurahan 64
+00565	Jawa Tengah	Madiun	Kecamatan 165	Kelurahan 65
+00566	Jawa Timur	Blitar	Kecamatan 166	Kelurahan 66
+00567	Jawa Timur	Kediri	Kecamatan 167	Kelurahan 67
+00568	Jawa Timur	Probolinggo	Kecamatan 168	Kelurahan 68
+00569	Jawa Timur	Pasuruan	Kecamatan 169	Kelurahan 69
+00570	Jawa Tengah	Madiun	Kecamatan 170	Kelurahan 70
+00571	Jawa Tengah	Sidoarjo	Kecamatan 171	Kelurahan 71
+00572	Jawa Timur	Probolinggo	Kecamatan 172	Kelurahan 72
+00573	Jawa Tengah	Surabaya	Kecamatan 173	Kelurahan 73
+00574	Jawa Tengah	Kediri	Kecamatan 174	Kelurahan 74
+00575	Jawa Timur	Kediri	Kecamatan 175	Kelurahan 75
+00576	Jawa Tengah	Pasuruan	Kecamatan 176	Kelurahan 76
+00577	Jawa Tengah	Madiun	Kecamatan 177	Kelurahan 77
+00578	Jawa Timur	Jember	Kecamatan 178	Kelurahan 78
+00579	Jawa Timur	Jember	Kecamatan 179	Kelurahan 79
+00580	Jawa Tengah	Madiun	Kecamatan 180	Kelurahan 80
+00581	Jawa Barat	Malang	Kecamatan 181	Kelurahan 81
+00582	Jawa Timur	Probolinggo	Kecamatan 182	Kelurahan 82
+00583	Jawa Timur	Madiun	Kecamatan 183	Kelurahan 83
+00584	Jawa Timur	Sidoarjo	Kecamatan 184	Kelurahan 84
+00585	Jawa Timur	Blitar	Kecamatan 185	Kelurahan 85
+00586	Jawa Timur	Jember	Kecamatan 186	Kelurahan 86
+00587	Jawa Timur	Kediri	Kecamatan 187	Kelurahan 87
+00588	Jawa Timur	Jember	Kecamatan 188	Kelurahan 88
+00589	Jawa Tengah	Pasuruan	Kecamatan 189	Kelurahan 89
+00590	Jawa Barat	Gresik	Kecamatan 190	Kelurahan 90
+00591	Jawa Timur	Kediri	Kecamatan 191	Kelurahan 91
+00592	Jawa Tengah	Blitar	Kecamatan 192	Kelurahan 92
+00593	Jawa Tengah	Probolinggo	Kecamatan 193	Kelurahan 93
+00594	Jawa Timur	Pasuruan	Kecamatan 194	Kelurahan 94
+00595	Jawa Tengah	Probolinggo	Kecamatan 195	Kelurahan 95
+00596	Jawa Timur	Malang	Kecamatan 196	Kelurahan 96
+00597	Jawa Timur	Malang	Kecamatan 197	Kelurahan 97
+00598	Jawa Timur	Probolinggo	Kecamatan 198	Kelurahan 98
+00599	Jawa Tengah	Madiun	Kecamatan 199	Kelurahan 99
+00600	Jawa Timur	Sidoarjo	Kecamatan 200	Kelurahan 100
+00601	Jawa Timur	Madiun	Kecamatan 1	Kelurahan 101
+00602	Jawa Tengah	Pasuruan	Kecamatan 2	Kelurahan 102
+00603	Jawa Tengah	Kediri	Kecamatan 3	Kelurahan 103
+00604	Jawa Timur	Pasuruan	Kecamatan 4	Kelurahan 104
+00605	Jawa Timur	Blitar	Kecamatan 5	Kelurahan 105
+00606	Jawa Timur	Jember	Kecamatan 6	Kelurahan 106
+00607	Jawa Barat	Surabaya	Kecamatan 7	Kelurahan 107
+00608	Jawa Tengah	Malang	Kecamatan 8	Kelurahan 108
+00609	Jawa Tengah	Probolinggo	Kecamatan 9	Kelurahan 109
+00610	Jawa Timur	Surabaya	Kecamatan 10	Kelurahan 110
+00611	Jawa Tengah	Madiun	Kecamatan 11	Kelurahan 111
+00612	Jawa Timur	Sidoarjo	Kecamatan 12	Kelurahan 112
+00613	Jawa Tengah	Madiun	Kecamatan 13	Kelurahan 113
+00614	Jawa Timur	Jember	Kecamatan 14	Kelurahan 114
+00615	Jawa Timur	Probolinggo	Kecamatan 15	Kelurahan 115
+00616	Jawa Tengah	Blitar	Kecamatan 16	Kelurahan 116
+00617	Jawa Timur	Gresik	Kecamatan 17	Kelurahan 117
+00618	Jawa Timur	Pasuruan	Kecamatan 18	Kelurahan 118
+00619	Jawa Barat	Jember	Kecamatan 19	Kelurahan 119
+00620	Jawa Tengah	Sidoarjo	Kecamatan 20	Kelurahan 120
+00621	Jawa Tengah	Surabaya	Kecamatan 21	Kelurahan 121
+00622	Jawa Tengah	Malang	Kecamatan 22	Kelurahan 122
+00623	Jawa Timur	Kediri	Kecamatan 23	Kelurahan 123
+00624	Jawa Tengah	Sidoarjo	Kecamatan 24	Kelurahan 124
+00625	Jawa Timur	Pasuruan	Kecamatan 25	Kelurahan 125
+00626	Jawa Timur	Probolinggo	Kecamatan 26	Kelurahan 126
+00627	Jawa Timur	Sidoarjo	Kecamatan 27	Kelurahan 127
+00628	Jawa Timur	Jember	Kecamatan 28	Kelurahan 128
+00629	Jawa Timur	Kediri	Kecamatan 29	Kelurahan 129
+00630	Jawa Timur	Pasuruan	Kecamatan 30	Kelurahan 130
+00631	Jawa Timur	Jember	Kecamatan 31	Kelurahan 131
+00632	Jawa Tengah	Kediri	Kecamatan 32	Kelurahan 132
+00633	Jawa Timur	Jember	Kecamatan 33	Kelurahan 133
+00634	Jawa Barat	Jember	Kecamatan 34	Kelurahan 134
+00635	Jawa Barat	Gresik	Kecamatan 35	Kelurahan 135
+00636	Jawa Timur	Pasuruan	Kecamatan 36	Kelurahan 136
+00637	Jawa Timur	Sidoarjo	Kecamatan 37	Kelurahan 137
+00638	Jawa Timur	Surabaya	Kecamatan 38	Kelurahan 138
+00639	Jawa Barat	Sidoarjo	Kecamatan 39	Kelurahan 139
+00640	Jawa Tengah	Sidoarjo	Kecamatan 40	Kelurahan 140
+00641	Jawa Tengah	Kediri	Kecamatan 41	Kelurahan 141
+00642	Jawa Tengah	Sidoarjo	Kecamatan 42	Kelurahan 142
+00643	Jawa Timur	Probolinggo	Kecamatan 43	Kelurahan 143
+00644	Jawa Tengah	Gresik	Kecamatan 44	Kelurahan 144
+00645	Jawa Timur	Surabaya	Kecamatan 45	Kelurahan 145
+00646	Jawa Timur	Malang	Kecamatan 46	Kelurahan 146
+00647	Jawa Timur	Surabaya	Kecamatan 47	Kelurahan 147
+00648	Jawa Timur	Jember	Kecamatan 48	Kelurahan 148
+00649	Jawa Tengah	Pasuruan	Kecamatan 49	Kelurahan 149
+00650	Jawa Timur	Pasuruan	Kecamatan 50	Kelurahan 150
+00651	Jawa Barat	Madiun	Kecamatan 51	Kelurahan 151
+00652	Jawa Timur	Malang	Kecamatan 52	Kelurahan 152
+00653	Jawa Tengah	Madiun	Kecamatan 53	Kelurahan 153
+00654	Jawa Tengah	Gresik	Kecamatan 54	Kelurahan 154
+00655	Jawa Barat	Kediri	Kecamatan 55	Kelurahan 155
+00656	Jawa Tengah	Jember	Kecamatan 56	Kelurahan 156
+00657	Jawa Tengah	Malang	Kecamatan 57	Kelurahan 157
+00658	Jawa Timur	Kediri	Kecamatan 58	Kelurahan 158
+00659	Jawa Timur	Pasuruan	Kecamatan 59	Kelurahan 159
+00660	Jawa Tengah	Malang	Kecamatan 60	Kelurahan 160
+00661	Jawa Timur	Madiun	Kecamatan 61	Kelurahan 161
+00662	Jawa Barat	Kediri	Kecamatan 62	Kelurahan 162
+00663	Jawa Timur	Sidoarjo	Kecamatan 63	Kelurahan 163
+00664	Jawa Timur	Madiun	Kecamatan 64	Kelurahan 164
+00665	Jawa Tengah	Probolinggo	Kecamatan 65	Kelurahan 165
+00666	Jawa Timur	Jember	Kecamatan 66	Kelurahan 166
+00667	Jawa Tengah	Malang	Kecamatan 67	Kelurahan 167
+00668	Jawa Timur	Probolinggo	Kecamatan 68	Kelurahan 168
+00669	Jawa Timur	Kediri	Kecamatan 69	Kelurahan 169
+00670	Jawa Barat	Pasuruan	Kecamatan 70	Kelurahan 170
+00671	Jawa Timur	Kediri	Kecamatan 71	Kelurahan 171
+00672	Jawa Tengah	Malang	Kecamatan 72	Kelurahan 172
+00673	Jawa Barat	Madiun	Kecamatan 73	Kelurahan 173
+00674	Jawa Tengah	Gresik	Kecamatan 74	Kelurahan 174
+00675	Jawa Timur	Kediri	Kecamatan 75	Kelurahan 175
+00676	Jawa Timur	Blitar	Kecamatan 76	Kelurahan 176
+00677	Jawa Timur	Blitar	Kecamatan 77	Kelurahan 177
+00678	Jawa Timur	Madiun	Kecamatan 78	Kelurahan 178
+00679	Jawa Barat	Sidoarjo	Kecamatan 79	Kelurahan 179
+00680	Jawa Timur	Probolinggo	Kecamatan 80	Kelurahan 180
+00681	Jawa Timur	Jember	Kecamatan 81	Kelurahan 181
+00682	Jawa Tengah	Sidoarjo	Kecamatan 82	Kelurahan 182
+00683	Jawa Timur	Kediri	Kecamatan 83	Kelurahan 183
+00684	Jawa Barat	Probolinggo	Kecamatan 84	Kelurahan 184
+00685	Jawa Timur	Probolinggo	Kecamatan 85	Kelurahan 185
+00686	Jawa Timur	Madiun	Kecamatan 86	Kelurahan 186
+00687	Jawa Tengah	Madiun	Kecamatan 87	Kelurahan 187
+00688	Jawa Timur	Gresik	Kecamatan 88	Kelurahan 188
+00689	Jawa Tengah	Gresik	Kecamatan 89	Kelurahan 189
+00690	Jawa Tengah	Jember	Kecamatan 90	Kelurahan 190
+00691	Jawa Timur	Madiun	Kecamatan 91	Kelurahan 191
+00692	Jawa Tengah	Sidoarjo	Kecamatan 92	Kelurahan 192
+00693	Jawa Timur	Probolinggo	Kecamatan 93	Kelurahan 193
+00694	Jawa Tengah	Madiun	Kecamatan 94	Kelurahan 194
+00695	Jawa Timur	Probolinggo	Kecamatan 95	Kelurahan 195
+00696	Jawa Tengah	Madiun	Kecamatan 96	Kelurahan 196
+00697	Jawa Tengah	Blitar	Kecamatan 97	Kelurahan 197
+00698	Jawa Timur	Blitar	Kecamatan 98	Kelurahan 198
+00699	Jawa Timur	Kediri	Kecamatan 99	Kelurahan 199
+00700	Jawa Tengah	Jember	Kecamatan 100	Kelurahan 200
+00701	Jawa Barat	Madiun	Kecamatan 101	Kelurahan 201
+00702	Jawa Timur	Kediri	Kecamatan 102	Kelurahan 202
+00703	Jawa Timur	Probolinggo	Kecamatan 103	Kelurahan 203
+00704	Jawa Timur	Sidoarjo	Kecamatan 104	Kelurahan 204
+00705	Jawa Timur	Kediri	Kecamatan 105	Kelurahan 205
+00706	Jawa Timur	Surabaya	Kecamatan 106	Kelurahan 206
+00707	Jawa Timur	Kediri	Kecamatan 107	Kelurahan 207
+00708	Jawa Timur	Pasuruan	Kecamatan 108	Kelurahan 208
+00709	Jawa Timur	Gresik	Kecamatan 109	Kelurahan 209
+00710	Jawa Timur	Sidoarjo	Kecamatan 110	Kelurahan 210
+00711	Jawa Timur	Jember	Kecamatan 111	Kelurahan 211
+00712	Jawa Timur	Probolinggo	Kecamatan 112	Kelurahan 212
+00713	Jawa Timur	Probolinggo	Kecamatan 113	Kelurahan 213
+00714	Jawa Tengah	Jember	Kecamatan 114	Kelurahan 214
+00715	Jawa Tengah	Pasuruan	Kecamatan 115	Kelurahan 215
+00716	Jawa Barat	Kediri	Kecamatan 116	Kelurahan 216
+00717	Jawa Tengah	Pasuruan	Kecamatan 117	Kelurahan 217
+00718	Jawa Timur	Probolinggo	Kecamatan 118	Kelurahan 218
+00719	Jawa Tengah	Jember	Kecamatan 119	Kelurahan 219
+00720	Jawa Timur	Gresik	Kecamatan 120	Kelurahan 220
+00721	Jawa Timur	Kediri	Kecamatan 121	Kelurahan 221
+00722	Jawa Tengah	Sidoarjo	Kecamatan 122	Kelurahan 222
+00723	Jawa Timur	Sidoarjo	Kecamatan 123	Kelurahan 223
+00724	Jawa Barat	Malang	Kecamatan 124	Kelurahan 224
+00725	Jawa Timur	Gresik	Kecamatan 125	Kelurahan 225
+00726	Jawa Timur	Gresik	Kecamatan 126	Kelurahan 226
+00727	Jawa Timur	Jember	Kecamatan 127	Kelurahan 227
+00728	Jawa Tengah	Madiun	Kecamatan 128	Kelurahan 228
+00729	Jawa Timur	Jember	Kecamatan 129	Kelurahan 229
+00730	Jawa Timur	Surabaya	Kecamatan 130	Kelurahan 230
+00731	Jawa Timur	Sidoarjo	Kecamatan 131	Kelurahan 231
+00732	Jawa Timur	Blitar	Kecamatan 132	Kelurahan 232
+00733	Jawa Barat	Jember	Kecamatan 133	Kelurahan 233
+00734	Jawa Timur	Kediri	Kecamatan 134	Kelurahan 234
+00735	Jawa Timur	Probolinggo	Kecamatan 135	Kelurahan 235
+00736	Jawa Timur	Madiun	Kecamatan 136	Kelurahan 236
+00737	Jawa Tengah	Kediri	Kecamatan 137	Kelurahan 237
+00738	Jawa Timur	Blitar	Kecamatan 138	Kelurahan 238
+00739	Jawa Barat	Sidoarjo	Kecamatan 139	Kelurahan 239
+00740	Jawa Timur	Madiun	Kecamatan 140	Kelurahan 240
+00741	Jawa Timur	Blitar	Kecamatan 141	Kelurahan 241
+00742	Jawa Timur	Kediri	Kecamatan 142	Kelurahan 242
+00743	Jawa Tengah	Surabaya	Kecamatan 143	Kelurahan 243
+00744	Jawa Timur	Jember	Kecamatan 144	Kelurahan 244
+00745	Jawa Timur	Kediri	Kecamatan 145	Kelurahan 245
+00746	Jawa Timur	Probolinggo	Kecamatan 146	Kelurahan 246
+00747	Jawa Barat	Pasuruan	Kecamatan 147	Kelurahan 247
+00748	Jawa Timur	Kediri	Kecamatan 148	Kelurahan 248
+00749	Jawa Tengah	Gresik	Kecamatan 149	Kelurahan 249
+00750	Jawa Timur	Malang	Kecamatan 150	Kelurahan 250
+00751	Jawa Timur	Gresik	Kecamatan 151	Kelurahan 251
+00752	Jawa Timur	Jember	Kecamatan 152	Kelurahan 252
+00753	Jawa Tengah	Gresik	Kecamatan 153	Kelurahan 253
+00754	Jawa Tengah	Kediri	Kecamatan 154	Kelurahan 254
+00755	Jawa Tengah	Gresik	Kecamatan 155	Kelurahan 255
+00756	Jawa Barat	Malang	Kecamatan 156	Kelurahan 256
+00757	Jawa Barat	Kediri	Kecamatan 157	Kelurahan 257
+00758	Jawa Tengah	Jember	Kecamatan 158	Kelurahan 258
+00759	Jawa Timur	Gresik	Kecamatan 159	Kelurahan 259
+00760	Jawa Tengah	Gresik	Kecamatan 160	Kelurahan 260
+00761	Jawa Timur	Gresik	Kecamatan 161	Kelurahan 261
+00762	Jawa Barat	Gresik	Kecamatan 162	Kelurahan 262
+00763	Jawa Timur	Surabaya	Kecamatan 163	Kelurahan 263
+00764	Jawa Timur	Kediri	Kecamatan 164	Kelurahan 264
+00765	Jawa Tengah	Madiun	Kecamatan 165	Kelurahan 265
+00766	Jawa Timur	Gresik	Kecamatan 166	Kelurahan 266
+00767	Jawa Timur	Gresik	Kecamatan 167	Kelurahan 267
+00768	Jawa Barat	Sidoarjo	Kecamatan 168	Kelurahan 268
+00769	Jawa Timur	Pasuruan	Kecamatan 169	Kelurahan 269
+00770	Jawa Timur	Madiun	Kecamatan 170	Kelurahan 270
+00771	Jawa Timur	Pasuruan	Kecamatan 171	Kelurahan 271
+00772	Jawa Timur	Probolinggo	Kecamatan 172	Kelurahan 272
+00773	Jawa Tengah	Probolinggo	Kecamatan 173	Kelurahan 273
+00774	Jawa Tengah	Probolinggo	Kecamatan 174	Kelurahan 274
+00775	Jawa Timur	Probolinggo	Kecamatan 175	Kelurahan 275
+00776	Jawa Barat	Kediri	Kecamatan 176	Kelurahan 276
+00777	Jawa Timur	Pasuruan	Kecamatan 177	Kelurahan 277
+00778	Jawa Timur	Jember	Kecamatan 178	Kelurahan 278
+00779	Jawa Timur	Probolinggo	Kecamatan 179	Kelurahan 279
+00780	Jawa Timur	Gresik	Kecamatan 180	Kelurahan 280
+00781	Jawa Timur	Sidoarjo	Kecamatan 181	Kelurahan 281
+00782	Jawa Timur	Jember	Kecamatan 182	Kelurahan 282
+00783	Jawa Tengah	Probolinggo	Kecamatan 183	Kelurahan 283
+00784	Jawa Timur	Malang	Kecamatan 184	Kelurahan 284
+00785	Jawa Tengah	Probolinggo	Kecamatan 185	Kelurahan 285
+00786	Jawa Timur	Kediri	Kecamatan 186	Kelurahan 286
+00787	Jawa Timur	Kediri	Kecamatan 187	Kelurahan 287
+00788	Jawa Timur	Pasuruan	Kecamatan 188	Kelurahan 288
+00789	Jawa Timur	Kediri	Kecamatan 189	Kelurahan 289
+00790	Jawa Timur	Jember	Kecamatan 190	Kelurahan 290
+00791	Jawa Timur	Jember	Kecamatan 191	Kelurahan 291
+00792	Jawa Tengah	Blitar	Kecamatan 192	Kelurahan 292
+00793	Jawa Tengah	Kediri	Kecamatan 193	Kelurahan 293
+00794	Jawa Timur	Sidoarjo	Kecamatan 194	Kelurahan 294
+00795	Jawa Barat	Kediri	Kecamatan 195	Kelurahan 295
+00796	Jawa Timur	Gresik	Kecamatan 196	Kelurahan 296
+00797	Jawa Timur	Madiun	Kecamatan 197	Kelurahan 297
+00798	Jawa Timur	Madiun	Kecamatan 198	Kelurahan 298
+00799	Jawa Timur	Probolinggo	Kecamatan 199	Kelurahan 299
+00800	Jawa Tengah	Sidoarjo	Kecamatan 200	Kelurahan 300
+00801	Jawa Timur	Pasuruan	Kecamatan 1	Kelurahan 301
+00802	Jawa Timur	Surabaya	Kecamatan 2	Kelurahan 302
+00803	Jawa Timur	Sidoarjo	Kecamatan 3	Kelurahan 303
+00804	Jawa Timur	Probolinggo	Kecamatan 4	Kelurahan 304
+00805	Jawa Timur	Malang	Kecamatan 5	Kelurahan 305
+00806	Jawa Timur	Jember	Kecamatan 6	Kelurahan 306
+00807	Jawa Tengah	Malang	Kecamatan 7	Kelurahan 307
+00808	Jawa Timur	Pasuruan	Kecamatan 8	Kelurahan 308
+00809	Jawa Timur	Sidoarjo	Kecamatan 9	Kelurahan 309
+00810	Jawa Tengah	Malang	Kecamatan 10	Kelurahan 310
+00811	Jawa Timur	Kediri	Kecamatan 11	Kelurahan 311
+00812	Jawa Barat	Pasuruan	Kecamatan 12	Kelurahan 312
+00813	Jawa Timur	Probolinggo	Kecamatan 13	Kelurahan 313
+00814	Jawa Timur	Kediri	Kecamatan 14	Kelurahan 314
+00815	Jawa Timur	Probolinggo	Kecamatan 15	Kelurahan 315
+00816	Jawa Timur	Jember	Kecamatan 16	Kelurahan 316
+00817	Jawa Timur	Pasuruan	Kecamatan 17	Kelurahan 317
+00818	Jawa Timur	Gresik	Kecamatan 18	Kelurahan 318
+00819	Jawa Timur	Probolinggo	Kecamatan 19	Kelurahan 319
+00820	Jawa Tengah	Kediri	Kecamatan 20	Kelurahan 320
+00821	Jawa Timur	Sidoarjo	Kecamatan 21	Kelurahan 321
+00822	Jawa Barat	Probolinggo	Kecamatan 22	Kelurahan 322
+00823	Jawa Barat	Sidoarjo	Kecamatan 23	Kelurahan 323
+00824	Jawa Timur	Jember	Kecamatan 24	Kelurahan 324
+00825	Jawa Timur	Pasuruan	Kecamatan 25	Kelurahan 325
+00826	Jawa Timur	Jember	Kecamatan 26	Kelurahan 326
+00827	Jawa Timur	Gresik	Kecamatan 27	Kelurahan 327
+00828	Jawa Timur	Kediri	Kecamatan 28	Kelurahan 328
+00829	Jawa Tengah	Kediri	Kecamatan 29	Kelurahan 329
+00830	Jawa Timur	Kediri	Kecamatan 30	Kelurahan 330
+00831	Jawa Timur	Kediri	Kecamatan 31	Kelurahan 331
+00832	Jawa Timur	Sidoarjo	Kecamatan 32	Kelurahan 332
+00833	Jawa Timur	Sidoarjo	Kecamatan 33	Kelurahan 333
+00834	Jawa Timur	Pasuruan	Kecamatan 34	Kelurahan 334
+00835	Jawa Timur	Kediri	Kecamatan 35	Kelurahan 335
+00836	Jawa Timur	Surabaya	Kecamatan 36	Kelurahan 336
+00837	Jawa Timur	Madiun	Kecamatan 37	Kelurahan 337
+00838	Jawa Timur	Jember	Kecamatan 38	Kelurahan 338
+00839	Jawa Tengah	Gresik	Kecamatan 39	Kelurahan 339
+00840	Jawa Tengah	Kediri	Kecamatan 40	Kelurahan 340
+00841	Jawa Tengah	Jember	Kecamatan 41	Kelurahan 341
+00842	Jawa Timur	Blitar	Kecamatan 42	Kelurahan 342
+00843	Jawa Timur	Jember	Kecamatan 43	Kelurahan 343
+00844	Jawa Timur	Sidoarjo	Kecamatan 44	Kelurahan 344
+00845	Jawa Barat	Sidoarjo	Kecamatan 45	Kelurahan 345
+00846	Jawa Timur	Kediri	Kecamatan 46	Kelurahan 346
+00847	Jawa Barat	Probolinggo	Kecamatan 47	Kelurahan 347
+00848	Jawa Barat	Probolinggo	Kecamatan 48	Kelurahan 348
+00849	Jawa Tengah	Pasuruan	Kecamatan 49	Kelurahan 349
+00850	Jawa Timur	Gresik	Kecamatan 50	Kelurahan 350
+00851	Jawa Timur	Probolinggo	Kecamatan 51	Kelurahan 351
+00852	Jawa Timur	Jember	Kecamatan 52	Kelurahan 352
+00853	Jawa Timur	Gresik	Kecamatan 53	Kelurahan 353
+00854	Jawa Timur	Kediri	Kecamatan 54	Kelurahan 354
+00855	Jawa Tengah	Madiun	Kecamatan 55	Kelurahan 355
+00856	Jawa Timur	Kediri	Kecamatan 56	Kelurahan 356
+00857	Jawa Tengah	Malang	Kecamatan 57	Kelurahan 357
+00858	Jawa Timur	Gresik	Kecamatan 58	Kelurahan 358
+00859	Jawa Barat	Sidoarjo	Kecamatan 59	Kelurahan 359
+00860	Jawa Timur	Gresik	Kecamatan 60	Kelurahan 360
+00861	Jawa Timur	Jember	Kecamatan 61	Kelurahan 361
+00862	Jawa Tengah	Jember	Kecamatan 62	Kelurahan 362
+00863	Jawa Tengah	Probolinggo	Kecamatan 63	Kelurahan 363
+00864	Jawa Barat	Gresik	Kecamatan 64	Kelurahan 364
+00865	Jawa Timur	Surabaya	Kecamatan 65	Kelurahan 365
+00866	Jawa Timur	Malang	Kecamatan 66	Kelurahan 366
+00867	Jawa Timur	Pasuruan	Kecamatan 67	Kelurahan 367
+00868	Jawa Timur	Surabaya	Kecamatan 68	Kelurahan 368
+00869	Jawa Barat	Blitar	Kecamatan 69	Kelurahan 369
+00870	Jawa Timur	Jember	Kecamatan 70	Kelurahan 370
+00871	Jawa Timur	Pasuruan	Kecamatan 71	Kelurahan 371
+00872	Jawa Timur	Surabaya	Kecamatan 72	Kelurahan 372
+00873	Jawa Timur	Surabaya	Kecamatan 73	Kelurahan 373
+00874	Jawa Barat	Kediri	Kecamatan 74	Kelurahan 374
+00875	Jawa Tengah	Malang	Kecamatan 75	Kelurahan 375
+00876	Jawa Timur	Pasuruan	Kecamatan 76	Kelurahan 376
+00877	Jawa Tengah	Madiun	Kecamatan 77	Kelurahan 377
+00878	Jawa Timur	Malang	Kecamatan 78	Kelurahan 378
+00879	Jawa Timur	Madiun	Kecamatan 79	Kelurahan 379
+00880	Jawa Timur	Blitar	Kecamatan 80	Kelurahan 380
+00881	Jawa Tengah	Gresik	Kecamatan 81	Kelurahan 381
+00882	Jawa Timur	Kediri	Kecamatan 82	Kelurahan 382
+00883	Jawa Timur	Kediri	Kecamatan 83	Kelurahan 383
+00884	Jawa Timur	Sidoarjo	Kecamatan 84	Kelurahan 384
+00885	Jawa Timur	Kediri	Kecamatan 85	Kelurahan 385
+00886	Jawa Barat	Malang	Kecamatan 86	Kelurahan 386
+00887	Jawa Tengah	Jember	Kecamatan 87	Kelurahan 387
+00888	Jawa Timur	Probolinggo	Kecamatan 88	Kelurahan 388
+00889	Jawa Timur	Pasuruan	Kecamatan 89	Kelurahan 389
+00890	Jawa Barat	Probolinggo	Kecamatan 90	Kelurahan 390
+00891	Jawa Tengah	Probolinggo	Kecamatan 91	Kelurahan 391
+00892	Jawa Timur	Jember	Kecamatan 92	Kelurahan 392
+00893	Jawa Tengah	Sidoarjo	Kecamatan 93	Kelurahan 393
+00894	Jawa Tengah	Gresik	Kecamatan 94	Kelurahan 394
+00895	Jawa Barat	Malang	Kecamatan 95	Kelurahan 395
+00896	Jawa Timur	Gresik	Kecamatan 96	Kelurahan 396
+00897	Jawa Tengah	Gresik	Kecamatan 97	Kelurahan 397
+00898	Jawa Timur	Madiun	Kecamatan 98	Kelurahan 398
+00899	Jawa Tengah	Malang	Kecamatan 99	Kelurahan 399
+00900	Jawa Timur	Probolinggo	Kecamatan 100	Kelurahan 400
+00901	Jawa Barat	Malang	Kecamatan 101	Kelurahan 401
+00902	Jawa Timur	Kediri	Kecamatan 102	Kelurahan 402
+00903	Jawa Timur	Sidoarjo	Kecamatan 103	Kelurahan 403
+00904	Jawa Timur	Kediri	Kecamatan 104	Kelurahan 404
+00905	Jawa Timur	Madiun	Kecamatan 105	Kelurahan 405
+00906	Jawa Timur	Madiun	Kecamatan 106	Kelurahan 406
+00907	Jawa Timur	Madiun	Kecamatan 107	Kelurahan 407
+00908	Jawa Timur	Kediri	Kecamatan 108	Kelurahan 408
+00909	Jawa Timur	Probolinggo	Kecamatan 109	Kelurahan 409
+00910	Jawa Timur	Blitar	Kecamatan 110	Kelurahan 410
+00911	Jawa Timur	Probolinggo	Kecamatan 111	Kelurahan 411
+00912	Jawa Timur	Kediri	Kecamatan 112	Kelurahan 412
+00913	Jawa Tengah	Gresik	Kecamatan 113	Kelurahan 413
+00914	Jawa Tengah	Malang	Kecamatan 114	Kelurahan 414
+00915	Jawa Timur	Madiun	Kecamatan 115	Kelurahan 415
+00916	Jawa Timur	Probolinggo	Kecamatan 116	Kelurahan 416
+00917	Jawa Timur	Gresik	Kecamatan 117	Kelurahan 417
+00918	Jawa Timur	Gresik	Kecamatan 118	Kelurahan 418
+00919	Jawa Timur	Madiun	Kecamatan 119	Kelurahan 419
+00920	Jawa Tengah	Malang	Kecamatan 120	Kelurahan 420
+00921	Jawa Timur	Pasuruan	Kecamatan 121	Kelurahan 421
+00922	Jawa Tengah	Probolinggo	Kecamatan 122	Kelurahan 422
+00923	Jawa Timur	Jember	Kecamatan 123	Kelurahan 423
+00924	Jawa Timur	Madiun	Kecamatan 124	Kelurahan 424
+00925	Jawa Timur	Madiun	Kecamatan 125	Kelurahan 425
+00926	Jawa Timur	Probolinggo	Kecamatan 126	Kelurahan 426
+00927	Jawa Tengah	Madiun	Kecamatan 127	Kelurahan 427
+00928	Jawa Tengah	Malang	Kecamatan 128	Kelurahan 428
+00929	Jawa Timur	Probolinggo	Kecamatan 129	Kelurahan 429
+00930	Jawa Tengah	Probolinggo	Kecamatan 130	Kelurahan 430
+00931	Jawa Timur	Madiun	Kecamatan 131	Kelurahan 431
+00932	Jawa Timur	Kediri	Kecamatan 132	Kelurahan 432
+00933	Jawa Barat	Kediri	Kecamatan 133	Kelurahan 433
+00934	Jawa Tengah	Jember	Kecamatan 134	Kelurahan 434
+00935	Jawa Tengah	Malang	Kecamatan 135	Kelurahan 435
+00936	Jawa Timur	Jember	Kecamatan 136	Kelurahan 436
+00937	Jawa Timur	Pasuruan	Kecamatan 137	Kelurahan 437
+00938	Jawa Timur	Jember	Kecamatan 138	Kelurahan 438
+00939	Jawa Timur	Pasuruan	Kecamatan 139	Kelurahan 439
+00940	Jawa Timur	Sidoarjo	Kecamatan 140	Kelurahan 440
+00941	Jawa Timur	Sidoarjo	Kecamatan 141	Kelurahan 441
+00942	Jawa Timur	Blitar	Kecamatan 142	Kelurahan 442
+00943	Jawa Timur	Sidoarjo	Kecamatan 143	Kelurahan 443
+00944	Jawa Timur	Probolinggo	Kecamatan 144	Kelurahan 444
+00945	Jawa Timur	Malang	Kecamatan 145	Kelurahan 445
+00946	Jawa Tengah	Sidoarjo	Kecamatan 146	Kelurahan 446
+00947	Jawa Tengah	Malang	Kecamatan 147	Kelurahan 447
+00948	Jawa Timur	Jember	Kecamatan 148	Kelurahan 448
+00949	Jawa Timur	Kediri	Kecamatan 149	Kelurahan 449
+00950	Jawa Barat	Kediri	Kecamatan 150	Kelurahan 450
+00951	Jawa Tengah	Madiun	Kecamatan 151	Kelurahan 451
+00952	Jawa Timur	Blitar	Kecamatan 152	Kelurahan 452
+00953	Jawa Timur	Surabaya	Kecamatan 153	Kelurahan 453
+00954	Jawa Timur	Sidoarjo	Kecamatan 154	Kelurahan 454
+00955	Jawa Timur	Probolinggo	Kecamatan 155	Kelurahan 455
+00956	Jawa Tengah	Madiun	Kecamatan 156	Kelurahan 456
+00957	Jawa Timur	Malang	Kecamatan 157	Kelurahan 457
+00958	Jawa Timur	Madiun	Kecamatan 158	Kelurahan 458
+00959	Jawa Tengah	Blitar	Kecamatan 159	Kelurahan 459
+00960	Jawa Tengah	Pasuruan	Kecamatan 160	Kelurahan 460
+00961	Jawa Tengah	Sidoarjo	Kecamatan 161	Kelurahan 461
+00962	Jawa Timur	Jember	Kecamatan 162	Kelurahan 462
+00963	Jawa Tengah	Sidoarjo	Kecamatan 163	Kelurahan 463
+00964	Jawa Timur	Gresik	Kecamatan 164	Kelurahan 464
+00965	Jawa Timur	Probolinggo	Kecamatan 165	Kelurahan 465
+00966	Jawa Tengah	Jember	Kecamatan 166	Kelurahan 466
+00967	Jawa Timur	Jember	Kecamatan 167	Kelurahan 467
+00968	Jawa Timur	Jember	Kecamatan 168	Kelurahan 468
+00969	Jawa Timur	Malang	Kecamatan 169	Kelurahan 469
+00970	Jawa Timur	Gresik	Kecamatan 170	Kelurahan 470
+00971	Jawa Timur	Pasuruan	Kecamatan 171	Kelurahan 471
+00972	Jawa Tengah	Jember	Kecamatan 172	Kelurahan 472
+00973	Jawa Barat	Malang	Kecamatan 173	Kelurahan 473
+00974	Jawa Tengah	Kediri	Kecamatan 174	Kelurahan 474
+00975	Jawa Timur	Pasuruan	Kecamatan 175	Kelurahan 475
+00976	Jawa Barat	Gresik	Kecamatan 176	Kelurahan 476
+00977	Jawa Timur	Kediri	Kecamatan 177	Kelurahan 477
+00978	Jawa Timur	Jember	Kecamatan 178	Kelurahan 478
+00979	Jawa Timur	Kediri	Kecamatan 179	Kelurahan 479
+00980	Jawa Tengah	Jember	Kecamatan 180	Kelurahan 480
+00981	Jawa Barat	Gresik	Kecamatan 181	Kelurahan 481
+00982	Jawa Barat	Surabaya	Kecamatan 182	Kelurahan 482
+00983	Jawa Timur	Sidoarjo	Kecamatan 183	Kelurahan 483
+00984	Jawa Timur	Pasuruan	Kecamatan 184	Kelurahan 484
+00985	Jawa Timur	Probolinggo	Kecamatan 185	Kelurahan 485
+00986	Jawa Tengah	Jember	Kecamatan 186	Kelurahan 486
+00987	Jawa Timur	Sidoarjo	Kecamatan 187	Kelurahan 487
+00988	Jawa Timur	Madiun	Kecamatan 188	Kelurahan 488
+00989	Jawa Timur	Kediri	Kecamatan 189	Kelurahan 489
+00990	Jawa Barat	Kediri	Kecamatan 190	Kelurahan 490
+00991	Jawa Timur	Surabaya	Kecamatan 191	Kelurahan 491
+00992	Jawa Timur	Malang	Kecamatan 192	Kelurahan 492
+00993	Jawa Tengah	Malang	Kecamatan 193	Kelurahan 493
+00994	Jawa Tengah	Kediri	Kecamatan 194	Kelurahan 494
+00995	Jawa Barat	Gresik	Kecamatan 195	Kelurahan 495
+00996	Jawa Timur	Surabaya	Kecamatan 196	Kelurahan 496
+00997	Jawa Barat	Pasuruan	Kecamatan 197	Kelurahan 497
+00998	Jawa Timur	Kediri	Kecamatan 198	Kelurahan 498
+00999	Jawa Barat	Jember	Kecamatan 199	Kelurahan 499
+01000	Jawa Timur	Madiun	Kecamatan 200	Kelurahan 500
+\.
+
+
+--
+-- TOC entry 5014 (class 0 OID 18517)
+-- Dependencies: 223
+-- Data for Name: Memiliki (Buku_Kategori); Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Memiliki (Buku_Kategori)" (isbn, id_kategori) FROM stdin;
+9780000000001	KT00043
+9780000000001	KT00062
+9780000000001	KT00079
+9780000000001	KT00099
+9780000000001	KT00102
+9780000000001	KT00136
+9780000000001	KT00164
+9780000000001	KT00173
+9780000000001	KT00175
+9780000000001	KT00230
+9780000000001	KT00251
+9780000000001	KT00254
+9780000000001	KT00255
+9780000000001	KT00263
+9780000000001	KT00342
+9780000000001	KT00370
+9780000000001	KT00397
+9780000000001	KT00410
+9780000000001	KT00412
+9780000000001	KT00424
+9780000000001	KT00434
+9780000000001	KT00473
+9780000000001	KT00517
+9780000000001	KT00528
+9780000000001	KT00542
+9780000000001	KT00544
+9780000000001	KT00568
+9780000000001	KT00570
+9780000000001	KT00585
+9780000000001	KT00629
+9780000000001	KT00635
+9780000000001	KT00653
+9780000000001	KT00659
+9780000000001	KT00679
+9780000000001	KT00701
+9780000000001	KT00705
+9780000000001	KT00778
+9780000000001	KT00798
+9780000000001	KT00814
+9780000000001	KT00889
+9780000000001	KT00897
+9780000000001	KT00913
+9780000000001	KT00926
+9780000000001	KT00932
+9780000000001	KT00939
+9780000000001	KT00952
+9780000000001	KT00960
+9780000000001	KT00975
+9780000000001	KT00976
+9780000000001	KT00977
+9780000000001	KT00985
+9780000000001	KT01005
+9780000000001	KT01008
+9780000000001	KT01027
+9780000000001	KT01051
+9780000000001	KT01054
+9780000000001	KT01081
+9780000000001	KT01083
+9780000000001	KT01112
+9780000000001	KT01115
+9780000000001	KT01116
+9780000000001	KT01118
+9780000000001	KT01132
+9780000000001	KT01182
+9780000000001	KT01186
+9780000000001	KT01199
+9780000000001	KT01210
+9780000000001	KT01227
+9780000000001	KT01284
+9780000000001	KT01287
+9780000000001	KT01333
+9780000000001	KT01364
+9780000000001	KT01368
+9780000000001	KT01387
+9780000000001	KT01391
+9780000000001	KT01422
+9780000000001	KT01441
+9780000000001	KT01448
+9780000000001	KT01453
+9780000000001	KT01468
+9780000000001	KT01477
+9780000000001	KT01480
+9780000000001	KT01487
+9780000000001	KT01497
+9780000000001	KT01509
+9780000000001	KT01510
+9780000000001	KT01522
+9780000000001	KT01526
+9780000000001	KT01570
+9780000000001	KT01589
+9780000000001	KT01601
+9780000000001	KT01605
+9780000000001	KT01607
+9780000000001	KT01621
+9780000000001	KT01656
+9780000000001	KT01662
+9780000000001	KT01674
+9780000000001	KT01684
+9780000000001	KT01711
+9780000000001	KT01767
+9780000000001	KT01771
+9780000000001	KT01774
+9780000000001	KT01802
+9780000000001	KT01828
+9780000000001	KT01843
+9780000000001	KT01844
+9780000000001	KT01847
+9780000000001	KT01851
+9780000000001	KT01865
+9780000000001	KT01882
+9780000000001	KT01902
+9780000000001	KT01934
+9780000000001	KT01958
+9780000000001	KT01966
+9780000000001	KT01982
+9780000000001	KT02008
+9780000000001	KT02022
+9780000000001	KT02044
+9780000000001	KT02058
+9780000000001	KT02060
+9780000000001	KT02078
+9780000000001	KT02081
+9780000000001	KT02112
+9780000000001	KT02132
+9780000000001	KT02157
+9780000000001	KT02281
+9780000000001	KT02289
+9780000000001	KT02292
+9780000000001	KT02354
+9780000000001	KT02396
+9780000000001	KT02422
+9780000000001	KT02454
+9780000000001	KT02544
+9780000000001	KT02592
+9780000000001	KT02597
+9780000000001	KT02638
+9780000000001	KT02650
+9780000000001	KT02655
+9780000000001	KT02657
+9780000000001	KT02662
+9780000000001	KT02711
+9780000000001	KT02728
+9780000000001	KT02761
+9780000000001	KT02765
+9780000000001	KT02781
+9780000000001	KT02782
+9780000000001	KT02792
+9780000000001	KT02854
+9780000000001	KT02865
+9780000000001	KT02888
+9780000000001	KT02891
+9780000000001	KT02892
+9780000000001	KT02922
+9780000000001	KT02923
+9780000000001	KT02933
+9780000000001	KT02990
+9780000000001	KT02993
+9780000000001	KT02996
+9780000000001	KT03001
+9780000000001	KT03061
+9780000000001	KT03086
+9780000000001	KT03113
+9780000000001	KT03132
+9780000000001	KT03185
+9780000000001	KT03196
+9780000000001	KT03230
+9780000000001	KT03234
+9780000000001	KT03259
+9780000000001	KT03270
+9780000000001	KT03292
+9780000000001	KT03304
+9780000000001	KT03317
+9780000000001	KT03333
+9780000000001	KT03368
+9780000000001	KT03384
+9780000000001	KT03419
+9780000000001	KT03480
+9780000000001	KT03580
+9780000000001	KT03594
+9780000000001	KT03680
+9780000000001	KT03682
+9780000000001	KT03693
+9780000000001	KT03698
+9780000000001	KT03712
+9780000000001	KT03718
+9780000000001	KT03735
+9780000000001	KT03773
+9780000000001	KT03792
+9780000000001	KT03798
+9780000000001	KT03819
+9780000000001	KT03855
+9780000000001	KT03919
+9780000000001	KT03931
+9780000000001	KT03947
+9780000000001	KT03983
+9780000000001	KT04026
+9780000000001	KT04037
+9780000000001	KT04040
+9780000000001	KT04047
+9780000000001	KT04074
+9780000000001	KT04076
+9780000000001	KT04084
+9780000000001	KT04095
+9780000000001	KT04101
+9780000000001	KT04129
+9780000000001	KT04170
+9780000000001	KT04192
+9780000000001	KT04208
+9780000000001	KT04239
+9780000000001	KT04246
+9780000000001	KT04268
+9780000000001	KT04278
+9780000000001	KT04292
+9780000000001	KT04298
+9780000000001	KT04319
+9780000000001	KT04323
+9780000000001	KT04351
+9780000000001	KT04358
+9780000000001	KT04370
+9780000000001	KT04375
+9780000000001	KT04403
+9780000000001	KT04404
+9780000000001	KT04420
+9780000000001	KT04468
+9780000000001	KT04496
+9780000000001	KT04499
+9780000000001	KT04552
+9780000000001	KT04559
+9780000000001	KT04584
+9780000000001	KT04633
+9780000000001	KT04637
+9780000000001	KT04638
+9780000000001	KT04669
+9780000000001	KT04744
+9780000000001	KT04760
+9780000000001	KT04794
+9780000000001	KT04834
+9780000000001	KT04862
+9780000000001	KT04867
+9780000000001	KT04869
+9780000000001	KT04881
+9780000000001	KT04913
+9780000000001	KT04927
+9780000000001	KT04953
+9780000000001	KT05038
+9780000000001	KT05040
+9780000000001	KT05060
+9780000000001	KT05070
+9780000000001	KT05099
+9780000000001	KT05123
+9780000000001	KT05141
+9780000000001	KT05153
+9780000000001	KT05154
+9780000000001	KT05164
+9780000000001	KT05171
+9780000000001	KT05195
+9780000000001	KT05227
+9780000000001	KT05243
+9780000000001	KT05250
+9780000000001	KT05303
+9780000000001	KT05304
+9780000000001	KT05385
+9780000000001	KT05424
+9780000000001	KT05453
+9780000000001	KT05465
+9780000000001	KT05468
+9780000000001	KT05482
+9780000000001	KT05486
+9780000000001	KT05521
+9780000000001	KT05526
+9780000000001	KT05588
+9780000000001	KT05615
+9780000000001	KT05634
+9780000000001	KT05686
+9780000000001	KT05691
+9780000000001	KT05738
+9780000000001	KT05744
+9780000000001	KT05746
+9780000000001	KT05801
+9780000000001	KT05812
+9780000000001	KT05828
+9780000000001	KT05829
+9780000000001	KT05844
+9780000000001	KT05886
+9780000000001	KT05907
+9780000000001	KT05911
+9780000000001	KT05922
+9780000000001	KT05948
+9780000000001	KT05955
+9780000000001	KT05959
+9780000000001	KT05960
+9780000000001	KT05963
+9780000000001	KT05976
+9780000000001	KT05978
+9780000000001	KT06061
+9780000000001	KT06062
+9780000000001	KT06080
+9780000000001	KT06095
+9780000000001	KT06106
+9780000000001	KT06109
+9780000000001	KT06122
+9780000000001	KT06128
+9780000000001	KT06130
+9780000000001	KT06169
+9780000000001	KT06173
+9780000000001	KT06179
+9780000000001	KT06196
+9780000000001	KT06205
+9780000000001	KT06230
+9780000000001	KT06233
+9780000000001	KT06254
+9780000000001	KT06271
+9780000000001	KT06272
+9780000000001	KT06319
+9780000000001	KT06330
+9780000000001	KT06362
+9780000000001	KT06364
+9780000000001	KT06388
+9780000000001	KT06406
+9780000000001	KT06419
+9780000000001	KT06462
+9780000000001	KT06470
+9780000000001	KT06478
+9780000000001	KT06534
+9780000000001	KT06557
+9780000000001	KT06601
+9780000000001	KT06634
+9780000000001	KT06640
+9780000000001	KT06652
+9780000000001	KT06655
+9780000000001	KT06658
+9780000000001	KT06732
+9780000000001	KT06740
+9780000000001	KT06751
+9780000000001	KT06795
+9780000000001	KT06806
+9780000000001	KT06810
+9780000000001	KT06825
+9780000000001	KT06838
+9780000000001	KT06857
+9780000000001	KT06883
+9780000000001	KT06888
+9780000000001	KT06890
+9780000000001	KT06937
+9780000000001	KT06958
+9780000000001	KT06967
+9780000000001	KT06982
+9780000000001	KT06997
+9780000000001	KT07009
+9780000000001	KT07068
+9780000000001	KT07094
+9780000000001	KT07107
+9780000000001	KT07122
+9780000000001	KT07159
+9780000000001	KT07171
+9780000000001	KT07250
+9780000000001	KT07312
+9780000000001	KT07328
+9780000000001	KT07390
+9780000000001	KT07391
+9780000000001	KT07437
+9780000000001	KT07438
+9780000000001	KT07453
+9780000000001	KT07467
+9780000000001	KT07490
+9780000000001	KT07507
+9780000000001	KT07531
+9780000000001	KT07532
+9780000000001	KT07544
+9780000000001	KT07590
+9780000000001	KT07604
+9780000000001	KT07622
+9780000000001	KT07624
+9780000000001	KT07628
+9780000000001	KT07642
+9780000000001	KT07675
+9780000000001	KT07682
+9780000000001	KT07703
+9780000000001	KT07719
+9780000000001	KT07740
+9780000000001	KT07742
+9780000000001	KT07750
+9780000000001	KT07758
+9780000000001	KT07770
+9780000000001	KT07781
+9780000000001	KT07798
+9780000000001	KT07807
+9780000000001	KT07815
+9780000000001	KT07822
+9780000000001	KT07840
+9780000000001	KT07851
+9780000000001	KT07875
+9780000000001	KT07877
+9780000000001	KT07898
+9780000000001	KT07955
+9780000000001	KT07964
+9780000000001	KT07970
+9780000000001	KT08052
+9780000000001	KT08087
+9780000000001	KT08094
+9780000000001	KT08106
+9780000000001	KT08107
+9780000000001	KT08144
+9780000000001	KT08172
+9780000000001	KT08192
+9780000000001	KT08193
+9780000000001	KT08204
+9780000000001	KT08242
+9780000000001	KT08257
+9780000000001	KT08286
+9780000000001	KT08328
+9780000000001	KT08338
+9780000000001	KT08359
+9780000000001	KT08368
+9780000000001	KT08415
+9780000000001	KT08420
+9780000000001	KT08432
+9780000000001	KT08443
+9780000000001	KT08449
+9780000000001	KT08485
+9780000000001	KT08491
+9780000000001	KT08512
+9780000000001	KT08536
+9780000000001	KT08552
+9780000000001	KT08562
+9780000000001	KT08582
+9780000000001	KT08601
+9780000000001	KT08604
+9780000000001	KT08616
+9780000000001	KT08657
+9780000000001	KT08660
+9780000000001	KT08662
+9780000000001	KT08677
+9780000000001	KT08684
+9780000000001	KT08685
+9780000000001	KT08700
+9780000000001	KT08732
+9780000000001	KT08764
+9780000000001	KT08768
+9780000000001	KT08781
+9780000000001	KT08795
+9780000000001	KT08811
+9780000000001	KT08818
+9780000000001	KT08819
+9780000000001	KT08865
+9780000000001	KT08884
+9780000000001	KT08896
+9780000000001	KT08902
+9780000000001	KT08911
+9780000000001	KT08936
+9780000000001	KT08937
+9780000000001	KT08943
+9780000000001	KT08963
+9780000000001	KT08967
+9780000000001	KT08969
+9780000000001	KT08984
+9780000000001	KT09040
+9780000000001	KT09053
+9780000000001	KT09076
+9780000000001	KT09077
+9780000000001	KT09085
+9780000000001	KT09101
+9780000000001	KT09199
+9780000000001	KT09202
+9780000000001	KT09207
+9780000000001	KT09257
+9780000000001	KT09258
+9780000000001	KT09271
+9780000000001	KT09292
+9780000000001	KT09295
+9780000000001	KT09313
+9780000000001	KT09318
+9780000000001	KT09328
+9780000000001	KT09335
+9780000000001	KT09402
+9780000000001	KT09406
+9780000000001	KT09412
+9780000000001	KT09421
+9780000000001	KT09453
+9780000000001	KT09462
+9780000000001	KT09478
+9780000000001	KT09492
+9780000000001	KT09515
+9780000000001	KT09518
+9780000000001	KT09548
+9780000000001	KT09557
+9780000000001	KT09562
+9780000000001	KT09564
+9780000000001	KT09590
+9780000000001	KT09603
+9780000000001	KT09638
+9780000000001	KT09663
+9780000000001	KT09698
+9780000000001	KT09731
+9780000000001	KT09739
+9780000000001	KT09744
+9780000000001	KT09747
+9780000000001	KT09756
+9780000000001	KT09757
+9780000000001	KT09760
+9780000000001	KT09764
+9780000000001	KT09767
+9780000000001	KT09775
+9780000000001	KT09790
+9780000000001	KT09796
+9780000000001	KT09799
+9780000000001	KT09854
+9780000000001	KT09866
+9780000000001	KT09896
+9780000000001	KT09909
+9780000000001	KT09911
+9780000000001	KT09916
+9780000000001	KT09928
+9780000000001	KT09932
+9780000000001	KT09943
+9780000000001	KT09981
+9780000000001	KT09989
+9780000000002	KT00018
+9780000000002	KT00045
+9780000000002	KT00077
+9780000000002	KT00111
+9780000000002	KT00120
+9780000000002	KT00127
+9780000000002	KT00176
+9780000000002	KT00197
+9780000000002	KT00218
+9780000000002	KT00222
+9780000000002	KT00231
+9780000000002	KT00252
+9780000000002	KT00306
+9780000000002	KT00336
+9780000000002	KT00359
+9780000000002	KT00361
+9780000000002	KT00363
+9780000000002	KT00364
+9780000000002	KT00370
+9780000000002	KT00383
+9780000000002	KT00384
+9780000000002	KT00407
+9780000000002	KT00419
+9780000000002	KT00423
+9780000000002	KT00424
+9780000000002	KT00459
+9780000000002	KT00461
+9780000000002	KT00498
+9780000000002	KT00540
+9780000000002	KT00576
+9780000000002	KT00599
+9780000000002	KT00604
+9780000000002	KT00653
+9780000000002	KT00675
+9780000000002	KT00677
+9780000000002	KT00694
+9780000000002	KT00697
+9780000000002	KT00706
+9780000000002	KT00733
+9780000000002	KT00765
+9780000000002	KT00837
+9780000000002	KT00840
+9780000000002	KT00856
+9780000000002	KT00878
+9780000000002	KT00924
+9780000000002	KT00925
+9780000000002	KT00928
+9780000000002	KT00930
+9780000000002	KT00935
+9780000000002	KT00955
+9780000000002	KT00961
+9780000000002	KT00988
+9780000000002	KT01034
+9780000000002	KT01079
+9780000000002	KT01112
+9780000000002	KT01122
+9780000000002	KT01148
+9780000000002	KT01179
+9780000000002	KT01215
+9780000000002	KT01224
+9780000000002	KT01282
+9780000000002	KT01285
+9780000000002	KT01294
+9780000000002	KT01298
+9780000000002	KT01340
+9780000000002	KT01404
+9780000000002	KT01415
+9780000000002	KT01446
+9780000000002	KT01450
+9780000000002	KT01474
+9780000000002	KT01487
+9780000000002	KT01511
+9780000000002	KT01516
+9780000000002	KT01536
+9780000000002	KT01545
+9780000000002	KT01560
+9780000000002	KT01562
+9780000000002	KT01590
+9780000000002	KT01597
+9780000000002	KT01614
+9780000000002	KT01681
+9780000000002	KT01715
+9780000000002	KT01772
+9780000000002	KT01834
+9780000000002	KT01844
+9780000000002	KT01846
+9780000000002	KT01882
+9780000000002	KT01902
+9780000000002	KT01908
+9780000000002	KT01975
+9780000000002	KT01976
+9780000000002	KT02005
+9780000000002	KT02014
+9780000000002	KT02035
+9780000000002	KT02037
+9780000000002	KT02056
+9780000000002	KT02059
+9780000000002	KT02067
+9780000000002	KT02070
+9780000000002	KT02072
+9780000000002	KT02127
+9780000000002	KT02147
+9780000000002	KT02156
+9780000000002	KT02175
+9780000000002	KT02187
+9780000000002	KT02206
+9780000000002	KT02219
+9780000000002	KT02220
+9780000000002	KT02263
+9780000000002	KT02269
+9780000000002	KT02271
+9780000000002	KT02274
+9780000000002	KT02298
+9780000000002	KT02304
+9780000000002	KT02322
+9780000000002	KT02420
+9780000000002	KT02465
+9780000000002	KT02491
+9780000000002	KT02506
+9780000000002	KT02519
+9780000000002	KT02533
+9780000000002	KT02550
+9780000000002	KT02581
+9780000000002	KT02594
+9780000000002	KT02597
+9780000000002	KT02623
+9780000000002	KT02633
+9780000000002	KT02646
+9780000000002	KT02704
+9780000000002	KT02711
+9780000000002	KT02762
+9780000000002	KT02776
+9780000000002	KT02790
+9780000000002	KT02804
+9780000000002	KT02816
+9780000000002	KT02848
+9780000000002	KT02872
+9780000000002	KT02876
+9780000000002	KT02895
+9780000000002	KT02932
+9780000000002	KT02952
+9780000000002	KT02969
+9780000000002	KT03031
+9780000000002	KT03044
+9780000000002	KT03074
+9780000000002	KT03095
+9780000000002	KT03099
+9780000000002	KT03124
+9780000000002	KT03125
+9780000000002	KT03150
+9780000000002	KT03195
+9780000000002	KT03196
+9780000000002	KT03222
+9780000000002	KT03228
+9780000000002	KT03254
+9780000000002	KT03278
+9780000000002	KT03295
+9780000000002	KT03304
+9780000000002	KT03319
+9780000000002	KT03362
+9780000000002	KT03363
+9780000000002	KT03364
+9780000000002	KT03373
+9780000000002	KT03401
+9780000000002	KT03420
+9780000000002	KT03422
+9780000000002	KT03455
+9780000000002	KT03463
+9780000000002	KT03469
+9780000000002	KT03479
+9780000000002	KT03505
+9780000000002	KT03514
+9780000000002	KT03518
+9780000000002	KT03523
+9780000000002	KT03532
+9780000000002	KT03550
+9780000000002	KT03562
+9780000000002	KT03588
+9780000000002	KT03613
+9780000000002	KT03622
+9780000000002	KT03662
+9780000000002	KT03680
+9780000000002	KT03711
+9780000000002	KT03734
+9780000000002	KT03736
+9780000000002	KT03747
+9780000000002	KT03758
+9780000000002	KT03765
+9780000000002	KT03774
+9780000000002	KT03794
+9780000000002	KT03809
+9780000000002	KT03824
+9780000000002	KT03859
+9780000000002	KT03875
+9780000000002	KT03882
+9780000000002	KT03891
+9780000000002	KT03949
+9780000000002	KT03958
+9780000000002	KT03984
+9780000000002	KT04003
+9780000000002	KT04013
+9780000000002	KT04022
+9780000000002	KT04034
+9780000000002	KT04042
+9780000000002	KT04048
+9780000000002	KT04051
+9780000000002	KT04053
+9780000000002	KT04110
+9780000000002	KT04120
+9780000000002	KT04149
+9780000000002	KT04159
+9780000000002	KT04187
+9780000000002	KT04192
+9780000000002	KT04193
+9780000000002	KT04217
+9780000000002	KT04229
+9780000000002	KT04273
+9780000000002	KT04275
+9780000000002	KT04286
+9780000000002	KT04334
+9780000000002	KT04357
+9780000000002	KT04363
+9780000000002	KT04373
+9780000000002	KT04396
+9780000000002	KT04429
+9780000000002	KT04477
+9780000000002	KT04494
+9780000000002	KT04533
+9780000000002	KT04542
+9780000000002	KT04616
+9780000000002	KT04622
+9780000000002	KT04627
+9780000000002	KT04661
+9780000000002	KT04662
+9780000000002	KT04664
+9780000000002	KT04721
+9780000000002	KT04730
+9780000000002	KT04735
+9780000000002	KT04751
+9780000000002	KT04753
+9780000000002	KT04766
+9780000000002	KT04769
+9780000000002	KT04785
+9780000000002	KT04805
+9780000000002	KT04814
+9780000000002	KT04815
+9780000000002	KT04820
+9780000000002	KT04862
+9780000000002	KT04867
+9780000000002	KT04869
+9780000000002	KT04917
+9780000000002	KT04939
+9780000000002	KT04994
+9780000000002	KT05021
+9780000000002	KT05035
+9780000000002	KT05041
+9780000000002	KT05044
+9780000000002	KT05096
+9780000000002	KT05158
+9780000000002	KT05244
+9780000000002	KT05271
+9780000000002	KT05277
+9780000000002	KT05313
+9780000000002	KT05321
+9780000000002	KT05340
+9780000000002	KT05344
+9780000000002	KT05366
+9780000000002	KT05371
+9780000000002	KT05386
+9780000000002	KT05401
+9780000000002	KT05459
+9780000000002	KT05488
+9780000000002	KT05491
+9780000000002	KT05533
+9780000000002	KT05619
+9780000000002	KT05667
+9780000000002	KT05668
+9780000000002	KT05677
+9780000000002	KT05752
+9780000000002	KT05753
+9780000000002	KT05785
+9780000000002	KT05786
+9780000000002	KT05799
+9780000000002	KT05814
+9780000000002	KT05829
+9780000000002	KT05864
+9780000000002	KT05870
+9780000000002	KT05877
+9780000000002	KT05881
+9780000000002	KT05896
+9780000000002	KT05899
+9780000000002	KT05918
+9780000000002	KT05923
+9780000000002	KT05928
+9780000000002	KT05933
+9780000000002	KT06010
+9780000000002	KT06021
+9780000000002	KT06029
+9780000000002	KT06141
+9780000000002	KT06151
+9780000000002	KT06154
+9780000000002	KT06217
+9780000000002	KT06237
+9780000000002	KT06257
+9780000000002	KT06280
+9780000000002	KT06351
+9780000000002	KT06358
+9780000000002	KT06368
+9780000000002	KT06382
+9780000000002	KT06393
+9780000000002	KT06398
+9780000000002	KT06419
+9780000000002	KT06428
+9780000000002	KT06450
+9780000000002	KT06500
+9780000000002	KT06503
+9780000000002	KT06531
+9780000000002	KT06532
+9780000000002	KT06540
+9780000000002	KT06548
+9780000000002	KT06552
+9780000000002	KT06555
+9780000000002	KT06565
+9780000000002	KT06568
+9780000000002	KT06586
+9780000000002	KT06604
+9780000000002	KT06649
+9780000000002	KT06678
+9780000000002	KT06697
+9780000000002	KT06707
+9780000000002	KT06716
+9780000000002	KT06719
+9780000000002	KT06729
+9780000000002	KT06740
+9780000000002	KT06782
+9780000000002	KT06799
+9780000000002	KT06805
+9780000000002	KT06816
+9780000000002	KT06818
+9780000000002	KT06830
+9780000000002	KT06853
+9780000000002	KT06868
+9780000000002	KT06887
+9780000000002	KT06898
+9780000000002	KT06909
+9780000000002	KT06921
+9780000000002	KT06923
+9780000000002	KT06996
+9780000000002	KT06999
+9780000000002	KT07037
+9780000000002	KT07046
+9780000000002	KT07112
+9780000000002	KT07140
+9780000000002	KT07167
+9780000000002	KT07182
+9780000000002	KT07218
+9780000000002	KT07237
+9780000000002	KT07243
+9780000000002	KT07276
+9780000000002	KT07277
+9780000000002	KT07278
+9780000000002	KT07298
+9780000000002	KT07315
+9780000000002	KT07321
+9780000000002	KT07328
+9780000000002	KT07340
+9780000000002	KT07386
+9780000000002	KT07390
+9780000000002	KT07419
+9780000000002	KT07428
+9780000000002	KT07459
+9780000000002	KT07468
+9780000000002	KT07477
+9780000000002	KT07483
+9780000000002	KT07539
+9780000000002	KT07554
+9780000000002	KT07563
+9780000000002	KT07583
+9780000000002	KT07605
+9780000000002	KT07667
+9780000000002	KT07750
+9780000000002	KT07794
+9780000000002	KT07813
+9780000000002	KT07828
+9780000000002	KT07850
+9780000000002	KT07873
+9780000000002	KT07874
+9780000000002	KT07882
+9780000000002	KT07894
+9780000000002	KT07917
+9780000000002	KT07926
+9780000000002	KT07930
+9780000000002	KT07961
+9780000000002	KT07989
+9780000000002	KT08019
+9780000000002	KT08025
+9780000000002	KT08036
+9780000000002	KT08061
+9780000000002	KT08075
+9780000000002	KT08157
+9780000000002	KT08170
+9780000000002	KT08174
+9780000000002	KT08194
+9780000000002	KT08202
+9780000000002	KT08214
+9780000000002	KT08216
+9780000000002	KT08229
+9780000000002	KT08255
+9780000000002	KT08263
+9780000000002	KT08266
+9780000000002	KT08289
+9780000000002	KT08364
+9780000000002	KT08371
+9780000000002	KT08381
+9780000000002	KT08390
+9780000000002	KT08429
+9780000000002	KT08432
+9780000000002	KT08457
+9780000000002	KT08493
+9780000000002	KT08513
+9780000000002	KT08540
+9780000000002	KT08550
+9780000000002	KT08553
+9780000000002	KT08572
+9780000000002	KT08586
+9780000000002	KT08628
+9780000000002	KT08632
+9780000000002	KT08634
+9780000000002	KT08648
+9780000000002	KT08677
+9780000000002	KT08683
+9780000000002	KT08688
+9780000000002	KT08698
+9780000000002	KT08703
+9780000000002	KT08722
+9780000000002	KT08723
+9780000000002	KT08740
+9780000000002	KT08744
+9780000000002	KT08751
+9780000000002	KT08778
+9780000000002	KT08783
+9780000000002	KT08795
+9780000000002	KT08801
+9780000000002	KT08814
+9780000000002	KT08822
+9780000000002	KT08856
+9780000000002	KT09023
+9780000000002	KT09040
+9780000000002	KT09072
+9780000000002	KT09075
+9780000000002	KT09080
+9780000000002	KT09108
+9780000000002	KT09145
+9780000000002	KT09192
+9780000000002	KT09251
+9780000000002	KT09256
+9780000000002	KT09271
+9780000000002	KT09310
+9780000000002	KT09311
+9780000000002	KT09338
+9780000000002	KT09346
+9780000000002	KT09357
+9780000000002	KT09363
+9780000000002	KT09369
+9780000000002	KT09389
+9780000000002	KT09429
+9780000000002	KT09436
+9780000000002	KT09456
+9780000000002	KT09474
+9780000000002	KT09493
+9780000000002	KT09497
+9780000000002	KT09512
+9780000000002	KT09540
+9780000000002	KT09568
+9780000000002	KT09576
+9780000000002	KT09619
+9780000000002	KT09669
+9780000000002	KT09697
+9780000000002	KT09756
+9780000000002	KT09759
+9780000000002	KT09763
+9780000000002	KT09774
+9780000000002	KT09785
+\.
+
+
+--
+-- TOC entry 5015 (class 0 OID 18520)
+-- Dependencies: 224
+-- Data for Name: Memiliki (Pembelian_Buku); Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Memiliki (Pembelian_Buku)" (id_pembelian, isbn, harga_beli, jumlah_beli) FROM stdin;
+B00176	9780000000176	38173	26
+B00533	9780000000533	273103	27
+B00469	9780000000469	100959	50
+B00769	9780000000769	271813	36
+B00690	9780000000690	130485	13
+B00247	9780000000247	116621	29
+B00880	9780000000880	190560	15
+B00948	9780000000948	217088	3
+B00052	9780000000052	159544	15
+B00080	9780000000080	154950	12
+B00391	9780000000391	209885	31
+B00638	9780000000638	115127	12
+B00613	9780000000613	196893	29
+B00908	9780000000908	73423	22
+B00348	9780000000348	256076	26
+B00896	9780000000896	122307	42
+B00804	9780000000804	154645	12
+B00370	9780000000370	51047	31
+B00022	9780000000022	134428	37
+B00969	9780000000969	102577	44
+B00797	9780000000797	230872	35
+B00929	9780000000929	151068	1
+B00266	9780000000266	219044	18
+B00716	9780000000716	105173	24
+B00661	9780000000661	68194	1
+B00585	9780000000585	114941	33
+B00339	9780000000339	131434	11
+B00513	9780000000513	287074	37
+B00471	9780000000471	107808	29
+B00357	9780000000357	40328	42
+B00369	9780000000369	112078	8
+B00023	9780000000023	49262	16
+B00970	9780000000970	91792	39
+B00923	9780000000923	74193	36
+B00884	9780000000884	289886	10
+B00083	9780000000083	248434	47
+B00346	9780000000346	294711	46
+B00414	9780000000414	201253	41
+B00506	9780000000506	87207	45
+B00056	9780000000056	73889	3
+B00537	9780000000537	145758	1
+B00100	9780000000100	198455	46
+B00611	9780000000611	265384	34
+B00146	9780000000146	94479	6
+B00852	9780000000852	145353	48
+B00333	9780000000333	127598	41
+B00390	9780000000390	95911	44
+B00717	9780000000717	131947	22
+B00362	9780000000362	134438	44
+B00566	9780000000566	287320	17
+B00307	9780000000307	31530	37
+B00190	9780000000190	77986	26
+B00650	9780000000650	286535	48
+B00575	9780000000575	147011	8
+B00854	9780000000854	94140	37
+B00025	9780000000025	211793	34
+B00876	9780000000876	239100	31
+B00316	9780000000316	258881	43
+B00905	9780000000905	116263	49
+B00123	9780000000123	140199	17
+B00347	9780000000347	197671	3
+B00568	9780000000568	146237	11
+B00265	9780000000265	292294	2
+B00132	9780000000132	175494	9
+B00484	9780000000484	82746	5
+B00151	9780000000151	43425	13
+B00365	9780000000365	183542	36
+B00368	9780000000368	212667	43
+B00810	9780000000810	272004	32
+B00114	9780000000114	151918	24
+B00524	9780000000524	137546	5
+B00047	9780000000047	215009	31
+B00840	9780000000840	83166	10
+B00058	9780000000058	227081	16
+B00175	9780000000175	246709	18
+B00961	9780000000961	284203	10
+B00481	9780000000481	72559	20
+B00933	9780000000933	94500	33
+B00959	9780000000959	207178	2
+B00061	9780000000061	259530	35
+B00367	9780000000367	236950	2
+B00827	9780000000827	80974	31
+B00258	9780000000258	180874	1
+B00225	9780000000225	76899	30
+B00563	9780000000563	286364	22
+B00246	9780000000246	81029	15
+B00647	9780000000647	163969	24
+B00230	9780000000230	290944	11
+B00194	9780000000194	58079	33
+B00664	9780000000664	184973	6
+B00816	9780000000816	88358	49
+B00891	9780000000891	202230	48
+B00893	9780000000893	131684	40
+B00936	9780000000936	234753	48
+B00605	9780000000605	249543	1
+B00237	9780000000237	113516	10
+B00010	9780000000010	137517	25
+B00443	9780000000443	288030	11
+B00401	9780000000401	110252	40
+B00409	9780000000409	63723	8
+B00921	9780000000921	105257	10
+B00592	9780000000592	115431	27
+B00687	9780000000687	284791	9
+B00293	9780000000293	35882	47
+B00694	9780000000694	293919	32
+B00645	9780000000645	130907	4
+B00604	9780000000604	168641	5
+B00964	9780000000964	227667	4
+B00941	9780000000941	41878	8
+B00016	9780000000016	172400	49
+B00305	9780000000305	193133	9
+B00236	9780000000236	76679	33
+B00139	9780000000139	147257	2
+B00375	9780000000375	189487	34
+B00668	9780000000668	268539	49
+B00154	9780000000154	266200	22
+B00338	9780000000338	228397	32
+B00562	9780000000562	265952	40
+B00124	9780000000124	185671	17
+B00652	9780000000652	80099	45
+B00232	9780000000232	298918	30
+B00800	9780000000800	49941	38
+B00712	9780000000712	169584	27
+B00441	9780000000441	179262	31
+B00088	9780000000088	163877	48
+B00947	9780000000947	225549	5
+B00386	9780000000386	120334	1
+B00531	9780000000531	228132	12
+B00967	9780000000967	153640	16
+B00216	9780000000216	45161	45
+B00277	9780000000277	283253	10
+B00221	9780000000221	53693	26
+B00068	9780000000068	177897	2
+B00844	9780000000844	209823	42
+B00843	9780000000843	141220	43
+B00026	9780000000026	189719	16
+B00832	9780000000832	147428	6
+B00539	9780000000539	151350	27
+B00881	9780000000881	126380	33
+B00508	9780000000508	273871	27
+B00065	9780000000065	172454	42
+B00952	9780000000952	295575	4
+B00643	9780000000643	146372	7
+B00120	9780000000120	222709	27
+B00899	9780000000899	272284	25
+B00053	9780000000053	298983	4
+B00228	9780000000228	53575	7
+B00894	9780000000894	68399	27
+B00248	9780000000248	134502	42
+B00234	9780000000234	252009	47
+B00517	9780000000517	185658	31
+B00791	9780000000791	229350	12
+B00779	9780000000779	241285	31
+B00935	9780000000935	283722	4
+B00038	9780000000038	181146	2
+B00699	9780000000699	82516	14
+B00610	9780000000610	244333	13
+B00582	9780000000582	220735	11
+B00474	9780000000474	122116	46
+B00565	9780000000565	181108	41
+B00762	9780000000762	123158	7
+B00188	9780000000188	276874	1
+B00394	9780000000394	135247	1
+B00819	9780000000819	130766	36
+B00972	9780000000972	147796	12
+B00205	9780000000205	83415	32
+B00912	9780000000912	63002	25
+B00304	9780000000304	117459	39
+B00169	9780000000169	129828	19
+B00183	9780000000183	47994	22
+B00702	9780000000702	296477	13
+B00951	9780000000951	55486	17
+B00628	9780000000628	97600	46
+B00512	9780000000512	208271	5
+B00992	9780000000992	276340	7
+B00817	9780000000817	114705	18
+B00895	9780000000895	102364	16
+B00931	9780000000931	251779	15
+B00601	9780000000601	54386	44
+B00323	9780000000323	267152	38
+B00444	9780000000444	192744	47
+B00313	9780000000313	295828	29
+B00965	9780000000965	183098	32
+B00594	9780000000594	49361	40
+B00708	9780000000708	291714	34
+B00658	9780000000658	46423	24
+B00950	9780000000950	76161	23
+B00040	9780000000040	276179	8
+B00720	9780000000720	235996	25
+B00385	9780000000385	179995	28
+B00406	9780000000406	33195	44
+B00997	9780000000997	189212	17
+B00914	9780000000914	211248	9
+B00224	9780000000224	227282	8
+B00727	9780000000727	181845	28
+B00404	9780000000404	64586	14
+B00005	9780000000005	179183	45
+B00752	9780000000752	43445	36
+B00958	9780000000958	52748	11
+B00097	9780000000097	160990	23
+B00062	9780000000062	145213	48
+B00751	9780000000751	269193	35
+B00723	9780000000723	176942	24
+B00031	9780000000031	113894	18
+B00430	9780000000430	152353	9
+B00754	9780000000754	103097	4
+B00215	9780000000215	101193	11
+B00245	9780000000245	197046	20
+B00700	9780000000700	87131	42
+B00991	9780000000991	136811	43
+B00497	9780000000497	131010	27
+B00064	9780000000064	180541	40
+B00459	9780000000459	286884	41
+B01000	9780000001000	115291	31
+B00802	9780000000802	71416	8
+B00977	9780000000977	168316	25
+B00742	9780000000742	235797	49
+B00217	9780000000217	170682	14
+B00917	9780000000917	184605	49
+B00137	9780000000137	243198	5
+B00324	9780000000324	83994	6
+B00295	9780000000295	179154	45
+B00003	9780000000003	121373	28
+B00885	9780000000885	190918	46
+B00548	9780000000548	55033	45
+B00491	9780000000491	36166	3
+B00260	9780000000260	111581	34
+B00750	9780000000750	170514	21
+B00138	9780000000138	33431	28
+B00286	9780000000286	109662	23
+B00240	9780000000240	98218	37
+B00270	9780000000270	149671	10
+B00636	9780000000636	216187	12
+B00657	9780000000657	170156	26
+B00701	9780000000701	57460	33
+B00837	9780000000837	178143	28
+B00696	9780000000696	200197	38
+B00651	9780000000651	284402	39
+B00235	9780000000235	237675	24
+B00714	9780000000714	174793	45
+B00233	9780000000233	30338	29
+B00911	9780000000911	193067	6
+B00697	9780000000697	134042	49
+B00673	9780000000673	267542	37
+B00479	9780000000479	220726	45
+B00550	9780000000550	237919	9
+B00093	9780000000093	101494	45
+B00495	9780000000495	229580	4
+B00413	9780000000413	291077	43
+B00644	9780000000644	87662	9
+B00907	9780000000907	171586	27
+B00748	9780000000748	115231	9
+B00684	9780000000684	102785	8
+B00753	9780000000753	87331	24
+B00615	9780000000615	265549	37
+B00744	9780000000744	181333	5
+B00174	9780000000174	111538	10
+B00780	9780000000780	221876	44
+B00505	9780000000505	127813	28
+B00913	9780000000913	114040	14
+B00535	9780000000535	112706	34
+B00536	9780000000536	248280	5
+B00976	9780000000976	196967	38
+B00396	9780000000396	295388	33
+B00165	9780000000165	274544	15
+B00178	9780000000178	218267	24
+B00560	9780000000560	199000	42
+B00956	9780000000956	275633	19
+B00301	9780000000301	115455	24
+B00335	9780000000335	292837	6
+B00105	9780000000105	182029	29
+B00415	9780000000415	88024	27
+B00938	9780000000938	165540	6
+B00686	9780000000686	86060	6
+B00685	9780000000685	176447	15
+B00507	9780000000507	95474	23
+B00599	9780000000599	81091	7
+B00292	9780000000292	230304	2
+B00337	9780000000337	170560	22
+B00262	9780000000262	290573	10
+B00059	9780000000059	73929	47
+B00256	9780000000256	155280	12
+B00545	9780000000545	270085	27
+B00523	9780000000523	260701	31
+B00756	9780000000756	246938	40
+B00625	9780000000625	258977	24
+B00419	9780000000419	166100	10
+B00036	9780000000036	194916	19
+B00373	9780000000373	269575	34
+B00315	9780000000315	122190	6
+B00579	9780000000579	172840	27
+B00127	9780000000127	42200	43
+B00503	9780000000503	112145	8
+B00125	9780000000125	243398	28
+B00397	9780000000397	271699	2
+B00111	9780000000111	45909	8
+B00081	9780000000081	229842	15
+B00877	9780000000877	232635	28
+B00440	9780000000440	283240	8
+B00261	9780000000261	262721	24
+B00423	9780000000423	118983	26
+B00504	9780000000504	203972	11
+B00395	9780000000395	271481	3
+B00532	9780000000532	267962	24
+B00255	9780000000255	54814	5
+B00048	9780000000048	73773	27
+B00879	9780000000879	204849	34
+B00104	9780000000104	222179	43
+B00629	9780000000629	155083	18
+B00878	9780000000878	117007	8
+B00623	9780000000623	131015	40
+B00319	9780000000319	298350	32
+B00291	9780000000291	280788	10
+B00264	9780000000264	116030	41
+B00777	9780000000777	30020	4
+B00725	9780000000725	217909	29
+B00631	9780000000631	277087	4
+B00099	9780000000099	210433	28
+B00848	9780000000848	70890	37
+B00886	9780000000886	299793	7
+B00085	9780000000085	134117	47
+B00671	9780000000671	243172	6
+B00949	9780000000949	100113	18
+B00764	9780000000764	75831	39
+B00212	9780000000212	88015	29
+B00597	9780000000597	295193	18
+B00849	9780000000849	188584	36
+B00928	9780000000928	165825	3
+B00134	9780000000134	155517	2
+B00466	9780000000466	211444	47
+B00311	9780000000311	39655	21
+B00400	9780000000400	215906	3
+B00900	9780000000900	255937	43
+B00060	9780000000060	281851	44
+B00646	9780000000646	256793	47
+B00019	9780000000019	218338	6
+B00793	9780000000793	160160	21
+B00990	9780000000990	47363	1
+B00825	9780000000825	233318	36
+B00749	9780000000749	202360	25
+B00388	9780000000388	65495	38
+B00986	9780000000986	179137	17
+B00179	9780000000179	174931	48
+B00940	9780000000940	210855	42
+B00296	9780000000296	85209	22
+B00989	9780000000989	254748	20
+B00760	9780000000760	100293	27
+B00710	9780000000710	82601	23
+B00960	9780000000960	178323	13
+B00218	9780000000218	37736	14
+B00715	9780000000715	112556	37
+B00746	9780000000746	98201	7
+B00815	9780000000815	164154	9
+B00903	9780000000903	205849	26
+B00214	9780000000214	224348	50
+B00321	9780000000321	166982	23
+B00709	9780000000709	295551	35
+B00300	9780000000300	250221	49
+B00663	9780000000663	76022	42
+B00350	9780000000350	80429	42
+B00201	9780000000201	84710	9
+B00106	9780000000106	253707	47
+B00806	9780000000806	218264	36
+B00433	9780000000433	86216	26
+B00573	9780000000573	179422	47
+B00095	9780000000095	225495	45
+B00730	9780000000730	261478	43
+B00659	9780000000659	189602	11
+B00859	9780000000859	144666	8
+B00954	9780000000954	167480	13
+B00140	9780000000140	228004	24
+B00399	9780000000399	276979	26
+B00377	9780000000377	256604	26
+B00787	9780000000787	266501	46
+B00855	9780000000855	72550	1
+B00801	9780000000801	223241	18
+B00603	9780000000603	275106	22
+B00567	9780000000567	80306	32
+B00426	9780000000426	94622	4
+B00499	9780000000499	218089	27
+B00408	9780000000408	76086	48
+B00821	9780000000821	246622	17
+B00070	9780000000070	297096	22
+B00500	9780000000500	289861	14
+B00257	9780000000257	206262	14
+B00515	9780000000515	78885	23
+B00110	9780000000110	179501	41
+B00326	9780000000326	231085	24
+B00728	9780000000728	113970	28
+B00916	9780000000916	177162	39
+B00209	9780000000209	91422	28
+B00860	9780000000860	100100	16
+B00925	9780000000925	57394	18
+B00166	9780000000166	156171	28
+B00602	9780000000602	97716	6
+B00050	9780000000050	67284	28
+B00857	9780000000857	103607	47
+B00772	9780000000772	193729	29
+B00681	9780000000681	246654	15
+B00705	9780000000705	285964	18
+B00269	9780000000269	51614	42
+B00457	9780000000457	68022	50
+B00757	9780000000757	154077	10
+B00268	9780000000268	37820	20
+B00249	9780000000249	92977	28
+B00729	9780000000729	230559	6
+B00039	9780000000039	67667	44
+B00213	9780000000213	165985	48
+B00828	9780000000828	290169	47
+B00267	9780000000267	215449	40
+B00851	9780000000851	119412	24
+B00259	9780000000259	201357	37
+B00511	9780000000511	132461	43
+B00119	9780000000119	249815	28
+B00656	9780000000656	140049	30
+B00288	9780000000288	156926	20
+B00527	9780000000527	59582	29
+B00677	9780000000677	196074	30
+B00284	9780000000284	90454	24
+B00918	9780000000918	195391	25
+B00943	9780000000943	191050	38
+B00493	9780000000493	95766	40
+B00803	9780000000803	271644	5
+B00814	9780000000814	148812	41
+B00788	9780000000788	142078	24
+B00076	9780000000076	219623	4
+B00148	9780000000148	172248	49
+B00593	9780000000593	282611	43
+B00718	9780000000718	245560	12
+B00118	9780000000118	205403	18
+B00789	9780000000789	288377	47
+B00737	9780000000737	185578	7
+B00203	9780000000203	53266	22
+B00340	9780000000340	191827	16
+B00724	9780000000724	66789	38
+B00870	9780000000870	132119	32
+B00334	9780000000334	176385	49
+B00187	9780000000187	137356	44
+B00984	9780000000984	235178	33
+B00782	9780000000782	289518	15
+B00164	9780000000164	253486	18
+B00721	9780000000721	87664	46
+B00552	9780000000552	259928	38
+B00320	9780000000320	194938	39
+B00937	9780000000937	294215	34
+B00057	9780000000057	59852	30
+B00795	9780000000795	193694	24
+B00202	9780000000202	299047	6
+B00775	9780000000775	75553	24
+B00098	9780000000098	78866	39
+B00740	9780000000740	104933	11
+B00170	9780000000170	179919	26
+B00450	9780000000450	179942	2
+B00147	9780000000147	239645	25
+B00616	9780000000616	206156	3
+B00349	9780000000349	106212	40
+B00042	9780000000042	236464	24
+B00733	9780000000733	62337	47
+B00208	9780000000208	35301	47
+B00204	9780000000204	66781	38
+B00071	9780000000071	70099	14
+B00082	9780000000082	293117	9
+B00359	9780000000359	61784	19
+B00944	9780000000944	205688	39
+B00446	9780000000446	71688	41
+B00244	9780000000244	155134	16
+B00410	9780000000410	83835	25
+B00077	9780000000077	183643	43
+B00376	9780000000376	138488	24
+B00614	9780000000614	198752	14
+B00109	9780000000109	177636	36
+B00836	9780000000836	125546	39
+B00739	9780000000739	138997	42
+B00302	9780000000302	202811	26
+B00379	9780000000379	125799	42
+B00734	9780000000734	163753	19
+B00901	9780000000901	79568	11
+B00767	9780000000767	256490	24
+B00046	9780000000046	139874	35
+B00869	9780000000869	210545	49
+B00518	9780000000518	244740	22
+B00561	9780000000561	223637	13
+B00155	9780000000155	283754	31
+B00152	9780000000152	178939	5
+B00372	9780000000372	30078	44
+B00263	9780000000263	166652	2
+B00521	9780000000521	213065	38
+B00435	9780000000435	66335	39
+B00312	9780000000312	139149	11
+B00534	9780000000534	99046	43
+B00865	9780000000865	292045	43
+B00032	9780000000032	68315	42
+B00719	9780000000719	96091	49
+B00578	9780000000578	240701	2
+B00298	9780000000298	190140	49
+B00770	9780000000770	212435	12
+B00024	9780000000024	164691	1
+B00738	9780000000738	108426	18
+B00054	9780000000054	133904	44
+B00030	9780000000030	148664	47
+B00412	9780000000412	186434	49
+B00858	9780000000858	69038	12
+B00021	9780000000021	244164	42
+B00822	9780000000822	142521	15
+B00041	9780000000041	101423	2
+B00141	9780000000141	73662	20
+B00089	9780000000089	36880	19
+B00480	9780000000480	242660	27
+B00460	9780000000460	187038	39
+B00841	9780000000841	170130	47
+B00197	9780000000197	89595	18
+B00008	9780000000008	85601	11
+B00773	9780000000773	108491	41
+B00421	9780000000421	242337	46
+B00489	9780000000489	159947	44
+B00670	9780000000670	177349	38
+B00017	9780000000017	92737	46
+B00584	9780000000584	226821	40
+B00494	9780000000494	295215	8
+B00381	9780000000381	216499	20
+B00496	9780000000496	183207	5
+B00051	9780000000051	67669	3
+B00055	9780000000055	298101	11
+B00425	9780000000425	42455	37
+B00520	9780000000520	295014	31
+B00674	9780000000674	35352	36
+B00637	9780000000637	57376	30
+B00281	9780000000281	151399	20
+B00987	9780000000987	205451	19
+B00926	9780000000926	94536	24
+B00196	9780000000196	175416	36
+B00556	9780000000556	96927	30
+B00809	9780000000809	217133	38
+B00198	9780000000198	50349	41
+B00273	9780000000273	59649	44
+B00351	9780000000351	139965	27
+B00210	9780000000210	250952	37
+B00145	9780000000145	70558	43
+B00407	9780000000407	55277	5
+B00079	9780000000079	98432	11
+B00356	9780000000356	104916	36
+B00655	9780000000655	126530	12
+B00389	9780000000389	165249	20
+B00846	9780000000846	201732	5
+B00546	9780000000546	86055	9
+B00667	9780000000667	251690	48
+B00271	9780000000271	260949	3
+B00308	9780000000308	263885	1
+B00808	9780000000808	164119	12
+B00726	9780000000726	220273	15
+B00973	9780000000973	154059	19
+B00418	9780000000418	144964	43
+B00101	9780000000101	71213	34
+B00634	9780000000634	94311	32
+B00126	9780000000126	90148	11
+B00639	9780000000639	109865	3
+B00342	9780000000342	129814	35
+B00331	9780000000331	121418	12
+B00596	9780000000596	130403	12
+B00622	9780000000622	154724	14
+B00364	9780000000364	124517	9
+B00904	9780000000904	274489	35
+B00454	9780000000454	258629	15
+B00226	9780000000226	163179	17
+B00492	9780000000492	290472	35
+B00482	9780000000482	239805	18
+B00468	9780000000468	92426	9
+B00864	9780000000864	43970	22
+B00332	9780000000332	188351	32
+B00892	9780000000892	134471	12
+B00957	9780000000957	49349	29
+B00678	9780000000678	181307	26
+B00842	9780000000842	166972	25
+B00073	9780000000073	234568	44
+B00341	9780000000341	234848	2
+B00462	9780000000462	107968	17
+B00910	9780000000910	266099	1
+B00835	9780000000835	64152	37
+B00963	9780000000963	138489	35
+B00416	9780000000416	93085	38
+B00168	9780000000168	299012	34
+B00619	9780000000619	238639	49
+B00501	9780000000501	179944	38
+B00735	9780000000735	142065	24
+B00743	9780000000743	231054	37
+B00219	9780000000219	69092	4
+B00087	9780000000087	161956	8
+B00143	9780000000143	118677	26
+B00722	9780000000722	97149	8
+B00004	9780000000004	258617	35
+B00554	9780000000554	41656	16
+B00465	9780000000465	182136	12
+B00586	9780000000586	215996	50
+B00978	9780000000978	294391	46
+B00112	9780000000112	223913	19
+B00998	9780000000998	226213	45
+B00072	9780000000072	259959	14
+B00283	9780000000283	128127	28
+B00838	9780000000838	215135	32
+B00290	9780000000290	52960	6
+B00559	9780000000559	107484	39
+B00382	9780000000382	160783	14
+B00774	9780000000774	61062	3
+B00458	9780000000458	169081	11
+B00618	9780000000618	269049	36
+B00898	9780000000898	236347	23
+B00387	9780000000387	36248	49
+B00200	9780000000200	137202	10
+B00461	9780000000461	79292	2
+B00509	9780000000509	195560	16
+B00608	9780000000608	80580	22
+B00790	9780000000790	195171	24
+B00102	9780000000102	91932	48
+B00994	9780000000994	55784	46
+B00649	9780000000649	89842	35
+B00239	9780000000239	94144	49
+B00679	9780000000679	57123	25
+B00007	9780000000007	69308	23
+B00553	9780000000553	155677	27
+B00577	9780000000577	118311	28
+B00429	9780000000429	161818	37
+B00522	9780000000522	214514	5
+B00327	9780000000327	74709	19
+B00807	9780000000807	234549	11
+B00830	9780000000830	63217	25
+B00672	9780000000672	244596	28
+B00982	9780000000982	293110	9
+B00157	9780000000157	106382	39
+B00660	9780000000660	131371	44
+B00380	9780000000380	142484	2
+B00792	9780000000792	195398	23
+B00464	9780000000464	161496	6
+B00199	9780000000199	159030	38
+B00666	9780000000666	65149	12
+B00103	9780000000103	275446	4
+B00529	9780000000529	208340	49
+B00250	9780000000250	115364	14
+B00609	9780000000609	165086	9
+B00207	9780000000207	46687	7
+B00015	9780000000015	76530	2
+B00820	9780000000820	201145	50
+B00695	9780000000695	46048	43
+B00238	9780000000238	252009	11
+B00519	9780000000519	289194	50
+B00306	9780000000306	124953	16
+B00985	9780000000985	123989	43
+B00345	9780000000345	38133	14
+B00129	9780000000129	194350	46
+B00823	9780000000823	35507	36
+B00355	9780000000355	45431	15
+B00092	9780000000092	31381	20
+B00173	9780000000173	245861	12
+B00069	9780000000069	87000	26
+B00706	9780000000706	216258	17
+B00328	9780000000328	237089	45
+B00946	9780000000946	176767	27
+B00781	9780000000781	82153	36
+B00983	9780000000983	124429	21
+B00621	9780000000621	106572	7
+B00322	9780000000322	56011	13
+B00488	9780000000488	118838	50
+B00968	9780000000968	252273	24
+B00850	9780000000850	120254	48
+B00887	9780000000887	238735	41
+B00150	9780000000150	183478	4
+B00731	9780000000731	184710	1
+B00420	9780000000420	224705	26
+B00557	9780000000557	269942	23
+B00130	9780000000130	140208	5
+B00975	9780000000975	245560	36
+B00665	9780000000665	77159	46
+B00437	9780000000437	275521	24
+B00153	9780000000153	215403	5
+B00776	9780000000776	169567	38
+B00193	9780000000193	99977	3
+B00254	9780000000254	97074	42
+B00662	9780000000662	176283	17
+B00502	9780000000502	161310	23
+B00698	9780000000698	198917	32
+B00741	9780000000741	275535	20
+B00906	9780000000906	215337	10
+B00177	9780000000177	172833	30
+B00231	9780000000231	122829	44
+B00455	9780000000455	59867	27
+B00784	9780000000784	109924	22
+B00035	9780000000035	174824	24
+B00303	9780000000303	45939	24
+B00818	9780000000818	275395	34
+B00001	9780000000001	291546	7
+B00736	9780000000736	112136	15
+B00962	9780000000962	254886	12
+B00932	9780000000932	136221	35
+B00883	9780000000883	125652	4
+B00136	9780000000136	79825	16
+B00206	9780000000206	170200	19
+B00075	9780000000075	84261	40
+B00576	9780000000576	198157	12
+B00113	9780000000113	231458	34
+B00427	9780000000427	208015	25
+B00241	9780000000241	213488	1
+B00549	9780000000549	50500	18
+B00688	9780000000688	127058	13
+B00116	9780000000116	223795	11
+B00993	9780000000993	219359	41
+B00195	9780000000195	280673	48
+B00191	9780000000191	47264	29
+B00924	9780000000924	177979	10
+B00144	9780000000144	247860	12
+B00648	9780000000648	121731	10
+B00049	9780000000049	72549	42
+B00084	9780000000084	229909	27
+B00829	9780000000829	159063	41
+B00763	9780000000763	268524	37
+B00612	9780000000612	146927	38
+B00920	9780000000920	244420	28
+B00163	9780000000163	152349	32
+B00317	9780000000317	113190	33
+B00274	9780000000274	49311	43
+B00028	9780000000028	111156	48
+B00485	9780000000485	211881	4
+B00653	9780000000653	168198	25
+B00094	9780000000094	163630	38
+B00551	9780000000551	277323	11
+B00580	9780000000580	106731	44
+B00570	9780000000570	172117	40
+B00669	9780000000669	36367	3
+B00167	9780000000167	73414	2
+B00447	9780000000447	56067	19
+B00011	9780000000011	113944	25
+B00066	9780000000066	208967	16
+B00606	9780000000606	101893	43
+B00037	9780000000037	123952	2
+B00172	9780000000172	180211	21
+B00192	9780000000192	76068	41
+B00555	9780000000555	47715	23
+B00438	9780000000438	256397	42
+B00704	9780000000704	157097	19
+B00074	9780000000074	82059	18
+B00478	9780000000478	119035	32
+B00861	9780000000861	89815	25
+B00002	9780000000002	59980	3
+B00034	9780000000034	150277	38
+B00783	9780000000783	270379	34
+B00889	9780000000889	43142	34
+B00063	9780000000063	192962	32
+B00223	9780000000223	216960	25
+B00158	9780000000158	167989	29
+B00325	9780000000325	35041	38
+B00558	9780000000558	291955	25
+B00581	9780000000581	51763	12
+B00090	9780000000090	299043	4
+B00862	9780000000862	168459	39
+B00275	9780000000275	128377	33
+B00600	9780000000600	125802	14
+B00541	9780000000541	83221	16
+B00675	9780000000675	171499	42
+B00220	9780000000220	31610	38
+B00713	9780000000713	229862	49
+B00692	9780000000692	69943	38
+B00540	9780000000540	33233	12
+B00361	9780000000361	51799	41
+B00186	9780000000186	237298	35
+B00890	9780000000890	175208	37
+B00115	9780000000115	189061	42
+B00834	9780000000834	85186	43
+B00012	9780000000012	256978	19
+B00587	9780000000587	274557	47
+B00363	9780000000363	95085	16
+B00882	9780000000882	180531	45
+B00732	9780000000732	199289	20
+B00287	9780000000287	98989	38
+B00422	9780000000422	286812	31
+B00467	9780000000467	289779	34
+B00583	9780000000583	45160	49
+B00128	9780000000128	96840	36
+B00078	9780000000078	40476	50
+B00279	9780000000279	83643	36
+B00680	9780000000680	185145	7
+B00181	9780000000181	185401	34
+B00018	9780000000018	158364	19
+B00405	9780000000405	232141	19
+B00282	9780000000282	255099	11
+B00654	9780000000654	152325	3
+B00624	9780000000624	67901	38
+B00971	9780000000971	190898	27
+B00487	9780000000487	171350	18
+B00758	9780000000758	147596	44
+B00591	9780000000591	38521	5
+B00242	9780000000242	163836	41
+B00182	9780000000182	290999	34
+B00393	9780000000393	299174	27
+B00897	9780000000897	75384	10
+B00243	9780000000243	191507	28
+B00953	9780000000953	122125	38
+B00526	9780000000526	101353	40
+B00318	9780000000318	56658	46
+B00682	9780000000682	180217	23
+B00785	9780000000785	183221	32
+B00272	9780000000272	116479	46
+B00853	9780000000853	287483	47
+B00945	9780000000945	243750	38
+B00431	9780000000431	88934	27
+B00222	9780000000222	112208	36
+B00979	9780000000979	166254	5
+B00451	9780000000451	219716	9
+B00755	9780000000755	295358	17
+B00184	9780000000184	100213	28
+B00027	9780000000027	149465	34
+B00939	9780000000939	153793	47
+B00966	9780000000966	175639	19
+B00160	9780000000160	184321	11
+B00847	9780000000847	173911	38
+B00955	9780000000955	275734	43
+B00571	9780000000571	97792	40
+B00411	9780000000411	97416	19
+B00133	9780000000133	103210	13
+B00812	9780000000812	66625	8
+B00131	9780000000131	109900	45
+B00988	9780000000988	283332	36
+B00831	9780000000831	188951	22
+B00149	9780000000149	238815	44
+B00434	9780000000434	113942	3
+B00091	9780000000091	81230	27
+B00402	9780000000402	176506	46
+B00909	9780000000909	118366	33
+B00799	9780000000799	165122	24
+B00635	9780000000635	30517	43
+B00691	9780000000691	279789	30
+B00999	9780000000999	224497	46
+B00358	9780000000358	99188	4
+B00299	9780000000299	95730	12
+B00107	9780000000107	128519	14
+B00135	9780000000135	36369	14
+B00156	9780000000156	205362	31
+B00633	9780000000633	132854	21
+B00798	9780000000798	139243	18
+B00086	9780000000086	258205	34
+B00589	9780000000589	85955	34
+B00768	9780000000768	133556	2
+B00693	9780000000693	172947	24
+B00463	9780000000463	180181	2
+B00285	9780000000285	97420	38
+B00366	9780000000366	282117	48
+B00620	9780000000620	235694	35
+B00711	9780000000711	267795	27
+B00867	9780000000867	213428	22
+B00543	9780000000543	229903	20
+B00456	9780000000456	176049	24
+B00510	9780000000510	57934	24
+B00486	9780000000486	273851	39
+B00445	9780000000445	298887	45
+B00045	9780000000045	240658	40
+B00383	9780000000383	129294	2
+B00598	9780000000598	137584	28
+B00995	9780000000995	118180	50
+B00371	9780000000371	36957	25
+B00392	9780000000392	86975	20
+B00683	9780000000683	147464	37
+B00498	9780000000498	184923	37
+B00981	9780000000981	261759	8
+B00794	9780000000794	253186	27
+B00902	9780000000902	258290	31
+B00289	9780000000289	168949	31
+B00514	9780000000514	53008	18
+B00211	9780000000211	215768	30
+B00108	9780000000108	83864	41
+B00353	9780000000353	218359	14
+B00626	9780000000626	299451	48
+B00765	9780000000765	31363	39
+B00329	9780000000329	101529	16
+B00424	9780000000424	238899	2
+B00096	9780000000096	71151	34
+B00873	9780000000873	224388	40
+B00771	9780000000771	196214	23
+B00574	9780000000574	164311	11
+B00020	9780000000020	198420	34
+B00875	9780000000875	215031	41
+B00930	9780000000930	180687	21
+B00162	9780000000162	152168	30
+B00442	9780000000442	276906	27
+B00564	9780000000564	164282	20
+B00417	9780000000417	224764	50
+B00330	9780000000330	202080	30
+B00569	9780000000569	293686	8
+B00344	9780000000344	162767	46
+B00185	9780000000185	134791	5
+B00352	9780000000352	293808	10
+B00142	9780000000142	130032	4
+B00872	9780000000872	186703	9
+B00452	9780000000452	272844	37
+B00642	9780000000642	280659	33
+B00180	9780000000180	171346	14
+B00475	9780000000475	55844	1
+B00632	9780000000632	271171	37
+B00309	9780000000309	259240	45
+B00778	9780000000778	44394	15
+B00439	9780000000439	257804	9
+B00476	9780000000476	36429	42
+B00490	9780000000490	151929	39
+B00826	9780000000826	299711	15
+B00354	9780000000354	265745	18
+B00294	9780000000294	127105	48
+B00280	9780000000280	160117	16
+B00871	9780000000871	31611	26
+B00472	9780000000472	285062	36
+B00297	9780000000297	117840	16
+B00525	9780000000525	102350	23
+B00874	9780000000874	63380	20
+B00759	9780000000759	256851	44
+B00374	9780000000374	233329	11
+B00483	9780000000483	162237	44
+B00811	9780000000811	56707	5
+B00915	9780000000915	289064	47
+B00009	9780000000009	87023	39
+B00980	9780000000980	183953	26
+B00786	9780000000786	268333	36
+B00006	9780000000006	72506	12
+B00067	9780000000067	296990	25
+B00996	9780000000996	227261	10
+B00544	9780000000544	260854	14
+B00516	9780000000516	289831	38
+B00845	9780000000845	204118	27
+B00766	9780000000766	177746	12
+B00384	9780000000384	232208	12
+B00630	9780000000630	61877	3
+B00360	9780000000360	232424	31
+B00336	9780000000336	96675	41
+B00014	9780000000014	45128	43
+B00974	9780000000974	210996	2
+B00530	9780000000530	98389	42
+B00761	9780000000761	174356	48
+B00121	9780000000121	44108	44
+B00590	9780000000590	109377	11
+B00428	9780000000428	119480	20
+B00542	9780000000542	201435	8
+B00227	9780000000227	83808	30
+B00473	9780000000473	140302	34
+B00919	9780000000919	232199	1
+B00934	9780000000934	132932	1
+B00856	9780000000856	147864	5
+B00043	9780000000043	185447	28
+B00253	9780000000253	254593	9
+B00276	9780000000276	88998	28
+B00251	9780000000251	247586	37
+B00470	9780000000470	76965	17
+B00477	9780000000477	41611	33
+B00252	9780000000252	140083	24
+B00922	9780000000922	163600	1
+B00839	9780000000839	244004	23
+B00813	9780000000813	263771	49
+B00538	9780000000538	149448	2
+B00888	9780000000888	72411	18
+B00161	9780000000161	209064	24
+B00528	9780000000528	69437	10
+B00189	9780000000189	224970	5
+B00448	9780000000448	211451	39
+B00044	9780000000044	165030	47
+B00617	9780000000617	290498	11
+B00449	9780000000449	150081	15
+B00403	9780000000403	137900	43
+B00432	9780000000432	249782	4
+B00640	9780000000640	211318	37
+B00745	9780000000745	170490	20
+B00588	9780000000588	49391	25
+B00033	9780000000033	273933	45
+B00796	9780000000796	145387	9
+B00436	9780000000436	140055	33
+B00314	9780000000314	45540	12
+B00805	9780000000805	143866	19
+B00013	9780000000013	126523	33
+B00641	9780000000641	184396	4
+B00607	9780000000607	188565	6
+B00453	9780000000453	171072	4
+B00029	9780000000029	278001	48
+B00229	9780000000229	113266	48
+B00122	9780000000122	242342	2
+B00824	9780000000824	224112	49
+B00343	9780000000343	56662	34
+B00547	9780000000547	60665	14
+B00278	9780000000278	220871	9
+B00707	9780000000707	155855	45
+B00627	9780000000627	189074	13
+B00117	9780000000117	62498	41
+B00378	9780000000378	251272	44
+B00703	9780000000703	195925	34
+B00398	9780000000398	272280	10
+B00159	9780000000159	289063	20
+B00689	9780000000689	145535	11
+B00866	9780000000866	197276	50
+B00310	9780000000310	61529	35
+B00747	9780000000747	51766	22
+B00863	9780000000863	218558	22
+B00927	9780000000927	207001	15
+B00868	9780000000868	145039	9
+B00171	9780000000171	280997	11
+B00942	9780000000942	156868	4
+B00595	9780000000595	81763	5
+B00572	9780000000572	163547	35
+B00676	9780000000676	224040	13
+B00833	9780000000948	82748	5
+\.
+
+
+--
+-- TOC entry 5016 (class 0 OID 18523)
+-- Dependencies: 225
+-- Data for Name: Memiliki (Transaksi_Buku); Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Memiliki (Transaksi_Buku)" (id_transaksi, isbn, jumlah) FROM stdin;
+T00536	9780000000536	9
+T00524	9780000000524	10
+T00816	9780000000817	9
+T00403	9780000000403	7
+T00431	9780000000431	4
+T00883	9780000000884	7
+T00948	9780000000949	5
+T00646	9780000000646	1
+T00826	9780000000827	2
+T00820	9780000000821	2
+T00848	9780000000849	10
+T00749	9780000000750	7
+T00916	9780000000917	9
+T00282	9780000000282	7
+T00909	9780000000910	3
+T00070	9780000000070	2
+T00147	9780000000147	9
+T00599	9780000000599	3
+T00667	9780000000667	9
+T00027	9780000000027	1
+T00789	9780000000790	8
+T00160	9780000000160	2
+T00007	9780000000007	8
+T00176	9780000000176	1
+T00255	9780000000255	9
+T00542	9780000000542	3
+T00551	9780000000551	9
+T00934	9780000000935	10
+T00834	9780000000835	1
+T00320	9780000000320	10
+T00380	9780000000380	10
+T00969	9780000000970	5
+T00548	9780000000548	7
+T00350	9780000000350	10
+T00030	9780000000030	6
+T00978	9780000000979	2
+T00637	9780000000637	1
+T00225	9780000000225	1
+T00885	9780000000886	4
+T00259	9780000000259	7
+T00012	9780000000012	6
+T00094	9780000000094	2
+T00001	9780000000001	10
+T00682	9780000000683	8
+T00142	9780000000142	9
+T00011	9780000000011	9
+T00033	9780000000033	2
+T00970	9780000000971	8
+T00657	9780000000657	2
+T00216	9780000000216	2
+T00600	9780000000600	2
+T00518	9780000000518	6
+T00796	9780000000797	1
+T00021	9780000000021	6
+T00353	9780000000353	3
+T00890	9780000000891	6
+T00118	9780000000118	7
+T00776	9780000000777	2
+T00177	9780000000177	4
+T00245	9780000000245	10
+T00343	9780000000343	8
+T00497	9780000000497	9
+T00382	9780000000382	5
+T00277	9780000000277	1
+T00321	9780000000321	2
+T00745	9780000000746	1
+T00559	9780000000559	10
+T00411	9780000000411	6
+T00453	9780000000453	9
+T00911	9780000000912	4
+T00555	9780000000555	2
+T00986	9780000000987	9
+T00290	9780000000290	7
+T00098	9780000000098	4
+T00233	9780000000233	8
+T00489	9780000000489	8
+T00053	9780000000053	4
+T00075	9780000000075	10
+T00240	9780000000240	1
+T00713	9780000000714	10
+T00117	9780000000117	6
+T00110	9780000000110	8
+T00892	9780000000893	8
+T00112	9780000000112	8
+T00273	9780000000273	3
+T00199	9780000000199	6
+T00082	9780000000082	7
+T00809	9780000000810	6
+T00739	9780000000740	3
+T00339	9780000000339	5
+T00265	9780000000265	7
+T00392	9780000000392	8
+T00546	9780000000546	9
+T00194	9780000000194	6
+T00349	9780000000349	2
+T00201	9780000000201	8
+T00459	9780000000459	10
+T00324	9780000000324	6
+T00099	9780000000099	10
+T00514	9780000000514	7
+T00529	9780000000529	1
+T00404	9780000000404	1
+T00289	9780000000289	10
+T00228	9780000000228	7
+T00335	9780000000335	6
+T00368	9780000000368	9
+T00620	9780000000620	6
+T00847	9780000000848	7
+T00161	9780000000161	1
+T00871	9780000000872	4
+T00490	9780000000490	4
+T00346	9780000000346	10
+T00136	9780000000136	6
+T00015	9780000000015	3
+T00481	9780000000481	2
+T00830	9780000000831	6
+T00257	9780000000257	8
+T00214	9780000000214	8
+T00686	9780000000687	8
+T00310	9780000000310	3
+T00839	9780000000840	7
+T00322	9780000000322	2
+T00374	9780000000374	1
+T00709	9780000000710	6
+T00467	9780000000467	7
+T00491	9780000000491	4
+T00389	9780000000389	10
+T00817	9780000000818	4
+T00843	9780000000844	4
+T00294	9780000000294	1
+T00480	9780000000480	8
+T00287	9780000000287	9
+T00647	9780000000647	7
+T00416	9780000000416	10
+T00091	9780000000091	2
+T00924	9780000000925	6
+T00879	9780000000880	8
+T00359	9780000000359	7
+T00061	9780000000061	7
+T00270	9780000000270	4
+T00896	9780000000897	10
+T00913	9780000000914	8
+T00685	9780000000686	3
+T00400	9780000000400	5
+T00963	9780000000964	8
+T00303	9780000000303	10
+T00769	9780000000770	2
+T00603	9780000000603	1
+T00081	9780000000081	6
+T00721	9780000000722	7
+T00607	9780000000607	5
+T00243	9780000000243	8
+T00854	9780000000855	3
+T00386	9780000000386	3
+T00632	9780000000632	1
+T00863	9780000000864	10
+T00169	9780000000169	3
+T00541	9780000000541	2
+T00319	9780000000319	4
+T00654	9780000000654	3
+T00835	9780000000836	3
+T00366	9780000000366	6
+T00938	9780000000939	5
+T00167	9780000000167	1
+T00666	9780000000666	10
+T00266	9780000000266	8
+T00595	9780000000595	2
+T00314	9780000000314	7
+T00017	9780000000017	4
+T00764	9780000000765	8
+T00006	9780000000006	6
+T00674	9780000000674	6
+T00695	9780000000696	4
+T00617	9780000000617	9
+T00213	9780000000213	5
+T00042	9780000000042	5
+T00473	9780000000473	9
+T00436	9780000000436	9
+T00348	9780000000348	8
+T00565	9780000000565	7
+T00461	9780000000461	5
+T00626	9780000000626	1
+T00735	9780000000736	10
+T00122	9780000000122	7
+T00278	9780000000278	7
+T00630	9780000000630	7
+T00722	9780000000723	3
+T00242	9780000000242	10
+T00711	9780000000712	3
+T00409	9780000000409	2
+T00323	9780000000323	5
+T00672	9780000000672	8
+T00446	9780000000446	7
+T00557	9780000000557	1
+T00036	9780000000036	3
+T00664	9780000000664	4
+T00793	9780000000794	4
+T00260	9780000000260	8
+T00105	9780000000105	9
+T00956	9780000000957	2
+T00499	9780000000499	4
+T00004	9780000000004	3
+T00968	9780000000969	9
+T00025	9780000000025	5
+T00370	9780000000370	10
+T00795	9780000000796	1
+T00207	9780000000207	3
+T00781	9780000000782	3
+T00220	9780000000220	9
+T00421	9780000000421	2
+T00440	9780000000440	8
+T00987	9780000000988	9
+T00102	9780000000102	5
+T00407	9780000000407	7
+T00209	9780000000209	8
+T00020	9780000000020	4
+T00881	9780000000882	6
+T00158	9780000000158	5
+T00024	9780000000024	2
+T00933	9780000000934	1
+T00412	9780000000412	3
+T00903	9780000000904	4
+T00886	9780000000887	3
+T00288	9780000000288	2
+T00067	9780000000067	4
+T00578	9780000000578	1
+T00588	9780000000588	8
+T00026	9780000000026	5
+T00363	9780000000363	9
+T00146	9780000000146	5
+T00444	9780000000444	10
+T00828	9780000000829	5
+T00223	9780000000223	2
+T00192	9780000000192	3
+T00556	9780000000556	1
+T00340	9780000000340	9
+T00629	9780000000629	5
+T00712	9780000000713	3
+T00747	9780000000748	8
+T00325	9780000000325	9
+T00976	9780000000977	4
+T00482	9780000000482	9
+T00193	9780000000193	2
+T00145	9780000000145	6
+T00762	9780000000763	6
+T00698	9780000000699	3
+T00904	9780000000905	8
+T00364	9780000000364	7
+T00633	9780000000633	10
+T00087	9780000000087	7
+T00501	9780000000501	2
+T00821	9780000000822	5
+T00155	9780000000155	9
+T00779	9780000000780	8
+T00065	9780000000065	6
+T00280	9780000000280	8
+T00516	9780000000516	5
+T00754	9780000000755	1
+T00589	9780000000589	1
+T00833	9780000000834	1
+T00003	9780000000003	9
+T00426	9780000000426	5
+T00133	9780000000133	1
+T00345	9780000000345	9
+T00235	9780000000235	8
+T00777	9780000000778	7
+T00203	9780000000203	2
+T00732	9780000000733	2
+T00332	9780000000332	1
+T00254	9780000000254	8
+T00846	9780000000847	8
+T00328	9780000000328	9
+T00238	9780000000238	8
+T00263	9780000000263	7
+T00974	9780000000975	8
+T00992	9780000000993	4
+T00047	9780000000047	1
+T00785	9780000000786	7
+T00058	9780000000058	2
+T00819	9780000000820	5
+T00035	9780000000035	9
+T00397	9780000000397	3
+T00947	9780000000948	1
+T00230	9780000000230	5
+T00806	9780000000807	10
+T00939	9780000000940	10
+T00341	9780000000341	4
+T00791	9780000000792	3
+T00720	9780000000721	5
+T00981	9780000000982	7
+T00157	9780000000157	3
+T00642	9780000000642	6
+T00183	9780000000183	6
+T00338	9780000000338	1
+T00071	9780000000071	7
+T00496	9780000000496	1
+T00300	9780000000300	5
+T00383	9780000000383	5
+T00997	9780000000998	9
+T00509	9780000000509	7
+T00596	9780000000596	9
+T00900	9780000000901	10
+T00182	9780000000182	7
+T00680	9780000000680	2
+T00786	9780000000787	3
+T00456	9780000000456	4
+T00665	9780000000665	1
+T00522	9780000000522	4
+T00051	9780000000051	9
+T00851	9780000000852	5
+T00889	9780000000890	10
+T00438	9780000000438	2
+T00625	9780000000625	4
+T00034	9780000000034	8
+T00088	9780000000088	8
+T00594	9780000000594	5
+T00351	9780000000351	6
+T00609	9780000000609	5
+T00097	9780000000097	8
+T00706	9780000000707	7
+T00726	9780000000727	3
+T00910	9780000000911	7
+T00567	9780000000567	5
+T00068	9780000000068	7
+T00699	9780000000700	4
+T00918	9780000000919	9
+T00120	9780000000120	3
+T00827	9780000000828	5
+T00168	9780000000168	7
+T00106	9780000000106	3
+T00144	9780000000144	2
+T00760	9780000000761	5
+T00994	9780000000995	9
+T00031	9780000000031	9
+T00232	9780000000232	6
+T00449	9780000000449	8
+T00870	9780000000871	5
+T00139	9780000000139	6
+T00316	9780000000316	2
+T00239	9780000000239	4
+T00210	9780000000210	9
+T00141	9780000000141	8
+T00162	9780000000162	1
+T00123	9780000000123	6
+T00511	9780000000511	2
+T00471	9780000000471	7
+T00893	9780000000894	10
+T00072	9780000000072	1
+T00966	9780000000967	10
+T00942	9780000000943	8
+T00973	9780000000974	2
+T00984	9780000000985	9
+T00502	9780000000502	6
+T00580	9780000000580	6
+T00355	9780000000355	8
+T00470	9780000000470	4
+T00262	9780000000262	7
+T00612	9780000000612	5
+T00055	9780000000055	5
+T00060	9780000000060	9
+T00790	9780000000791	4
+T00204	9780000000204	4
+T00515	9780000000515	5
+T00181	9780000000181	10
+T00807	9780000000808	10
+T00837	9780000000838	4
+T00533	9780000000533	6
+T00357	9780000000357	5
+T00406	9780000000406	7
+T00944	9780000000945	5
+T00638	9780000000638	2
+T00563	9780000000563	6
+T00840	9780000000841	6
+T00247	9780000000247	6
+T00361	9780000000361	8
+T00189	9780000000189	1
+T00211	9780000000211	10
+T00506	9780000000506	8
+T00013	9780000000013	3
+T00408	9780000000408	1
+T00191	9780000000191	4
+T00388	9780000000388	5
+T00376	9780000000376	9
+T00405	9780000000405	10
+T00746	9780000000747	9
+T00433	9780000000433	10
+T00423	9780000000423	2
+T00733	9780000000734	3
+T00085	9780000000085	4
+T00553	9780000000553	10
+T00799	9780000000800	2
+T00150	9780000000150	8
+T00073	9780000000073	2
+T00311	9780000000311	3
+T00808	9780000000809	1
+T00425	9780000000425	3
+T00787	9780000000788	6
+T00217	9780000000217	6
+T00653	9780000000653	7
+T00545	9780000000545	3
+T00577	9780000000577	10
+T00208	9780000000208	9
+T00227	9780000000227	2
+T00507	9780000000507	8
+T00327	9780000000327	3
+T00143	9780000000143	1
+T00887	9780000000888	2
+T00130	9780000000130	1
+T00738	9780000000739	6
+T00037	9780000000037	1
+T00940	9780000000941	4
+T00543	9780000000543	5
+T00166	9780000000166	2
+T00356	9780000000356	6
+T00248	9780000000248	1
+T00581	9780000000581	4
+T00129	9780000000129	5
+T00876	9780000000877	10
+T00478	9780000000478	3
+T00858	9780000000859	10
+T00802	9780000000803	4
+T00430	9780000000430	1
+T00156	9780000000156	2
+T00759	9780000000760	6
+T00391	9780000000391	4
+T00464	9780000000464	9
+T00753	9780000000754	10
+T00822	9780000000823	4
+T00859	9780000000860	3
+T00241	9780000000241	4
+T00264	9780000000264	7
+T00601	9780000000601	2
+T00212	9780000000212	1
+T00535	9780000000535	9
+T00812	9780000000813	7
+T00954	9780000000955	9
+T00056	9780000000056	4
+T00717	9780000000718	1
+T00286	9780000000286	1
+T00306	9780000000306	9
+T00860	9780000000861	7
+T00519	9780000000519	2
+T00783	9780000000784	2
+T00906	9780000000907	5
+T00415	9780000000415	1
+T00743	9780000000744	10
+T00443	9780000000443	2
+T00564	9780000000564	2
+T00188	9780000000188	7
+T00305	9780000000305	2
+T00301	9780000000301	9
+T00823	9780000000824	6
+T00645	9780000000645	10
+T00831	9780000000832	7
+T00558	9780000000558	3
+T00256	9780000000256	9
+T00585	9780000000585	9
+T00385	9780000000385	7
+T00159	9780000000159	3
+T00103	9780000000103	9
+T00134	9780000000134	6
+T00019	9780000000019	2
+T00538	9780000000538	7
+T00187	9780000000187	2
+T00737	9780000000738	5
+T00384	9780000000384	3
+T00528	9780000000528	1
+T00283	9780000000283	10
+T00466	9780000000466	6
+T00186	9780000000186	7
+T00527	9780000000527	9
+T00451	9780000000451	9
+T00908	9780000000909	7
+T00972	9780000000973	2
+T00763	9780000000764	2
+T00868	9780000000869	4
+T00575	9780000000575	4
+T00108	9780000000108	10
+T00468	9780000000468	4
+T00818	9780000000819	7
+T00679	9780000000679	9
+T00989	9780000000990	9
+T00170	9780000000170	10
+T00048	9780000000048	4
+T00492	9780000000492	9
+T00651	9780000000651	1
+T00882	9780000000883	6
+T00700	9780000000701	7
+T00395	9780000000395	10
+T00996	9780000000997	7
+T00195	9780000000195	5
+T00418	9780000000418	4
+T00670	9780000000670	2
+T00655	9780000000655	3
+T00016	9780000000016	4
+T00330	9780000000330	9
+T00788	9780000000789	2
+T00794	9780000000795	8
+T00877	9780000000878	10
+T00076	9780000000076	8
+T00493	9780000000493	9
+T00865	9780000000866	4
+T00635	9780000000635	4
+T00648	9780000000648	6
+T00014	9780000000014	2
+T00517	9780000000517	8
+T00928	9780000000929	7
+T00675	9780000000675	6
+T00702	9780000000703	10
+T00618	9780000000618	5
+T00552	9780000000552	10
+T00985	9780000000986	9
+T00678	9780000000678	4
+T00725	9780000000726	8
+T00844	9780000000845	5
+T00979	9780000000980	4
+T00041	9780000000041	8
+T00113	9780000000113	4
+T00836	9780000000837	10
+T00190	9780000000190	5
+T00742	9780000000743	10
+T00234	9780000000234	1
+T00692	9780000000693	1
+T00549	9780000000549	1
+T00297	9780000000297	4
+T00661	9780000000661	5
+T00221	9780000000221	3
+T00574	9780000000574	5
+T00982	9780000000983	2
+T00253	9780000000253	2
+T00592	9780000000592	9
+T00608	9780000000608	6
+T00636	9780000000636	4
+T00932	9780000000933	9
+T00410	9780000000410	2
+T00715	9780000000716	5
+T00971	9780000000972	9
+T00998	9780000000999	7
+T00688	9780000000689	2
+T00810	9780000000811	8
+T00897	9780000000898	7
+T00750	9780000000751	9
+T00184	9780000000184	9
+T00539	9780000000539	2
+T00953	9780000000954	5
+T00952	9780000000953	9
+T00045	9780000000045	9
+T00119	9780000000119	4
+T00898	9780000000899	8
+T00902	9780000000903	5
+T00687	9780000000688	5
+T00272	9780000000272	6
+T00455	9780000000455	1
+T00512	9780000000512	7
+T00951	9780000000952	8
+T00993	9780000000994	4
+T00039	9780000000039	10
+T00093	9780000000093	10
+T00377	9780000000377	8
+T00758	9780000000759	8
+T00855	9780000000856	5
+T00832	9780000000833	10
+T00360	9780000000360	8
+T00474	9780000000474	8
+T00696	9780000000697	3
+T00943	9780000000944	9
+T00090	9780000000090	4
+T00125	9780000000125	4
+T00135	9780000000135	4
+T00276	9780000000276	10
+T00252	9780000000252	2
+T00131	9780000000131	1
+T00842	9780000000843	3
+T00681	9780000000682	2
+T00132	9780000000132	5
+T00269	9780000000269	8
+T00354	9780000000354	1
+T00718	9780000000719	4
+T00463	9780000000463	2
+T00137	9780000000137	3
+T00613	9780000000613	10
+T00771	9780000000772	1
+T00503	9780000000503	3
+T00050	9780000000050	1
+T00643	9780000000643	5
+T00540	9780000000540	4
+T00080	9780000000080	10
+T00689	9780000000690	4
+T00174	9780000000174	8
+T00967	9780000000968	6
+T00018	9780000000018	10
+T00369	9780000000369	4
+T00393	9780000000393	3
+T00126	9780000000126	2
+T00505	9780000000505	1
+T00703	9780000000704	2
+T00089	9780000000089	5
+T00652	9780000000652	4
+T00219	9780000000219	10
+T00218	9780000000218	1
+T00701	9780000000702	7
+T00798	9780000000799	1
+T00427	9780000000427	7
+T00856	9780000000857	2
+T00279	9780000000279	3
+T00644	9780000000644	5
+T00774	9780000000775	10
+T00138	9780000000138	7
+T00560	9780000000560	10
+T00420	9780000000420	1
+T00342	9780000000342	1
+T00728	9780000000729	6
+T00980	9780000000981	9
+T00246	9780000000246	8
+T00955	9780000000956	4
+T00532	9780000000532	5
+T00309	9780000000309	7
+T00724	9780000000725	9
+T00949	9780000000950	4
+T00593	9780000000593	3
+T00958	9780000000959	9
+T00850	9780000000851	5
+T00100	9780000000100	4
+T00429	9780000000429	10
+T00945	9780000000946	1
+T00197	9780000000197	5
+T00708	9780000000709	7
+T00417	9780000000417	3
+T00465	9780000000465	4
+T00905	9780000000906	7
+T00095	9780000000095	6
+T00442	9780000000442	9
+T00975	9780000000976	4
+T00109	9780000000109	10
+T00337	9780000000337	9
+T00964	9780000000965	8
+T00059	9780000000059	9
+T00172	9780000000172	10
+T00304	9780000000304	1
+T00983	9780000000984	3
+T00196	9780000000196	2
+T00634	9780000000634	4
+T00901	9780000000902	1
+T00479	9780000000479	1
+T00757	9780000000758	2
+T00616	9780000000616	4
+T00582	9780000000582	4
+T00611	9780000000611	2
+T00448	9780000000448	8
+T00063	9780000000063	5
+T00229	9780000000229	4
+T00358	9780000000358	1
+T00153	9780000000153	10
+T00274	9780000000274	8
+T00413	9780000000413	7
+T00547	9780000000547	5
+T00394	9780000000394	9
+T00650	9780000000650	7
+T00040	9780000000040	2
+T00308	9780000000308	3
+T00494	9780000000494	10
+T00676	9780000000676	3
+T00710	9780000000711	6
+T00571	9780000000571	3
+T00074	9780000000074	8
+T00598	9780000000598	5
+T00317	9780000000317	6
+T00561	9780000000561	8
+T00222	9780000000222	4
+T00508	9780000000508	8
+T00318	9780000000318	10
+T00365	9780000000365	2
+T00770	9780000000771	9
+T00584	9780000000584	5
+T00079	9780000000079	1
+T00495	9780000000495	5
+T00957	9780000000958	4
+T00078	9780000000078	2
+T00198	9780000000198	9
+T00032	9780000000032	8
+T00292	9780000000292	9
+T00649	9780000000649	7
+T00152	9780000000152	1
+T00267	9780000000267	5
+T00875	9780000000876	3
+T00936	9780000000937	6
+T00849	9780000000850	10
+T00959	9780000000960	7
+T00057	9780000000057	10
+T00295	9780000000295	3
+T00044	9780000000044	10
+T00419	9780000000419	5
+T00884	9780000000885	1
+T00475	9780000000475	9
+T00736	9780000000737	3
+T00312	9780000000312	1
+T00615	9780000000615	5
+T00606	9780000000606	10
+T00730	9780000000731	3
+T00422	9780000000422	3
+T00352	9780000000352	10
+T00313	9780000000313	10
+T00450	9780000000450	2
+T00965	9780000000966	2
+T00049	9780000000049	6
+T00498	9780000000498	2
+T00178	9780000000178	10
+T00926	9780000000927	5
+T00200	9780000000200	7
+T00683	9780000000684	1
+T00486	9780000000486	4
+T00569	9780000000569	2
+T00756	9780000000757	6
+T00915	9780000000916	1
+T00462	9780000000462	6
+T00656	9780000000656	5
+T00111	9780000000111	3
+T00441	9780000000441	4
+T00663	9780000000663	3
+T00919	9780000000920	10
+T00768	9780000000769	1
+T00727	9780000000728	8
+T00428	9780000000428	3
+T00381	9780000000381	5
+T00083	9780000000083	10
+T00460	9780000000460	9
+T00185	9780000000185	3
+T00797	9780000000798	8
+T00792	9780000000793	3
+T00562	9780000000562	1
+T00614	9780000000614	8
+T00268	9780000000268	2
+T00175	9780000000175	2
+T00334	9780000000334	9
+T00587	9780000000587	1
+T00163	9780000000163	5
+T00941	9780000000942	9
+T00124	9780000000124	4
+T00873	9780000000874	3
+T00096	9780000000096	10
+T00999	9780000001000	9
+T00825	9780000000826	1
+T00500	9780000000500	6
+T00333	9780000000333	10
+T00684	9780000000685	5
+T00988	9780000000989	2
+T00723	9780000000724	2
+T00127	9780000000127	1
+T00537	9780000000537	7
+T00841	9780000000842	7
+T00487	9780000000487	2
+T00671	9780000000671	5
+T00697	9780000000698	4
+T00084	9780000000084	9
+T00852	9780000000853	8
+T00396	9780000000396	5
+T00591	9780000000591	3
+T00164	9780000000164	6
+T00895	9780000000896	10
+T00523	9780000000523	4
+T00766	9780000000767	4
+T00291	9780000000291	9
+T00597	9780000000597	6
+T00784	9780000000785	6
+T00573	9780000000573	2
+T00483	9780000000483	9
+T00258	9780000000258	2
+T00054	9780000000054	6
+T00488	9780000000488	1
+T00694	9780000000695	10
+T00128	9780000000128	5
+T00434	9780000000434	6
+T00069	9780000000069	4
+T00154	9780000000154	7
+T00640	9780000000640	9
+T00659	9780000000659	8
+T00437	9780000000437	2
+T00101	9780000000101	8
+T00029	9780000000029	2
+T00935	9780000000936	9
+T00544	9780000000544	5
+T00052	9780000000052	5
+T00452	9780000000452	10
+T00874	9780000000875	3
+T00622	9780000000622	6
+T00477	9780000000477	4
+T00610	9780000000610	8
+T00104	9780000000104	5
+T00513	9780000000513	7
+T00838	9780000000839	9
+T00231	9780000000231	5
+T00378	9780000000378	3
+T00244	9780000000244	5
+T00605	9780000000605	5
+T00298	9780000000298	9
+T00362	9780000000362	2
+T00658	9780000000658	1
+T00878	9780000000879	1
+T00628	9780000000628	2
+T00917	9780000000918	2
+T00398	9780000000398	5
+T00920	9780000000921	1
+T00010	9780000000010	7
+T00866	9780000000867	10
+T00782	9780000000783	7
+T00704	9780000000705	2
+T00236	9780000000236	10
+T00347	9780000000347	2
+T00173	9780000000173	8
+T00907	9780000000908	7
+T00271	9780000000271	8
+T00729	9780000000730	1
+T00772	9780000000773	5
+T00554	9780000000554	4
+T00929	9780000000930	5
+T00531	9780000000531	7
+T00814	9780000000815	2
+T00775	9780000000776	5
+T00857	9780000000858	1
+T00372	9780000000372	8
+T00224	9780000000224	4
+T00864	9780000000865	2
+T00485	9780000000485	10
+T00995	9780000000996	9
+T00693	9780000000694	1
+T00962	9780000000963	3
+T00484	9780000000484	5
+T00894	9780000000895	2
+T00579	9780000000579	1
+T00009	9780000000009	10
+T00116	9780000000116	6
+T00472	9780000000472	10
+T00062	9780000000062	5
+T00748	9780000000749	8
+T00530	9780000000530	9
+T00925	9780000000926	3
+T00829	9780000000830	6
+T00250	9780000000250	3
+T00107	9780000000107	6
+T00773	9780000000774	7
+T00457	9780000000457	3
+T00387	9780000000387	2
+T00373	9780000000373	6
+T00307	9780000000307	2
+T00165	9780000000165	6
+T00862	9780000000863	9
+T00880	9780000000881	4
+T00171	9780000000171	2
+T00066	9780000000066	3
+T00510	9780000000510	3
+T00731	9780000000732	4
+T00602	9780000000602	5
+T00043	9780000000043	4
+T00755	9780000000756	1
+T00861	9780000000862	8
+T00977	9780000000978	6
+T00534	9780000000534	10
+T00923	9780000000924	4
+T00631	9780000000631	6
+T00121	9780000000121	2
+T00432	9780000000432	7
+T00691	9780000000692	2
+T00619	9780000000619	7
+T00669	9780000000669	7
+T00299	9780000000299	7
+T00424	9780000000424	3
+T00891	9780000000892	7
+T00719	9780000000720	7
+T00179	9780000000179	10
+T00336	9780000000336	5
+T00991	9780000000992	8
+T00566	9780000000566	3
+T00092	9780000000092	8
+T00621	9780000000621	4
+T00572	9780000000572	7
+T00813	9780000000814	9
+T00504	9780000000504	2
+T00604	9780000000604	10
+T00215	9780000000215	9
+T00520	9780000000520	1
+T00390	9780000000390	7
+T00293	9780000000293	10
+T00284	9780000000284	3
+T00115	9780000000115	10
+T00867	9780000000868	7
+T00206	9780000000206	2
+T00927	9780000000928	10
+T00853	9780000000854	6
+T00576	9780000000576	5
+T00399	9780000000399	9
+T00367	9780000000367	10
+T00064	9780000000064	7
+T00673	9780000000673	1
+T00930	9780000000931	7
+T00990	9780000000991	7
+T00888	9780000000889	3
+T00714	9780000000715	6
+T00741	9780000000742	8
+T00767	9780000000768	3
+T00469	9780000000469	3
+T00950	9780000000951	5
+T00077	9780000000077	8
+T00815	9780000000816	1
+T00639	9780000000639	2
+T00752	9780000000753	6
+T00005	9780000000005	10
+T00624	9780000000624	4
+T00801	9780000000802	10
+T00568	9780000000568	7
+T00583	9780000000583	4
+T00326	9780000000326	1
+T00662	9780000000662	7
+T00148	9780000000148	3
+T00458	9780000000458	6
+T00778	9780000000779	7
+T00811	9780000000812	9
+T00237	9780000000237	9
+T00869	9780000000870	5
+T00922	9780000000923	5
+T00899	9780000000900	3
+T00344	9780000000344	5
+T00800	9780000000801	10
+T00285	9780000000285	4
+T00008	9780000000008	7
+T00401	9780000000401	8
+T00690	9780000000691	4
+T00805	9780000000806	4
+T00046	9780000000046	4
+T00780	9780000000781	1
+T00180	9780000000180	5
+T00038	9780000000038	2
+T00315	9780000000315	10
+T00761	9780000000762	1
+T00521	9780000000521	5
+T00627	9780000000627	7
+T00623	9780000000623	10
+T00296	9780000000296	9
+T00914	9780000000915	8
+T00447	9780000000447	2
+T00960	9780000000961	6
+T00375	9780000000375	9
+T00931	9780000000932	8
+T00921	9780000000922	2
+T00445	9780000000445	6
+T00023	9780000000023	3
+T00151	9780000000151	8
+T00946	9780000000947	1
+T00281	9780000000281	6
+T00454	9780000000454	7
+T00261	9780000000261	4
+T00872	9780000000873	8
+T00660	9780000000660	8
+T00526	9780000000526	1
+T00249	9780000000249	7
+T00705	9780000000706	1
+T00331	9780000000331	1
+T00751	9780000000752	3
+T00371	9780000000371	1
+T00149	9780000000149	7
+T00668	9780000000668	7
+T00804	9780000000805	1
+T00912	9780000000913	9
+T00550	9780000000550	3
+T00414	9780000000414	5
+T00570	9780000000570	5
+T00525	9780000000525	2
+T00202	9780000000202	4
+T00677	9780000000677	3
+T00824	9780000000825	4
+T00302	9780000000302	6
+T00002	9780000000002	10
+T00439	9780000000439	8
+T00022	9780000000022	5
+T00402	9780000000402	10
+T00707	9780000000708	3
+T00275	9780000000275	10
+T00086	9780000000086	9
+T00028	9780000000028	2
+T00716	9780000000717	9
+T00803	9780000000804	10
+T00251	9780000000251	2
+T00734	9780000000735	3
+T00435	9780000000435	4
+T00937	9780000000938	3
+T00205	9780000000205	9
+T00476	9780000000476	3
+T00379	9780000000379	10
+T00744	9780000000745	8
+T00641	9780000000641	9
+T00740	9780000000741	6
+T00961	9780000000962	5
+T00226	9780000000226	9
+T00845	9780000000846	4
+T00329	9780000000329	9
+T00765	9780000000766	5
+T00114	9780000000114	10
+T00586	9780000000586	2
+T00140	9780000000140	3
+T00590	9780000000590	10
+\.
+
+
+--
+-- TOC entry 5017 (class 0 OID 18526)
+-- Dependencies: 226
+-- Data for Name: Nomor_Hp_Karyawan; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Nomor_Hp_Karyawan" (id_karyawan, nomor_hp) FROM stdin;
+K01728	08945299957
+K01729	08955392991
+K01730	08688597562
+K01732	08874234955
+K01733	08411480303
+K01734	08988398917
+K01735	08230172572
+K01736	08735429918
+K01737	08580186360
+K01738	08593146113
+K01739	08437532006
+K01740	08208873407
+K01741	08202405516
+K01742	08484374971
+K01743	08435739082
+K01744	08578842627
+K01745	08240325007
+K01746	08640881323
+K01748	08913533423
+K01749	08575150471
+K01750	08553964234
+K01751	08280711933
+K01752	08220186359
+K01754	08166314371
+K01755	08020726025
+K01757	08814500936
+K01758	08685977397
+K01759	08583742401
+K01760	08882295202
+K01761	08317712936
+K01762	08600927048
+K01763	08183782461
+K01764	08096318619
+K01765	08056683124
+K01766	08856207944
+K01767	08625897260
+K01768	08826621428
+K01769	08200401004
+K01770	08208801762
+K01771	08280210415
+K01772	08473237580
+K01773	08990936908
+K01775	08873483743
+K01776	08758363209
+K01777	08477853395
+K01778	08505496136
+K01780	08025177666
+K01781	08375871711
+K01782	08359897688
+K01783	08646138351
+K01784	08145301329
+K01786	08412574789
+K01787	08766633442
+K01788	08095983864
+K01789	08085986552
+K01790	08197490151
+K01791	08647011941
+K01792	08988681184
+K01793	08112709790
+K01794	08358842742
+K01795	08814321899
+K01796	08606781033
+K01797	08073909865
+K01798	08730366579
+K01799	08216082163
+K01800	08664708804
+K01801	08896249371
+K01802	08202710765
+K01803	08027314599
+K01805	08550088514
+K01806	08350787773
+K01807	08031337796
+K01808	08521629381
+K01809	08802961251
+K01810	08170266304
+K01811	08057169029
+K01812	08348840540
+K01813	08857951263
+K01814	08117840333
+K01817	08385228598
+K01819	08291539714
+K01820	08514477314
+K01821	08184961241
+K01822	08668349959
+K01823	08654769549
+K01824	08174270462
+K01825	08102316225
+K01827	08128209301
+K01829	08803226879
+K01831	08593422159
+K01833	08841337010
+K01834	08085209835
+K01835	08710923225
+K01837	08024640595
+K01838	08925021717
+K01839	08519780009
+K01840	08146315402
+K01841	08639462880
+K01843	08632611251
+K01845	08256900762
+K01846	08106634349
+K01847	08574563763
+K01848	08989792963
+K01850	08619791519
+K01852	08595550893
+K01853	08319664161
+K01854	08452131938
+K01855	08962263580
+K01857	08369781405
+K01859	08921985074
+K01860	08311968686
+K01861	08618518809
+K01863	08272529709
+K01864	08982354630
+K01865	08093376347
+K01866	08456025442
+K01867	08949181713
+K01868	08392635154
+K01869	08593379377
+K01870	08373856040
+K01871	08885591123
+K01872	08465591165
+K01873	08865247253
+K01875	08286749961
+K01876	08584534487
+K01878	08443339240
+K01879	08278035748
+K01880	08261868297
+K01882	08212762061
+K01884	08225021983
+K01885	08627048892
+K01886	08185813384
+K01887	08316730583
+K01888	08182163192
+K01889	08788953888
+K01890	08168135756
+K01894	08846429592
+K01895	08406567924
+K01896	08626913225
+K01897	08280527568
+K01899	08316683621
+K01900	08110126661
+K01901	08341335611
+K01902	08126247034
+K01903	08853462547
+K01904	08375004356
+K01907	08035991759
+K01908	08723302685
+K01909	08993714891
+K01911	08502461556
+K01912	08097953592
+K01913	08475270545
+K01914	08795941268
+K01915	08797897294
+K01916	08107792247
+K01917	08418329766
+K01918	08068122165
+K01920	08267742242
+K01921	08436258474
+K01923	08878632203
+K01924	08343453084
+K01925	08512773655
+K01926	08724110020
+K01927	08934698651
+K01928	08704090765
+K01929	08655771343
+K01930	08635012728
+K01931	08679636298
+K01932	08547493126
+K01933	08901817818
+K01934	08454686628
+K01935	08660168037
+K01936	08826440052
+K01937	08948896793
+K01938	08363626222
+K01939	08418879871
+K01941	08096056935
+K01943	08282080353
+K01945	08966583181
+K01946	08755669529
+K01947	08194515845
+K01948	08304667198
+K01950	08245886629
+K01952	08592043063
+K01954	08933405418
+K01955	08932329765
+K01956	08615606156
+K01957	08885572634
+K01958	08135689604
+K01959	08188000772
+K01960	08749638354
+K01961	08325515390
+K01963	08153870801
+K01964	08196280480
+K01965	08959682609
+K01966	08254616643
+K01967	08364307447
+K01969	08739092938
+K01970	08197454047
+K01971	08672799341
+K01973	08662342878
+K01975	08876491035
+K01976	08880582657
+K01977	08834804474
+K01978	08926106801
+K01979	08742304095
+K01980	08582417122
+K01981	08279404047
+K01983	08530631730
+K01984	08605266657
+K01987	08073549033
+K01988	08528043838
+K01989	08224712626
+K01990	08276553097
+K01991	08152970862
+K01992	08172473836
+K01993	08335565024
+K01994	08208312225
+K01995	08983215190
+K01996	08553389561
+K01997	08672527917
+K01998	08768326804
+K01999	08668732636
+K02001	08775137024
+K02002	08250672242
+K02003	08991797112
+K02004	08511410707
+K02005	08242872875
+K02007	08816478834
+K02009	08958491190
+K02010	08445011357
+K02011	08364673295
+K02012	08987234673
+K02013	08641030949
+K02014	08026356032
+K02015	08505210159
+K02016	08475581670
+K02017	08975337890
+K02018	08956857639
+K02019	08971302042
+K02020	08068423143
+K02021	08598130190
+K02022	08355884962
+K02023	08737286198
+K02024	08689362694
+K02026	08775122911
+K02027	08862415823
+K02029	08942242803
+K02030	08270005540
+K02031	08924123970
+K02033	08911502631
+K02035	08241035717
+K02036	08347343695
+K02038	08248476323
+K02039	08524539010
+K02041	08012949525
+K02042	08574214751
+K02043	08367250400
+K02045	08658388314
+K02046	08819605549
+K02047	08159194179
+K02049	08616603844
+K02050	08216074161
+K02051	08418573502
+K02052	08937724339
+K02053	08187150744
+K02054	08649722870
+K02057	08264102473
+K02058	08792390222
+K02061	08155396960
+K02062	08090050855
+K02063	08185912452
+K02064	08941908423
+K02065	08917237469
+K02066	08446036995
+K02067	08559580518
+K02068	08725114517
+K02069	08251318667
+K02070	08295876693
+K02071	08146857063
+K02072	08133462480
+K02073	08215937307
+K02074	08711559577
+K02075	08598927088
+K02076	08026750891
+K02077	08742416847
+K02078	08296741667
+K02080	08945477188
+K02081	08886035543
+K02082	08488088001
+K02084	08591314510
+K02085	08939133014
+K02086	08020537576
+K02087	08422523433
+K02089	08575763056
+K02090	08177897041
+K02091	08268667934
+K02093	08245520003
+K02094	08383119016
+K02095	08399829409
+K02096	08864571413
+K02097	08623178851
+K02098	08922861934
+K02099	08591534228
+K02101	08524097033
+K02102	08750454887
+K02103	08779746262
+K02104	08296675694
+K02105	08512117655
+K02106	08858801842
+K02107	08782712647
+K02108	08227115415
+K02109	08052858105
+K02110	08593686602
+K02112	08043631709
+K02113	08386107227
+K02114	08585765221
+K02115	08615743935
+K02117	08352502447
+K02118	08361203812
+K02119	08867148335
+K02120	08842338894
+K02121	08602090425
+K02122	08295915804
+K02123	08207269668
+K02124	08717334752
+K02350	08519546643
+K02125	08621873905
+K02126	08707093333
+K02127	08892822633
+K02128	08830329604
+K02129	08309935237
+K02130	08858173176
+K02131	08106361076
+K02132	08648083156
+K02133	08536100535
+K02134	08428525409
+K02135	08056021618
+K02136	08892370907
+K02137	08058877173
+K02138	08502188463
+K02139	08548870049
+K02140	08926502702
+K02141	08028469062
+K02142	08444442742
+K02143	08341066247
+K02144	08923046607
+K02145	08917083320
+K02146	08259412565
+K02148	08099724441
+K02149	08010716580
+K02150	08669943087
+K02151	08426516545
+K02152	08861290666
+K02153	08036823120
+K02154	08963952320
+K02156	08374754138
+K02157	08296413774
+K02158	08038615690
+K02159	08436187650
+K02161	08035532619
+K02162	08302406876
+K02163	08074315371
+K02164	08983236275
+K02166	08777949542
+K02167	08769926332
+K02169	08439944700
+K02170	08807062918
+K02171	08842428534
+K02172	08092462729
+K02173	08328923923
+K02174	08664993853
+K02175	08990778716
+K02176	08021520292
+K02177	08806343183
+K02178	08400562185
+K02180	08206602909
+K02181	08818671109
+K02182	08519276903
+K02183	08830007968
+K02184	08113347965
+K02185	08325287349
+K02186	08091518282
+K02187	08730108227
+K02188	08894416016
+K02189	08905755299
+K02190	08473375922
+K02191	08267976464
+K02192	08869165668
+K02193	08701850562
+K02194	08215148561
+K02195	08578735871
+K02198	08824314711
+K02199	08156687527
+K02200	08172974095
+K02201	08913210118
+K02202	08178515476
+K02204	08379499802
+K02205	08857884797
+K02206	08292600203
+K02207	08200933857
+K02208	08713145792
+K02210	08266389132
+K02211	08986081070
+K02212	08082229964
+K02213	08933583157
+K02218	08243180347
+K02220	08067310841
+K02221	08140234957
+K02222	08542181532
+K02223	08227196978
+K02224	08788761429
+K02226	08147154771
+K02227	08023639345
+K02228	08513005471
+K02229	08366844021
+K02230	08504952528
+K02231	08137275910
+K02232	08444069595
+K02233	08301727208
+K02234	08748896870
+K02235	08360079448
+K02236	08523943862
+K02238	08415804499
+K02239	08011894110
+K02240	08616034020
+K02241	08721133206
+K02243	08789593013
+K02245	08096391248
+K02246	08323436536
+K02247	08811837182
+K02250	08931693722
+K02251	08250678280
+K02252	08819359612
+K02253	08102230446
+K02254	08322498283
+K02255	08325166968
+K02256	08039017483
+K02257	08048196744
+K02258	08785823619
+K02259	08881114359
+K02260	08289993785
+K02261	08298797735
+K02262	08592540907
+K02263	08307200722
+K02264	08686966719
+K02265	08100379827
+K02267	08134645465
+K02268	08084217457
+K02269	08495990266
+K02270	08049788032
+K02271	08901265351
+K02272	08361162128
+K02273	08977631809
+K02274	08179550899
+K02276	08102014251
+K02277	08863818202
+K02278	08360351868
+K02279	08470864098
+K02280	08534121787
+K02282	08193726557
+K02283	08114750694
+K02284	08908636040
+K02285	08562202669
+K02286	08535959011
+K02288	08495309578
+K02289	08475365616
+K02290	08923545560
+K02292	08945980002
+K02293	08449724339
+K02294	08425121977
+K02295	08726068638
+K02296	08322258925
+K02297	08873621218
+K02298	08560405680
+K02299	08389247834
+K02300	08344081303
+K02301	08829918148
+K02302	08279121587
+K02303	08571102805
+K02304	08956646414
+K02305	08566686361
+K02306	08012419476
+K02307	08821106790
+K02308	08309361180
+K02309	08682426137
+K02310	08456685662
+K02311	08083968287
+K02312	08547908121
+K02313	08536101315
+K02316	08736940043
+K02317	08346654810
+K02318	08320557173
+K02319	08361288780
+K02320	08183394699
+K02321	08930454413
+K02323	08453339890
+K02325	08606076390
+K02326	08975127834
+K02327	08636388257
+K02330	08569604195
+K02331	08301418694
+K02335	08642227977
+K02338	08705116456
+K02339	08285960237
+K02340	08141920542
+K02341	08806311202
+K02342	08095209032
+K02343	08623155782
+K02344	08068318728
+K02345	08346350096
+K02346	08949932047
+K02347	08602517233
+K02348	08994995608
+K02349	08472483675
+K02351	08708766169
+K02352	08008084399
+K02353	08984115624
+K02354	08969386660
+K02355	08583455511
+K02356	08831942294
+K02357	08301558304
+K02358	08592520563
+K02359	08325412660
+K02361	08375374125
+K02362	08220980087
+K02365	08989315826
+K02366	08840384506
+K02367	08560947865
+K02368	08598375594
+K02369	08605078843
+K02371	08444706078
+K02372	08667624773
+K02373	08761431124
+K02375	08607788315
+K02376	08058137987
+K02377	08394774199
+K02378	08423232429
+K02380	08149268445
+K02381	08034938108
+K02382	08636827332
+K02383	08581041001
+K02384	08803177153
+K02386	08184041360
+K02387	08923538844
+K02388	08681997369
+K02389	08106581089
+K02391	08195932781
+K02392	08967641905
+K02395	08738315333
+K02396	08131163488
+K02397	08460005830
+K02398	08571355405
+K02400	08087414971
+K02402	08715464494
+K02403	08739774944
+K02405	08818526729
+K02406	08623983661
+K02407	08126597495
+K02409	08569403013
+K02410	08736809844
+K02411	08323172626
+K02412	08847697374
+K02413	08046963644
+K02416	08415281700
+K02417	08100119491
+K02418	08320341963
+K02419	08830375170
+K02420	08861298616
+K02421	08029000792
+K02422	08782469752
+K02423	08444123558
+K02424	08392201545
+K02425	08134165905
+K02426	08147125135
+K02427	08326092197
+K02428	08975756181
+K02429	08157434141
+K02430	08007058493
+K02431	08597946079
+K02433	08836182423
+K02434	08128957325
+K02435	08221577064
+K02436	08410424310
+K02438	08003985059
+K02439	08786792683
+K02440	08997157876
+K02441	08960841240
+K02442	08490694698
+K02443	08340119992
+K02444	08345673734
+K02445	08477445059
+K02446	08722407574
+K02447	08441410334
+K02448	08360812659
+K02449	08035090454
+K02450	08132991309
+K02451	08470709781
+K02452	08470256297
+K02453	08313050837
+K02454	08002070933
+K02455	08058144172
+K02456	08181292180
+K02458	08240160059
+K02459	08385346548
+K02460	08912407519
+K02461	08538511243
+K02463	08575034419
+K02465	08280802760
+K02466	08349910994
+K02467	08415720847
+K02468	08881108659
+K02469	08566899173
+K02472	08832182347
+K02473	08400036778
+K02475	08023375839
+K02476	08980643409
+K02478	08925265424
+K02479	08642019053
+K02480	08294964004
+K02481	08710797254
+K02483	08696980344
+K02484	08872818713
+K02485	08072161151
+K02486	08882227793
+K02488	08786167825
+K02489	08970253190
+K02490	08200245802
+K02491	08198644531
+K02492	08191104159
+K02495	08909605239
+K02496	08940304019
+K02498	08245006521
+K02499	08793135707
+K02500	08359485518
+K02501	08528541242
+K02502	08533214656
+K02503	08210665501
+K02504	08097229517
+K02505	08282961477
+K02506	08025294219
+K02509	08350999607
+K02511	08042377266
+K02512	08840760547
+K02513	08427854946
+K02515	08220966884
+K02516	08634234545
+K02517	08586391829
+K02518	08635628634
+K02519	08156207859
+K02521	08008051024
+K02522	08904180246
+K02523	08332161305
+K02524	08726958012
+K02525	08773011809
+K02526	08996941022
+K02527	08330205458
+K02528	08936823595
+K02529	08297171337
+K02530	08709544676
+K02531	08461786188
+K02532	08958317089
+K02533	08500773871
+K02534	08085088941
+K02537	08033343917
+K02538	08472616385
+K02539	08086796726
+K02540	08498090753
+K02541	08263970891
+K02542	08254539802
+K02543	08997884378
+K02544	08017846931
+K02545	08964816061
+K02546	08775379339
+K02547	08441818164
+K02550	08749325390
+K02551	08659366111
+K02552	08533347426
+K02554	08765484230
+K02555	08017172371
+K02556	08848459148
+K02557	08862851996
+K01728	08982461457
+K01731	08278949389
+K01732	08610450730
+K01735	08863447100
+K01736	08908092770
+K01737	08341844522
+K01745	08115715395
+K01748	08407822165
+K01753	08282731004
+K01754	08559349578
+K01759	08365584323
+K01761	08074290899
+K01762	08078516008
+K01763	08431835987
+K01766	08231584892
+K01770	08539121521
+K01771	08668677419
+K01774	08835763913
+K01775	08941731787
+K01779	08938803346
+K01780	08566892335
+K01783	08190367792
+K01784	08843995480
+K01785	08858111153
+K01786	08846398761
+K01789	08966971016
+K01790	08771463807
+K01792	08634118767
+K01794	08048140558
+K01796	08357849721
+K01799	08342848446
+K01800	08354635011
+K01804	08459673693
+K01805	08031678292
+K01807	08647487182
+K01808	08954810238
+K01809	08266042442
+K01812	08905608368
+K01818	08480354228
+K01819	08839236714
+K01823	08907921377
+K01825	08861916976
+K01826	08186767245
+K01830	08971529375
+K01834	08574003867
+K01835	08191127948
+K01836	08591276953
+K01838	08091062905
+K01841	08059788476
+K01843	08895841004
+K01844	08014208737
+K01853	08483310554
+K01866	08182375331
+K01867	08780913808
+K01870	08681215798
+K01872	08976555305
+K01875	08239699923
+K01877	08299370582
+K01878	08774439780
+K01882	08315308705
+K01884	08433572725
+K01885	08581387765
+K01888	08683077790
+K01889	08028360865
+K01895	08121065931
+K01899	08966001079
+K01910	08927623175
+K01912	08981919101
+K01913	08159348109
+K01917	08902079382
+K01919	08229130498
+K01925	08751595178
+K01926	08524743517
+K01927	08636607394
+K01932	08876243625
+K01933	08995675603
+K01934	08007104326
+K01937	08804637631
+K01940	08271529630
+K01944	08715582876
+K01945	08702000165
+K01950	08059249300
+K01952	08178659488
+K01953	08918371707
+K01955	08883269830
+K01957	08484997956
+K01961	08103103701
+K01963	08445562699
+K01964	08387326223
+K01965	08988630822
+K01966	08574631036
+K01974	08389476214
+K01975	08692982148
+K01978	08816952377
+K01979	08006121546
+K01980	08853980067
+K01985	08184503909
+K01990	08668934579
+K01991	08805679330
+K01994	08572597668
+K01995	08059504053
+K01996	08239186660
+K01999	08919031194
+K02001	08337048280
+K02004	08513180078
+K02005	08310464076
+K02007	08553905977
+K02008	08047353479
+K02011	08736282707
+K02012	08187661100
+K02014	08811940007
+K02016	08505635790
+K02023	08335418592
+K02027	08932257411
+K02028	08511433629
+K02032	08717225408
+K02036	08509434967
+K02037	08925316956
+K02041	08767556374
+K02042	08907932019
+K02045	08458852043
+K02047	08478808421
+K02048	08562804464
+K02050	08610420534
+K02051	08966793137
+K02052	08563428437
+K02054	08708408483
+K02055	08319643129
+K02061	08550328814
+K02062	08750220189
+K02064	08237555944
+K02067	08821013042
+K02073	08471875008
+K02076	08558531800
+K02080	08871407282
+K02082	08965343035
+K02083	08149257171
+K02084	08600864559
+K02087	08381950640
+K02088	08238007293
+K02089	08416589311
+K02094	08550036527
+K02096	08517350270
+K02102	08610685239
+K02105	08074935269
+K02107	08513085986
+K02108	08372565297
+K02109	08756228085
+K02110	08349705876
+K02112	08480058248
+K02115	08764868590
+K02129	08578468213
+K02139	08073671411
+K02141	08622275402
+K02142	08557196143
+K02147	08003237466
+K02148	08124545226
+K02149	08289676178
+K02150	08705688173
+K02152	08371557136
+K02153	08709113988
+K02154	08833995559
+K02156	08263217654
+K02160	08728950112
+K02162	08843973196
+K02164	08239196756
+K02165	08552288220
+K02166	08318496676
+K02169	08985149690
+K02171	08809667671
+K02173	08124751461
+K02174	08505771372
+K02177	08598228011
+K02179	08467715664
+K02181	08777016193
+K02184	08940998928
+K02185	08073168086
+K02189	08665322831
+K02190	08010611851
+K02194	08898592984
+K02195	08792182517
+K02203	08698820613
+K02205	08427375441
+K02206	08172554805
+K02211	08580599037
+K02212	08012271305
+K02214	08623943891
+K02215	08658802036
+K02216	08713073894
+K02219	08507390469
+K02221	08772560761
+K02222	08603389668
+K02223	08844140625
+K02224	08688998066
+K02225	08973171924
+K02226	08072452972
+K02227	08896840061
+K02229	08546535670
+K02231	08515089935
+K02232	08047623592
+K02234	08327530046
+K02239	08077203385
+K02241	08845285122
+K02245	08429268092
+K02249	08341332054
+K02250	08407488904
+K02253	08098605974
+K02259	08206551417
+K02260	08067461894
+K02264	08643248828
+K02265	08207170927
+K02267	08069357471
+K02268	08089282069
+K02269	08533972962
+K02273	08147251092
+K02274	08985941638
+K02278	08676411162
+K02279	08232402128
+K02280	08495616096
+K02281	08083633411
+K02285	08397351652
+K02286	08556624262
+K02288	08413622135
+K02294	08225449327
+K02300	08190603251
+K02302	08194942172
+K02304	08097608723
+K02309	08120605419
+K02311	08771157079
+K02312	08323834936
+K02313	08135937217
+K02314	08439852183
+K02315	08367494457
+K02316	08408858913
+K02319	08944144862
+K02322	08529133030
+K02323	08522117272
+K02325	08357404996
+K02330	08580773001
+K02331	08064111301
+K02336	08186648774
+K02341	08551561428
+K02345	08841560750
+K02346	08529494003
+K02348	08875107345
+K02349	08990085033
+K02354	08790756231
+K02358	08062200090
+K02359	08585520266
+K02366	08050904666
+K02368	08924579926
+K02372	08685885015
+K02373	08486803988
+K02376	08973605360
+K02381	08506663977
+K02385	08148619599
+K02389	08478501966
+K02390	08798458083
+K02391	08356294568
+K02392	08717555550
+K02399	08783023428
+K02400	08553749402
+K02401	08719719232
+K02404	08453981756
+K02408	08036235552
+K02410	08987936425
+K02413	08495484852
+K02414	08874892633
+K02415	08789308658
+K02418	08553607130
+K02424	08740667406
+K02428	08036346412
+K02431	08140802222
+K02434	08811203634
+K02435	08536988611
+K02436	08147053290
+K02438	08363382008
+K02442	08037784263
+K02443	08201002595
+K02445	08071968883
+K02446	08944840729
+K02447	08273015091
+K02450	08032305291
+K02451	08761665420
+K02453	08054191140
+K02454	08189306147
+K02455	08694414988
+K02458	08804009235
+K02461	08842963380
+K02466	08145579293
+K02467	08591822534
+K02473	08863138419
+K02481	08679150300
+K02484	08338766915
+K02485	08052983983
+K02486	08146518659
+K02490	08910918962
+K02491	08069397086
+K02492	08136943374
+K02494	08088307027
+K02497	08081323099
+K02500	08888063840
+K02501	08939539733
+K02504	08619280371
+K02505	08876383996
+K02507	08228615700
+K02519	08935532906
+K02522	08038090715
+K02534	08342769225
+K02535	08853372584
+K02543	08393664676
+K02544	08401495124
+K02545	08722855137
+K02548	08428738909
+K02549	08280157723
+K02550	08392370196
+K02551	08737166622
+K02557	08896732972
+\.
+
+
+--
+-- TOC entry 5018 (class 0 OID 18529)
+-- Dependencies: 227
+-- Data for Name: Nomor_Hp_Pelanggan; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Nomor_Hp_Pelanggan" (id_pelanggan, nomor_hp) FROM stdin;
+C00001	082697489856
+C00002	088816266954
+C00003	083249900139
+C00004	084533526939
+C00005	087160699110
+C00006	081961802906
+C00007	086780741019
+C00008	086931677682
+C00009	082823398018
+C00010	081403871917
+C00011	083984086948
+C00012	087569776381
+C00013	088235802253
+C00014	087256657178
+C00015	088929077392
+C00016	083521746332
+C00017	080144156428
+C00018	082723372410
+C00019	088320571628
+C00020	080159562476
+C00021	080898345540
+C00022	086672669419
+C00023	080148165958
+C00024	088863043191
+C00025	082221350406
+C00026	080619811458
+C00027	087224822038
+C00028	088654762123
+C00029	081760668440
+C00030	081999039291
+C00031	080369293231
+C00032	086670820836
+C00033	083649549718
+C00034	083259488592
+C00035	088460185508
+C00036	082043591733
+C00037	081804125403
+C00038	080942371405
+C00039	089477908733
+C00040	088114743684
+C00041	084795026026
+C00042	080951475523
+C00043	084955003074
+C00044	084828864546
+C00045	080084750273
+C00046	082797859611
+C00047	080612636182
+C00048	082108841228
+C00049	085021620879
+C00050	081935217287
+C00051	083312988543
+C00052	088186075010
+C00053	080904918727
+C00054	084103408464
+C00055	082278162693
+C00056	089364341765
+C00057	087798271852
+C00058	082903541878
+C00059	087861615013
+C00060	083307697617
+C00061	088279794628
+C00062	086067626734
+C00063	087322215081
+C00064	084735705455
+C00065	087626723162
+C00066	088298857438
+C00067	081587487387
+C00068	087168802083
+C00069	088340701894
+C00070	088090876961
+C00071	087028985954
+C00072	081549423424
+C00073	083375655184
+C00074	089406047666
+C00075	080266784243
+C00076	087523697891
+C00077	086675384868
+C00078	085077274019
+C00079	083746537249
+C00080	081201443754
+C00081	084973546244
+C00082	089053911527
+C00083	082539160381
+C00084	080710039622
+C00085	088014661531
+C00086	088911846847
+C00087	088839151063
+C00088	080272859713
+C00089	087077130259
+C00090	082141883865
+C00091	083017388429
+C00092	083409963082
+C00093	085244486669
+C00094	083077721445
+C00095	086513867316
+C00096	087719175313
+C00097	080648586725
+C00098	080578637494
+C00099	087822988283
+C00100	084417711244
+C00101	083811556373
+C00102	083940636304
+C00103	080252025347
+C00104	082120138620
+C00105	084798918092
+C00106	080387253550
+C00107	088502909504
+C00108	086935808332
+C00109	080875425914
+C00110	082628526109
+C00111	084831554376
+C00112	080359031121
+C00113	086454060991
+C00114	089014092005
+C00115	089828685387
+C00116	085586836440
+C00117	082690342197
+C00118	080882802702
+C00119	083038069420
+C00120	085964374017
+C00121	087471725375
+C00122	081921734397
+C00123	086082074799
+C00124	088840518380
+C00125	081948282288
+C00126	089837218742
+C00127	085183352668
+C00128	088400997417
+C00129	089350933281
+C00130	086732157453
+C00131	088976687223
+C00132	087075632884
+C00133	085905788284
+C00134	087287980950
+C00135	085863427233
+C00136	087003624858
+C00137	082786349460
+C00138	083998346626
+C00139	088095265734
+C00140	086326329804
+C00141	088030772135
+C00142	084496438784
+C00143	086920257213
+C00144	082747597563
+C00145	087932104224
+C00146	085692498461
+C00147	081191489984
+C00148	085385531887
+C00149	085317087781
+C00150	083096902329
+C00151	087565694205
+C00152	089402515313
+C00153	088980058442
+C00154	083664616621
+C00155	086801870082
+C00156	083454558963
+C00157	087708080464
+C00158	087408582971
+C00159	084677752813
+C00160	089540726883
+C00161	080335898464
+C00162	088508388891
+C00163	087914391961
+C00164	084329310376
+C00165	089681432834
+C00166	082545280544
+C00167	086820357070
+C00168	082000166068
+C00169	086131231749
+C00170	087034655052
+C00171	086667491494
+C00172	089313701717
+C00173	081676719976
+C00174	081755110280
+C00175	089722005473
+C00176	080597798375
+C00177	089349080589
+C00178	087864869488
+C00179	084225521806
+C00180	086240822155
+C00181	082366194748
+C00182	086295010697
+C00183	088785259486
+C00184	083078523336
+C00185	082268597910
+C00186	084267404289
+C00187	089472893187
+C00188	081884196146
+C00189	086225836138
+C00190	088445007324
+C00191	089792906171
+C00192	085677481538
+C00193	088818541243
+C00194	089762630886
+C00195	082769429982
+C00196	081902787430
+C00197	085984015796
+C00198	088712791670
+C00199	081015239725
+C00200	089436604995
+C00201	084826358755
+C00202	083294489283
+C00203	081355331446
+C00204	087063911676
+C00205	088781003761
+C00206	083314213817
+C00207	089385925475
+C00208	083770228851
+C00209	086088948151
+C00210	086417803043
+C00211	089512796944
+C00212	089587017907
+C00213	088447387302
+C00214	088230218275
+C00215	088136617280
+C00216	088363179947
+C00217	089910634113
+C00218	088280188467
+C00219	081808428996
+C00220	089019294492
+C00221	080528446600
+C00222	084318824405
+C00223	085881132773
+C00224	083919278508
+C00225	085826531609
+C00226	085171720698
+C00227	086733537517
+C00228	088294463418
+C00229	085701238683
+C00230	082652637200
+C00231	085177316254
+C00232	081095795880
+C00233	082658508546
+C00234	084537233308
+C00235	085741867982
+C00236	083388199470
+C00237	087006254788
+C00238	081761762071
+C00239	083329537818
+C00240	084307285544
+C00241	088596959723
+C00242	083570343693
+C00243	084250986410
+C00244	089932014347
+C00245	089864314014
+C00246	081579034488
+C00247	088615497733
+C00248	087132142880
+C00249	083838857570
+C00250	087071016112
+C00251	085036209887
+C00252	080637144552
+C00253	080696912562
+C00254	088251510979
+C00255	080394125445
+C00256	082342760420
+C00257	080092032480
+C00258	083472791621
+C00259	081318154329
+C00260	082282678859
+C00261	085412396038
+C00262	083870161641
+C00263	083157897890
+C00264	088239268667
+C00265	086857307758
+C00266	085798198942
+C00267	085123307021
+C00268	087713088130
+C00269	089033825418
+C00270	085686628688
+C00271	085502095014
+C00272	082039010791
+C00273	085885069689
+C00274	089588621802
+C00275	089213015775
+C00276	084697231177
+C00277	089853909974
+C00278	086144311016
+C00279	086666620298
+C00280	086724799206
+C00281	086606323604
+C00282	089037774252
+C00283	087540312582
+C00284	081057147401
+C00285	082876936254
+C00286	089045242240
+C00287	086489613243
+C00288	083462705109
+C00289	083618400340
+C00290	089500892567
+C00291	083875767682
+C00292	081370411394
+C00293	089922242173
+C00294	088262616413
+C00295	080402015362
+C00296	085057678630
+C00297	081580654194
+C00298	086446571579
+C00299	086111581199
+C00300	086738818184
+C00301	085109752240
+C00302	087200911016
+C00303	086256543696
+C00304	083454990705
+C00305	088699539037
+C00306	082019033378
+C00307	080637455712
+C00308	086276160143
+C00309	084860821363
+C00310	083980774947
+C00311	084931386728
+C00312	083457861339
+C00313	082435207532
+C00314	085335896293
+C00315	080285018976
+C00316	089872850352
+C00317	088280158614
+C00318	085905170198
+C00319	088600763591
+C00320	084084320358
+C00321	085220576721
+C00322	088940199967
+C00323	087659158685
+C00324	085184884863
+C00325	084713175107
+C00326	082208581294
+C00327	083734417361
+C00328	084884163420
+C00329	087837841667
+C00330	087414875901
+C00331	086848724324
+C00332	085716990417
+C00333	088980911662
+C00334	085972224428
+C00335	084217635420
+C00336	087754510745
+C00337	082122730086
+C00338	082631514180
+C00339	089851112226
+C00340	086271634158
+C00341	080266555436
+C00342	087587763865
+C00343	085750212765
+C00344	084805406207
+C00345	089126167837
+C00346	085262680286
+C00347	085024611922
+C00348	089889885970
+C00349	082376761212
+C00350	087585476000
+C00351	089821358582
+C00352	081744776873
+C00353	085762531146
+C00354	089455676642
+C00355	087358750651
+C00356	088681482567
+C00357	083875576303
+C00358	088557427412
+C00359	082508886463
+C00360	084345933779
+C00361	080986908342
+C00362	080835886302
+C00363	082495194755
+C00364	081080453155
+C00365	083284253540
+C00366	084354014070
+C00367	085783462179
+C00368	082315435854
+C00369	089014538962
+C00370	081813771092
+C00371	080763598575
+C00372	081137240797
+C00373	082040882389
+C00374	081291607009
+C00375	081531906035
+C00376	083602419916
+C00377	087460404080
+C00378	088398190213
+C00379	084917570049
+C00380	082647284766
+C00381	088515328237
+C00382	088189498700
+C00383	086141691526
+C00384	080974776018
+C00385	080561978571
+C00386	084438892172
+C00387	085942544658
+C00388	082101932339
+C00389	081357655409
+C00390	080751785667
+C00391	080153693242
+C00392	087846145200
+C00393	085106232922
+C00394	088563609324
+C00395	089860594956
+C00396	086563049934
+C00397	081630235549
+C00398	081220722473
+C00399	089016412050
+C00400	086627475360
+C00401	088616967973
+C00402	082863398959
+C00403	089880160288
+C00404	085323640633
+C00405	083977988740
+C00406	088676031559
+C00407	081827121971
+C00408	083199933161
+C00409	083044982258
+C00410	087273860198
+C00411	084060200567
+C00412	082901586597
+C00413	087848676550
+C00414	088313690263
+C00415	083658747766
+C00416	080435213116
+C00417	081744207310
+C00418	089512526003
+C00419	082413947830
+C00420	086269135846
+C00421	087586229830
+C00422	084842164251
+C00423	080153709601
+C00424	081991002346
+C00425	081361796171
+C00426	083558852890
+C00427	080840981062
+C00428	083660831369
+C00429	088222484148
+C00430	088575050000
+C00431	083914903875
+C00432	082915665476
+C00433	082335593897
+C00434	084730109403
+C00435	080422880979
+C00436	087533409997
+C00437	087124567209
+C00438	085921731586
+C00439	089140100106
+C00440	080021846800
+C00441	085293863381
+C00442	087907514260
+C00443	089117131665
+C00444	087734262913
+C00445	083024004287
+C00446	084788838407
+C00447	085809693215
+C00448	084200103870
+C00449	080352165026
+C00450	082248293033
+C00451	089522442970
+C00452	088436092713
+C00453	088376853738
+C00454	084054057268
+C00455	083164972040
+C00456	085656052320
+C00457	085315326514
+C00458	088379349877
+C00459	087119716280
+C00460	083210250596
+C00461	081278876541
+C00462	089634757277
+C00463	086473128302
+C00464	080448258137
+C00465	084687911394
+C00466	087459528788
+C00467	089887376327
+C00468	083899117517
+C00469	083712889544
+C00470	086820450256
+C00471	087678811133
+C00472	088943446415
+C00473	085379004422
+C00474	084004255296
+C00475	087564681255
+C00476	087022269050
+C00477	085642812445
+C00478	080712523627
+C00479	082928612789
+C00480	088198701471
+C00481	084084787097
+C00482	084159997407
+C00483	087343401555
+C00484	085084138602
+C00485	082621786220
+C00486	086556785265
+C00487	084473686059
+C00488	083636068923
+C00489	083830565536
+C00490	081221786803
+C00491	081684639312
+C00492	081971304340
+C00493	084917469154
+C00494	086486974888
+C00495	086925877744
+C00496	088432295443
+C00497	088688481729
+C00498	087625268157
+C00499	089253579862
+C00500	084099533938
+C00501	085192987409
+C00502	082215835795
+C00503	084317169471
+C00504	084714954806
+C00505	088350765944
+C00506	082171109551
+C00507	087987361018
+C00508	084735655398
+C00509	089927997569
+C00510	081316150603
+C00511	085012772362
+C00512	088518648827
+C00513	086956492240
+C00514	086393444423
+C00515	080963322710
+C00516	082173011089
+C00517	081090739569
+C00518	087894165502
+C00519	084704386560
+C00520	083291437481
+C00521	089515588434
+C00522	084379023084
+C00523	080474799823
+C00524	085028324837
+C00525	080437238789
+C00526	083771046731
+C00527	089848988916
+C00528	086378170995
+C00529	080987258848
+C00530	080818208027
+C00531	089630329583
+C00532	086939849596
+C00533	087050211197
+C00534	080369850104
+C00535	081769926310
+C00536	082945556096
+C00537	088956119108
+C00538	080624761491
+C00539	085702472816
+C00540	088554388794
+C00541	084803674015
+C00542	082519424112
+C00543	082595306626
+C00544	082638069455
+C00545	089816217176
+C00546	088499771159
+C00547	086763593112
+C00548	087468523037
+C00549	089298590573
+C00550	083500712069
+C00551	082655157932
+C00552	089098629170
+C00553	088835688080
+C00554	087600168814
+C00555	089388264095
+C00556	086047720042
+C00557	085982693886
+C00558	081370552314
+C00559	088005452674
+C00560	086128278777
+C00561	087069302733
+C00562	080461317975
+C00563	083139431216
+C00564	084967854201
+C00565	086671307388
+C00566	087173430924
+C00567	086390905057
+C00568	083652157725
+C00569	082758992069
+C00570	087911372219
+C00571	083755708406
+C00572	087225703872
+C00573	086986827404
+C00574	083371224051
+C00575	086461000990
+C00576	088226742263
+C00577	080270134820
+C00578	088838355731
+C00579	086240526492
+C00580	089688750336
+C00581	087946850878
+C00582	084370766059
+C00583	089597570772
+C00584	084181076659
+C00585	082156698058
+C00586	082813277594
+C00587	083537458000
+C00588	085314073140
+C00589	086345482296
+C00590	088364506468
+C00591	086749210702
+C00592	085762740050
+C00593	089349619728
+C00594	087925739151
+C00595	085605846229
+C00596	086729078537
+C00597	086620101109
+C00598	080595697556
+C00599	082648084569
+C00600	080270053910
+C00601	081071371602
+C00602	082164773221
+C00603	087392561146
+C00604	083774234605
+C00605	088876954425
+C00606	083153560494
+C00607	087875000539
+C00608	085742963041
+C00609	085508637008
+C00610	087429833277
+C00611	089070380687
+C00612	082295549342
+C00613	086942630866
+C00614	081260518604
+C00615	088860670568
+C00616	089720012127
+C00617	086370097888
+C00618	084260117374
+C00619	088785523515
+C00620	085667876202
+C00621	084649038800
+C00622	082635567523
+C00623	083634384129
+C00624	086197856396
+C00625	080408961900
+C00626	085365082092
+C00627	085729433245
+C00628	088167447104
+C00629	085518990584
+C00630	085481838077
+C00631	081887036679
+C00632	087963129004
+C00633	085007557359
+C00634	085928642184
+C00635	088864496279
+C00636	081314782342
+C00637	086228603136
+C00638	085044431137
+C00639	089040364118
+C00640	086989418635
+C00641	085779470906
+C00642	086509105008
+C00643	083860623318
+C00644	087752886405
+C00645	089510276679
+C00646	088904754385
+C00647	083990494668
+C00648	082787634317
+C00649	084581880909
+C00650	088411903903
+C00651	086951203935
+C00652	082779579509
+C00653	082635527575
+C00654	082394924530
+C00655	086611875057
+C00656	088597043477
+C00657	085350670621
+C00658	089530524563
+C00659	087322902778
+C00660	081297820521
+C00661	080767867607
+C00662	085778923562
+C00663	083721237474
+C00664	082875311573
+C00665	081912012369
+C00666	088687047060
+C00667	087572766646
+C00668	086824158035
+C00669	088417751242
+C00670	087129542090
+C00671	088503203192
+C00672	084254900393
+C00673	082566794216
+C00674	088715227400
+C00675	085177816431
+C00676	082421275718
+C00677	081159909071
+C00678	083044540256
+C00679	081879725890
+C00680	086661881375
+C00681	086664686507
+C00682	085303729008
+C00683	085282404517
+C00684	088867279126
+C00685	088689831208
+C00686	083952369859
+C00687	086206368111
+C00688	084579993796
+C00689	083842470366
+C00690	082925729836
+C00691	088359354918
+C00692	088564363154
+C00693	087676455381
+C00694	080858342274
+C00695	086799628422
+C00696	083516794424
+C00697	084579808936
+C00698	083241244536
+C00699	085426988020
+C00700	088485378475
+C00701	080045777848
+C00702	082965804174
+C00703	084317222126
+C00704	088555191360
+C00705	084788233071
+C00706	087011168598
+C00707	081280535176
+C00708	081363126977
+C00709	088053886191
+C00710	085353201182
+C00711	085729419976
+C00712	081565400081
+C00713	088100878726
+C00714	083489128549
+C00715	082366453035
+C00716	084404691310
+C00717	088994776537
+C00718	089583041933
+C00719	082377963608
+C00720	087990525967
+C00721	081048985266
+C00722	083605092306
+C00723	081448526524
+C00724	082248612127
+C00725	085587114995
+C00726	083385735166
+C00727	082769372109
+C00728	080765242863
+C00729	086992124820
+C00730	087510088737
+C00731	085974474213
+C00732	083398800928
+C00733	085883913136
+C00734	083946506286
+C00735	085523485565
+C00736	082611721536
+C00737	083811596761
+C00738	087342460420
+C00739	086104905702
+C00740	080772755574
+C00741	088242680348
+C00742	081955272048
+C00743	080011102963
+C00744	084074109741
+C00745	082215296674
+C00746	081856839552
+C00747	089136459963
+C00748	088782372435
+C00749	085309057430
+C00750	085150095475
+C00751	088853989693
+C00752	083065465630
+C00753	086691858099
+C00754	083613265929
+C00755	089547911066
+C00756	086225698462
+C00757	086123513107
+C00758	082579340754
+C00759	085720159547
+C00760	086363787558
+C00761	089621462556
+C00762	082048979433
+C00763	085116472011
+C00764	088556036445
+C00765	084757482854
+C00766	088349149608
+C00767	084059697426
+C00768	087514165165
+C00769	082608199498
+C00770	085435223576
+C00771	084239776840
+C00772	088651914285
+C00773	083998017275
+C00774	086161668121
+C00775	086753263262
+C00776	087910849659
+C00777	085093545599
+C00778	080821042392
+C00779	089469098899
+C00780	084000253802
+C00781	085348616077
+C00782	083174624942
+C00783	081479858877
+C00784	083968088185
+C00785	088515950067
+C00786	080514109334
+C00787	081657849045
+C00788	089878959430
+C00789	080888208100
+C00790	085042326388
+C00791	081846965089
+C00792	080859582092
+C00793	082986051142
+C00794	081842490629
+C00795	086572812939
+C00796	089923518138
+C00797	085781100281
+C00798	088809568713
+C00799	080198076926
+C00800	082751259262
+C00801	082309730321
+C00802	081499522799
+C00803	086180297427
+C00804	087992747024
+C00805	082897759184
+C00806	084016300024
+C00807	084105227336
+C00808	086197856866
+C00809	088584329824
+C00810	085885238117
+C00811	088531174858
+C00812	086395703239
+C00813	081436036161
+C00814	088553354897
+C00815	088399431081
+C00816	083476295981
+C00817	083630609997
+C00818	089855065933
+C00819	089318415484
+C00820	089761172245
+C00821	081294288635
+C00822	089428797313
+C00823	084515733332
+C00824	082839529414
+C00825	089711383876
+C00826	089352479295
+C00827	087518683864
+C00828	082844210539
+C00829	088883282976
+C00830	080038883175
+C00831	082613258176
+C00832	080640835076
+C00833	085086821794
+C00834	084228212598
+C00835	082368694709
+C00836	086571073599
+C00837	080804590540
+C00838	088046939406
+C00839	080210198106
+C00840	086734983842
+C00841	084701897319
+C00842	080205420311
+C00843	086276451595
+C00844	089929945393
+C00845	080397104099
+C00846	087210743538
+C00847	087889079959
+C00848	080993951619
+C00849	082311799402
+C00850	082086310233
+C00851	089524279118
+C00852	080511075698
+C00853	085287118151
+C00854	081004879537
+C00855	088266518673
+C00856	089455486127
+C00857	082761675382
+C00858	083328948612
+C00859	080092756037
+C00860	085054227533
+C00861	086431739707
+C00862	088425285946
+C00863	084706675750
+C00864	080098969077
+C00865	089177210983
+C00866	083754864515
+C00867	087947685125
+C00868	080656192943
+C00869	080088902841
+C00870	082466295689
+C00871	083433391324
+C00872	087947718291
+C00873	088067249973
+C00874	082401680231
+C00875	080918113539
+C00876	086604322369
+C00877	085374342360
+C00878	081632619934
+C00879	083316894147
+C00880	089602440814
+C00881	088572488282
+C00882	089220142225
+C00883	089900167586
+C00884	088677965341
+C00885	080704830836
+C00886	085157019938
+C00887	087464910792
+C00888	087064162921
+C00889	081460500809
+C00890	083859641074
+C00891	087456574151
+C00892	081920864333
+C00893	088290871659
+C00894	089526729574
+C00895	082547835771
+C00896	088133089486
+C00897	080946018574
+C00898	089919746348
+C00899	080282847745
+C00900	089786016085
+C00901	082452385507
+C00902	080591343690
+C00903	088632431463
+C00904	087496561257
+C00905	083346669067
+C00906	089676220570
+C00907	089844539256
+C00908	086009284064
+C00909	083976148545
+C00910	082654660731
+C00911	085537588785
+C00912	087353563943
+C00913	087430431322
+C00914	083301824837
+C00915	089067475316
+C00916	083316076404
+C00917	087198095664
+C00918	087780721350
+C00919	082990415505
+C00920	088538687835
+C00921	083267835532
+C00922	089762371151
+C00923	082650648384
+C00924	089122919846
+C00925	081376682989
+C00926	089938607764
+C00927	082854148060
+C00928	088299782737
+C00929	083069006817
+C00930	082173970605
+C00931	080760860933
+C00932	080598280008
+C00933	086160019107
+C00934	088837017763
+C00935	084057714217
+C00936	087985519900
+C00937	080329815695
+C00938	085367789580
+C00939	082136267053
+C00940	089869507816
+C00941	082064672796
+C00942	089794812146
+C00943	089074525565
+C00944	087590801671
+C00945	083471927683
+C00946	089826817648
+C00947	084069083147
+C00948	088092848382
+C00949	088606783152
+C00950	082625417545
+C00951	080563540725
+C00952	087262779115
+C00953	088021391728
+C00954	089416024239
+C00955	086139781846
+C00956	083788841713
+C00957	083203734328
+C00958	081674792292
+C00959	083560535914
+C00960	080259017175
+C00961	083422745876
+C00962	083712585875
+C00963	083933167668
+C00964	087099266793
+C00965	085655784348
+C00966	088993719605
+C00967	081117286019
+C00968	083943570396
+C00969	086202456155
+C00970	084800073814
+C00971	089109234793
+C00972	083024206228
+C00973	085567569472
+C00974	085245997281
+C00975	080915009005
+C00976	089291671507
+C00977	082675168127
+C00978	087274353759
+C00979	085146496473
+C00980	087710932773
+C00981	080388166478
+C00982	088636193653
+C00983	084692489188
+C00984	081343500056
+C00985	085368455301
+C00986	086033327368
+C00987	084077753443
+C00988	089665616024
+C00989	088400320523
+C00990	084009104701
+C00991	087143258528
+C00992	081906459424
+C00993	083307071524
+C00994	085983598784
+C00995	086091703094
+C00996	081354261575
+C00997	080811635427
+C00998	084637533911
+C00999	083924625581
+C01000	083571554961
+\.
+
+
+--
+-- TOC entry 5019 (class 0 OID 18532)
+-- Dependencies: 228
+-- Data for Name: Nomor_Hp_Penulis; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Nomor_Hp_Penulis" (id_penulis, nomor_hp) FROM stdin;
+P00001	086250711890
+P00002	089234563504
+P00003	087004116026
+P00004	085718248363
+P00005	081659751695
+P00006	085973430104
+P00007	083381739258
+P00008	084088051923
+P00009	081813474444
+P00010	084635026769
+P00011	084052150866
+P00012	080771340370
+P00013	088103202415
+P00014	086631232985
+P00015	084016706477
+P00016	089809950539
+P00017	085936350471
+P00018	084808454328
+P00019	084952661411
+P00020	087525523408
+P00021	085439478519
+P00022	086879232343
+P00023	084320134290
+P00024	081303912639
+P00025	088094606936
+P00026	088743930485
+P00027	089133895973
+P00028	080900425240
+P00029	086932004025
+P00030	086662948041
+P00031	089735439998
+P00032	082373327576
+P00033	086429079518
+P00034	081616432663
+P00035	082910567334
+P00036	081208971717
+P00037	087911533406
+P00038	088632479843
+P00039	081015061128
+P00040	085695461751
+P00041	084214991622
+P00042	088685090413
+P00043	080829280860
+P00044	086757836627
+P00045	082577388193
+P00046	087540436516
+P00047	087929801748
+P00048	080167804413
+P00049	085181459692
+P00050	084439603877
+P00051	082681505759
+P00052	084983821694
+P00053	088380739480
+P00054	081338078195
+P00055	085692103312
+P00056	084354367906
+P00057	085436831143
+P00058	080056608829
+P00059	084366090409
+P00060	084630179046
+P00061	085989546986
+P00062	081388896583
+P00063	089380891514
+P00064	089174487607
+P00065	089811888550
+P00066	083544905596
+P00067	080465004361
+P00068	085280560703
+P00069	087288121325
+P00070	083382938800
+P00071	085623028157
+P00072	081058565031
+P00073	087272058621
+P00074	082855277506
+P00075	086041945591
+P00076	082808657593
+P00077	085847391274
+P00078	088740463434
+P00079	080041746635
+P00080	080112807435
+P00081	080432035922
+P00082	087249777756
+P00083	083141661767
+P00084	086693938916
+P00085	082186100593
+P00086	087815267050
+P00087	087968925018
+P00088	086124513777
+P00089	081489862831
+P00090	088212336290
+P00091	081618819959
+P00092	085370191459
+P00093	089488711120
+P00094	082363346730
+P00095	088501163153
+P00096	085064907961
+P00097	083070093593
+P00098	086355919802
+P00099	087085240223
+P00100	085426864308
+P00101	081887346129
+P00102	088105149851
+P00103	081733788617
+P00104	087061316672
+P00105	087619259205
+P00106	087939266379
+P00107	081959765139
+P00108	089621086261
+P00109	089922364629
+P00110	083087289615
+P00111	089760470193
+P00112	083622502218
+P00113	085081859478
+P00114	081103416084
+P00115	086213176149
+P00116	086939925931
+P00117	084591363597
+P00118	084892546196
+P00119	086334880575
+P00120	085082536951
+P00121	089582539816
+P00122	086383188861
+P00123	080930123724
+P00124	084823003941
+P00125	085830144080
+P00126	086845734578
+P00127	084275005293
+P00128	086132534290
+P00129	081225947521
+P00130	088607463143
+P00131	089975620851
+P00132	085436586522
+P00133	088251222251
+P00134	082014627276
+P00135	081190377468
+P00136	087136695269
+P00137	084654386513
+P00138	087297696805
+P00139	080871724847
+P00140	083644593735
+P00141	088915455277
+P00142	086350137820
+P00143	088060553611
+P00144	084355959074
+P00145	085713765134
+P00146	082624179746
+P00147	085590847294
+P00148	082144257373
+P00149	083297227759
+P00150	080925189578
+P00151	088426029376
+P00152	081412811947
+P00153	085679237069
+P00154	089339914815
+P00155	087051356179
+P00156	087557598945
+P00157	081400304055
+P00158	081740491338
+P00159	083551024987
+P00160	084731857724
+P00161	085262107208
+P00162	087146836073
+P00163	080196020617
+P00164	082232778106
+P00165	080578760300
+P00166	085457439425
+P00167	081775397088
+P00168	084976506476
+P00169	086494697445
+P00170	080812838306
+P00171	083577652701
+P00172	086074684444
+P00173	081906096380
+P00174	089250667909
+P00175	084583363673
+P00176	088709286377
+P00177	087611734165
+P00178	080480924588
+P00179	087367135276
+P00180	084609298291
+P00181	088975391721
+P00182	082561793344
+P00183	081644145142
+P00184	082219493584
+P00185	081223507881
+P00186	085517349687
+P00187	081687806966
+P00188	083433516683
+P00189	089017821489
+P00190	089657028828
+P00191	080337881512
+P00192	084109953385
+P00193	087288504314
+P00194	081071904608
+P00195	083603044426
+P00196	085900786452
+P00197	081050544945
+P00198	082930381526
+P00199	088419914858
+P00200	088418137356
+P00201	086110107016
+P00202	086408863515
+P00203	086878471432
+P00204	080666788107
+P00205	089753205938
+P00206	087902595328
+P00207	081510129377
+P00208	082491975891
+P00209	083106391835
+P00210	086727098779
+P00211	081466498434
+P00212	084195467400
+P00213	083743417239
+P00214	081882289756
+P00215	080477566689
+P00216	087760481875
+P00217	082726961972
+P00218	082179743337
+P00219	089364171770
+P00220	084867540821
+P00221	080512889620
+P00222	084652098416
+P00223	084314835684
+P00224	086229643126
+P00225	084203969472
+P00226	089706800137
+P00227	089237717702
+P00228	083935436714
+P00229	080097388568
+P00230	085685711408
+P00231	083324611428
+P00232	088033338975
+P00233	082575259703
+P00234	080757068628
+P00235	080929865479
+P00236	083295400084
+P00237	088849920227
+P00238	080263989312
+P00239	088869085092
+P00240	089075979152
+P00241	085928817994
+P00242	085589118374
+P00243	087179138266
+P00244	089892287840
+P00245	087504680984
+P00246	089245656528
+P00247	089448636121
+P00248	086885436534
+P00249	080037798976
+P00250	081449136736
+P00251	085681404943
+P00252	083541933627
+P00253	080214521022
+P00254	085708212097
+P00255	084926041342
+P00256	084982563563
+P00257	080773505488
+P00258	080091113831
+P00259	083502574259
+P00260	089097565528
+P00261	085750216925
+P00262	087054024743
+P00263	084550709807
+P00264	080001254237
+P00265	086115855403
+P00266	081134364508
+P00267	082375918410
+P00268	086650198299
+P00269	086500908880
+P00270	081367562014
+P00271	088761154901
+P00272	080529964013
+P00273	089378561266
+P00274	086809303404
+P00275	081347150584
+P00276	081616074269
+P00277	088132340312
+P00278	087432077502
+P00279	080290029111
+P00280	085505449547
+P00281	084356544592
+P00282	086609239364
+P00283	085128911899
+P00284	084764759220
+P00285	080062234302
+P00286	089010882936
+P00287	081559736364
+P00288	084272215244
+P00289	088482510860
+P00290	085108520719
+P00291	084306158448
+P00292	083440226862
+P00293	081926397865
+P00294	081564655045
+P00295	085357944262
+P00296	082112804899
+P00297	087122933543
+P00298	084187030095
+P00299	084348047580
+P00300	080784433761
+P00301	082314736113
+P00302	083721923740
+P00303	086691191851
+P00304	085516232335
+P00305	081777209587
+P00306	085073018509
+P00307	088993070799
+P00308	082862139533
+P00309	087589479648
+P00310	085858890776
+P00311	085058008374
+P00312	081367498121
+P00313	081831749469
+P00314	081822552141
+P00315	081904377745
+P00316	080650593101
+P00317	082010205079
+P00318	081517695548
+P00319	083088877499
+P00320	085420320175
+P00321	085319385592
+P00322	085343122700
+P00323	081793257496
+P00324	083283072876
+P00325	081408504057
+P00326	087493165973
+P00327	080131997617
+P00328	084979270301
+P00329	084115633110
+P00330	081638406994
+P00331	086298509290
+P00332	083015195072
+P00333	082791635465
+P00334	081930982591
+P00335	083711198120
+P00336	089868988100
+P00337	084696420041
+P00338	083582467359
+P00339	088423368986
+P00340	082558992546
+P00341	085217221040
+P00342	086741350417
+P00343	087313203357
+P00344	089032202693
+P00345	086972797152
+P00346	081160718015
+P00347	083846680552
+P00348	082003214365
+P00349	085570021036
+P00350	082659634486
+P00351	089528420092
+P00352	084202642725
+P00353	086149163374
+P00354	081740095241
+P00355	082950963746
+P00356	081161242687
+P00357	088962627780
+P00358	086843010386
+P00359	084517390201
+P00360	084362521141
+P00361	082382532273
+P00362	081082613077
+P00363	082785969294
+P00364	088222715373
+P00365	086855489148
+P00366	086591771656
+P00367	086852615840
+P00368	088784525966
+P00369	081071415827
+P00370	089079431699
+P00371	080822665387
+P00372	083413998632
+P00373	082223420805
+P00374	083869562543
+P00375	087874566331
+P00376	083333120826
+P00377	083816330301
+P00378	085134896169
+P00379	086436292229
+P00380	087142761430
+P00381	081381125859
+P00382	081584705280
+P00383	085252569685
+P00384	084075532011
+P00385	080711261952
+P00386	082025110178
+P00387	085631386961
+P00388	088472188057
+P00389	083830289629
+P00390	089666792739
+P00391	087320508092
+P00392	087604404979
+P00393	082661078075
+P00394	086347290518
+P00395	083170944231
+P00396	081957731980
+P00397	087436111358
+P00398	083729767463
+P00399	087967438160
+P00400	086079206277
+P00401	087122202067
+P00402	081561271232
+P00403	089872128106
+P00404	082293467180
+P00405	087473440819
+P00406	086568144654
+P00407	086623472102
+P00408	081756625844
+P00409	088758379172
+P00410	080584401828
+P00411	082323182486
+P00412	085726469173
+P00413	086808457110
+P00414	080448732722
+P00415	082102919279
+P00416	089268524175
+P00417	082270626468
+P00418	081381004043
+P00419	084962833239
+P00420	081099635628
+P00421	087755558936
+P00422	080995030161
+P00423	085176047731
+P00424	089308366506
+P00425	086048709402
+P00426	087967194254
+P00427	083124680131
+P00428	082626082826
+P00429	088862385036
+P00430	082444933629
+P00431	082512946732
+P00432	087040499020
+P00433	083599803738
+P00434	089979659051
+P00435	080059662699
+P00436	080471319146
+P00437	089397328918
+P00438	083639330361
+P00439	083274152429
+P00440	085656065989
+P00441	082755060097
+P00442	087501797688
+P00443	088802511180
+P00444	086747455809
+P00445	080185722088
+P00446	084503623239
+P00447	083496883857
+P00448	080402732848
+P00449	084154407864
+P00450	082966266944
+P00451	082966477220
+P00452	087667167510
+P00453	081824398950
+P00454	089078786468
+P00455	084789344720
+P00456	084524324862
+P00457	087643412393
+P00458	087546009809
+P00459	082375629592
+P00460	085624830753
+P00461	089576983113
+P00462	081667292319
+P00463	086311055978
+P00464	082985466896
+P00465	085478881712
+P00466	080907460357
+P00467	089161409130
+P00468	087993817944
+P00469	082724534852
+P00470	081135469471
+P00471	088965971276
+P00472	085257300673
+P00473	084797749805
+P00474	088919968838
+P00475	084446452550
+P00476	083685413680
+P00477	086497082648
+P00478	086974975325
+P00479	089470821855
+P00480	085798895234
+P00481	086133820858
+P00482	082794605547
+P00483	086782143197
+P00484	081203974864
+P00485	085811759103
+P00486	087378795588
+P00487	083827485052
+P00488	089997147619
+P00489	087426459462
+P00490	089971144629
+P00491	083617672748
+P00492	082342291694
+P00493	085372605183
+P00494	088980717385
+P00495	082941942858
+P00496	086317500445
+P00497	084408774635
+P00498	081929824266
+P00499	086487712533
+P00500	088638068504
+P00501	087331275634
+P00502	087014996299
+P00503	085464729946
+P00504	085785352868
+P00505	081043007595
+P00506	088075171043
+P00507	080807169833
+P00508	080062903676
+P00509	082864179939
+P00510	086854146754
+P00511	086573868242
+P00512	089368090042
+P00513	082074842171
+P00514	084466596169
+P00515	086669434056
+P00516	082168174006
+P00517	088133084975
+P00518	082067230770
+P00519	085937728177
+P00520	084998951807
+P00521	085017115774
+P00522	083305928288
+P00523	086591178769
+P00524	084501020367
+P00525	084317338208
+P00526	086464661249
+P00527	082165543091
+P00528	084753442643
+P00529	089964819989
+P00530	089763699579
+P00531	080408943524
+P00532	082044469601
+P00533	081338381103
+P00534	080573521059
+P00535	084470361897
+P00536	080125655272
+P00537	080115607686
+P00538	081439578990
+P00539	080816105499
+P00540	087158995719
+P00541	088700102294
+P00542	083826511208
+P00543	080630342210
+P00544	087115926993
+P00545	088631470781
+P00546	084362495424
+P00547	082865589613
+P00548	086292479708
+P00549	086940010286
+P00550	085943068651
+P00551	083598099411
+P00552	082195014058
+P00553	084118113614
+P00554	088759231120
+P00555	087281624936
+P00556	083917947459
+P00557	088150548755
+P00558	084500031400
+P00559	086079609745
+P00560	084778362373
+P00561	080701501172
+P00562	080111942073
+P00563	085638100533
+P00564	086776854705
+P00565	086694699888
+P00566	088357160304
+P00567	082923895178
+P00568	080549869286
+P00569	082865857197
+P00570	088623614220
+P00571	087757539433
+P00572	088484331046
+P00573	086353778720
+P00574	087628797953
+P00575	080947501679
+P00576	084171476370
+P00577	080757742937
+P00578	087290420284
+P00579	080788445947
+P00580	082250044011
+P00581	087400217102
+P00582	085506286920
+P00583	085607115481
+P00584	080935813320
+P00585	085327739714
+P00586	083889588332
+P00587	081043352400
+P00588	083631057668
+P00589	084493938147
+P00590	083845387209
+P00591	088402721127
+P00592	087248613348
+P00593	087328705043
+P00594	082519353580
+P00595	086825611079
+P00596	082807928821
+P00597	083548492179
+P00598	083877863054
+P00599	088473597272
+P00600	083044091756
+P00601	087154993030
+P00602	084704430699
+P00603	086858616080
+P00604	088651101054
+P00605	082543359145
+P00606	087903387539
+P00607	087414811933
+P00608	087406451070
+P00609	088555725697
+P00610	085248199196
+P00611	086477477935
+P00612	084162616096
+P00613	084251617505
+P00614	088814491661
+P00615	080950502259
+P00616	086400003508
+P00617	083278776060
+P00618	089407703883
+P00619	082347735614
+P00620	084341514499
+P00621	082087977223
+P00622	081298078376
+P00623	081178827559
+P00624	086144785863
+P00625	083335807227
+P00626	085312255135
+P00627	088673764257
+P00628	080568456322
+P00629	086716149010
+P00630	086456724196
+P00631	084077776081
+P00632	087404930696
+P00633	089047389210
+P00634	085921336099
+P00635	082923571746
+P00636	083611413650
+P00637	086920381779
+P00638	089745088509
+P00639	080918651149
+P00640	089172711608
+P00641	080792265783
+P00642	085341091983
+P00643	086876422595
+P00644	086333615902
+P00645	082547823739
+P00646	088975472118
+P00647	081404724739
+P00648	088850416769
+P00649	083000091216
+P00650	084495584967
+P00651	087895160200
+P00652	089879354280
+P00653	089221978985
+P00654	085092619912
+P00655	087470966179
+P00656	086587602812
+P00657	081185467214
+P00658	083197217867
+P00659	084612457001
+P00660	080642174603
+P00661	083346695567
+P00662	083908900632
+P00663	082960950047
+P00664	080879772096
+P00665	084711942667
+P00666	086461076197
+P00667	083515110751
+P00668	084919427140
+P00669	081240349886
+P00670	084482636301
+P00671	087650875967
+P00672	082073905415
+P00673	082255407289
+P00674	087975173328
+P00675	087738154570
+P00676	089664231017
+P00677	082708520850
+P00678	086778037320
+P00679	080623171631
+P00680	088492758619
+P00681	089251900882
+P00682	080886643193
+P00683	082985989100
+P00684	086234701221
+P00685	081724151193
+P00686	084970382906
+P00687	087891934258
+P00688	088794698434
+P00689	080680536662
+P00690	085003312419
+P00691	089079549695
+P00692	088721269194
+P00693	080625498769
+P00694	086637283457
+P00695	080980840065
+P00696	087138654869
+P00697	087813432475
+P00698	088001388767
+P00699	084944968966
+P00700	080365683614
+P00701	086124301003
+P00702	083862281288
+P00703	089863401734
+P00704	085584238944
+P00705	084311474051
+P00706	085377658115
+P00707	080225234544
+P00708	082918389527
+P00709	083379402402
+P00710	082903564544
+P00711	080173077072
+P00712	085322262067
+P00713	085912333877
+P00714	085981452951
+P00715	085010823688
+P00716	081259979363
+P00717	081756277132
+P00718	085657677819
+P00719	082142013654
+P00720	089127917363
+P00721	087372356893
+P00722	087112118155
+P00723	088529700209
+P00724	088660819904
+P00725	084292129471
+P00726	081389883469
+P00727	084257636554
+P00728	080436898505
+P00729	081389405674
+P00730	084159801403
+P00731	085376782259
+P00732	084151893435
+P00733	085744761193
+P00734	083613976112
+P00735	089724378018
+P00736	082818031124
+P00737	086968199198
+P00738	084925201137
+P00739	087490628833
+P00740	085229221650
+P00741	085922620429
+P00742	086884257366
+P00743	088107013427
+P00744	083448454880
+P00745	082859568723
+P00746	080309137251
+P00747	089402520743
+P00748	082919187000
+P00749	084964900598
+P00750	088237459813
+P00751	083641813913
+P00752	084882794784
+P00753	087743095318
+P00754	089255564457
+P00755	087130574558
+P00756	089504244794
+P00757	086567203323
+P00758	085053562537
+P00759	081812959956
+P00760	087558281253
+P00761	088530138829
+P00762	086482406311
+P00763	083249721680
+P00764	080806555152
+P00765	086971775501
+P00766	086457639347
+P00767	088792093757
+P00768	082906113110
+P00769	089807979600
+P00770	085832750193
+P00771	082624308284
+P00772	080133948596
+P00773	086319779518
+P00774	088358732572
+P00775	082584985866
+P00776	089887627994
+P00777	084917441731
+P00778	082857121608
+P00779	089821985248
+P00780	082831128062
+P00781	080098811517
+P00782	084819611748
+P00783	087043705614
+P00784	081796966347
+P00785	086932045770
+P00786	087659118975
+P00787	081301496203
+P00788	082310524479
+P00789	080321065739
+P00790	080965767687
+P00791	087927615592
+P00792	084715198316
+P00793	086324023077
+P00794	089982464243
+P00795	083674233948
+P00796	081212205231
+P00797	082559840949
+P00798	088664085684
+P00799	083156643791
+P00800	089349978466
+P00801	082216839131
+P00802	087144098135
+P00803	085320916973
+P00804	086371109599
+P00805	083807572710
+P00806	081308200062
+P00807	081446081613
+P00808	085864591304
+P00809	082996375194
+P00810	082664160684
+P00811	084731167320
+P00812	087935883924
+P00813	084212067000
+P00814	086095812992
+P00815	088606964848
+P00816	082446888766
+P00817	085970641685
+P00818	082642033660
+P00819	084904849437
+P00820	087949728980
+P00821	082958337391
+P00822	082770734972
+P00823	089934624069
+P00824	083450791607
+P00825	085063486018
+P00826	084266040435
+P00827	086407085269
+P00828	087776406546
+P00829	086939395089
+P00830	086269875591
+P00831	085211477647
+P00832	083318003895
+P00833	087333910139
+P00834	084627032589
+P00835	085192451749
+P00836	089658377786
+P00837	083321093785
+P00838	082317265089
+P00839	083388681549
+P00840	082411081078
+P00841	083414492420
+P00842	082443120375
+P00843	089173650703
+P00844	083691233970
+P00845	085106271602
+P00846	084716111341
+P00847	084161601823
+P00848	089124343650
+P00849	086570379480
+P00850	085538279008
+P00851	085027260698
+P00852	087833054899
+P00853	085639980785
+P00854	089090545072
+P00855	080759869140
+P00856	080535952863
+P00857	084967132238
+P00858	083955743230
+P00859	088423050537
+P00860	081490243800
+P00861	087706904885
+P00862	082475727707
+P00863	082541370117
+P00864	088706660523
+P00865	089409415615
+P00866	086764139925
+P00867	084397250644
+P00868	084360094733
+P00869	080282013041
+P00870	084990404225
+P00871	081501898719
+P00872	081008952689
+P00873	080846750317
+P00874	086472906375
+P00875	086529392007
+P00876	088998144673
+P00877	087825446198
+P00878	085848307921
+P00879	081780193360
+P00880	081903627373
+P00881	086895014684
+P00882	083111727927
+P00883	089104389304
+P00884	087942283495
+P00885	080467158242
+P00886	083250805075
+P00887	086648898694
+P00888	086835613011
+P00889	083168635460
+P00890	088462341006
+P00891	087089049682
+P00892	086532335859
+P00893	085449744080
+P00894	083507935119
+P00895	080226683234
+P00896	081670594642
+P00897	083218827113
+P00898	089844428126
+P00899	080204525093
+P00900	083167262559
+P00901	087897007191
+P00902	084940701572
+P00903	084982569578
+P00904	083744400982
+P00905	088868157927
+P00906	084044426084
+P00907	084526743372
+P00908	081035075108
+P00909	084361899371
+P00910	082118223151
+P00911	086065093685
+P00912	082331955475
+P00913	086405632376
+P00914	082117389034
+P00915	081755250302
+P00916	085097928249
+P00917	085534373063
+P00918	085316366769
+P00919	082521161909
+P00920	086949756805
+P00921	083932667452
+P00922	088825127866
+P00923	082892650996
+P00924	089991127720
+P00925	083160390271
+P00926	084845149346
+P00927	088538013831
+P00928	084404222707
+P00929	085282996954
+P00930	080094296108
+P00931	087353705925
+P00932	082077151113
+P00933	087896004501
+P00934	081197631163
+P00935	081755403933
+P00936	084175167178
+P00937	084091768549
+P00938	084534842135
+P00939	082774612529
+P00940	084812711360
+P00941	085014792862
+P00942	086660861984
+P00943	081452881020
+P00944	089399125937
+P00945	088313185760
+P00946	081418747887
+P00947	089210867215
+P00948	081902150781
+P00949	081032806638
+P00950	089855212123
+P00951	088140962147
+P00952	080059348957
+P00953	080934841875
+P00954	089986330696
+P00955	085700142892
+P00956	081068779538
+P00957	082058806639
+P00958	086925768068
+P00959	087761643901
+P00960	086794494239
+P00961	082225444264
+P00962	088959519026
+P00963	089949427412
+P00964	088099674098
+P00965	088583144009
+P00966	087119817235
+P00967	082840446166
+P00968	082845363093
+P00969	083845879531
+P00970	086773303043
+P00971	086691232684
+P00972	082409811132
+P00973	089544433034
+P00974	080023259541
+P00975	089434904856
+P00976	084312025295
+P00977	084414699692
+P00978	080544379245
+P00979	082715337961
+P00980	083765883879
+P00981	080259394139
+P00982	088438403114
+P00983	082793364766
+P00984	083387352389
+P00985	083927946190
+P00986	088950176277
+P00987	088682146079
+P00988	087646142283
+P00989	089127675000
+P00990	083046158741
+P00991	087641049069
+P00992	087590236171
+P00993	084416520679
+P00994	087542823651
+P00995	083550530032
+P00996	089095616589
+P00997	085648204875
+P00998	086582613850
+P00999	088183170196
+P01000	085382338178
+\.
+
+
+--
+-- TOC entry 5020 (class 0 OID 18535)
+-- Dependencies: 229
+-- Data for Name: Pelanggan; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Pelanggan" (id_pelanggan, nama_depan, nama_belakang) FROM stdin;
+C00001	Fajar	Permata
+C00002	Karin	Susanto
+C00003	Wahyu	Permata
+C00004	Oka	Wijaya
+C00005	Lukman	Prasetyo
+C00006	Maya	Rahmawati
+C00007	Eko	Permata
+C00008	Dewi	Wulandari
+C00009	Joko	Maulana
+C00010	Tono	Sari
+C00011	Hendra	Hidayat
+C00012	Tono	Aulia
+C00013	Yusuf	Ramadhan
+C00014	Oka	Wijayanto
+C00015	Tono	Wijaya
+C00016	Vina	Pratama
+C00017	Putri	Firmansyah
+C00018	Qori	Kurniawan
+C00019	Budi	Permata
+C00020	Dewi	Wulandari
+C00021	Putri	Aulia
+C00022	Oka	Anggraini
+C00023	Qori	Maulana
+C00024	Lukman	Fitriani
+C00025	Tono	Permata
+C00026	Yusuf	Maulana
+C00027	Qori	Khalimah
+C00028	Fajar	Aulia
+C00029	Wahyu	Khalimah
+C00030	Lukman	Sari
+C00031	Andi	Maulana
+C00032	Rian	Hadi
+C00033	Gita	Khalimah
+C00034	Fajar	Sari
+C00035	Eko	Khalimah
+C00036	Gita	Susanto
+C00037	Zahra	Anggraini
+C00038	Zahra	Nurhaliza
+C00039	Wahyu	Permata
+C00040	Tono	Nurhaliza
+C00041	Joko	Hadi
+C00042	Zahra	Lestari
+C00043	Budi	Fitriani
+C00044	Karin	Santoso
+C00045	Budi	Santoso
+C00046	Andi	Pratama
+C00047	Andi	Wijayanto
+C00048	Yusuf	Nurhaliza
+C00049	Eko	Sari
+C00050	Budi	Aulia
+C00051	Maya	Hidayat
+C00052	Tono	Saputra
+C00053	Joko	Sari
+C00054	Yusuf	Pratama
+C00055	Vina	Fitriani
+C00056	Maya	Amalia
+C00057	Dewi	Wulandari
+C00058	Joko	Wijayanto
+C00059	Citra	Saputra
+C00060	Umi	Rahmawati
+C00061	Yusuf	Santoso
+C00062	Yusuf	Khalimah
+C00063	Rian	Hadi
+C00064	Siti	Wijaya
+C00065	Qori	Wijayanto
+C00066	Tono	Anggraini
+C00067	Lukman	Susanto
+C00068	Lukman	Ramadhan
+C00069	Wahyu	Saputra
+C00070	Karin	Nurhaliza
+C00071	Fajar	Anggraini
+C00072	Budi	Khalimah
+C00073	Yusuf	Wijayanto
+C00074	Budi	Anggraini
+C00075	Dewi	Khalimah
+C00076	Hendra	Santoso
+C00077	Eko	Saputra
+C00078	Andi	Firmansyah
+C00079	Hendra	Putri
+C00080	Hendra	Putri
+C00081	Karin	Hidayat
+C00082	Indah	Anggraini
+C00083	Indah	Wulandari
+C00084	Andi	Saputra
+C00085	Dewi	Wulandari
+C00086	Vina	Pratama
+C00087	Putri	Anggraini
+C00088	Andi	Rahmawati
+C00089	Andi	Maulana
+C00090	Andi	Khalimah
+C00091	Dewi	Firmansyah
+C00092	Joko	Prasetyo
+C00093	Umi	Santoso
+C00094	Hendra	Firmansyah
+C00095	Qori	Nurhaliza
+C00096	Nanda	Wulandari
+C00097	Lukman	Putri
+C00098	Putri	Aulia
+C00099	Karin	Firmansyah
+C00100	Siti	Rahmawati
+C00101	Hendra	Aulia
+C00102	Andi	Wijaya
+C00103	Joko	Aulia
+C00104	Dewi	Prasetyo
+C00105	Citra	Prasetyo
+C00106	Rian	Saputra
+C00107	Dewi	Putri
+C00108	Umi	Rahmawati
+C00109	Umi	Wulandari
+C00110	Umi	Lestari
+C00111	Karin	Susanto
+C00112	Hendra	Maulana
+C00113	Rian	Aulia
+C00114	Dewi	Hadi
+C00115	Putri	Nurhaliza
+C00116	Rian	Wijaya
+C00117	Citra	Khalimah
+C00118	Gita	Permata
+C00119	Tono	Rahmawati
+C00120	Wahyu	Ramadhan
+C00121	Rian	Saputra
+C00122	Hendra	Nurhaliza
+C00123	Citra	Fitriani
+C00124	Yusuf	Kurniawan
+C00125	Joko	Hidayat
+C00126	Fajar	Kurniawan
+C00127	Eko	Wijayanto
+C00128	Tono	Nurhaliza
+C00129	Yusuf	Lestari
+C00130	Vina	Sari
+C00131	Lukman	Lestari
+C00132	Zahra	Fitriani
+C00133	Eko	Anggraini
+C00134	Wahyu	Rahmawati
+C00135	Hendra	Wulandari
+C00136	Qori	Hidayat
+C00137	Hendra	Santoso
+C00138	Dewi	Hidayat
+C00139	Karin	Khalimah
+C00140	Yusuf	Wulandari
+C00141	Vina	Putri
+C00142	Qori	Wijaya
+C00143	Rian	Firmansyah
+C00144	Gita	Ramadhan
+C00145	Maya	Wulandari
+C00146	Qori	Hidayat
+C00147	Andi	Amalia
+C00148	Umi	Fitriani
+C00149	Hendra	Khalimah
+C00150	Dewi	Kurniawan
+C00151	Lukman	Nurhaliza
+C00152	Wahyu	Lestari
+C00153	Gita	Firmansyah
+C00154	Umi	Pratama
+C00155	Umi	Hadi
+C00156	Vina	Fitriani
+C00157	Vina	Wijaya
+C00158	Putri	Amalia
+C00159	Eko	Hadi
+C00160	Andi	Aulia
+C00161	Qori	Fitriani
+C00162	Indah	Maulana
+C00163	Maya	Wijaya
+C00164	Citra	Maulana
+C00165	Putri	Nurhaliza
+C00166	Indah	Permata
+C00167	Budi	Aulia
+C00168	Hendra	Permata
+C00169	Wahyu	Anggraini
+C00170	Rian	Hadi
+C00171	Budi	Saputra
+C00172	Vina	Anggraini
+C00173	Eko	Hadi
+C00174	Nanda	Hidayat
+C00175	Siti	Nurhaliza
+C00176	Hendra	Kurniawan
+C00177	Yusuf	Aulia
+C00178	Fajar	Hidayat
+C00179	Tono	Pratama
+C00180	Lukman	Wijayanto
+C00181	Zahra	Kurniawan
+C00182	Rian	Hidayat
+C00183	Eko	Ramadhan
+C00184	Tono	Ramadhan
+C00185	Maya	Lestari
+C00186	Wahyu	Maulana
+C00187	Andi	Khalimah
+C00188	Eko	Permata
+C00189	Vina	Fitriani
+C00190	Qori	Anggraini
+C00191	Indah	Fitriani
+C00192	Oka	Nurhaliza
+C00193	Zahra	Nurhaliza
+C00194	Nanda	Hidayat
+C00195	Oka	Permata
+C00196	Umi	Permata
+C00197	Wahyu	Aulia
+C00198	Citra	Wijaya
+C00199	Eko	Putri
+C00200	Yusuf	Wijayanto
+C00201	Yusuf	Susanto
+C00202	Andi	Saputra
+C00203	Qori	Santoso
+C00204	Nanda	Susanto
+C00205	Yusuf	Nurhaliza
+C00206	Yusuf	Maulana
+C00207	Qori	Ramadhan
+C00208	Yusuf	Wijaya
+C00209	Gita	Susanto
+C00210	Lukman	Nurhaliza
+C00211	Tono	Pratama
+C00212	Rian	Anggraini
+C00213	Rian	Rahmawati
+C00214	Rian	Fitriani
+C00215	Indah	Fitriani
+C00216	Fajar	Kurniawan
+C00217	Gita	Permata
+C00218	Yusuf	Hidayat
+C00219	Nanda	Saputra
+C00220	Qori	Wijaya
+C00221	Joko	Maulana
+C00222	Vina	Maulana
+C00223	Dewi	Firmansyah
+C00224	Eko	Anggraini
+C00225	Yusuf	Nurhaliza
+C00226	Oka	Nurhaliza
+C00227	Karin	Pratama
+C00228	Eko	Hadi
+C00229	Karin	Aulia
+C00230	Vina	Putri
+C00231	Nanda	Firmansyah
+C00232	Qori	Fitriani
+C00233	Budi	Putri
+C00234	Hendra	Prasetyo
+C00235	Umi	Amalia
+C00236	Karin	Sari
+C00237	Zahra	Putri
+C00238	Gita	Sari
+C00239	Lukman	Anggraini
+C00240	Putri	Amalia
+C00241	Budi	Susanto
+C00242	Budi	Rahmawati
+C00243	Qori	Putri
+C00244	Nanda	Khalimah
+C00245	Dewi	Lestari
+C00246	Fajar	Khalimah
+C00247	Fajar	Wijaya
+C00248	Dewi	Nurhaliza
+C00249	Tono	Pratama
+C00250	Budi	Lestari
+C00251	Joko	Wijayanto
+C00252	Dewi	Rahmawati
+C00253	Qori	Amalia
+C00254	Wahyu	Firmansyah
+C00255	Nanda	Maulana
+C00256	Yusuf	Wijayanto
+C00257	Indah	Wijayanto
+C00258	Putri	Maulana
+C00259	Gita	Fitriani
+C00260	Nanda	Permata
+C00261	Wahyu	Khalimah
+C00262	Karin	Pratama
+C00263	Gita	Saputra
+C00264	Andi	Putri
+C00265	Gita	Prasetyo
+C00266	Nanda	Santoso
+C00267	Oka	Anggraini
+C00268	Zahra	Rahmawati
+C00269	Andi	Kurniawan
+C00270	Nanda	Anggraini
+C00271	Hendra	Susanto
+C00272	Siti	Aulia
+C00273	Tono	Wulandari
+C00274	Citra	Prasetyo
+C00275	Tono	Wijaya
+C00276	Putri	Firmansyah
+C00277	Zahra	Anggraini
+C00278	Siti	Rahmawati
+C00279	Hendra	Fitriani
+C00280	Putri	Anggraini
+C00281	Nanda	Hidayat
+C00282	Citra	Hidayat
+C00283	Gita	Rahmawati
+C00284	Fajar	Rahmawati
+C00285	Budi	Amalia
+C00286	Lukman	Ramadhan
+C00287	Vina	Firmansyah
+C00288	Siti	Santoso
+C00289	Siti	Pratama
+C00290	Fajar	Maulana
+C00291	Citra	Firmansyah
+C00292	Citra	Santoso
+C00293	Siti	Rahmawati
+C00294	Oka	Lestari
+C00295	Vina	Fitriani
+C00296	Hendra	Permata
+C00297	Eko	Aulia
+C00298	Andi	Amalia
+C00299	Rian	Amalia
+C00300	Rian	Hidayat
+C00301	Tono	Pratama
+C00302	Yusuf	Susanto
+C00303	Oka	Santoso
+C00304	Maya	Wulandari
+C00305	Tono	Nurhaliza
+C00306	Budi	Amalia
+C00307	Umi	Saputra
+C00308	Lukman	Hidayat
+C00309	Nanda	Nurhaliza
+C00310	Indah	Wijaya
+C00311	Rian	Hadi
+C00312	Joko	Amalia
+C00313	Wahyu	Fitriani
+C00314	Dewi	Susanto
+C00315	Eko	Firmansyah
+C00316	Gita	Khalimah
+C00317	Maya	Pratama
+C00318	Indah	Fitriani
+C00319	Tono	Pratama
+C00320	Dewi	Fitriani
+C00321	Hendra	Amalia
+C00322	Zahra	Hidayat
+C00323	Nanda	Amalia
+C00324	Nanda	Hadi
+C00325	Karin	Firmansyah
+C00326	Wahyu	Putri
+C00327	Eko	Fitriani
+C00328	Budi	Saputra
+C00329	Oka	Fitriani
+C00330	Dewi	Amalia
+C00331	Siti	Prasetyo
+C00332	Dewi	Permata
+C00333	Maya	Hidayat
+C00334	Citra	Prasetyo
+C00335	Umi	Wulandari
+C00336	Umi	Wulandari
+C00337	Joko	Saputra
+C00338	Eko	Pratama
+C00339	Eko	Hadi
+C00340	Wahyu	Susanto
+C00341	Budi	Kurniawan
+C00342	Indah	Pratama
+C00343	Hendra	Putri
+C00344	Siti	Hadi
+C00345	Tono	Firmansyah
+C00346	Maya	Khalimah
+C00347	Siti	Permata
+C00348	Putri	Hidayat
+C00349	Umi	Susanto
+C00350	Yusuf	Wijaya
+C00351	Oka	Ramadhan
+C00352	Rian	Susanto
+C00353	Karin	Permata
+C00354	Zahra	Wijayanto
+C00355	Maya	Sari
+C00356	Maya	Wijaya
+C00357	Yusuf	Ramadhan
+C00358	Zahra	Kurniawan
+C00359	Citra	Ramadhan
+C00360	Budi	Putri
+C00361	Umi	Wijayanto
+C00362	Zahra	Nurhaliza
+C00363	Putri	Wulandari
+C00364	Citra	Wulandari
+C00365	Qori	Fitriani
+C00366	Maya	Rahmawati
+C00367	Dewi	Wulandari
+C00368	Yusuf	Hidayat
+C00369	Andi	Wijaya
+C00370	Qori	Rahmawati
+C00371	Zahra	Prasetyo
+C00372	Karin	Ramadhan
+C00373	Andi	Prasetyo
+C00374	Indah	Maulana
+C00375	Gita	Hidayat
+C00376	Andi	Maulana
+C00377	Lukman	Wijayanto
+C00378	Karin	Saputra
+C00379	Umi	Pratama
+C00380	Zahra	Amalia
+C00381	Karin	Wulandari
+C00382	Budi	Khalimah
+C00383	Qori	Firmansyah
+C00384	Karin	Pratama
+C00385	Citra	Wijayanto
+C00386	Umi	Wijayanto
+C00387	Umi	Saputra
+C00388	Vina	Pratama
+C00389	Eko	Saputra
+C00390	Joko	Prasetyo
+C00391	Eko	Rahmawati
+C00392	Karin	Permata
+C00393	Andi	Nurhaliza
+C00394	Hendra	Anggraini
+C00395	Budi	Rahmawati
+C00396	Umi	Wijayanto
+C00397	Vina	Santoso
+C00398	Eko	Aulia
+C00399	Hendra	Anggraini
+C00400	Zahra	Nurhaliza
+C00401	Joko	Santoso
+C00402	Eko	Permata
+C00403	Dewi	Lestari
+C00404	Gita	Firmansyah
+C00405	Yusuf	Fitriani
+C00406	Putri	Hadi
+C00407	Qori	Fitriani
+C00408	Citra	Wulandari
+C00409	Citra	Kurniawan
+C00410	Andi	Kurniawan
+C00411	Budi	Amalia
+C00412	Oka	Nurhaliza
+C00413	Putri	Firmansyah
+C00414	Putri	Wijaya
+C00415	Wahyu	Nurhaliza
+C00416	Dewi	Wijaya
+C00417	Zahra	Nurhaliza
+C00418	Budi	Permata
+C00419	Putri	Wijaya
+C00420	Siti	Putri
+C00421	Wahyu	Fitriani
+C00422	Nanda	Permata
+C00423	Maya	Anggraini
+C00424	Eko	Rahmawati
+C00425	Umi	Susanto
+C00426	Umi	Fitriani
+C00427	Tono	Wulandari
+C00428	Yusuf	Aulia
+C00429	Siti	Santoso
+C00430	Nanda	Hadi
+C00431	Budi	Sari
+C00432	Eko	Lestari
+C00433	Wahyu	Ramadhan
+C00434	Indah	Kurniawan
+C00435	Qori	Sari
+C00436	Siti	Lestari
+C00437	Nanda	Ramadhan
+C00438	Yusuf	Aulia
+C00439	Yusuf	Khalimah
+C00440	Hendra	Anggraini
+C00441	Budi	Nurhaliza
+C00442	Wahyu	Wijayanto
+C00443	Gita	Maulana
+C00444	Andi	Hadi
+C00445	Yusuf	Kurniawan
+C00446	Hendra	Sari
+C00447	Andi	Hidayat
+C00448	Qori	Putri
+C00449	Siti	Putri
+C00450	Hendra	Hidayat
+C00451	Umi	Hadi
+C00452	Fajar	Wijaya
+C00453	Wahyu	Pratama
+C00454	Zahra	Wijaya
+C00455	Siti	Maulana
+C00456	Maya	Rahmawati
+C00457	Umi	Wulandari
+C00458	Tono	Nurhaliza
+C00459	Wahyu	Maulana
+C00460	Lukman	Amalia
+C00461	Siti	Sari
+C00462	Gita	Susanto
+C00463	Eko	Aulia
+C00464	Maya	Amalia
+C00465	Lukman	Firmansyah
+C00466	Umi	Aulia
+C00467	Umi	Wulandari
+C00468	Dewi	Anggraini
+C00469	Rian	Wulandari
+C00470	Karin	Hidayat
+C00471	Citra	Wulandari
+C00472	Dewi	Nurhaliza
+C00473	Qori	Permata
+C00474	Umi	Amalia
+C00475	Dewi	Maulana
+C00476	Oka	Fitriani
+C00477	Karin	Hadi
+C00478	Hendra	Susanto
+C00479	Yusuf	Kurniawan
+C00480	Nanda	Santoso
+C00481	Andi	Wijaya
+C00482	Gita	Saputra
+C00483	Siti	Khalimah
+C00484	Putri	Lestari
+C00485	Fajar	Hidayat
+C00486	Umi	Sari
+C00487	Indah	Sari
+C00488	Citra	Wijaya
+C00489	Hendra	Wulandari
+C00490	Umi	Fitriani
+C00491	Umi	Anggraini
+C00492	Gita	Firmansyah
+C00493	Oka	Permata
+C00494	Eko	Wijayanto
+C00495	Rian	Santoso
+C00496	Tono	Wijaya
+C00497	Yusuf	Nurhaliza
+C00498	Yusuf	Prasetyo
+C00499	Karin	Kurniawan
+C00500	Hendra	Hidayat
+C00501	Nanda	Hadi
+C00502	Umi	Maulana
+C00503	Citra	Pratama
+C00504	Karin	Wijayanto
+C00505	Hendra	Anggraini
+C00506	Indah	Firmansyah
+C00507	Indah	Aulia
+C00508	Zahra	Hidayat
+C00509	Vina	Wijayanto
+C00510	Umi	Amalia
+C00511	Indah	Wijaya
+C00512	Citra	Lestari
+C00513	Hendra	Kurniawan
+C00514	Putri	Khalimah
+C00515	Putri	Hidayat
+C00516	Citra	Maulana
+C00517	Fajar	Ramadhan
+C00518	Hendra	Amalia
+C00519	Umi	Firmansyah
+C00520	Putri	Firmansyah
+C00521	Vina	Nurhaliza
+C00522	Umi	Firmansyah
+C00523	Eko	Maulana
+C00524	Lukman	Santoso
+C00525	Tono	Fitriani
+C00526	Umi	Firmansyah
+C00527	Gita	Lestari
+C00528	Wahyu	Fitriani
+C00529	Dewi	Hidayat
+C00530	Siti	Wijaya
+C00531	Tono	Hidayat
+C00532	Karin	Santoso
+C00533	Citra	Saputra
+C00534	Andi	Khalimah
+C00535	Tono	Wijaya
+C00536	Yusuf	Rahmawati
+C00537	Andi	Wulandari
+C00538	Vina	Permata
+C00539	Joko	Khalimah
+C00540	Gita	Permata
+C00541	Zahra	Saputra
+C00542	Fajar	Maulana
+C00543	Zahra	Khalimah
+C00544	Zahra	Wijaya
+C00545	Gita	Prasetyo
+C00546	Siti	Susanto
+C00547	Joko	Wulandari
+C00548	Gita	Hadi
+C00549	Tono	Wijayanto
+C00550	Umi	Hadi
+C00551	Eko	Hidayat
+C00552	Fajar	Maulana
+C00553	Oka	Hidayat
+C00554	Lukman	Putri
+C00555	Karin	Nurhaliza
+C00556	Budi	Ramadhan
+C00557	Qori	Ramadhan
+C00558	Dewi	Fitriani
+C00559	Indah	Firmansyah
+C00560	Andi	Wulandari
+C00561	Fajar	Hadi
+C00562	Dewi	Saputra
+C00563	Andi	Wulandari
+C00564	Tono	Hadi
+C00565	Putri	Hidayat
+C00566	Rian	Wulandari
+C00567	Maya	Anggraini
+C00568	Eko	Ramadhan
+C00569	Eko	Khalimah
+C00570	Budi	Ramadhan
+C00571	Oka	Wulandari
+C00572	Andi	Pratama
+C00573	Vina	Rahmawati
+C00574	Citra	Nurhaliza
+C00575	Hendra	Firmansyah
+C00576	Citra	Permata
+C00577	Indah	Pratama
+C00578	Nanda	Putri
+C00579	Rian	Saputra
+C00580	Siti	Wijayanto
+C00581	Vina	Hidayat
+C00582	Indah	Amalia
+C00583	Vina	Susanto
+C00584	Hendra	Santoso
+C00585	Vina	Aulia
+C00586	Putri	Aulia
+C00587	Dewi	Prasetyo
+C00588	Citra	Hadi
+C00589	Vina	Hadi
+C00590	Lukman	Aulia
+C00591	Budi	Pratama
+C00592	Vina	Santoso
+C00593	Umi	Lestari
+C00594	Karin	Lestari
+C00595	Oka	Sari
+C00596	Vina	Ramadhan
+C00597	Maya	Hidayat
+C00598	Eko	Anggraini
+C00599	Nanda	Wulandari
+C00600	Rian	Anggraini
+C00601	Indah	Maulana
+C00602	Indah	Putri
+C00603	Hendra	Fitriani
+C00604	Yusuf	Pratama
+C00605	Zahra	Ramadhan
+C00606	Budi	Amalia
+C00607	Dewi	Pratama
+C00608	Budi	Kurniawan
+C00609	Wahyu	Wijaya
+C00610	Indah	Khalimah
+C00611	Siti	Nurhaliza
+C00612	Qori	Ramadhan
+C00613	Siti	Wijaya
+C00614	Lukman	Lestari
+C00615	Lukman	Fitriani
+C00616	Joko	Wijayanto
+C00617	Dewi	Khalimah
+C00618	Tono	Anggraini
+C00619	Joko	Hadi
+C00620	Tono	Susanto
+C00621	Zahra	Putri
+C00622	Andi	Firmansyah
+C00623	Karin	Fitriani
+C00624	Gita	Susanto
+C00625	Dewi	Maulana
+C00626	Zahra	Sari
+C00627	Tono	Hadi
+C00628	Indah	Hidayat
+C00629	Tono	Susanto
+C00630	Eko	Hadi
+C00631	Wahyu	Lestari
+C00632	Nanda	Prasetyo
+C00633	Putri	Saputra
+C00634	Qori	Sari
+C00635	Joko	Hidayat
+C00636	Lukman	Permata
+C00637	Eko	Khalimah
+C00638	Citra	Santoso
+C00639	Umi	Saputra
+C00640	Andi	Santoso
+C00641	Yusuf	Wijayanto
+C00642	Indah	Pratama
+C00643	Rian	Permata
+C00644	Yusuf	Aulia
+C00645	Wahyu	Nurhaliza
+C00646	Gita	Hadi
+C00647	Vina	Nurhaliza
+C00648	Oka	Wulandari
+C00649	Vina	Aulia
+C00650	Budi	Nurhaliza
+C00651	Gita	Wulandari
+C00652	Eko	Nurhaliza
+C00653	Eko	Permata
+C00654	Nanda	Aulia
+C00655	Karin	Kurniawan
+C00656	Andi	Hidayat
+C00657	Dewi	Ramadhan
+C00658	Joko	Wijayanto
+C00659	Tono	Pratama
+C00660	Lukman	Anggraini
+C00661	Gita	Maulana
+C00662	Dewi	Saputra
+C00663	Siti	Khalimah
+C00664	Dewi	Saputra
+C00665	Rian	Wijaya
+C00666	Lukman	Maulana
+C00667	Tono	Wijaya
+C00668	Dewi	Wijayanto
+C00669	Oka	Permata
+C00670	Eko	Rahmawati
+C00671	Budi	Susanto
+C00672	Citra	Wulandari
+C00673	Karin	Hadi
+C00674	Wahyu	Ramadhan
+C00675	Siti	Permata
+C00676	Dewi	Prasetyo
+C00677	Rian	Susanto
+C00678	Rian	Saputra
+C00679	Citra	Permata
+C00680	Rian	Permata
+C00681	Siti	Permata
+C00682	Budi	Permata
+C00683	Qori	Firmansyah
+C00684	Umi	Amalia
+C00685	Vina	Kurniawan
+C00686	Citra	Fitriani
+C00687	Tono	Sari
+C00688	Fajar	Sari
+C00689	Wahyu	Pratama
+C00690	Rian	Anggraini
+C00691	Hendra	Amalia
+C00692	Indah	Rahmawati
+C00693	Joko	Hidayat
+C00694	Andi	Amalia
+C00695	Gita	Fitriani
+C00696	Zahra	Prasetyo
+C00697	Rian	Wijayanto
+C00698	Dewi	Khalimah
+C00699	Umi	Wijaya
+C00700	Citra	Wulandari
+C00701	Oka	Putri
+C00702	Citra	Hidayat
+C00703	Karin	Ramadhan
+C00704	Rian	Prasetyo
+C00705	Oka	Khalimah
+C00706	Putri	Amalia
+C00707	Rian	Wulandari
+C00708	Lukman	Permata
+C00709	Joko	Pratama
+C00710	Putri	Aulia
+C00711	Maya	Wijayanto
+C00712	Lukman	Hadi
+C00713	Indah	Fitriani
+C00714	Budi	Susanto
+C00715	Lukman	Amalia
+C00716	Rian	Khalimah
+C00717	Oka	Khalimah
+C00718	Umi	Sari
+C00719	Yusuf	Susanto
+C00720	Putri	Nurhaliza
+C00721	Fajar	Kurniawan
+C00722	Joko	Prasetyo
+C00723	Nanda	Khalimah
+C00724	Citra	Susanto
+C00725	Andi	Khalimah
+C00726	Siti	Hadi
+C00727	Gita	Maulana
+C00728	Vina	Wulandari
+C00729	Siti	Firmansyah
+C00730	Hendra	Fitriani
+C00731	Siti	Amalia
+C00732	Tono	Firmansyah
+C00733	Gita	Nurhaliza
+C00734	Nanda	Susanto
+C00735	Qori	Amalia
+C00736	Indah	Santoso
+C00737	Karin	Maulana
+C00738	Zahra	Fitriani
+C00739	Citra	Putri
+C00740	Fajar	Wijaya
+C00741	Qori	Firmansyah
+C00742	Zahra	Hidayat
+C00743	Siti	Anggraini
+C00744	Putri	Amalia
+C00745	Siti	Wijayanto
+C00746	Zahra	Aulia
+C00747	Lukman	Saputra
+C00748	Nanda	Prasetyo
+C00749	Hendra	Maulana
+C00750	Yusuf	Firmansyah
+C00751	Oka	Wijayanto
+C00752	Budi	Sari
+C00753	Karin	Saputra
+C00754	Lukman	Firmansyah
+C00755	Fajar	Putri
+C00756	Andi	Pratama
+C00757	Umi	Prasetyo
+C00758	Zahra	Permata
+C00759	Andi	Wulandari
+C00760	Nanda	Amalia
+C00761	Budi	Putri
+C00762	Oka	Wijaya
+C00763	Qori	Wijaya
+C00764	Hendra	Wijaya
+C00765	Nanda	Anggraini
+C00766	Gita	Wijayanto
+C00767	Oka	Rahmawati
+C00768	Hendra	Sari
+C00769	Fajar	Maulana
+C00770	Siti	Prasetyo
+C00771	Fajar	Ramadhan
+C00772	Eko	Susanto
+C00773	Dewi	Putri
+C00774	Lukman	Wijayanto
+C00775	Putri	Santoso
+C00776	Yusuf	Sari
+C00777	Yusuf	Pratama
+C00778	Lukman	Hidayat
+C00779	Lukman	Putri
+C00780	Oka	Susanto
+C00781	Budi	Khalimah
+C00782	Hendra	Fitriani
+C00783	Eko	Wijaya
+C00784	Oka	Lestari
+C00785	Andi	Susanto
+C00786	Budi	Lestari
+C00787	Citra	Susanto
+C00788	Nanda	Saputra
+C00789	Karin	Hidayat
+C00790	Siti	Aulia
+C00791	Nanda	Amalia
+C00792	Karin	Putri
+C00793	Budi	Wijaya
+C00794	Rian	Hadi
+C00795	Gita	Saputra
+C00796	Karin	Permata
+C00797	Dewi	Aulia
+C00798	Gita	Sari
+C00799	Lukman	Permata
+C00800	Nanda	Maulana
+C00801	Umi	Pratama
+C00802	Andi	Anggraini
+C00803	Eko	Maulana
+C00804	Putri	Lestari
+C00805	Nanda	Maulana
+C00806	Gita	Maulana
+C00807	Putri	Khalimah
+C00808	Tono	Santoso
+C00809	Umi	Firmansyah
+C00810	Umi	Prasetyo
+C00811	Joko	Pratama
+C00812	Putri	Hadi
+C00813	Gita	Ramadhan
+C00814	Qori	Khalimah
+C00815	Andi	Susanto
+C00816	Karin	Pratama
+C00817	Hendra	Hidayat
+C00818	Andi	Susanto
+C00819	Andi	Permata
+C00820	Siti	Wijaya
+C00821	Indah	Permata
+C00822	Andi	Saputra
+C00823	Vina	Anggraini
+C00824	Oka	Susanto
+C00825	Yusuf	Hidayat
+C00826	Nanda	Putri
+C00827	Rian	Amalia
+C00828	Tono	Permata
+C00829	Tono	Kurniawan
+C00830	Umi	Aulia
+C00831	Gita	Ramadhan
+C00832	Eko	Wijayanto
+C00833	Siti	Khalimah
+C00834	Dewi	Anggraini
+C00835	Hendra	Wijaya
+C00836	Yusuf	Fitriani
+C00837	Putri	Hadi
+C00838	Indah	Maulana
+C00839	Indah	Amalia
+C00840	Zahra	Kurniawan
+C00841	Maya	Sari
+C00842	Budi	Permata
+C00843	Yusuf	Rahmawati
+C00844	Eko	Saputra
+C00845	Andi	Wijayanto
+C00846	Siti	Wijayanto
+C00847	Rian	Lestari
+C00848	Fajar	Lestari
+C00849	Putri	Sari
+C00850	Maya	Nurhaliza
+C00851	Indah	Maulana
+C00852	Andi	Khalimah
+C00853	Putri	Fitriani
+C00854	Maya	Khalimah
+C00855	Umi	Aulia
+C00856	Fajar	Fitriani
+C00857	Fajar	Kurniawan
+C00858	Tono	Ramadhan
+C00859	Citra	Permata
+C00860	Citra	Wulandari
+C00861	Qori	Susanto
+C00862	Citra	Khalimah
+C00863	Indah	Wulandari
+C00864	Gita	Rahmawati
+C00865	Hendra	Santoso
+C00866	Umi	Kurniawan
+C00867	Umi	Wulandari
+C00868	Gita	Nurhaliza
+C00869	Vina	Hidayat
+C00870	Budi	Putri
+C00871	Eko	Lestari
+C00872	Eko	Susanto
+C00873	Citra	Hadi
+C00874	Hendra	Anggraini
+C00875	Eko	Nurhaliza
+C00876	Joko	Nurhaliza
+C00877	Hendra	Khalimah
+C00878	Dewi	Wijaya
+C00879	Wahyu	Aulia
+C00880	Siti	Ramadhan
+C00881	Putri	Saputra
+C00882	Hendra	Wulandari
+C00883	Fajar	Firmansyah
+C00884	Eko	Aulia
+C00885	Joko	Hidayat
+C00886	Citra	Permata
+C00887	Oka	Hidayat
+C00888	Fajar	Prasetyo
+C00889	Andi	Putri
+C00890	Qori	Firmansyah
+C00891	Wahyu	Anggraini
+C00892	Siti	Amalia
+C00893	Karin	Kurniawan
+C00894	Joko	Ramadhan
+C00895	Umi	Maulana
+C00896	Tono	Hadi
+C00897	Vina	Hidayat
+C00898	Putri	Saputra
+C00899	Rian	Rahmawati
+C00900	Budi	Wijayanto
+C00901	Lukman	Saputra
+C00902	Wahyu	Susanto
+C00903	Citra	Putri
+C00904	Joko	Nurhaliza
+C00905	Zahra	Putri
+C00906	Andi	Nurhaliza
+C00907	Karin	Putri
+C00908	Eko	Putri
+C00909	Andi	Saputra
+C00910	Karin	Anggraini
+C00911	Karin	Susanto
+C00912	Yusuf	Nurhaliza
+C00913	Nanda	Wijayanto
+C00914	Hendra	Santoso
+C00915	Nanda	Amalia
+C00916	Oka	Aulia
+C00917	Karin	Hidayat
+C00918	Karin	Anggraini
+C00919	Nanda	Firmansyah
+C00920	Yusuf	Putri
+C00921	Rian	Aulia
+C00922	Oka	Kurniawan
+C00923	Karin	Anggraini
+C00924	Putri	Kurniawan
+C00925	Karin	Wijaya
+C00926	Yusuf	Firmansyah
+C00927	Fajar	Rahmawati
+C00928	Wahyu	Hidayat
+C00929	Karin	Wulandari
+C00930	Wahyu	Sari
+C00931	Lukman	Prasetyo
+C00932	Umi	Pratama
+C00933	Putri	Hidayat
+C00934	Rian	Susanto
+C00935	Siti	Rahmawati
+C00936	Dewi	Sari
+C00937	Fajar	Wijaya
+C00938	Vina	Ramadhan
+C00939	Fajar	Saputra
+C00940	Gita	Fitriani
+C00941	Karin	Amalia
+C00942	Yusuf	Wulandari
+C00943	Tono	Wijayanto
+C00944	Andi	Hadi
+C00945	Zahra	Amalia
+C00946	Budi	Ramadhan
+C00947	Citra	Putri
+C00948	Zahra	Nurhaliza
+C00949	Hendra	Wijaya
+C00950	Citra	Amalia
+C00951	Zahra	Rahmawati
+C00952	Dewi	Hidayat
+C00953	Joko	Ramadhan
+C00954	Andi	Wulandari
+C00955	Umi	Wijayanto
+C00956	Nanda	Amalia
+C00957	Citra	Wulandari
+C00958	Indah	Aulia
+C00959	Joko	Wijaya
+C00960	Joko	Hidayat
+C00961	Umi	Permata
+C00962	Tono	Hadi
+C00963	Umi	Prasetyo
+C00964	Lukman	Permata
+C00965	Hendra	Wijaya
+C00966	Putri	Anggraini
+C00967	Tono	Hadi
+C00968	Dewi	Prasetyo
+C00969	Citra	Wijayanto
+C00970	Vina	Wijaya
+C00971	Wahyu	Susanto
+C00972	Andi	Susanto
+C00973	Gita	Khalimah
+C00974	Budi	Hadi
+C00975	Hendra	Hidayat
+C00976	Dewi	Amalia
+C00977	Indah	Wijayanto
+C00978	Eko	Hadi
+C00979	Wahyu	Saputra
+C00980	Dewi	Permata
+C00981	Qori	Lestari
+C00982	Oka	Susanto
+C00983	Tono	Pratama
+C00984	Fajar	Wijayanto
+C00985	Joko	Khalimah
+C00986	Lukman	Wulandari
+C00987	Yusuf	Saputra
+C00988	Andi	Ramadhan
+C00989	Eko	Permata
+C00990	Rian	Hadi
+C00991	Qori	Amalia
+C00992	Umi	Firmansyah
+C00993	Yusuf	Hadi
+C00994	Nanda	Rahmawati
+C00995	Dewi	Pratama
+C00996	Joko	Ramadhan
+C00997	Gita	Wulandari
+C00998	Tono	Wijayanto
+C00999	Fajar	Sari
+C01000	Joko	Ramadhan
+\.
+
+
+--
+-- TOC entry 5021 (class 0 OID 18538)
+-- Dependencies: 230
+-- Data for Name: Pemasok; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Pemasok" (id_pemasok, nama, alamat_nama_jalan, kode_pos) FROM stdin;
+S00001	MegaPrint	Jl. Anggrek No. 166	04725
+S00002	EduSmart	Jl. Mawar No. 119	04725
+S00003	Inovasi Buku	Jl. Flamboyan No. 53	04725
+S00004	Pelangi Pustaka	Jl. Kamboja No. 140	04725
+S00005	Globalindo	Jl. Trembesi No. 144	04725
+S00006	IndoMedia	Jl. Seruni No. 22	04725
+S00007	Mahardika	Jl. Elang No. 91	04725
+S00008	IndoMedia	Jl. Anggrek No. 170	04725
+S00009	Inovasi Buku	Jl. Mawar No. 38	04725
+S00010	Cipta Buku	Jl. Trembesi No. 180	04725
+S00011	Cipta Buku	Jl. Mawar No. 91	04725
+S00012	Cahaya Ilmu	Jl. Merak No. 52	04725
+S00013	EduSmart	Jl. Merpati No. 115	04725
+S00014	MegaPrint	Jl. Pinus No. 57	04725
+S00015	Mahardika	Jl. Dahlia No. 191	04725
+S00016	IndoMedia	Jl. Kenanga No. 20	04725
+S00017	Sinar Abadi	Jl. Flamboyan No. 132	04725
+S00018	Mandiri Books	Jl. Merpati No. 89	04725
+S00019	Pustaka Raya	Jl. Mawar No. 6	04725
+S00020	MegaPrint	Jl. Nuri No. 133	04725
+S00021	MegaPrint	Jl. Garuda No. 75	04725
+S00022	IndoMedia	Jl. Merpati No. 138	04725
+S00023	Pustaka Raya	Jl. Merak No. 197	04725
+S00024	Mitra Pustaka	Jl. Cendana No. 101	04725
+S00025	Globalindo	Jl. Pinus No. 69	04725
+S00026	Golden Print	Jl. Melati No. 189	04725
+S00027	Prima Paper	Jl. Rajawali No. 21	04725
+S00028	Mandiri Books	Jl. Elang No. 72	04725
+S00029	Cahaya Ilmu	Jl. Melati No. 98	04725
+S00030	Mitra Pustaka	Jl. Bougenville No. 142	04725
+S00031	Mandiri Books	Jl. Flamboyan No. 47	04725
+S00032	Golden Print	Jl. Sakura No. 2	04725
+S00033	Gramedia Distribusi	Jl. Sakura No. 78	04725
+S00034	IndoMedia	Jl. Elang No. 109	04725
+S00035	Pustaka Raya	Jl. Garuda No. 132	04725
+S00036	IndoMedia	Jl. Nuri No. 38	04725
+S00037	Cipta Buku	Jl. Dahlia No. 13	04725
+S00038	Cipta Buku	Jl. Merak No. 162	04725
+S00039	Nusantara Pustaka	Jl. Pinus No. 45	04725
+S00040	Golden Print	Jl. Kenanga No. 44	04725
+S00041	Inovasi Buku	Jl. Bougenville No. 14	04725
+S00042	Globalindo	Jl. Jati No. 117	04725
+S00043	Cemerlang Press	Jl. Rajawali No. 176	04725
+S00044	Cemerlang Press	Jl. Melati No. 29	04725
+S00045	Gramedia Distribusi	Jl. Kamboja No. 173	04725
+S00046	Prima Paper	Jl. Bougenville No. 62	04725
+S00047	Mitra Pustaka	Jl. Rajawali No. 172	04725
+S00048	Cahaya Ilmu	Jl. Dahlia No. 61	04725
+S00049	Globalindo	Jl. Elang No. 83	04725
+S00050	Nusantara Pustaka	Jl. Pinus No. 36	04725
+S00051	Inovasi Buku	Jl. Merak No. 27	04725
+S00052	Prima Paper	Jl. Mawar No. 45	04725
+S00053	Mandiri Books	Jl. Pinus No. 198	04725
+S00054	Mitra Pustaka	Jl. Kenanga No. 96	04725
+S00055	Sinar Abadi	Jl. Dahlia No. 36	04725
+S00056	Sinar Abadi	Jl. Merak No. 28	04725
+S00057	Gramedia Distribusi	Jl. Flamboyan No. 18	04725
+S00058	Gramedia Distribusi	Jl. Bougenville No. 93	04725
+S00059	Cipta Buku	Jl. Kamboja No. 144	04725
+S00060	Cahaya Ilmu	Jl. Merak No. 11	04725
+S00061	EduSmart	Jl. Nuri No. 10	04725
+S00062	EduSmart	Jl. Elang No. 197	04725
+S00063	Prima Paper	Jl. Garuda No. 126	04725
+S00064	IndoMedia	Jl. Merpati No. 20	04725
+S00065	Nusantara Pustaka	Jl. Sakura No. 148	04725
+S00066	Mandiri Books	Jl. Anggrek No. 166	04725
+S00067	Cahaya Ilmu	Jl. Melati No. 164	04725
+S00068	Pustaka Raya	Jl. Melati No. 97	04725
+S00069	Golden Print	Jl. Pinus No. 36	04725
+S00070	Pelangi Pustaka	Jl. Trembesi No. 113	04725
+S00071	Mitra Pustaka	Jl. Pinus No. 160	04725
+S00072	MegaPrint	Jl. Rajawali No. 159	04725
+S00073	Pustaka Raya	Jl. Kamboja No. 178	04725
+S00074	Mitra Pustaka	Jl. Mawar No. 20	04725
+S00075	Mitra Pustaka	Jl. Merpati No. 65	04725
+S00076	Cemerlang Press	Jl. Sakura No. 84	04725
+S00077	Sukses Mandiri	Jl. Melati No. 63	04725
+S00078	EduSmart	Jl. Merak No. 190	04725
+S00079	Cahaya Ilmu	Jl. Flamboyan No. 29	04725
+S00080	Pelangi Pustaka	Jl. Elang No. 18	04725
+S00081	Mitra Pustaka	Jl. Nuri No. 25	04725
+S00082	Mahardika	Jl. Garuda No. 195	04725
+S00083	Globalindo	Jl. Mawar No. 17	04725
+S00084	MegaPrint	Jl. Kamboja No. 32	04725
+S00085	Mahardika	Jl. Merak No. 160	04725
+S00086	Cakrawala	Jl. Rajawali No. 17	04725
+S00087	Golden Print	Jl. Jati No. 93	04725
+S00088	Cipta Buku	Jl. Rajawali No. 54	04725
+S00089	Cahaya Ilmu	Jl. Anggrek No. 95	04725
+S00090	Prima Paper	Jl. Dahlia No. 44	04725
+S00091	Golden Print	Jl. Trembesi No. 171	04725
+S00092	EduSmart	Jl. Pinus No. 71	04725
+S00093	Golden Print	Jl. Merpati No. 30	04725
+S00094	EduSmart	Jl. Jati No. 167	04725
+S00095	EduSmart	Jl. Bougenville No. 27	04725
+S00096	EduSmart	Jl. Seruni No. 47	04725
+S00097	Cemerlang Press	Jl. Garuda No. 109	04725
+S00098	Pelangi Pustaka	Jl. Sakura No. 112	04725
+S00099	Prima Paper	Jl. Bougenville No. 42	04725
+S00100	Pelangi Pustaka	Jl. Cendana No. 136	04725
+S00101	Mandiri Books	Jl. Dahlia No. 195	04725
+S00102	IndoMedia	Jl. Merpati No. 113	04725
+S00103	Pustaka Raya	Jl. Nuri No. 171	04725
+S00104	Mandiri Books	Jl. Trembesi No. 38	04725
+S00105	IndoMedia	Jl. Merpati No. 31	04725
+S00106	IndoMedia	Jl. Garuda No. 98	04725
+S00107	Mandiri Books	Jl. Merak No. 156	04725
+S00108	Golden Print	Jl. Mawar No. 127	04725
+S00109	Gramedia Distribusi	Jl. Kenanga No. 189	04725
+S00110	Mandiri Books	Jl. Cendana No. 98	04725
+S00111	EduSmart	Jl. Trembesi No. 12	04725
+S00112	EduSmart	Jl. Cendana No. 128	04725
+S00113	Prima Paper	Jl. Pinus No. 4	04725
+S00114	Cahaya Ilmu	Jl. Rajawali No. 100	04725
+S00115	Cahaya Ilmu	Jl. Garuda No. 159	04725
+S00116	Pelangi Pustaka	Jl. Anggrek No. 142	04725
+S00117	Prima Paper	Jl. Trembesi No. 170	04725
+S00118	Globalindo	Jl. Mawar No. 52	04725
+S00119	Sinar Abadi	Jl. Flamboyan No. 168	04725
+S00120	Cipta Buku	Jl. Dahlia No. 10	04725
+S00121	Globalindo	Jl. Seruni No. 51	04725
+S00122	Cakrawala	Jl. Merpati No. 200	04725
+S00123	Pelangi Pustaka	Jl. Jati No. 69	04725
+S00124	Cahaya Ilmu	Jl. Kenanga No. 32	04725
+S00125	Inovasi Buku	Jl. Cendana No. 98	04725
+S00126	Inovasi Buku	Jl. Bougenville No. 38	04725
+S00127	IndoMedia	Jl. Elang No. 144	04725
+S00128	Pelangi Pustaka	Jl. Dahlia No. 157	04725
+S00129	Nusantara Pustaka	Jl. Jati No. 102	04725
+S00130	MegaPrint	Jl. Merak No. 38	04725
+S00131	Globalindo	Jl. Merpati No. 36	04725
+S00132	Cipta Buku	Jl. Bougenville No. 166	04725
+S00133	MegaPrint	Jl. Jati No. 116	04725
+S00134	Globalindo	Jl. Jati No. 93	04725
+S00135	Cakrawala	Jl. Flamboyan No. 163	04725
+S00136	Mahardika	Jl. Pinus No. 198	04725
+S00137	Inovasi Buku	Jl. Kamboja No. 172	04725
+S00138	Sinar Abadi	Jl. Merpati No. 137	04725
+S00139	Mahardika	Jl. Anggrek No. 159	04725
+S00140	Cemerlang Press	Jl. Merpati No. 37	04725
+S00141	Nusantara Pustaka	Jl. Cendana No. 64	04725
+S00142	Globalindo	Jl. Mawar No. 61	04725
+S00143	Sinar Abadi	Jl. Jati No. 6	04725
+S00144	Prima Paper	Jl. Anggrek No. 125	04725
+S00145	Pelangi Pustaka	Jl. Kenanga No. 17	04725
+S00146	Pustaka Raya	Jl. Kamboja No. 157	04725
+S00147	Nusantara Pustaka	Jl. Kenanga No. 9	04725
+S00148	Cahaya Ilmu	Jl. Kenanga No. 61	04725
+S00149	MegaPrint	Jl. Anggrek No. 43	04725
+S00150	Gramedia Distribusi	Jl. Sakura No. 88	04725
+S00151	Mahardika	Jl. Garuda No. 43	04725
+S00152	Cahaya Ilmu	Jl. Nuri No. 1	04725
+S00153	Mitra Pustaka	Jl. Mawar No. 63	04725
+S00154	Mahardika	Jl. Anggrek No. 51	04725
+S00155	EduSmart	Jl. Pinus No. 103	04725
+S00156	Sinar Abadi	Jl. Seruni No. 115	04725
+S00157	Nusantara Pustaka	Jl. Bougenville No. 142	04725
+S00158	Sinar Abadi	Jl. Cendana No. 105	04725
+S00159	Golden Print	Jl. Kamboja No. 169	04725
+S00160	Sinar Abadi	Jl. Jati No. 42	04725
+S00161	Prima Paper	Jl. Melati No. 52	04725
+S00162	Cipta Buku	Jl. Elang No. 16	04725
+S00163	Mandiri Books	Jl. Jati No. 145	04725
+S00164	Cemerlang Press	Jl. Jati No. 150	04725
+S00165	Globalindo	Jl. Jati No. 169	04725
+S00166	Gramedia Distribusi	Jl. Mawar No. 165	04725
+S00167	Cakrawala	Jl. Flamboyan No. 122	04725
+S00168	Sukses Mandiri	Jl. Sakura No. 136	04725
+S00169	Sinar Abadi	Jl. Sakura No. 73	04725
+S00170	Globalindo	Jl. Kenanga No. 137	04725
+S00171	Mahardika	Jl. Trembesi No. 74	04725
+S00172	Mandiri Books	Jl. Sakura No. 64	04725
+S00173	MegaPrint	Jl. Melati No. 176	04725
+S00174	Golden Print	Jl. Melati No. 134	04725
+S00175	Pustaka Raya	Jl. Pinus No. 180	04725
+S00176	Prima Paper	Jl. Sakura No. 111	04725
+S00177	Nusantara Pustaka	Jl. Sakura No. 16	04725
+S00178	Mandiri Books	Jl. Merak No. 147	04725
+S00179	Cemerlang Press	Jl. Sakura No. 16	04725
+S00180	Cakrawala	Jl. Merpati No. 82	04725
+S00181	Cemerlang Press	Jl. Nuri No. 28	04725
+S00182	Globalindo	Jl. Merak No. 200	04725
+S00183	Gramedia Distribusi	Jl. Kamboja No. 109	04725
+S00184	IndoMedia	Jl. Cendana No. 147	04725
+S00185	Mandiri Books	Jl. Flamboyan No. 49	04725
+S00186	MegaPrint	Jl. Rajawali No. 83	04725
+S00187	Mitra Pustaka	Jl. Kenanga No. 42	04725
+S00188	Cakrawala	Jl. Dahlia No. 21	04725
+S00189	Inovasi Buku	Jl. Melati No. 13	04725
+S00190	Mitra Pustaka	Jl. Nuri No. 94	04725
+S00191	Cahaya Ilmu	Jl. Merak No. 114	04725
+S00192	MegaPrint	Jl. Merpati No. 7	04725
+S00193	Cakrawala	Jl. Garuda No. 124	04725
+S00194	Cemerlang Press	Jl. Melati No. 73	04725
+S00195	IndoMedia	Jl. Dahlia No. 138	04725
+S00196	Pelangi Pustaka	Jl. Merak No. 168	04725
+S00197	Pustaka Raya	Jl. Pinus No. 46	04725
+S00198	Cemerlang Press	Jl. Trembesi No. 85	04725
+S00199	Golden Print	Jl. Bougenville No. 190	04725
+S00200	Pelangi Pustaka	Jl. Sakura No. 123	04725
+S00201	Pustaka Raya	Jl. Mawar No. 145	04725
+S00202	Golden Print	Jl. Kamboja No. 60	04725
+S00203	IndoMedia	Jl. Elang No. 101	04725
+S00204	Prima Paper	Jl. Sakura No. 101	04725
+S00205	Pelangi Pustaka	Jl. Sakura No. 24	04725
+S00206	Cakrawala	Jl. Nuri No. 69	04725
+S00207	IndoMedia	Jl. Cendana No. 103	04725
+S00208	Mandiri Books	Jl. Jati No. 119	04725
+S00209	Prima Paper	Jl. Pinus No. 143	04725
+S00210	Prima Paper	Jl. Flamboyan No. 192	04725
+S00211	Inovasi Buku	Jl. Kenanga No. 33	04725
+S00212	Mahardika	Jl. Nuri No. 180	04725
+S00213	MegaPrint	Jl. Mawar No. 139	04725
+S00214	Mahardika	Jl. Cendana No. 130	04725
+S00215	Mahardika	Jl. Dahlia No. 115	04725
+S00216	Nusantara Pustaka	Jl. Jati No. 135	04725
+S00217	Inovasi Buku	Jl. Seruni No. 149	04725
+S00218	Globalindo	Jl. Nuri No. 3	04725
+S00219	Globalindo	Jl. Trembesi No. 189	04725
+S00220	Globalindo	Jl. Melati No. 185	04725
+S00221	Cakrawala	Jl. Sakura No. 112	04725
+S00222	Inovasi Buku	Jl. Cendana No. 46	04725
+S00223	Sukses Mandiri	Jl. Anggrek No. 18	04725
+S00224	MegaPrint	Jl. Trembesi No. 109	04725
+S00225	Cakrawala	Jl. Melati No. 181	04725
+S00226	Sinar Abadi	Jl. Kenanga No. 61	04725
+S00227	EduSmart	Jl. Jati No. 189	04725
+S00228	Sukses Mandiri	Jl. Bougenville No. 11	04725
+S00229	Cakrawala	Jl. Seruni No. 7	04725
+S00230	Pelangi Pustaka	Jl. Bougenville No. 170	04725
+S00231	Golden Print	Jl. Rajawali No. 191	04725
+S00232	Cipta Buku	Jl. Bougenville No. 43	04725
+S00233	Golden Print	Jl. Kamboja No. 86	04725
+S00234	Prima Paper	Jl. Trembesi No. 133	04725
+S00235	IndoMedia	Jl. Elang No. 36	04725
+S00236	IndoMedia	Jl. Seruni No. 171	04725
+S00237	Sinar Abadi	Jl. Elang No. 170	04725
+S00238	Cahaya Ilmu	Jl. Cendana No. 26	04725
+S00239	Cahaya Ilmu	Jl. Flamboyan No. 116	04725
+S00240	Prima Paper	Jl. Seruni No. 43	04725
+S00241	Prima Paper	Jl. Trembesi No. 68	04725
+S00242	Cahaya Ilmu	Jl. Melati No. 176	04725
+S00243	Gramedia Distribusi	Jl. Seruni No. 162	04725
+S00244	Sinar Abadi	Jl. Melati No. 115	04725
+S00245	Pelangi Pustaka	Jl. Merak No. 68	04725
+S00246	IndoMedia	Jl. Mawar No. 160	04725
+S00247	Cipta Buku	Jl. Bougenville No. 51	04725
+S00248	Pelangi Pustaka	Jl. Merpati No. 110	04725
+S00249	EduSmart	Jl. Mawar No. 148	04725
+S00250	Sinar Abadi	Jl. Kamboja No. 165	04725
+S00251	Cipta Buku	Jl. Cendana No. 108	04725
+S00252	Gramedia Distribusi	Jl. Trembesi No. 164	04725
+S00253	MegaPrint	Jl. Dahlia No. 168	04725
+S00254	Mandiri Books	Jl. Rajawali No. 129	04725
+S00255	Pelangi Pustaka	Jl. Flamboyan No. 196	04725
+S00256	IndoMedia	Jl. Kenanga No. 70	04725
+S00257	Nusantara Pustaka	Jl. Merpati No. 16	04725
+S00258	Sinar Abadi	Jl. Seruni No. 146	04725
+S00259	Mitra Pustaka	Jl. Pinus No. 49	04725
+S00260	Sukses Mandiri	Jl. Pinus No. 152	04725
+S00261	MegaPrint	Jl. Trembesi No. 20	04725
+S00262	Prima Paper	Jl. Sakura No. 7	04725
+S00263	EduSmart	Jl. Merak No. 12	04725
+S00264	EduSmart	Jl. Merpati No. 113	04725
+S00265	Cemerlang Press	Jl. Garuda No. 146	04725
+S00266	Mahardika	Jl. Merak No. 170	04725
+S00267	MegaPrint	Jl. Anggrek No. 154	04725
+S00268	Nusantara Pustaka	Jl. Pinus No. 74	04725
+S00269	Pelangi Pustaka	Jl. Pinus No. 178	04725
+S00270	Nusantara Pustaka	Jl. Cendana No. 64	04725
+S00271	Prima Paper	Jl. Cendana No. 65	04725
+S00272	Pustaka Raya	Jl. Melati No. 28	04725
+S00273	Cipta Buku	Jl. Flamboyan No. 16	04725
+S00274	Sukses Mandiri	Jl. Cendana No. 22	04725
+S00275	Cemerlang Press	Jl. Merpati No. 165	04725
+S00276	Inovasi Buku	Jl. Dahlia No. 88	04725
+S00277	Sukses Mandiri	Jl. Sakura No. 69	04725
+S00278	Mandiri Books	Jl. Elang No. 97	04725
+S00279	Nusantara Pustaka	Jl. Cendana No. 9	04725
+S00280	Gramedia Distribusi	Jl. Mawar No. 99	04725
+S00281	Pustaka Raya	Jl. Merak No. 48	04725
+S00282	Cakrawala	Jl. Garuda No. 100	04725
+S00283	Cemerlang Press	Jl. Anggrek No. 76	04725
+S00284	Gramedia Distribusi	Jl. Rajawali No. 196	04725
+S00285	Cahaya Ilmu	Jl. Garuda No. 52	04725
+S00286	Pustaka Raya	Jl. Seruni No. 74	04725
+S00287	Mahardika	Jl. Jati No. 117	04725
+S00288	Pelangi Pustaka	Jl. Merpati No. 192	04725
+S00289	Globalindo	Jl. Cendana No. 123	04725
+S00290	Pelangi Pustaka	Jl. Anggrek No. 83	04725
+S00291	Sukses Mandiri	Jl. Jati No. 100	04725
+S00292	Pelangi Pustaka	Jl. Garuda No. 196	04725
+S00293	Prima Paper	Jl. Merak No. 131	04725
+S00294	Cipta Buku	Jl. Seruni No. 183	04725
+S00295	Pelangi Pustaka	Jl. Merak No. 184	04725
+S00296	Cipta Buku	Jl. Jati No. 28	04725
+S00297	Globalindo	Jl. Cendana No. 7	04725
+S00298	Cemerlang Press	Jl. Bougenville No. 28	04725
+S00299	Pustaka Raya	Jl. Merak No. 197	04725
+S00300	Sinar Abadi	Jl. Garuda No. 99	04725
+S00301	Sukses Mandiri	Jl. Anggrek No. 114	04725
+S00302	Cahaya Ilmu	Jl. Mawar No. 83	04725
+S00303	MegaPrint	Jl. Jati No. 119	04725
+S00304	IndoMedia	Jl. Mawar No. 78	04725
+S00305	Sukses Mandiri	Jl. Cendana No. 29	04725
+S00306	Sinar Abadi	Jl. Merpati No. 50	04725
+S00307	Sinar Abadi	Jl. Seruni No. 33	04725
+S00308	Pustaka Raya	Jl. Mawar No. 138	04725
+S00309	MegaPrint	Jl. Cendana No. 158	04725
+S00310	Mandiri Books	Jl. Rajawali No. 101	04725
+S00311	Golden Print	Jl. Anggrek No. 69	04725
+S00312	Sukses Mandiri	Jl. Trembesi No. 101	04725
+S00313	Globalindo	Jl. Merpati No. 18	04725
+S00314	IndoMedia	Jl. Bougenville No. 74	04725
+S00315	Pelangi Pustaka	Jl. Sakura No. 133	04725
+S00316	MegaPrint	Jl. Mawar No. 20	04725
+S00317	MegaPrint	Jl. Merak No. 57	04725
+S00318	Cakrawala	Jl. Sakura No. 6	04725
+S00319	Sinar Abadi	Jl. Jati No. 121	04725
+S00320	Globalindo	Jl. Anggrek No. 95	04725
+S00321	IndoMedia	Jl. Nuri No. 35	04725
+S00322	Cemerlang Press	Jl. Garuda No. 15	04725
+S00323	Golden Print	Jl. Dahlia No. 42	04725
+S00324	Cahaya Ilmu	Jl. Flamboyan No. 16	04725
+S00325	Sukses Mandiri	Jl. Dahlia No. 157	04725
+S00326	Cemerlang Press	Jl. Jati No. 123	04725
+S00327	Nusantara Pustaka	Jl. Melati No. 53	04725
+S00328	Globalindo	Jl. Kamboja No. 69	04725
+S00329	Globalindo	Jl. Melati No. 76	04725
+S00330	Sinar Abadi	Jl. Dahlia No. 177	04725
+S00331	Nusantara Pustaka	Jl. Kenanga No. 35	04725
+S00332	Golden Print	Jl. Kamboja No. 111	04725
+S00333	Inovasi Buku	Jl. Bougenville No. 27	04725
+S00334	Globalindo	Jl. Jati No. 4	04725
+S00335	Pustaka Raya	Jl. Cendana No. 167	04725
+S00336	Cipta Buku	Jl. Dahlia No. 122	04725
+S00337	Globalindo	Jl. Trembesi No. 87	04725
+S00338	Sinar Abadi	Jl. Sakura No. 24	04725
+S00339	Mitra Pustaka	Jl. Elang No. 18	04725
+S00340	Prima Paper	Jl. Anggrek No. 66	04725
+S00341	EduSmart	Jl. Cendana No. 174	04725
+S00342	EduSmart	Jl. Nuri No. 153	04725
+S00343	Sinar Abadi	Jl. Bougenville No. 107	04725
+S00344	Mandiri Books	Jl. Anggrek No. 120	04725
+S00345	Sinar Abadi	Jl. Flamboyan No. 139	04725
+S00346	Cemerlang Press	Jl. Bougenville No. 1	04725
+S00347	Inovasi Buku	Jl. Mawar No. 17	04725
+S00348	Mahardika	Jl. Cendana No. 66	04725
+S00349	Gramedia Distribusi	Jl. Elang No. 40	04725
+S00350	Pustaka Raya	Jl. Flamboyan No. 162	04725
+S00351	Golden Print	Jl. Dahlia No. 10	04725
+S00352	Cipta Buku	Jl. Kamboja No. 94	04725
+S00353	Cipta Buku	Jl. Mawar No. 23	04725
+S00354	Cipta Buku	Jl. Dahlia No. 154	04725
+S00355	Gramedia Distribusi	Jl. Jati No. 167	04725
+S00356	Cemerlang Press	Jl. Melati No. 87	04725
+S00357	Inovasi Buku	Jl. Trembesi No. 108	04725
+S00358	EduSmart	Jl. Pinus No. 190	04725
+S00359	Cakrawala	Jl. Sakura No. 146	04725
+S00360	Cipta Buku	Jl. Merak No. 78	04725
+S00361	Inovasi Buku	Jl. Bougenville No. 94	04725
+S00362	EduSmart	Jl. Dahlia No. 182	04725
+S00363	Pustaka Raya	Jl. Kenanga No. 159	04725
+S00364	Sinar Abadi	Jl. Melati No. 150	04725
+S00365	Cahaya Ilmu	Jl. Jati No. 25	04725
+S00366	Cakrawala	Jl. Melati No. 8	04725
+S00367	Cahaya Ilmu	Jl. Pinus No. 32	04725
+S00368	IndoMedia	Jl. Merpati No. 2	04725
+S00369	Pelangi Pustaka	Jl. Jati No. 84	04725
+S00370	Mitra Pustaka	Jl. Cendana No. 10	04725
+S00371	Cipta Buku	Jl. Merpati No. 41	04725
+S00372	Sinar Abadi	Jl. Trembesi No. 61	04725
+S00373	Mahardika	Jl. Anggrek No. 101	04725
+S00374	Globalindo	Jl. Melati No. 80	04725
+S00375	Cakrawala	Jl. Kenanga No. 50	04725
+S00376	Gramedia Distribusi	Jl. Kenanga No. 142	04725
+S00377	Mitra Pustaka	Jl. Cendana No. 33	04725
+S00378	Golden Print	Jl. Anggrek No. 192	04725
+S00379	MegaPrint	Jl. Garuda No. 130	04725
+S00380	Prima Paper	Jl. Merpati No. 102	04725
+S00381	MegaPrint	Jl. Rajawali No. 188	04725
+S00382	Cemerlang Press	Jl. Cendana No. 166	04725
+S00383	Pelangi Pustaka	Jl. Merpati No. 61	04725
+S00384	Gramedia Distribusi	Jl. Merak No. 22	04725
+S00385	MegaPrint	Jl. Anggrek No. 83	04725
+S00386	Pustaka Raya	Jl. Anggrek No. 21	04725
+S00387	Mitra Pustaka	Jl. Merpati No. 186	04725
+S00388	Nusantara Pustaka	Jl. Rajawali No. 179	04725
+S00389	Nusantara Pustaka	Jl. Merak No. 12	04725
+S00390	Cemerlang Press	Jl. Pinus No. 94	04725
+S00391	Gramedia Distribusi	Jl. Melati No. 39	04725
+S00392	MegaPrint	Jl. Merak No. 150	04725
+S00393	Cipta Buku	Jl. Elang No. 140	04725
+S00394	Inovasi Buku	Jl. Jati No. 36	04725
+S00395	Golden Print	Jl. Cendana No. 74	04725
+S00396	Cahaya Ilmu	Jl. Seruni No. 21	04725
+S00397	Sukses Mandiri	Jl. Flamboyan No. 179	04725
+S00398	Globalindo	Jl. Elang No. 112	04725
+S00399	MegaPrint	Jl. Mawar No. 113	04725
+S00400	Cahaya Ilmu	Jl. Anggrek No. 54	04725
+S00401	Cemerlang Press	Jl. Cendana No. 7	04725
+S00402	Cipta Buku	Jl. Dahlia No. 137	04725
+S00403	Prima Paper	Jl. Cendana No. 149	04725
+S00404	Golden Print	Jl. Sakura No. 176	04725
+S00405	Globalindo	Jl. Mawar No. 188	04725
+S00406	Mandiri Books	Jl. Dahlia No. 121	04725
+S00407	Sinar Abadi	Jl. Sakura No. 128	04725
+S00408	Cakrawala	Jl. Kamboja No. 19	04725
+S00409	Mahardika	Jl. Mawar No. 17	04725
+S00410	Sukses Mandiri	Jl. Merpati No. 183	04725
+S00411	Cahaya Ilmu	Jl. Seruni No. 71	04725
+S00412	Nusantara Pustaka	Jl. Nuri No. 83	04725
+S00413	Cemerlang Press	Jl. Pinus No. 85	04725
+S00414	Cipta Buku	Jl. Flamboyan No. 99	04725
+S00415	Cipta Buku	Jl. Cendana No. 92	04725
+S00416	Mitra Pustaka	Jl. Mawar No. 168	04725
+S00417	Pelangi Pustaka	Jl. Mawar No. 96	04725
+S00418	Cakrawala	Jl. Dahlia No. 148	04725
+S00419	Cakrawala	Jl. Sakura No. 67	04725
+S00420	Globalindo	Jl. Elang No. 127	04725
+S00421	Cipta Buku	Jl. Kamboja No. 132	04725
+S00422	Pelangi Pustaka	Jl. Rajawali No. 165	04725
+S00423	Nusantara Pustaka	Jl. Jati No. 92	04725
+S00424	MegaPrint	Jl. Elang No. 50	04725
+S00425	Prima Paper	Jl. Anggrek No. 149	04725
+S00426	IndoMedia	Jl. Melati No. 119	04725
+S00427	Mitra Pustaka	Jl. Kamboja No. 71	04725
+S00428	IndoMedia	Jl. Merak No. 77	04725
+S00429	Golden Print	Jl. Merak No. 182	04725
+S00430	Cahaya Ilmu	Jl. Flamboyan No. 58	04725
+S00431	IndoMedia	Jl. Rajawali No. 16	04725
+S00432	Inovasi Buku	Jl. Sakura No. 117	04725
+S00433	Cipta Buku	Jl. Elang No. 162	04725
+S00434	Mahardika	Jl. Cendana No. 102	04725
+S00435	IndoMedia	Jl. Flamboyan No. 152	04725
+S00436	Globalindo	Jl. Jati No. 9	04725
+S00437	Cipta Buku	Jl. Garuda No. 175	04725
+S00438	Mahardika	Jl. Pinus No. 162	04725
+S00439	IndoMedia	Jl. Merpati No. 13	04725
+S00440	Pustaka Raya	Jl. Flamboyan No. 127	04725
+S00441	Cahaya Ilmu	Jl. Kenanga No. 36	04725
+S00442	Nusantara Pustaka	Jl. Kamboja No. 107	04725
+S00443	Cakrawala	Jl. Pinus No. 192	04725
+S00444	Golden Print	Jl. Rajawali No. 147	04725
+S00445	Sinar Abadi	Jl. Dahlia No. 155	04725
+S00446	IndoMedia	Jl. Merak No. 34	04725
+S00447	Globalindo	Jl. Seruni No. 125	04725
+S00448	Pustaka Raya	Jl. Seruni No. 98	04725
+S00449	Cipta Buku	Jl. Elang No. 72	04725
+S00450	IndoMedia	Jl. Bougenville No. 176	04725
+S00451	Mandiri Books	Jl. Seruni No. 117	04725
+S00452	Gramedia Distribusi	Jl. Melati No. 115	04725
+S00453	Nusantara Pustaka	Jl. Elang No. 189	04725
+S00454	Cahaya Ilmu	Jl. Rajawali No. 106	04725
+S00455	Cemerlang Press	Jl. Anggrek No. 4	04725
+S00456	Globalindo	Jl. Merpati No. 189	04725
+S00457	Golden Print	Jl. Nuri No. 11	04725
+S00458	Sukses Mandiri	Jl. Garuda No. 80	04725
+S00459	EduSmart	Jl. Melati No. 153	04725
+S00460	Inovasi Buku	Jl. Jati No. 168	04725
+S00461	IndoMedia	Jl. Flamboyan No. 42	04725
+S00462	Cahaya Ilmu	Jl. Merak No. 162	04725
+S00463	Pustaka Raya	Jl. Rajawali No. 155	04725
+S00464	Cipta Buku	Jl. Flamboyan No. 93	04725
+S00465	Sinar Abadi	Jl. Pinus No. 195	04725
+S00466	Nusantara Pustaka	Jl. Trembesi No. 32	04725
+S00467	Mahardika	Jl. Anggrek No. 98	04725
+S00468	Nusantara Pustaka	Jl. Kenanga No. 112	04725
+S00469	IndoMedia	Jl. Garuda No. 143	04725
+S00470	Sinar Abadi	Jl. Seruni No. 11	04725
+S00471	Cakrawala	Jl. Rajawali No. 84	04725
+S00472	Nusantara Pustaka	Jl. Elang No. 124	04725
+S00473	Nusantara Pustaka	Jl. Rajawali No. 87	04725
+S00474	Sukses Mandiri	Jl. Jati No. 9	04725
+S00475	EduSmart	Jl. Sakura No. 111	04725
+S00476	Mandiri Books	Jl. Melati No. 177	04725
+S00477	Prima Paper	Jl. Jati No. 82	04725
+S00478	Globalindo	Jl. Anggrek No. 171	04725
+S00479	Cakrawala	Jl. Bougenville No. 199	04725
+S00480	Gramedia Distribusi	Jl. Cendana No. 196	04725
+S00481	Prima Paper	Jl. Kamboja No. 186	04725
+S00482	Prima Paper	Jl. Garuda No. 157	04725
+S00483	Mahardika	Jl. Melati No. 134	04725
+S00484	Sinar Abadi	Jl. Flamboyan No. 70	04725
+S00485	Cakrawala	Jl. Melati No. 194	04725
+S00486	Sukses Mandiri	Jl. Cendana No. 106	04725
+S00487	Pelangi Pustaka	Jl. Merpati No. 43	04725
+S00488	Sinar Abadi	Jl. Seruni No. 175	04725
+S00489	MegaPrint	Jl. Merpati No. 87	04725
+S00490	Golden Print	Jl. Garuda No. 106	04725
+S00491	Cakrawala	Jl. Jati No. 148	04725
+S00492	Globalindo	Jl. Dahlia No. 120	04725
+S00493	EduSmart	Jl. Flamboyan No. 163	04725
+S00494	Sinar Abadi	Jl. Mawar No. 128	04725
+S00495	Globalindo	Jl. Merpati No. 141	04725
+S00496	Pustaka Raya	Jl. Seruni No. 103	04725
+S00497	Cemerlang Press	Jl. Mawar No. 166	04725
+S00498	Cahaya Ilmu	Jl. Anggrek No. 128	04725
+S00499	EduSmart	Jl. Mawar No. 95	04725
+S00500	Nusantara Pustaka	Jl. Garuda No. 9	04725
+S00501	Cakrawala	Jl. Bougenville No. 188	04725
+S00502	Prima Paper	Jl. Jati No. 135	04725
+S00503	EduSmart	Jl. Cendana No. 196	04725
+S00504	Pustaka Raya	Jl. Mawar No. 15	04725
+S00505	Mitra Pustaka	Jl. Mawar No. 104	04725
+S00506	IndoMedia	Jl. Merpati No. 56	04725
+S00507	Cahaya Ilmu	Jl. Jati No. 110	04725
+S00508	Globalindo	Jl. Garuda No. 159	04725
+S00509	Golden Print	Jl. Trembesi No. 186	04725
+S00510	Mahardika	Jl. Melati No. 51	04725
+S00511	Pelangi Pustaka	Jl. Pinus No. 39	04725
+S00512	Mitra Pustaka	Jl. Bougenville No. 179	04725
+S00513	Cakrawala	Jl. Cendana No. 9	04725
+S00514	Golden Print	Jl. Mawar No. 59	04725
+S00515	Mahardika	Jl. Cendana No. 101	04725
+S00516	Cemerlang Press	Jl. Jati No. 78	04725
+S00517	Sinar Abadi	Jl. Trembesi No. 26	04725
+S00518	Cahaya Ilmu	Jl. Kamboja No. 48	04725
+S00519	Nusantara Pustaka	Jl. Mawar No. 68	04725
+S00520	Mahardika	Jl. Nuri No. 105	04725
+S00521	Gramedia Distribusi	Jl. Anggrek No. 132	04725
+S00522	Inovasi Buku	Jl. Merpati No. 154	04725
+S00523	Pustaka Raya	Jl. Cendana No. 165	04725
+S00524	Pustaka Raya	Jl. Seruni No. 5	04725
+S00525	Golden Print	Jl. Anggrek No. 118	04725
+S00526	Cipta Buku	Jl. Seruni No. 6	04725
+S00527	Inovasi Buku	Jl. Merak No. 177	04725
+S00528	Mandiri Books	Jl. Merpati No. 148	04725
+S00529	Pelangi Pustaka	Jl. Sakura No. 189	04725
+S00530	Prima Paper	Jl. Trembesi No. 156	04725
+S00531	Mahardika	Jl. Seruni No. 92	04725
+S00532	Mitra Pustaka	Jl. Dahlia No. 27	04725
+S00533	Pelangi Pustaka	Jl. Garuda No. 90	04725
+S00534	Cahaya Ilmu	Jl. Trembesi No. 118	04725
+S00535	Sukses Mandiri	Jl. Melati No. 79	04725
+S00536	Inovasi Buku	Jl. Pinus No. 187	04725
+S00537	Mandiri Books	Jl. Mawar No. 107	04725
+S00538	Mandiri Books	Jl. Pinus No. 1	04725
+S00539	Mitra Pustaka	Jl. Cendana No. 70	04725
+S00540	Golden Print	Jl. Anggrek No. 172	04725
+S00541	Cemerlang Press	Jl. Sakura No. 159	04725
+S00542	IndoMedia	Jl. Flamboyan No. 51	04725
+S00543	MegaPrint	Jl. Sakura No. 145	04725
+S00544	Nusantara Pustaka	Jl. Garuda No. 2	04725
+S00545	Cahaya Ilmu	Jl. Flamboyan No. 17	04725
+S00546	Gramedia Distribusi	Jl. Kamboja No. 158	04725
+S00547	Pustaka Raya	Jl. Rajawali No. 34	04725
+S00548	Cipta Buku	Jl. Merpati No. 187	04725
+S00549	MegaPrint	Jl. Mawar No. 19	04725
+S00550	Pustaka Raya	Jl. Kenanga No. 115	04725
+S00551	Globalindo	Jl. Sakura No. 180	04725
+S00552	Pustaka Raya	Jl. Seruni No. 129	04725
+S00553	Sukses Mandiri	Jl. Trembesi No. 27	04725
+S00554	Cahaya Ilmu	Jl. Trembesi No. 197	04725
+S00555	Cakrawala	Jl. Nuri No. 54	04725
+S00556	Sukses Mandiri	Jl. Flamboyan No. 14	04725
+S00557	Nusantara Pustaka	Jl. Kamboja No. 141	04725
+S00558	Cemerlang Press	Jl. Anggrek No. 84	04725
+S00559	Mahardika	Jl. Flamboyan No. 134	04725
+S00560	Cahaya Ilmu	Jl. Cendana No. 117	04725
+S00561	Cipta Buku	Jl. Dahlia No. 26	04725
+S00562	Cakrawala	Jl. Anggrek No. 182	04725
+S00563	Sinar Abadi	Jl. Dahlia No. 191	04725
+S00564	Mitra Pustaka	Jl. Sakura No. 188	04725
+S00565	IndoMedia	Jl. Anggrek No. 97	04725
+S00566	Cipta Buku	Jl. Elang No. 97	04725
+S00567	Golden Print	Jl. Melati No. 5	04725
+S00568	Gramedia Distribusi	Jl. Pinus No. 60	04725
+S00569	IndoMedia	Jl. Kamboja No. 140	04725
+S00570	Cipta Buku	Jl. Nuri No. 1	04725
+S00571	Sukses Mandiri	Jl. Pinus No. 129	04725
+S00572	Gramedia Distribusi	Jl. Bougenville No. 8	04725
+S00573	MegaPrint	Jl. Kamboja No. 151	04725
+S00574	EduSmart	Jl. Pinus No. 86	04725
+S00575	Cakrawala	Jl. Dahlia No. 92	04725
+S00576	Golden Print	Jl. Jati No. 163	04725
+S00577	Mandiri Books	Jl. Melati No. 70	04725
+S00578	Cemerlang Press	Jl. Merpati No. 91	04725
+S00579	Pustaka Raya	Jl. Nuri No. 179	04725
+S00580	Mandiri Books	Jl. Nuri No. 100	04725
+S00581	IndoMedia	Jl. Pinus No. 48	04725
+S00582	Mandiri Books	Jl. Anggrek No. 8	04725
+S00583	Prima Paper	Jl. Merpati No. 117	04725
+S00584	Cakrawala	Jl. Merpati No. 60	04725
+S00585	Cahaya Ilmu	Jl. Garuda No. 33	04725
+S00586	Sukses Mandiri	Jl. Kenanga No. 126	04725
+S00587	EduSmart	Jl. Anggrek No. 189	04725
+S00588	Globalindo	Jl. Pinus No. 36	04725
+S00589	Cemerlang Press	Jl. Seruni No. 72	04725
+S00590	EduSmart	Jl. Kamboja No. 106	04725
+S00591	Cipta Buku	Jl. Elang No. 92	04725
+S00592	Cemerlang Press	Jl. Nuri No. 68	04725
+S00593	Mitra Pustaka	Jl. Sakura No. 85	04725
+S00594	Cipta Buku	Jl. Elang No. 26	04725
+S00595	Gramedia Distribusi	Jl. Kenanga No. 135	04725
+S00596	Sinar Abadi	Jl. Flamboyan No. 74	04725
+S00597	Pustaka Raya	Jl. Garuda No. 91	04725
+S00598	Golden Print	Jl. Sakura No. 38	04725
+S00599	Prima Paper	Jl. Anggrek No. 84	04725
+S00600	Cemerlang Press	Jl. Garuda No. 5	04725
+S00601	Pustaka Raya	Jl. Cendana No. 19	04725
+S00602	Mahardika	Jl. Elang No. 148	04725
+S00603	Inovasi Buku	Jl. Cendana No. 21	04725
+S00604	Mitra Pustaka	Jl. Trembesi No. 164	04725
+S00605	Cipta Buku	Jl. Cendana No. 68	04725
+S00606	Cipta Buku	Jl. Kenanga No. 3	04725
+S00607	Cemerlang Press	Jl. Merpati No. 77	04725
+S00608	Inovasi Buku	Jl. Garuda No. 60	04725
+S00609	Mitra Pustaka	Jl. Kamboja No. 99	04725
+S00610	Sinar Abadi	Jl. Elang No. 142	04725
+S00611	IndoMedia	Jl. Cendana No. 33	04725
+S00612	Golden Print	Jl. Cendana No. 114	04725
+S00613	Cemerlang Press	Jl. Sakura No. 102	04725
+S00614	Pelangi Pustaka	Jl. Seruni No. 2	04725
+S00615	Sinar Abadi	Jl. Trembesi No. 193	04725
+S00616	Mahardika	Jl. Merpati No. 19	04725
+S00617	Nusantara Pustaka	Jl. Pinus No. 133	04725
+S00618	Mahardika	Jl. Mawar No. 114	04725
+S00619	Prima Paper	Jl. Mawar No. 115	04725
+S00620	MegaPrint	Jl. Elang No. 13	04725
+S00621	Mitra Pustaka	Jl. Bougenville No. 158	04725
+S00622	MegaPrint	Jl. Seruni No. 23	04725
+S00623	Sukses Mandiri	Jl. Sakura No. 82	04725
+S00624	Mandiri Books	Jl. Bougenville No. 200	04725
+S00625	Pustaka Raya	Jl. Bougenville No. 104	04725
+S00626	Pustaka Raya	Jl. Pinus No. 84	04725
+S00627	Inovasi Buku	Jl. Garuda No. 56	04725
+S00628	Golden Print	Jl. Trembesi No. 11	04725
+S00629	EduSmart	Jl. Anggrek No. 191	04725
+S00630	Mahardika	Jl. Anggrek No. 29	04725
+S00631	Golden Print	Jl. Mawar No. 172	04725
+S00632	Pelangi Pustaka	Jl. Garuda No. 189	04725
+S00633	Prima Paper	Jl. Seruni No. 51	04725
+S00634	IndoMedia	Jl. Dahlia No. 139	04725
+S00635	Cakrawala	Jl. Merak No. 132	04725
+S00636	Mahardika	Jl. Dahlia No. 102	04725
+S00637	Mahardika	Jl. Kenanga No. 160	04725
+S00638	Sukses Mandiri	Jl. Dahlia No. 156	04725
+S00639	Sukses Mandiri	Jl. Flamboyan No. 192	04725
+S00640	Prima Paper	Jl. Kenanga No. 136	04725
+S00641	Prima Paper	Jl. Pinus No. 127	04725
+S00642	Cakrawala	Jl. Kamboja No. 12	04725
+S00643	Sukses Mandiri	Jl. Dahlia No. 133	04725
+S00644	Nusantara Pustaka	Jl. Kamboja No. 88	04725
+S00645	Mahardika	Jl. Mawar No. 81	04725
+S00646	Mahardika	Jl. Seruni No. 189	04725
+S00647	Cahaya Ilmu	Jl. Melati No. 144	04725
+S00648	Sinar Abadi	Jl. Elang No. 76	04725
+S00649	EduSmart	Jl. Garuda No. 116	04725
+S00650	Cipta Buku	Jl. Rajawali No. 194	04725
+S00651	Sinar Abadi	Jl. Pinus No. 188	04725
+S00652	Cemerlang Press	Jl. Rajawali No. 150	04725
+S00653	Sukses Mandiri	Jl. Anggrek No. 196	04725
+S00654	Pelangi Pustaka	Jl. Bougenville No. 97	04725
+S00655	Inovasi Buku	Jl. Merak No. 187	04725
+S00656	Mahardika	Jl. Flamboyan No. 12	04725
+S00657	Cakrawala	Jl. Melati No. 19	04725
+S00658	Cakrawala	Jl. Kamboja No. 116	04725
+S00659	Golden Print	Jl. Melati No. 182	04725
+S00660	Inovasi Buku	Jl. Merak No. 15	04725
+S00661	Globalindo	Jl. Kamboja No. 129	04725
+S00662	Mandiri Books	Jl. Pinus No. 31	04725
+S00663	Inovasi Buku	Jl. Trembesi No. 111	04725
+S00664	MegaPrint	Jl. Cendana No. 139	04725
+S00665	Sukses Mandiri	Jl. Jati No. 82	04725
+S00666	IndoMedia	Jl. Elang No. 7	04725
+S00667	Sukses Mandiri	Jl. Jati No. 143	04725
+S00668	Nusantara Pustaka	Jl. Sakura No. 29	04725
+S00669	Inovasi Buku	Jl. Melati No. 114	04725
+S00670	IndoMedia	Jl. Mawar No. 170	04725
+S00671	Cipta Buku	Jl. Melati No. 148	04725
+S00672	Inovasi Buku	Jl. Sakura No. 13	04725
+S00673	Pelangi Pustaka	Jl. Jati No. 94	04725
+S00674	Pustaka Raya	Jl. Mawar No. 102	04725
+S00675	Sukses Mandiri	Jl. Rajawali No. 70	04725
+S00676	Sukses Mandiri	Jl. Elang No. 113	04725
+S00677	MegaPrint	Jl. Cendana No. 135	04725
+S00678	Sinar Abadi	Jl. Sakura No. 103	04725
+S00679	Nusantara Pustaka	Jl. Mawar No. 170	04725
+S00680	Nusantara Pustaka	Jl. Jati No. 64	04725
+S00681	Mandiri Books	Jl. Flamboyan No. 45	04725
+S00682	Pustaka Raya	Jl. Kenanga No. 15	04725
+S00683	Cipta Buku	Jl. Kamboja No. 75	04725
+S00684	Mandiri Books	Jl. Merak No. 195	04725
+S00685	IndoMedia	Jl. Kamboja No. 72	04725
+S00686	Mandiri Books	Jl. Trembesi No. 23	04725
+S00687	Pelangi Pustaka	Jl. Kamboja No. 41	04725
+S00688	Cemerlang Press	Jl. Sakura No. 92	04725
+S00689	Pelangi Pustaka	Jl. Mawar No. 9	04725
+S00690	Mahardika	Jl. Flamboyan No. 100	04725
+S00691	Cakrawala	Jl. Merak No. 34	04725
+S00692	Sukses Mandiri	Jl. Bougenville No. 47	04725
+S00693	Pelangi Pustaka	Jl. Nuri No. 30	04725
+S00694	Sinar Abadi	Jl. Nuri No. 78	04725
+S00695	IndoMedia	Jl. Elang No. 126	04725
+S00696	Nusantara Pustaka	Jl. Kamboja No. 95	04725
+S00697	Mahardika	Jl. Merpati No. 48	04725
+S00698	MegaPrint	Jl. Sakura No. 193	04725
+S00699	Pustaka Raya	Jl. Merak No. 196	04725
+S00700	Nusantara Pustaka	Jl. Rajawali No. 80	04725
+S00701	Mandiri Books	Jl. Elang No. 186	04725
+S00702	Mahardika	Jl. Bougenville No. 81	04725
+S00703	Cipta Buku	Jl. Jati No. 150	04725
+S00704	Nusantara Pustaka	Jl. Nuri No. 61	04725
+S00705	Sinar Abadi	Jl. Dahlia No. 154	04725
+S00706	Mitra Pustaka	Jl. Garuda No. 26	04725
+S00707	MegaPrint	Jl. Kamboja No. 177	04725
+S00708	Prima Paper	Jl. Merak No. 166	04725
+S00709	Cakrawala	Jl. Anggrek No. 106	04725
+S00710	MegaPrint	Jl. Jati No. 70	04725
+S00711	Prima Paper	Jl. Mawar No. 123	04725
+S00712	Cipta Buku	Jl. Pinus No. 129	04725
+S00713	Cahaya Ilmu	Jl. Kamboja No. 53	04725
+S00714	Mandiri Books	Jl. Sakura No. 72	04725
+S00715	Globalindo	Jl. Sakura No. 111	04725
+S00716	IndoMedia	Jl. Cendana No. 73	04725
+S00717	Mitra Pustaka	Jl. Nuri No. 196	04725
+S00718	Sukses Mandiri	Jl. Nuri No. 178	04725
+S00719	Nusantara Pustaka	Jl. Merpati No. 138	04725
+S00720	Mahardika	Jl. Nuri No. 122	04725
+S00721	Nusantara Pustaka	Jl. Anggrek No. 145	04725
+S00722	Mitra Pustaka	Jl. Cendana No. 51	04725
+S00723	Golden Print	Jl. Merpati No. 19	04725
+S00724	Mitra Pustaka	Jl. Merak No. 93	04725
+S00725	Mandiri Books	Jl. Cendana No. 168	04725
+S00726	Sukses Mandiri	Jl. Seruni No. 105	04725
+S00727	Sukses Mandiri	Jl. Kamboja No. 29	04725
+S00728	IndoMedia	Jl. Mawar No. 49	04725
+S00729	Mahardika	Jl. Rajawali No. 17	04725
+S00730	Mandiri Books	Jl. Bougenville No. 107	04725
+S00731	Golden Print	Jl. Rajawali No. 33	04725
+S00732	Mahardika	Jl. Seruni No. 34	04725
+S00733	Cakrawala	Jl. Dahlia No. 43	04725
+S00734	Inovasi Buku	Jl. Flamboyan No. 92	04725
+S00735	Sinar Abadi	Jl. Melati No. 169	04725
+S00736	Globalindo	Jl. Garuda No. 125	04725
+S00737	Mahardika	Jl. Jati No. 51	04725
+S00738	Mandiri Books	Jl. Dahlia No. 141	04725
+S00739	Cipta Buku	Jl. Flamboyan No. 185	04725
+S00740	Cipta Buku	Jl. Kamboja No. 94	04725
+S00741	Golden Print	Jl. Mawar No. 52	04725
+S00742	EduSmart	Jl. Pinus No. 118	04725
+S00743	Sukses Mandiri	Jl. Merpati No. 120	04725
+S00744	Cipta Buku	Jl. Sakura No. 123	04725
+S00745	IndoMedia	Jl. Anggrek No. 162	04725
+S00746	Mitra Pustaka	Jl. Kamboja No. 7	04725
+S00747	Prima Paper	Jl. Rajawali No. 154	04725
+S00748	Mitra Pustaka	Jl. Kamboja No. 179	04725
+S00749	Cahaya Ilmu	Jl. Kenanga No. 113	04725
+S00750	IndoMedia	Jl. Anggrek No. 68	04725
+S00751	Globalindo	Jl. Flamboyan No. 189	04725
+S00752	Mitra Pustaka	Jl. Trembesi No. 39	04725
+S00753	MegaPrint	Jl. Garuda No. 67	04725
+S00754	Pustaka Raya	Jl. Bougenville No. 83	04725
+S00755	Sukses Mandiri	Jl. Trembesi No. 181	04725
+S00756	Cemerlang Press	Jl. Elang No. 155	04725
+S00757	Cahaya Ilmu	Jl. Sakura No. 6	04725
+S00758	Mitra Pustaka	Jl. Dahlia No. 137	04725
+S00759	Cakrawala	Jl. Nuri No. 13	04725
+S00760	Cipta Buku	Jl. Melati No. 134	04725
+S00761	Mitra Pustaka	Jl. Kenanga No. 176	04725
+S00762	Cipta Buku	Jl. Pinus No. 132	04725
+S00763	Pelangi Pustaka	Jl. Jati No. 3	04725
+S00764	Globalindo	Jl. Nuri No. 127	04725
+S00765	Mahardika	Jl. Anggrek No. 117	04725
+S00766	IndoMedia	Jl. Kenanga No. 147	04725
+S00767	EduSmart	Jl. Nuri No. 144	04725
+S00768	Mandiri Books	Jl. Melati No. 34	04725
+S00769	Mitra Pustaka	Jl. Bougenville No. 101	04725
+S00770	Gramedia Distribusi	Jl. Nuri No. 191	04725
+S00771	Prima Paper	Jl. Merpati No. 31	04725
+S00772	Pelangi Pustaka	Jl. Nuri No. 100	04725
+S00773	Prima Paper	Jl. Bougenville No. 102	04725
+S00774	Pustaka Raya	Jl. Merpati No. 91	04725
+S00775	MegaPrint	Jl. Melati No. 52	04725
+S00776	Pustaka Raya	Jl. Mawar No. 63	04725
+S00777	Mahardika	Jl. Cendana No. 118	04725
+S00778	Pustaka Raya	Jl. Merak No. 81	04725
+S00779	IndoMedia	Jl. Trembesi No. 30	04725
+S00780	Globalindo	Jl. Sakura No. 98	04725
+S00781	Cakrawala	Jl. Anggrek No. 17	04725
+S00782	Mahardika	Jl. Mawar No. 15	04725
+S00783	Gramedia Distribusi	Jl. Flamboyan No. 96	04725
+S00784	Cahaya Ilmu	Jl. Garuda No. 98	04725
+S00785	Mahardika	Jl. Nuri No. 90	04725
+S00786	Cipta Buku	Jl. Merpati No. 52	04725
+S00787	Sinar Abadi	Jl. Pinus No. 183	04725
+S00788	Golden Print	Jl. Rajawali No. 125	04725
+S00789	Cahaya Ilmu	Jl. Seruni No. 187	04725
+S00790	Gramedia Distribusi	Jl. Flamboyan No. 188	04725
+S00791	Globalindo	Jl. Elang No. 139	04725
+S00792	Globalindo	Jl. Kenanga No. 183	04725
+S00793	Prima Paper	Jl. Bougenville No. 126	04725
+S00794	Mandiri Books	Jl. Kamboja No. 154	04725
+S00795	Cipta Buku	Jl. Merak No. 51	04725
+S00796	Gramedia Distribusi	Jl. Flamboyan No. 178	04725
+S00797	EduSmart	Jl. Seruni No. 191	04725
+S00798	Nusantara Pustaka	Jl. Elang No. 45	04725
+S00799	Mandiri Books	Jl. Kamboja No. 154	04725
+S00800	Gramedia Distribusi	Jl. Bougenville No. 38	04725
+S00801	Gramedia Distribusi	Jl. Melati No. 54	04725
+S00802	Globalindo	Jl. Melati No. 123	04725
+S00803	Inovasi Buku	Jl. Bougenville No. 168	04725
+S00804	Cakrawala	Jl. Seruni No. 42	04725
+S00805	IndoMedia	Jl. Nuri No. 198	04725
+S00806	Pustaka Raya	Jl. Kamboja No. 4	04725
+S00807	Nusantara Pustaka	Jl. Dahlia No. 117	04725
+S00808	EduSmart	Jl. Nuri No. 108	04725
+S00809	Nusantara Pustaka	Jl. Bougenville No. 58	04725
+S00810	Sinar Abadi	Jl. Bougenville No. 127	04725
+S00811	Prima Paper	Jl. Nuri No. 50	04725
+S00812	IndoMedia	Jl. Merak No. 193	04725
+S00813	Mandiri Books	Jl. Jati No. 20	04725
+S00814	Prima Paper	Jl. Bougenville No. 112	04725
+S00815	Sinar Abadi	Jl. Elang No. 61	04725
+S00816	EduSmart	Jl. Trembesi No. 9	04725
+S00817	Golden Print	Jl. Sakura No. 82	04725
+S00818	Gramedia Distribusi	Jl. Elang No. 31	04725
+S00819	Golden Print	Jl. Trembesi No. 152	04725
+S00820	Globalindo	Jl. Trembesi No. 54	04725
+S00821	Globalindo	Jl. Trembesi No. 107	04725
+S00822	Inovasi Buku	Jl. Garuda No. 49	04725
+S00823	Mitra Pustaka	Jl. Jati No. 117	04725
+S00824	Sukses Mandiri	Jl. Kamboja No. 63	04725
+S00825	Inovasi Buku	Jl. Seruni No. 13	04725
+S00826	Sukses Mandiri	Jl. Flamboyan No. 179	04725
+S00827	Sinar Abadi	Jl. Rajawali No. 49	04725
+S00828	IndoMedia	Jl. Merpati No. 88	04725
+S00829	IndoMedia	Jl. Jati No. 79	04725
+S00830	Pelangi Pustaka	Jl. Jati No. 12	04725
+S00831	Cemerlang Press	Jl. Nuri No. 1	04725
+S00832	Mandiri Books	Jl. Flamboyan No. 193	04725
+S00833	Globalindo	Jl. Elang No. 86	04725
+S00834	Sukses Mandiri	Jl. Cendana No. 22	04725
+S00835	Mitra Pustaka	Jl. Flamboyan No. 28	04725
+S00836	Nusantara Pustaka	Jl. Melati No. 154	04725
+S00837	Globalindo	Jl. Nuri No. 58	04725
+S00838	MegaPrint	Jl. Cendana No. 169	04725
+S00839	Prima Paper	Jl. Dahlia No. 151	04725
+S00840	Prima Paper	Jl. Pinus No. 105	04725
+S00841	Pustaka Raya	Jl. Sakura No. 123	04725
+S00842	Cahaya Ilmu	Jl. Dahlia No. 63	04725
+S00843	Golden Print	Jl. Rajawali No. 184	04725
+S00844	Mandiri Books	Jl. Merak No. 51	04725
+S00845	Pelangi Pustaka	Jl. Anggrek No. 109	04725
+S00846	IndoMedia	Jl. Cendana No. 178	04725
+S00847	EduSmart	Jl. Rajawali No. 8	04725
+S00848	Gramedia Distribusi	Jl. Rajawali No. 82	04725
+S00849	MegaPrint	Jl. Merpati No. 196	04725
+S00850	Cakrawala	Jl. Kenanga No. 142	04725
+S00851	Prima Paper	Jl. Trembesi No. 105	04725
+S00852	Nusantara Pustaka	Jl. Bougenville No. 137	04725
+S00853	Golden Print	Jl. Dahlia No. 187	04725
+S00854	Sukses Mandiri	Jl. Seruni No. 161	04725
+S00855	Mandiri Books	Jl. Rajawali No. 163	04725
+S00856	Cemerlang Press	Jl. Flamboyan No. 74	04725
+S00857	MegaPrint	Jl. Kamboja No. 143	04725
+S00858	Cakrawala	Jl. Sakura No. 90	04725
+S00859	Prima Paper	Jl. Trembesi No. 99	04725
+S00860	Sinar Abadi	Jl. Flamboyan No. 142	04725
+S00861	Golden Print	Jl. Bougenville No. 150	04725
+S00862	EduSmart	Jl. Nuri No. 126	04725
+S00863	Sinar Abadi	Jl. Seruni No. 175	04725
+S00864	Cipta Buku	Jl. Anggrek No. 20	04725
+S00865	Globalindo	Jl. Garuda No. 5	04725
+S00866	Sukses Mandiri	Jl. Kamboja No. 187	04725
+S00867	MegaPrint	Jl. Kamboja No. 40	04725
+S00868	Nusantara Pustaka	Jl. Pinus No. 136	04725
+S00869	Mitra Pustaka	Jl. Jati No. 188	04725
+S00870	Mitra Pustaka	Jl. Cendana No. 62	04725
+S00871	Sukses Mandiri	Jl. Melati No. 161	04725
+S00872	MegaPrint	Jl. Pinus No. 93	04725
+S00873	Mitra Pustaka	Jl. Jati No. 168	04725
+S00874	Prima Paper	Jl. Garuda No. 88	04725
+S00875	Mandiri Books	Jl. Merpati No. 132	04725
+S00876	Mitra Pustaka	Jl. Bougenville No. 115	04725
+S00877	Inovasi Buku	Jl. Anggrek No. 111	04725
+S00878	IndoMedia	Jl. Trembesi No. 72	04725
+S00879	Mandiri Books	Jl. Kamboja No. 83	04725
+S00880	EduSmart	Jl. Flamboyan No. 76	04725
+S00881	Mitra Pustaka	Jl. Sakura No. 188	04725
+S00882	MegaPrint	Jl. Anggrek No. 131	04725
+S00883	Globalindo	Jl. Elang No. 94	04725
+S00884	MegaPrint	Jl. Trembesi No. 39	04725
+S00885	Cemerlang Press	Jl. Trembesi No. 121	04725
+S00886	IndoMedia	Jl. Cendana No. 150	04725
+S00887	Golden Print	Jl. Elang No. 82	04725
+S00888	Cahaya Ilmu	Jl. Cendana No. 45	04725
+S00889	Pustaka Raya	Jl. Sakura No. 154	04725
+S00890	EduSmart	Jl. Kenanga No. 15	04725
+S00891	Cahaya Ilmu	Jl. Rajawali No. 104	04725
+S00892	IndoMedia	Jl. Jati No. 137	04725
+S00893	Mandiri Books	Jl. Trembesi No. 29	04725
+S00894	Pelangi Pustaka	Jl. Merak No. 122	04725
+S00895	EduSmart	Jl. Garuda No. 114	04725
+S00896	Cakrawala	Jl. Merpati No. 20	04725
+S00897	EduSmart	Jl. Rajawali No. 78	04725
+S00898	EduSmart	Jl. Melati No. 89	04725
+S00899	Mandiri Books	Jl. Seruni No. 60	04725
+S00900	Cemerlang Press	Jl. Mawar No. 35	04725
+S00901	IndoMedia	Jl. Kamboja No. 95	04725
+S00902	Cipta Buku	Jl. Merak No. 56	04725
+S00903	Mandiri Books	Jl. Seruni No. 33	04725
+S00904	Cahaya Ilmu	Jl. Trembesi No. 40	04725
+S00905	Cipta Buku	Jl. Elang No. 86	04725
+S00906	Cemerlang Press	Jl. Merpati No. 10	04725
+S00907	Mitra Pustaka	Jl. Garuda No. 190	04725
+S00908	EduSmart	Jl. Rajawali No. 96	04725
+S00909	Pustaka Raya	Jl. Elang No. 101	04725
+S00910	Cahaya Ilmu	Jl. Dahlia No. 27	04725
+S00911	Pelangi Pustaka	Jl. Sakura No. 55	04725
+S00912	MegaPrint	Jl. Flamboyan No. 157	04725
+S00913	Inovasi Buku	Jl. Trembesi No. 189	04725
+S00914	Inovasi Buku	Jl. Kenanga No. 91	04725
+S00915	IndoMedia	Jl. Anggrek No. 110	04725
+S00916	Prima Paper	Jl. Mawar No. 89	04725
+S00917	Globalindo	Jl. Garuda No. 8	04725
+S00918	MegaPrint	Jl. Kenanga No. 94	04725
+S00919	Gramedia Distribusi	Jl. Rajawali No. 6	04725
+S00920	Mahardika	Jl. Nuri No. 46	04725
+S00921	Mahardika	Jl. Bougenville No. 68	04725
+S00922	Prima Paper	Jl. Kamboja No. 107	04725
+S00923	Mandiri Books	Jl. Mawar No. 67	04725
+S00924	Nusantara Pustaka	Jl. Mawar No. 159	04725
+S00925	Pustaka Raya	Jl. Dahlia No. 52	04725
+S00926	Cahaya Ilmu	Jl. Flamboyan No. 134	04725
+S00927	Sinar Abadi	Jl. Anggrek No. 193	04725
+S00928	Prima Paper	Jl. Elang No. 66	04725
+S00929	Prima Paper	Jl. Trembesi No. 127	04725
+S00930	Cahaya Ilmu	Jl. Merak No. 77	04725
+S00931	Mitra Pustaka	Jl. Merpati No. 145	04725
+S00932	Sukses Mandiri	Jl. Flamboyan No. 59	04725
+S00933	Nusantara Pustaka	Jl. Merpati No. 38	04725
+S00934	Sukses Mandiri	Jl. Seruni No. 129	04725
+S00935	Cipta Buku	Jl. Kenanga No. 143	04725
+S00936	Mandiri Books	Jl. Merpati No. 8	04725
+S00937	Sinar Abadi	Jl. Flamboyan No. 109	04725
+S00938	Prima Paper	Jl. Kamboja No. 80	04725
+S00939	Cahaya Ilmu	Jl. Nuri No. 19	04725
+S00940	Golden Print	Jl. Rajawali No. 9	04725
+S00941	MegaPrint	Jl. Jati No. 183	04725
+S00942	Pelangi Pustaka	Jl. Rajawali No. 32	04725
+S00943	Globalindo	Jl. Flamboyan No. 170	04725
+S00944	Cipta Buku	Jl. Sakura No. 23	04725
+S00945	Prima Paper	Jl. Elang No. 60	04725
+S00946	Mandiri Books	Jl. Mawar No. 179	04725
+S00947	Mandiri Books	Jl. Melati No. 143	04725
+S00948	Pustaka Raya	Jl. Kamboja No. 113	04725
+S00949	Golden Print	Jl. Nuri No. 46	04725
+S00950	MegaPrint	Jl. Dahlia No. 20	04725
+S00951	Mitra Pustaka	Jl. Melati No. 21	04725
+S00952	Cahaya Ilmu	Jl. Sakura No. 68	04725
+S00953	Mahardika	Jl. Seruni No. 54	04725
+S00954	Prima Paper	Jl. Kamboja No. 171	04725
+S00955	Cakrawala	Jl. Dahlia No. 59	04725
+S00956	Pustaka Raya	Jl. Dahlia No. 145	04725
+S00957	Cipta Buku	Jl. Kenanga No. 69	04725
+S00958	MegaPrint	Jl. Flamboyan No. 128	04725
+S00959	Sukses Mandiri	Jl. Flamboyan No. 118	04725
+S00960	MegaPrint	Jl. Trembesi No. 123	04725
+S00961	Pustaka Raya	Jl. Melati No. 15	04725
+S00962	Mahardika	Jl. Elang No. 108	04725
+S00963	Mahardika	Jl. Garuda No. 59	04725
+S00964	Globalindo	Jl. Elang No. 34	04725
+S00965	Mitra Pustaka	Jl. Nuri No. 102	04725
+S00966	Cipta Buku	Jl. Trembesi No. 58	04725
+S00967	Prima Paper	Jl. Elang No. 92	04725
+S00968	Mitra Pustaka	Jl. Trembesi No. 129	04725
+S00969	Cakrawala	Jl. Garuda No. 156	04725
+S00970	Cakrawala	Jl. Bougenville No. 47	04725
+S00971	IndoMedia	Jl. Mawar No. 89	04725
+S00972	Gramedia Distribusi	Jl. Kenanga No. 23	04725
+S00973	Pustaka Raya	Jl. Merpati No. 102	04725
+S00974	Prima Paper	Jl. Seruni No. 6	04725
+S00975	Prima Paper	Jl. Merak No. 165	04725
+S00976	Cakrawala	Jl. Anggrek No. 93	04725
+S00977	Sinar Abadi	Jl. Elang No. 9	04725
+S00978	Mitra Pustaka	Jl. Garuda No. 55	04725
+S00979	Gramedia Distribusi	Jl. Jati No. 176	04725
+S00980	Cakrawala	Jl. Kenanga No. 168	04725
+S00981	Gramedia Distribusi	Jl. Kenanga No. 88	04725
+S00982	Cahaya Ilmu	Jl. Kenanga No. 8	04725
+S00983	Pustaka Raya	Jl. Jati No. 102	04725
+S00984	Globalindo	Jl. Flamboyan No. 90	04725
+S00985	EduSmart	Jl. Garuda No. 196	04725
+S00986	IndoMedia	Jl. Rajawali No. 81	04725
+S00987	Cahaya Ilmu	Jl. Sakura No. 47	04725
+S00988	Mahardika	Jl. Mawar No. 85	04725
+S00989	EduSmart	Jl. Anggrek No. 33	04725
+S00990	Mitra Pustaka	Jl. Rajawali No. 15	04725
+S00991	Pustaka Raya	Jl. Trembesi No. 88	04725
+S00992	Mandiri Books	Jl. Rajawali No. 98	04725
+S00993	Cemerlang Press	Jl. Merak No. 93	04725
+S00994	Sukses Mandiri	Jl. Rajawali No. 60	04725
+S00995	Mandiri Books	Jl. Bougenville No. 138	04725
+S00996	EduSmart	Jl. Jati No. 61	04725
+S00997	Pelangi Pustaka	Jl. Nuri No. 98	04725
+S00998	Prima Paper	Jl. Pinus No. 191	04725
+S00999	Golden Print	Jl. Mawar No. 193	04725
+S01000	Nusantara Pustaka	Jl. Cendana No. 57	04725
+S02938	Cakrawala	Jl. Garuda No. 62	04725
+\.
+
+
+--
+-- TOC entry 5022 (class 0 OID 18541)
+-- Dependencies: 231
+-- Data for Name: Pembelian; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Pembelian" (id_pembelian, tanggal_pembelian, id_pemasok) FROM stdin;
+B00001	2022-06-25	S02938
+B00002	2021-12-07	S02938
+B00003	2021-12-20	S02938
+B00004	2024-01-12	S02938
+B00005	2024-11-20	S02938
+B00006	2021-06-02	S02938
+B00007	2020-12-19	S02938
+B00008	2020-12-25	S02938
+B00009	2023-07-06	S02938
+B00010	2020-09-07	S02938
+B00011	2023-02-23	S02938
+B00012	2024-10-13	S02938
+B00013	2022-07-04	S02938
+B00014	2020-11-20	S02938
+B00015	2020-07-28	S02938
+B00016	2020-08-21	S02938
+B00017	2024-07-27	S02938
+B00018	2024-08-26	S02938
+B00019	2021-07-12	S02938
+B00020	2020-05-09	S02938
+B00021	2024-03-30	S02938
+B00022	2021-03-12	S02938
+B00023	2022-04-10	S02938
+B00024	2021-04-27	S02938
+B00025	2022-03-19	S02938
+B00026	2021-12-29	S02938
+B00027	2023-08-11	S02938
+B00028	2021-01-20	S02938
+B00029	2023-03-20	S02938
+B00030	2024-08-30	S02938
+B00031	2023-05-16	S02938
+B00032	2023-07-11	S02938
+B00033	2023-08-19	S02938
+B00034	2024-06-24	S02938
+B00035	2022-10-09	S02938
+B00036	2020-05-19	S02938
+B00037	2024-07-01	S02938
+B00038	2022-11-01	S02938
+B00039	2020-04-03	S02938
+B00040	2021-07-09	S02938
+B00041	2021-11-09	S02938
+B00042	2024-03-13	S02938
+B00043	2021-04-03	S02938
+B00044	2024-01-02	S02938
+B00045	2020-07-30	S02938
+B00046	2022-06-12	S02938
+B00047	2023-03-04	S02938
+B00048	2021-03-06	S02938
+B00049	2021-07-06	S02938
+B00050	2020-08-23	S02938
+B00051	2024-10-06	S02938
+B00052	2024-04-03	S02938
+B00053	2020-02-17	S02938
+B00054	2021-10-17	S02938
+B00055	2022-09-02	S02938
+B00056	2022-10-21	S02938
+B00057	2022-07-15	S02938
+B00058	2020-02-01	S02938
+B00059	2024-05-13	S02938
+B00060	2021-10-21	S02938
+B00061	2024-02-05	S02938
+B00062	2021-12-16	S02938
+B00063	2022-11-24	S02938
+B00064	2023-02-20	S02938
+B00065	2022-03-26	S02938
+B00066	2021-11-06	S02938
+B00067	2021-11-16	S02938
+B00068	2021-02-04	S02938
+B00069	2020-09-28	S02938
+B00070	2023-07-16	S02938
+B00071	2021-12-23	S02938
+B00072	2024-02-20	S02938
+B00073	2023-03-05	S02938
+B00074	2021-01-29	S02938
+B00075	2024-03-11	S02938
+B00076	2022-03-25	S02938
+B00077	2024-09-19	S02938
+B00078	2024-03-06	S02938
+B00079	2024-08-19	S02938
+B00080	2022-12-18	S02938
+B00081	2021-03-30	S02938
+B00082	2022-03-11	S02938
+B00083	2022-11-26	S02938
+B00084	2023-11-24	S02938
+B00085	2024-06-28	S02938
+B00086	2021-02-07	S02938
+B00087	2023-03-20	S02938
+B00088	2021-03-20	S02938
+B00089	2023-07-02	S02938
+B00090	2021-01-03	S02938
+B00091	2023-04-30	S02938
+B00092	2024-03-03	S02938
+B00093	2024-09-26	S02938
+B00094	2023-09-23	S02938
+B00095	2020-06-13	S02938
+B00096	2021-07-27	S02938
+B00097	2020-01-24	S02938
+B00098	2020-04-19	S02938
+B00099	2022-08-04	S02938
+B00100	2020-05-09	S02938
+B00101	2020-06-07	S02938
+B00102	2024-03-03	S02938
+B00103	2021-09-19	S02938
+B00104	2020-03-07	S02938
+B00105	2024-02-16	S02938
+B00106	2020-06-26	S02938
+B00107	2020-02-17	S02938
+B00108	2021-11-18	S02938
+B00109	2021-06-29	S02938
+B00110	2020-09-15	S02938
+B00111	2024-07-25	S02938
+B00112	2024-01-23	S02938
+B00113	2022-05-20	S02938
+B00114	2024-06-29	S02938
+B00115	2022-06-15	S02938
+B00116	2022-11-03	S02938
+B00117	2020-09-11	S02938
+B00118	2022-04-19	S02938
+B00119	2023-11-10	S02938
+B00120	2020-07-10	S02938
+B00121	2023-02-05	S02938
+B00122	2023-06-05	S02938
+B00123	2022-07-08	S02938
+B00124	2021-05-09	S02938
+B00125	2021-04-30	S02938
+B00126	2020-06-24	S02938
+B00127	2023-10-09	S02938
+B00128	2024-05-28	S02938
+B00129	2024-05-04	S02938
+B00130	2024-08-10	S02938
+B00131	2024-09-02	S02938
+B00132	2020-02-29	S02938
+B00133	2020-10-03	S02938
+B00134	2021-07-23	S02938
+B00135	2023-08-06	S02938
+B00136	2023-11-30	S02938
+B00137	2023-12-04	S02938
+B00138	2023-07-28	S02938
+B00139	2021-12-14	S02938
+B00140	2021-07-27	S02938
+B00141	2022-03-01	S02938
+B00142	2020-07-28	S02938
+B00143	2021-04-07	S02938
+B00144	2024-03-24	S02938
+B00145	2022-08-08	S02938
+B00146	2020-01-04	S02938
+B00147	2023-10-26	S02938
+B00148	2020-12-21	S02938
+B00149	2024-02-02	S02938
+B00150	2022-10-23	S02938
+B00151	2022-02-07	S02938
+B00152	2020-09-05	S02938
+B00153	2021-11-07	S02938
+B00154	2020-05-22	S02938
+B00155	2024-05-10	S02938
+B00156	2024-06-18	S02938
+B00157	2022-12-15	S02938
+B00158	2022-09-02	S02938
+B00159	2022-06-12	S02938
+B00160	2022-01-06	S02938
+B00161	2024-11-12	S02938
+B00162	2021-07-10	S02938
+B00163	2023-09-16	S02938
+B00164	2023-12-14	S02938
+B00165	2022-11-17	S02938
+B00166	2020-07-02	S02938
+B00167	2020-09-06	S02938
+B00168	2024-04-10	S02938
+B00169	2022-09-06	S02938
+B00170	2021-11-05	S02938
+B00171	2022-09-02	S02938
+B00172	2020-07-07	S02938
+B00173	2024-09-01	S02938
+B00174	2022-07-19	S02938
+B00175	2022-09-18	S02938
+B00176	2021-11-02	S02938
+B00177	2024-02-01	S02938
+B00178	2022-06-15	S02938
+B00179	2022-07-13	S02938
+B00180	2022-01-23	S02938
+B00181	2020-04-30	S02938
+B00182	2021-10-22	S02938
+B00183	2024-06-24	S02938
+B00184	2022-07-17	S02938
+B00185	2023-09-03	S02938
+B00186	2020-09-09	S02938
+B00187	2021-07-15	S02938
+B00188	2020-10-31	S02938
+B00189	2022-11-30	S02938
+B00190	2023-07-28	S02938
+B00191	2022-07-29	S02938
+B00192	2024-07-05	S02938
+B00193	2023-07-01	S02938
+B00194	2020-10-05	S02938
+B00195	2023-07-05	S02938
+B00196	2024-08-08	S02938
+B00197	2022-06-14	S02938
+B00198	2020-06-04	S02938
+B00199	2020-11-26	S02938
+B00200	2023-09-15	S02938
+B00201	2020-04-22	S02938
+B00202	2023-05-24	S02938
+B00203	2024-02-20	S02938
+B00204	2024-02-13	S02938
+B00205	2021-11-06	S02938
+B00206	2023-07-04	S02938
+B00207	2021-01-09	S02938
+B00208	2022-11-09	S02938
+B00209	2023-10-16	S02938
+B00210	2020-06-28	S02938
+B00211	2020-09-04	S02938
+B00212	2021-02-21	S02938
+B00213	2023-09-23	S02938
+B00214	2022-03-19	S02938
+B00215	2022-06-05	S02938
+B00216	2024-08-27	S02938
+B00217	2021-05-24	S02938
+B00218	2023-04-10	S02938
+B00219	2021-02-06	S02938
+B00220	2020-05-15	S02938
+B00221	2021-11-16	S02938
+B00222	2020-08-07	S02938
+B00223	2020-12-16	S02938
+B00224	2020-12-27	S02938
+B00225	2024-03-04	S02938
+B00226	2021-08-22	S02938
+B00227	2021-11-19	S02938
+B00228	2020-07-11	S02938
+B00229	2021-07-07	S02938
+B00230	2024-08-15	S02938
+B00231	2020-11-03	S02938
+B00232	2021-02-12	S02938
+B00233	2020-05-10	S02938
+B00234	2021-01-28	S02938
+B00235	2020-07-12	S02938
+B00236	2020-06-29	S02938
+B00237	2021-10-19	S02938
+B00238	2023-06-21	S02938
+B00239	2023-07-14	S02938
+B00240	2022-11-13	S02938
+B00241	2022-12-18	S02938
+B00242	2024-01-31	S02938
+B00243	2022-02-03	S02938
+B00244	2020-04-20	S02938
+B00245	2022-12-11	S02938
+B00246	2024-09-19	S02938
+B00247	2022-09-19	S02938
+B00248	2023-06-23	S02938
+B00249	2022-07-12	S02938
+B00250	2022-01-17	S02938
+B00251	2023-09-04	S02938
+B00252	2020-12-10	S02938
+B00253	2021-01-18	S02938
+B00254	2021-05-27	S02938
+B00255	2023-08-11	S02938
+B00256	2023-07-27	S02938
+B00257	2021-01-29	S02938
+B00258	2023-03-23	S02938
+B00259	2021-02-24	S02938
+B00260	2022-10-08	S02938
+B00261	2022-03-23	S02938
+B00262	2020-12-06	S02938
+B00263	2020-04-21	S02938
+B00264	2023-06-25	S02938
+B00265	2023-09-15	S02938
+B00266	2022-08-28	S02938
+B00267	2023-08-12	S02938
+B00268	2023-03-05	S02938
+B00269	2024-04-22	S02938
+B00270	2024-08-04	S02938
+B00271	2022-03-03	S02938
+B00272	2021-10-31	S02938
+B00273	2023-11-10	S02938
+B00274	2023-03-29	S02938
+B00275	2023-02-24	S02938
+B00276	2023-09-26	S02938
+B00277	2021-10-25	S02938
+B00278	2021-04-06	S02938
+B00279	2020-06-18	S02938
+B00280	2022-02-02	S02938
+B00281	2023-05-03	S02938
+B00282	2023-10-22	S02938
+B00283	2022-08-18	S02938
+B00284	2023-01-03	S02938
+B00285	2024-02-23	S02938
+B00286	2024-11-27	S02938
+B00287	2024-08-11	S02938
+B00288	2024-11-29	S02938
+B00289	2020-07-17	S02938
+B00290	2022-06-12	S02938
+B00291	2021-03-18	S02938
+B00292	2020-08-20	S02938
+B00293	2023-08-02	S02938
+B00294	2022-02-25	S02938
+B00295	2020-06-15	S02938
+B00296	2021-04-12	S02938
+B00297	2024-08-13	S02938
+B00298	2020-05-29	S02938
+B00299	2021-12-17	S02938
+B00300	2021-09-30	S02938
+B00301	2021-12-18	S02938
+B00302	2024-10-08	S02938
+B00303	2021-09-08	S02938
+B00304	2020-02-17	S02938
+B00305	2022-07-15	S02938
+B00306	2022-08-02	S02938
+B00307	2020-07-04	S02938
+B00308	2023-01-02	S02938
+B00309	2024-02-03	S02938
+B00310	2020-06-01	S02938
+B00311	2021-04-25	S02938
+B00312	2024-11-04	S02938
+B00313	2020-10-16	S02938
+B00314	2023-03-14	S02938
+B00315	2022-04-01	S02938
+B00316	2021-02-20	S02938
+B00317	2024-03-05	S02938
+B00318	2021-09-17	S02938
+B00319	2024-02-20	S02938
+B00320	2021-03-11	S02938
+B00321	2024-02-20	S02938
+B00322	2020-12-21	S02938
+B00323	2023-02-10	S02938
+B00324	2022-09-13	S02938
+B00325	2020-08-03	S02938
+B00326	2024-11-21	S02938
+B00327	2024-11-15	S02938
+B00328	2020-06-14	S02938
+B00329	2020-11-10	S02938
+B00330	2021-03-31	S02938
+B00331	2020-11-21	S02938
+B00332	2022-04-21	S02938
+B00333	2023-07-01	S02938
+B00334	2023-09-11	S02938
+B00335	2024-05-12	S02938
+B00336	2021-09-18	S02938
+B00337	2024-05-26	S02938
+B00338	2020-07-20	S02938
+B00339	2022-08-20	S02938
+B00340	2022-08-13	S02938
+B00341	2024-07-12	S02938
+B00342	2022-04-25	S02938
+B00343	2023-06-23	S02938
+B00344	2021-02-27	S02938
+B00345	2020-05-22	S02938
+B00346	2020-05-24	S02938
+B00347	2020-05-01	S02938
+B00348	2021-04-22	S02938
+B00349	2024-06-22	S02938
+B00350	2021-04-30	S02938
+B00351	2022-03-07	S02938
+B00352	2024-01-04	S02938
+B00353	2022-03-10	S02938
+B00354	2020-05-11	S02938
+B00355	2024-05-15	S02938
+B00356	2023-11-08	S02938
+B00357	2022-12-14	S02938
+B00358	2021-03-27	S02938
+B00359	2021-01-03	S02938
+B00360	2021-04-27	S02938
+B00361	2024-01-05	S02938
+B00362	2020-05-05	S02938
+B00363	2022-10-15	S02938
+B00364	2021-06-25	S02938
+B00365	2020-01-20	S02938
+B00366	2023-11-13	S02938
+B00367	2024-10-06	S02938
+B00368	2024-11-14	S02938
+B00369	2021-07-31	S02938
+B00370	2022-04-20	S02938
+B00371	2023-05-06	S02938
+B00372	2021-04-06	S02938
+B00373	2023-03-07	S02938
+B00374	2022-01-23	S02938
+B00375	2023-12-03	S02938
+B00376	2020-12-20	S02938
+B00377	2021-12-16	S02938
+B00378	2023-02-01	S02938
+B00379	2022-12-16	S02938
+B00380	2021-04-16	S02938
+B00381	2024-11-14	S02938
+B00382	2022-12-17	S02938
+B00383	2022-05-20	S02938
+B00384	2024-11-14	S02938
+B00385	2021-07-13	S02938
+B00386	2022-12-10	S02938
+B00387	2022-11-07	S02938
+B00388	2022-07-09	S02938
+B00389	2022-10-14	S02938
+B00390	2021-02-28	S02938
+B00391	2020-05-29	S02938
+B00392	2022-12-20	S02938
+B00393	2020-02-16	S02938
+B00394	2023-02-02	S02938
+B00395	2022-12-26	S02938
+B00396	2022-03-05	S02938
+B00397	2020-04-19	S02938
+B00398	2024-04-17	S02938
+B00399	2024-09-02	S02938
+B00400	2022-07-13	S02938
+B00401	2021-05-26	S02938
+B00402	2022-02-08	S02938
+B00403	2021-01-11	S02938
+B00404	2021-08-10	S02938
+B00405	2024-10-05	S02938
+B00406	2024-08-23	S02938
+B00407	2020-02-06	S02938
+B00408	2020-11-27	S02938
+B00409	2024-03-02	S02938
+B00410	2021-09-14	S02938
+B00411	2022-12-11	S02938
+B00412	2022-07-14	S02938
+B00413	2023-11-15	S02938
+B00414	2024-10-19	S02938
+B00415	2024-09-02	S02938
+B00416	2020-08-01	S02938
+B00417	2023-03-04	S02938
+B00418	2024-01-31	S02938
+B00419	2020-06-19	S02938
+B00420	2024-08-16	S02938
+B00421	2023-04-09	S02938
+B00422	2024-01-25	S02938
+B00423	2023-12-05	S02938
+B00424	2023-06-16	S02938
+B00425	2024-01-25	S02938
+B00426	2020-05-12	S02938
+B00427	2023-06-13	S02938
+B00428	2023-01-14	S02938
+B00429	2021-02-06	S02938
+B00430	2020-02-14	S02938
+B00431	2023-11-14	S02938
+B00432	2021-03-15	S02938
+B00433	2021-09-09	S02938
+B00434	2024-11-08	S02938
+B00435	2020-12-17	S02938
+B00436	2022-03-15	S02938
+B00437	2023-03-02	S02938
+B00438	2021-06-03	S02938
+B00439	2021-02-25	S02938
+B00440	2021-06-22	S02938
+B00441	2021-04-26	S02938
+B00442	2023-11-22	S02938
+B00443	2024-05-27	S02938
+B00444	2023-02-05	S02938
+B00445	2022-11-05	S02938
+B00446	2022-12-23	S02938
+B00447	2022-05-31	S02938
+B00448	2021-09-02	S02938
+B00449	2022-06-30	S02938
+B00450	2021-10-24	S02938
+B00451	2024-01-12	S02938
+B00452	2022-01-06	S02938
+B00453	2023-04-28	S02938
+B00454	2020-08-10	S02938
+B00455	2022-10-20	S02938
+B00456	2024-05-02	S02938
+B00457	2020-01-23	S02938
+B00458	2021-11-14	S02938
+B00459	2024-01-26	S02938
+B00460	2021-01-26	S02938
+B00461	2022-05-09	S02938
+B00462	2020-02-11	S02938
+B00463	2023-04-18	S02938
+B00464	2020-03-29	S02938
+B00465	2024-08-24	S02938
+B00466	2024-07-19	S02938
+B00467	2021-12-12	S02938
+B00468	2023-08-17	S02938
+B00469	2024-06-15	S02938
+B00470	2020-03-13	S02938
+B00471	2023-04-26	S02938
+B00472	2022-11-24	S02938
+B00473	2020-08-07	S02938
+B00474	2022-10-28	S02938
+B00475	2024-09-17	S02938
+B00476	2024-05-06	S02938
+B00477	2020-10-25	S02938
+B00478	2021-10-09	S02938
+B00479	2021-07-22	S02938
+B00480	2020-02-05	S02938
+B00481	2020-10-24	S02938
+B00482	2023-01-12	S02938
+B00483	2022-10-03	S02938
+B00484	2023-08-03	S02938
+B00485	2021-10-28	S02938
+B00486	2023-08-10	S02938
+B00487	2023-12-09	S02938
+B00488	2022-11-12	S02938
+B00489	2021-11-11	S02938
+B00490	2022-06-30	S02938
+B00491	2024-07-08	S02938
+B00492	2021-06-27	S02938
+B00493	2021-02-19	S02938
+B00494	2024-08-30	S02938
+B00495	2024-05-11	S02938
+B00496	2020-07-28	S02938
+B00497	2020-10-10	S02938
+B00498	2022-07-31	S02938
+B00499	2022-07-06	S02938
+B00500	2023-08-29	S02938
+B00501	2022-10-06	S02938
+B00502	2024-07-16	S02938
+B00503	2024-10-28	S02938
+B00504	2024-11-22	S02938
+B00505	2024-09-09	S02938
+B00506	2020-06-17	S02938
+B00507	2022-03-10	S02938
+B00508	2020-04-23	S02938
+B00509	2023-02-06	S02938
+B00510	2022-05-25	S02938
+B00511	2024-10-12	S02938
+B00512	2022-04-26	S02938
+B00513	2022-11-05	S02938
+B00514	2021-04-03	S02938
+B00515	2022-11-28	S02938
+B00516	2020-06-17	S02938
+B00517	2020-06-05	S02938
+B00518	2023-08-02	S02938
+B00519	2023-01-25	S02938
+B00520	2024-05-25	S02938
+B00521	2020-07-02	S02938
+B00522	2022-05-11	S02938
+B00523	2021-05-02	S02938
+B00524	2022-05-06	S02938
+B00525	2020-06-11	S02938
+B00526	2020-04-21	S02938
+B00527	2024-05-04	S02938
+B00528	2021-03-24	S02938
+B00529	2024-03-08	S02938
+B00530	2021-01-17	S02938
+B00531	2021-12-20	S02938
+B00532	2023-08-26	S02938
+B00533	2020-03-19	S02938
+B00534	2022-04-24	S02938
+B00535	2024-10-16	S02938
+B00536	2022-07-03	S02938
+B00537	2021-07-24	S02938
+B00538	2022-08-20	S02938
+B00539	2021-08-09	S02938
+B00540	2021-05-12	S02938
+B00541	2023-02-26	S02938
+B00542	2020-01-12	S02938
+B00543	2020-05-23	S02938
+B00544	2020-02-22	S02938
+B00545	2024-10-18	S02938
+B00546	2020-11-08	S02938
+B00547	2024-09-21	S02938
+B00548	2022-11-20	S02938
+B00549	2022-12-31	S02938
+B00550	2023-02-14	S02938
+B00551	2020-10-24	S02938
+B00552	2021-10-16	S02938
+B00553	2023-11-08	S02938
+B00554	2020-12-24	S02938
+B00555	2021-10-01	S02938
+B00556	2022-10-08	S02938
+B00557	2022-12-24	S02938
+B00558	2021-07-13	S02938
+B00559	2021-11-21	S02938
+B00560	2021-03-18	S02938
+B00561	2020-11-29	S02938
+B00562	2022-02-12	S02938
+B00563	2020-07-31	S02938
+B00564	2022-01-05	S02938
+B00565	2023-06-11	S02938
+B00566	2024-07-15	S02938
+B00567	2023-06-07	S02938
+B00568	2021-03-20	S02938
+B00569	2024-02-20	S02938
+B00570	2023-04-07	S02938
+B00571	2024-07-23	S02938
+B00572	2023-08-02	S02938
+B00573	2024-03-22	S02938
+B00574	2024-11-27	S02938
+B00575	2022-10-05	S02938
+B00576	2023-12-01	S02938
+B00577	2023-08-12	S02938
+B00578	2024-02-06	S02938
+B00579	2024-07-25	S02938
+B00580	2024-10-14	S02938
+B00581	2021-09-22	S02938
+B00582	2021-09-20	S02938
+B00583	2022-12-19	S02938
+B00584	2020-02-21	S02938
+B00585	2020-05-14	S02938
+B00586	2023-10-15	S02938
+B00587	2021-02-06	S02938
+B00588	2024-02-06	S02938
+B00589	2022-07-03	S02938
+B00590	2022-02-28	S02938
+B00591	2024-09-08	S02938
+B00592	2024-07-27	S02938
+B00593	2022-11-23	S02938
+B00594	2021-11-22	S02938
+B00595	2022-10-09	S02938
+B00596	2022-11-15	S02938
+B00597	2022-08-10	S02938
+B00598	2023-05-14	S02938
+B00599	2022-02-20	S02938
+B00600	2024-07-03	S02938
+B00601	2024-04-03	S02938
+B00602	2023-04-17	S02938
+B00603	2022-10-12	S02938
+B00604	2023-06-10	S02938
+B00605	2024-06-27	S02938
+B00606	2021-06-15	S02938
+B00607	2022-11-28	S02938
+B00608	2020-01-08	S02938
+B00609	2020-04-04	S02938
+B00610	2024-06-16	S02938
+B00611	2021-09-23	S02938
+B00612	2021-07-09	S02938
+B00613	2023-10-26	S02938
+B00614	2020-02-06	S02938
+B00615	2024-06-18	S02938
+B00616	2024-03-04	S02938
+B00617	2020-09-05	S02938
+B00618	2020-10-10	S02938
+B00619	2020-02-12	S02938
+B00620	2021-12-07	S02938
+B00621	2022-09-26	S02938
+B00622	2024-08-26	S02938
+B00623	2021-09-13	S02938
+B00624	2022-11-29	S02938
+B00625	2023-01-10	S02938
+B00626	2022-03-27	S02938
+B00627	2021-03-12	S02938
+B00628	2024-04-03	S02938
+B00629	2021-10-27	S02938
+B00630	2022-02-04	S02938
+B00631	2024-09-20	S02938
+B00632	2024-06-11	S02938
+B00633	2020-08-09	S02938
+B00634	2022-11-23	S02938
+B00635	2020-10-21	S02938
+B00636	2021-10-19	S02938
+B00637	2021-04-04	S02938
+B00638	2021-08-17	S02938
+B00639	2022-03-17	S02938
+B00640	2021-03-14	S02938
+B00641	2020-01-08	S02938
+B00642	2023-07-20	S02938
+B00643	2021-12-27	S02938
+B00644	2020-02-18	S02938
+B00645	2024-11-08	S02938
+B00646	2020-03-05	S02938
+B00647	2023-12-06	S02938
+B00648	2023-11-16	S02938
+B00649	2022-10-21	S02938
+B00650	2024-05-14	S02938
+B00651	2020-03-26	S02938
+B00652	2020-07-17	S02938
+B00653	2022-10-20	S02938
+B00654	2021-01-12	S02938
+B00655	2020-09-03	S02938
+B00656	2022-09-03	S02938
+B00657	2021-01-12	S02938
+B00658	2024-01-29	S02938
+B00659	2020-12-19	S02938
+B00660	2022-07-31	S02938
+B00661	2024-03-09	S02938
+B00662	2022-05-06	S02938
+B00663	2021-12-31	S02938
+B00664	2022-11-29	S02938
+B00665	2021-11-09	S02938
+B00666	2022-05-06	S02938
+B00667	2023-11-16	S02938
+B00668	2023-07-10	S02938
+B00669	2022-08-30	S02938
+B00670	2022-07-03	S02938
+B00671	2024-07-22	S02938
+B00672	2024-01-31	S02938
+B00673	2023-08-11	S02938
+B00674	2021-11-05	S02938
+B00675	2023-05-25	S02938
+B00676	2020-09-13	S02938
+B00677	2020-11-19	S02938
+B00678	2020-04-28	S02938
+B00679	2021-07-22	S02938
+B00680	2023-01-15	S02938
+B00681	2024-07-05	S02938
+B00682	2021-11-26	S02938
+B00683	2021-06-16	S02938
+B00684	2024-04-11	S02938
+B00685	2021-10-18	S02938
+B00686	2024-03-13	S02938
+B00687	2021-07-03	S02938
+B00688	2024-07-10	S02938
+B00689	2024-02-02	S02938
+B00690	2020-09-11	S02938
+B00691	2020-10-01	S02938
+B00692	2020-12-06	S02938
+B00693	2024-10-04	S02938
+B00694	2022-09-13	S02938
+B00695	2023-04-26	S02938
+B00696	2022-04-23	S02938
+B00697	2022-06-13	S02938
+B00698	2020-08-13	S02938
+B00699	2022-10-12	S02938
+B00700	2020-10-26	S02938
+B00701	2021-02-13	S02938
+B00702	2021-12-17	S02938
+B00703	2020-08-02	S02938
+B00704	2024-08-17	S02938
+B00705	2022-08-08	S02938
+B00706	2023-01-20	S02938
+B00707	2021-12-09	S02938
+B00708	2023-11-25	S02938
+B00709	2021-10-02	S02938
+B00710	2022-08-30	S02938
+B00711	2020-02-04	S02938
+B00712	2022-03-15	S02938
+B00713	2023-11-16	S02938
+B00714	2020-11-24	S02938
+B00715	2022-06-21	S02938
+B00716	2024-11-26	S02938
+B00717	2020-08-08	S02938
+B00718	2023-06-19	S02938
+B00719	2021-12-10	S02938
+B00720	2023-08-14	S02938
+B00721	2022-05-09	S02938
+B00722	2021-01-28	S02938
+B00723	2023-11-22	S02938
+B00724	2022-06-17	S02938
+B00725	2024-03-10	S02938
+B00726	2020-02-26	S02938
+B00727	2024-01-15	S02938
+B00728	2020-01-11	S02938
+B00729	2023-09-09	S02938
+B00730	2024-10-14	S02938
+B00731	2021-12-09	S02938
+B00732	2022-01-12	S02938
+B00733	2021-11-22	S02938
+B00734	2021-06-15	S02938
+B00735	2021-06-19	S02938
+B00736	2023-09-19	S02938
+B00737	2021-01-02	S02938
+B00738	2024-04-19	S02938
+B00739	2024-10-27	S02938
+B00740	2021-06-27	S02938
+B00741	2021-02-27	S02938
+B00742	2020-03-29	S02938
+B00743	2020-07-13	S02938
+B00744	2020-04-23	S02938
+B00745	2021-07-27	S02938
+B00746	2021-06-29	S02938
+B00747	2022-04-27	S02938
+B00748	2023-09-14	S02938
+B00749	2020-08-12	S02938
+B00750	2021-01-18	S02938
+B00751	2021-12-16	S02938
+B00752	2022-01-08	S02938
+B00753	2022-10-02	S02938
+B00754	2021-06-23	S02938
+B00755	2021-10-31	S02938
+B00756	2024-04-06	S02938
+B00757	2020-04-06	S02938
+B00758	2024-01-11	S02938
+B00759	2023-02-28	S02938
+B00760	2020-08-12	S02938
+B00761	2020-11-22	S02938
+B00762	2024-09-15	S02938
+B00763	2022-03-28	S02938
+B00764	2023-12-19	S02938
+B00765	2022-01-25	S02938
+B00766	2021-01-29	S02938
+B00767	2023-11-22	S02938
+B00768	2023-10-08	S02938
+B00769	2021-09-25	S02938
+B00770	2022-12-14	S02938
+B00771	2020-06-13	S02938
+B00772	2020-07-28	S02938
+B00773	2023-04-20	S02938
+B00774	2021-02-20	S02938
+B00775	2023-09-22	S02938
+B00776	2022-11-24	S02938
+B00777	2022-03-05	S02938
+B00778	2024-03-23	S02938
+B00779	2021-01-31	S02938
+B00780	2020-07-08	S02938
+B00781	2021-06-11	S02938
+B00782	2020-06-01	S02938
+B00783	2024-07-18	S02938
+B00784	2021-08-31	S02938
+B00785	2020-10-08	S02938
+B00786	2022-05-15	S02938
+B00787	2022-03-07	S02938
+B00788	2022-02-17	S02938
+B00789	2024-01-05	S02938
+B00790	2020-11-06	S02938
+B00791	2023-11-27	S02938
+B00792	2020-06-22	S02938
+B00793	2022-03-14	S02938
+B00794	2022-09-14	S02938
+B00795	2023-04-20	S02938
+B00796	2024-02-08	S02938
+B00797	2024-03-17	S02938
+B00798	2020-06-04	S02938
+B00799	2022-07-14	S02938
+B00800	2022-11-14	S02938
+B00801	2024-06-04	S02938
+B00802	2020-07-27	S02938
+B00803	2022-03-29	S02938
+B00804	2024-05-07	S02938
+B00805	2024-10-20	S02938
+B00806	2024-10-14	S02938
+B00807	2022-01-01	S02938
+B00808	2020-04-06	S02938
+B00809	2023-01-03	S02938
+B00810	2022-07-02	S02938
+B00811	2022-10-04	S02938
+B00812	2023-05-20	S02938
+B00813	2024-04-09	S02938
+B00814	2023-02-01	S02938
+B00815	2022-01-31	S02938
+B00816	2023-04-29	S02938
+B00817	2023-09-23	S02938
+B00818	2024-10-15	S02938
+B00819	2023-01-30	S02938
+B00820	2021-11-10	S02938
+B00821	2021-01-28	S02938
+B00822	2023-01-09	S02938
+B00823	2024-06-20	S02938
+B00824	2021-03-28	S02938
+B00825	2024-11-02	S02938
+B00826	2024-10-24	S02938
+B00827	2022-07-09	S02938
+B00828	2020-07-04	S02938
+B00829	2022-09-09	S02938
+B00830	2023-01-03	S02938
+B00831	2023-06-27	S02938
+B00832	2024-07-30	S02938
+B00833	2021-02-15	S02938
+B00834	2021-11-13	S02938
+B00835	2021-01-10	S02938
+B00836	2023-01-17	S02938
+B00837	2022-10-20	S02938
+B00838	2020-02-09	S02938
+B00839	2023-04-28	S02938
+B00840	2021-08-15	S02938
+B00841	2023-04-08	S02938
+B00842	2023-03-27	S02938
+B00843	2022-05-01	S02938
+B00844	2020-07-11	S02938
+B00845	2021-04-04	S02938
+B00846	2020-01-05	S02938
+B00847	2024-12-02	S02938
+B00848	2024-11-28	S02938
+B00849	2021-06-01	S02938
+B00850	2023-02-07	S02938
+B00851	2022-06-21	S02938
+B00852	2022-03-26	S02938
+B00853	2022-02-23	S02938
+B00854	2024-08-03	S02938
+B00855	2020-02-06	S02938
+B00856	2021-12-05	S02938
+B00857	2022-09-06	S02938
+B00858	2022-07-01	S02938
+B00859	2020-06-04	S02938
+B00860	2021-01-18	S02938
+B00861	2021-12-21	S02938
+B00862	2024-01-18	S02938
+B00863	2020-09-15	S02938
+B00864	2022-12-15	S02938
+B00865	2021-08-18	S02938
+B00866	2021-02-07	S02938
+B00867	2022-11-12	S02938
+B00868	2022-07-25	S02938
+B00869	2023-09-16	S02938
+B00870	2023-12-31	S02938
+B00871	2020-10-01	S02938
+B00872	2020-09-27	S02938
+B00873	2023-06-18	S02938
+B00874	2020-02-26	S02938
+B00875	2022-07-05	S02938
+B00876	2022-05-08	S02938
+B00877	2024-08-02	S02938
+B00878	2024-03-17	S02938
+B00879	2020-12-05	S02938
+B00880	2021-07-11	S02938
+B00881	2023-03-01	S02938
+B00882	2021-09-03	S02938
+B00883	2022-11-26	S02938
+B00884	2020-08-05	S02938
+B00885	2023-11-12	S02938
+B00886	2021-06-30	S02938
+B00887	2022-05-21	S02938
+B00888	2023-08-31	S02938
+B00889	2024-04-16	S02938
+B00890	2020-10-08	S02938
+B00891	2021-05-04	S02938
+B00892	2021-09-27	S02938
+B00893	2023-11-23	S02938
+B00894	2023-07-25	S02938
+B00895	2021-03-28	S02938
+B00896	2023-02-08	S02938
+B00897	2020-02-10	S02938
+B00898	2020-11-23	S02938
+B00899	2021-05-16	S02938
+B00900	2021-10-12	S02938
+B00901	2024-07-30	S02938
+B00902	2024-01-26	S02938
+B00903	2021-02-07	S02938
+B00904	2022-12-29	S02938
+B00905	2021-04-01	S02938
+B00906	2020-01-16	S02938
+B00907	2021-05-02	S02938
+B00908	2022-12-20	S02938
+B00909	2021-07-12	S02938
+B00910	2021-11-13	S02938
+B00911	2023-02-22	S02938
+B00912	2023-05-03	S02938
+B00913	2022-01-06	S02938
+B00914	2021-06-12	S02938
+B00915	2024-05-10	S02938
+B00916	2024-10-30	S02938
+B00917	2020-03-13	S02938
+B00918	2020-10-10	S02938
+B00919	2020-12-06	S02938
+B00920	2020-12-12	S02938
+B00921	2023-10-08	S02938
+B00922	2024-10-17	S02938
+B00923	2021-06-16	S02938
+B00924	2024-07-04	S02938
+B00925	2024-01-18	S02938
+B00926	2021-08-11	S02938
+B00927	2020-10-06	S02938
+B00928	2022-12-17	S02938
+B00929	2020-05-13	S02938
+B00930	2024-09-05	S02938
+B00931	2022-09-12	S02938
+B00932	2020-12-24	S02938
+B00933	2020-10-27	S02938
+B00934	2022-07-16	S02938
+B00935	2024-09-14	S02938
+B00936	2022-11-01	S02938
+B00937	2024-01-01	S02938
+B00938	2024-03-10	S02938
+B00939	2024-09-06	S02938
+B00940	2022-01-28	S02938
+B00941	2020-04-01	S02938
+B00942	2022-02-07	S02938
+B00943	2024-10-25	S02938
+B00944	2023-03-28	S02938
+B00945	2022-01-20	S02938
+B00946	2022-09-12	S02938
+B00947	2020-06-11	S02938
+B00948	2023-10-17	S02938
+B00949	2020-11-28	S02938
+B00950	2022-08-29	S02938
+B00951	2022-10-27	S02938
+B00952	2023-03-31	S02938
+B00953	2023-12-18	S02938
+B00954	2022-03-18	S02938
+B00955	2022-07-18	S02938
+B00956	2024-11-15	S02938
+B00957	2023-05-15	S02938
+B00958	2021-09-30	S02938
+B00959	2024-02-18	S02938
+B00960	2021-08-20	S02938
+B00961	2024-11-29	S02938
+B00962	2023-09-29	S02938
+B00963	2021-02-23	S02938
+B00964	2020-03-27	S02938
+B00965	2021-08-27	S02938
+B00966	2023-04-16	S02938
+B00967	2021-09-04	S02938
+B00968	2022-01-17	S02938
+B00969	2024-01-18	S02938
+B00970	2023-09-12	S02938
+B00971	2020-12-23	S02938
+B00972	2021-04-03	S02938
+B00973	2022-03-19	S02938
+B00974	2022-05-19	S02938
+B00975	2024-05-07	S02938
+B00976	2020-11-12	S02938
+B00977	2021-06-26	S02938
+B00978	2022-07-28	S02938
+B00979	2024-10-20	S02938
+B00980	2021-04-09	S02938
+B00981	2023-07-24	S02938
+B00982	2021-07-26	S02938
+B00983	2024-02-21	S02938
+B00984	2021-11-06	S02938
+B00985	2021-10-24	S02938
+B00986	2024-11-09	S02938
+B00987	2022-01-03	S02938
+B00988	2023-09-02	S02938
+B00989	2020-03-07	S02938
+B00990	2024-07-18	S02938
+B00991	2023-05-19	S02938
+B00992	2024-03-26	S02938
+B00993	2020-12-31	S02938
+B00994	2020-01-04	S02938
+B00995	2023-12-07	S02938
+B00996	2022-09-11	S02938
+B00997	2020-11-10	S02938
+B00998	2024-07-25	S02938
+B00999	2024-07-25	S02938
+B01000	2021-04-11	S02938
+\.
+
+
+--
+-- TOC entry 5023 (class 0 OID 18544)
+-- Dependencies: 232
+-- Data for Name: Penerbit; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Penerbit" (id_penerbit, nama, email, alamat_nama_jalan, kode_pos) FROM stdin;
+PB00001	Nusantara Press	pustakautama1@gmail.com	Jl. Garuda No. 185	00943
+PB00002	Sinar Pustaka	pelangicendekia2@gmail.com	Jl. Merpati No. 137	00943
+PB00003	Intan Sejati	nusantarapress3@gmail.com	Jl. Flamboyan No. 80	00943
+PB00004	Pelangi Cendekia	lenterahati4@gmail.com	Jl. Jati No. 128	00943
+PB00005	Mitra Buku	edukasimandiri5@gmail.com	Jl. Trembesi No. 199	00943
+PB00006	Nusantara Press	arunikamedia6@gmail.com	Jl. Pinus No. 148	00943
+PB00007	Media Ilmu	arunikamedia7@gmail.com	Jl. Bougenville No. 78	00943
+PB00008	Kreatifindo	gramediagroup8@gmail.com	Jl. Dahlia No. 184	00943
+PB00009	Bumi Aksara	indopustaka9@gmail.com	Jl. Pinus No. 146	00943
+PB00010	Gramedia Group	gramediagroup10@gmail.com	Jl. Flamboyan No. 131	00943
+PB00011	Edukasi Mandiri	megapustaka11@gmail.com	Jl. Kamboja No. 73	00943
+PB00012	Mega Pustaka	gramediagroup12@gmail.com	Jl. Dahlia No. 78	00943
+PB00013	Mitra Buku	indopustaka13@gmail.com	Jl. Rajawali No. 197	00943
+PB00014	Indo Pustaka	indopustaka14@gmail.com	Jl. Jati No. 10	00943
+PB00015	Mitra Buku	sinarpustaka15@gmail.com	Jl. Trembesi No. 87	00943
+PB00016	Intan Sejati	prestasipustaka16@gmail.com	Jl. Merak No. 134	00943
+PB00017	Indo Pustaka	pustakautama17@gmail.com	Jl. Anggrek No. 107	00943
+PB00018	Lentera Hati	sinarpustaka18@gmail.com	Jl. Mawar No. 120	00943
+PB00019	Global Press	pustakautama19@gmail.com	Jl. Kenanga No. 171	00943
+PB00020	Cendekia Pustaka	pustakautama20@gmail.com	Jl. Jati No. 127	00943
+PB00021	Lentera Hati	pelangicendekia21@gmail.com	Jl. Mawar No. 164	00943
+PB00022	Lentera Hati	arunikamedia22@gmail.com	Jl. Elang No. 129	00943
+PB00023	Global Press	cendekiapustaka23@gmail.com	Jl. Dahlia No. 121	00943
+PB00024	Mitra Buku	kreatifindo24@gmail.com	Jl. Sakura No. 70	00943
+PB00025	Global Press	edukasimandiri25@gmail.com	Jl. Flamboyan No. 34	00943
+PB00026	Sinar Pustaka	pelangicendekia26@gmail.com	Jl. Anggrek No. 43	00943
+PB00027	Bumi Aksara	megapustaka27@gmail.com	Jl. Kenanga No. 124	00943
+PB00028	Bumi Aksara	edukasimandiri28@gmail.com	Jl. Anggrek No. 37	00943
+PB00029	Kreatifindo	globalpress29@gmail.com	Jl. Merak No. 197	00943
+PB00030	Media Ilmu	pelangicendekia30@gmail.com	Jl. Seruni No. 49	00943
+PB00031	Citra Media	arunikamedia31@gmail.com	Jl. Bougenville No. 16	00943
+PB00032	Sinar Pustaka	bumiaksara32@gmail.com	Jl. Mawar No. 129	00943
+PB00033	Edukasi Mandiri	nusantarapress33@gmail.com	Jl. Rajawali No. 127	00943
+PB00034	Mitra Buku	indopustaka34@gmail.com	Jl. Sakura No. 132	00943
+PB00035	Sinar Pustaka	pustakautama35@gmail.com	Jl. Flamboyan No. 181	00943
+PB00036	Mega Pustaka	smartbook36@gmail.com	Jl. Sakura No. 86	00943
+PB00037	Citra Media	nusantarapress37@gmail.com	Jl. Dahlia No. 119	00943
+PB00038	Kreatifindo	megapustaka38@gmail.com	Jl. Seruni No. 18	00943
+PB00039	Pelangi Cendekia	lenterahati39@gmail.com	Jl. Mawar No. 84	00943
+PB00040	Pustaka Utama	mediailmu40@gmail.com	Jl. Elang No. 189	00943
+PB00041	Lentera Hati	megapustaka41@gmail.com	Jl. Rajawali No. 126	00943
+PB00042	Media Ilmu	megapustaka42@gmail.com	Jl. Trembesi No. 8	00943
+PB00043	Bumi Aksara	pustakautama43@gmail.com	Jl. Jati No. 62	00943
+PB00044	Kreatifindo	nusantarapress44@gmail.com	Jl. Nuri No. 128	00943
+PB00045	Nusantara Press	arunikamedia45@gmail.com	Jl. Melati No. 4	00943
+PB00046	Nusantara Press	smartbook46@gmail.com	Jl. Mawar No. 29	00943
+PB00047	Citra Media	pustakautama47@gmail.com	Jl. Anggrek No. 78	00943
+PB00048	Kreatifindo	edukasimandiri48@gmail.com	Jl. Bougenville No. 93	00943
+PB00049	Pelangi Cendekia	sinarpustaka49@gmail.com	Jl. Kamboja No. 189	00943
+PB00050	Bumi Aksara	gramediagroup50@gmail.com	Jl. Elang No. 33	00943
+PB00051	Mega Pustaka	mitrabuku51@gmail.com	Jl. Dahlia No. 161	00943
+PB00052	Arunika Media	megapustaka52@gmail.com	Jl. Kamboja No. 91	00943
+PB00053	Cendekia Pustaka	globalpress53@gmail.com	Jl. Merpati No. 37	00943
+PB00054	Kreatifindo	intansejati54@gmail.com	Jl. Trembesi No. 96	00943
+PB00055	Prestasi Pustaka	edukasimandiri55@gmail.com	Jl. Bougenville No. 103	00943
+PB00056	Edukasi Mandiri	bumiaksara56@gmail.com	Jl. Bougenville No. 154	00943
+PB00057	Citra Media	prestasipustaka57@gmail.com	Jl. Merpati No. 93	00943
+PB00058	Gramedia Group	pustakautama58@gmail.com	Jl. Bougenville No. 14	00943
+PB00059	Intan Sejati	lenterahati59@gmail.com	Jl. Sakura No. 183	00943
+PB00060	Edukasi Mandiri	bumiaksara60@gmail.com	Jl. Garuda No. 145	00943
+PB00061	Arunika Media	globalpress61@gmail.com	Jl. Merpati No. 84	00943
+PB00062	Arunika Media	cendekiapustaka62@gmail.com	Jl. Mawar No. 22	00943
+PB00063	Cendekia Pustaka	megapustaka63@gmail.com	Jl. Merak No. 29	00943
+PB00064	Pelangi Cendekia	mediailmu64@gmail.com	Jl. Melati No. 95	00943
+PB00065	Cendekia Pustaka	prestasipustaka65@gmail.com	Jl. Rajawali No. 89	00943
+PB00066	Gramedia Group	bumiaksara66@gmail.com	Jl. Merak No. 120	00943
+PB00067	Intan Sejati	intansejati67@gmail.com	Jl. Pinus No. 145	00943
+PB00068	Nusantara Press	globalpress68@gmail.com	Jl. Anggrek No. 92	00943
+PB00069	Media Ilmu	bumiaksara69@gmail.com	Jl. Seruni No. 87	00943
+PB00070	Pelangi Cendekia	sinarpustaka70@gmail.com	Jl. Cendana No. 128	00943
+PB00071	Intan Sejati	globalpress71@gmail.com	Jl. Mawar No. 158	00943
+PB00072	Prestasi Pustaka	kreatifindo72@gmail.com	Jl. Kenanga No. 61	00943
+PB00073	Mega Pustaka	indopustaka73@gmail.com	Jl. Kamboja No. 108	00943
+PB00074	Cendekia Pustaka	gramediagroup74@gmail.com	Jl. Nuri No. 72	00943
+PB00075	Kreatifindo	sinarpustaka75@gmail.com	Jl. Sakura No. 151	00943
+PB00076	Global Press	gramediagroup76@gmail.com	Jl. Cendana No. 41	00943
+PB00077	Gramedia Group	prestasipustaka77@gmail.com	Jl. Kenanga No. 92	00943
+PB00078	Gramedia Group	citramedia78@gmail.com	Jl. Merak No. 188	00943
+PB00080	Nusantara Press	citramedia80@gmail.com	Jl. Mawar No. 58	00943
+PB00081	Pelangi Cendekia	mitrabuku81@gmail.com	Jl. Rajawali No. 155	00943
+PB00083	Pustaka Utama	arunikamedia83@gmail.com	Jl. Trembesi No. 107	00943
+PB00084	Media Ilmu	megapustaka84@gmail.com	Jl. Pinus No. 100	00943
+PB00086	Bumi Aksara	megapustaka86@gmail.com	Jl. Kenanga No. 119	00943
+PB00087	Pelangi Cendekia	pelangicendekia87@gmail.com	Jl. Pinus No. 181	00943
+PB00088	Sinar Pustaka	nusantarapress88@gmail.com	Jl. Cendana No. 123	00943
+PB00089	Mega Pustaka	arunikamedia89@gmail.com	Jl. Dahlia No. 86	00943
+PB00090	Bumi Aksara	nusantarapress90@gmail.com	Jl. Rajawali No. 155	00943
+PB00091	Pelangi Cendekia	gramediagroup91@gmail.com	Jl. Jati No. 113	00943
+PB00092	Media Ilmu	smartbook92@gmail.com	Jl. Sakura No. 166	00943
+PB00093	Intan Sejati	lenterahati93@gmail.com	Jl. Jati No. 53	00943
+PB00094	Arunika Media	prestasipustaka94@gmail.com	Jl. Nuri No. 67	00943
+PB00095	SmartBook	mitrabuku95@gmail.com	Jl. Garuda No. 99	00943
+PB00097	Global Press	pustakautama97@gmail.com	Jl. Kamboja No. 123	00943
+PB00098	Mitra Buku	intansejati98@gmail.com	Jl. Elang No. 92	00943
+PB00099	Media Ilmu	kreatifindo99@gmail.com	Jl. Bougenville No. 115	00943
+PB00100	Media Ilmu	edukasimandiri100@gmail.com	Jl. Merpati No. 45	00943
+PB00101	Kreatifindo	edukasimandiri101@gmail.com	Jl. Trembesi No. 143	00943
+PB00102	Arunika Media	lenterahati102@gmail.com	Jl. Mawar No. 92	00943
+PB00103	Lentera Hati	globalpress103@gmail.com	Jl. Sakura No. 128	00943
+PB00104	Intan Sejati	megapustaka104@gmail.com	Jl. Kenanga No. 130	00943
+PB00105	Gramedia Group	prestasipustaka105@gmail.com	Jl. Nuri No. 183	00943
+PB00106	Cendekia Pustaka	bumiaksara106@gmail.com	Jl. Sakura No. 7	00943
+PB00107	Pustaka Utama	arunikamedia107@gmail.com	Jl. Merak No. 8	00943
+PB00108	Gramedia Group	globalpress108@gmail.com	Jl. Cendana No. 150	00943
+PB00109	Bumi Aksara	mitrabuku109@gmail.com	Jl. Kenanga No. 127	00943
+PB00110	Bumi Aksara	edukasimandiri110@gmail.com	Jl. Sakura No. 85	00943
+PB00111	Gramedia Group	intansejati111@gmail.com	Jl. Dahlia No. 72	00943
+PB00112	Pelangi Cendekia	nusantarapress112@gmail.com	Jl. Sakura No. 106	00943
+PB00113	Edukasi Mandiri	intansejati113@gmail.com	Jl. Rajawali No. 7	00943
+PB00114	Cendekia Pustaka	megapustaka114@gmail.com	Jl. Sakura No. 187	00943
+PB00115	Mitra Buku	arunikamedia115@gmail.com	Jl. Dahlia No. 192	00943
+PB00116	Cendekia Pustaka	globalpress116@gmail.com	Jl. Flamboyan No. 119	00943
+PB00117	Intan Sejati	lenterahati117@gmail.com	Jl. Pinus No. 107	00943
+PB00118	Gramedia Group	arunikamedia118@gmail.com	Jl. Elang No. 99	00943
+PB00119	Global Press	sinarpustaka119@gmail.com	Jl. Kenanga No. 125	00943
+PB00120	Mega Pustaka	pelangicendekia120@gmail.com	Jl. Kamboja No. 177	00943
+PB00121	Gramedia Group	indopustaka121@gmail.com	Jl. Mawar No. 136	00943
+PB00122	Bumi Aksara	megapustaka122@gmail.com	Jl. Merpati No. 4	00943
+PB00123	Citra Media	mitrabuku123@gmail.com	Jl. Kenanga No. 43	00943
+PB00124	Global Press	kreatifindo124@gmail.com	Jl. Kamboja No. 12	00943
+PB00125	Prestasi Pustaka	indopustaka125@gmail.com	Jl. Rajawali No. 17	00943
+PB00126	Cendekia Pustaka	sinarpustaka126@gmail.com	Jl. Merak No. 108	00943
+PB00127	Global Press	intansejati127@gmail.com	Jl. Dahlia No. 35	00943
+PB00128	Media Ilmu	prestasipustaka128@gmail.com	Jl. Kamboja No. 140	00943
+PB00129	Global Press	mitrabuku129@gmail.com	Jl. Dahlia No. 144	00943
+PB00130	Global Press	gramediagroup130@gmail.com	Jl. Melati No. 152	00943
+PB00131	Kreatifindo	indopustaka131@gmail.com	Jl. Sakura No. 155	00943
+PB00132	Pustaka Utama	sinarpustaka132@gmail.com	Jl. Trembesi No. 45	00943
+PB00133	Mega Pustaka	bumiaksara133@gmail.com	Jl. Mawar No. 188	00943
+PB00134	SmartBook	mediailmu134@gmail.com	Jl. Pinus No. 166	00943
+PB00135	Pelangi Cendekia	prestasipustaka135@gmail.com	Jl. Rajawali No. 146	00943
+PB00136	Pustaka Utama	kreatifindo136@gmail.com	Jl. Trembesi No. 191	00943
+PB00137	Cendekia Pustaka	prestasipustaka137@gmail.com	Jl. Kamboja No. 85	00943
+PB00138	Prestasi Pustaka	mediailmu138@gmail.com	Jl. Sakura No. 22	00943
+PB00139	Sinar Pustaka	citramedia139@gmail.com	Jl. Mawar No. 101	00943
+PB00140	Mitra Buku	indopustaka140@gmail.com	Jl. Trembesi No. 19	00943
+PB00141	Citra Media	nusantarapress141@gmail.com	Jl. Mawar No. 112	00943
+PB00142	Intan Sejati	pustakautama142@gmail.com	Jl. Jati No. 125	00943
+PB00143	Sinar Pustaka	globalpress143@gmail.com	Jl. Anggrek No. 128	00943
+PB00144	Citra Media	arunikamedia144@gmail.com	Jl. Mawar No. 55	00943
+PB00145	Lentera Hati	nusantarapress145@gmail.com	Jl. Kamboja No. 43	00943
+PB00146	Prestasi Pustaka	kreatifindo146@gmail.com	Jl. Pinus No. 144	00943
+PB00147	Lentera Hati	sinarpustaka147@gmail.com	Jl. Trembesi No. 34	00943
+PB00148	Lentera Hati	edukasimandiri148@gmail.com	Jl. Sakura No. 165	00943
+PB00149	Global Press	mediailmu149@gmail.com	Jl. Sakura No. 43	00943
+PB00150	Prestasi Pustaka	arunikamedia150@gmail.com	Jl. Pinus No. 57	00943
+PB00151	Sinar Pustaka	globalpress151@gmail.com	Jl. Anggrek No. 155	00943
+PB00152	Pustaka Utama	cendekiapustaka152@gmail.com	Jl. Merak No. 62	00943
+PB00153	Bumi Aksara	cendekiapustaka153@gmail.com	Jl. Garuda No. 98	00943
+PB00154	Sinar Pustaka	intansejati154@gmail.com	Jl. Cendana No. 22	00943
+PB00155	Kreatifindo	megapustaka155@gmail.com	Jl. Melati No. 185	00943
+PB00156	Edukasi Mandiri	prestasipustaka156@gmail.com	Jl. Kamboja No. 115	00943
+PB00157	Prestasi Pustaka	cendekiapustaka157@gmail.com	Jl. Kenanga No. 187	00943
+PB00158	Prestasi Pustaka	bumiaksara158@gmail.com	Jl. Jati No. 138	00943
+PB00159	Nusantara Press	mediailmu159@gmail.com	Jl. Rajawali No. 106	00943
+PB00160	Arunika Media	mitrabuku160@gmail.com	Jl. Nuri No. 37	00943
+PB00161	Global Press	bumiaksara161@gmail.com	Jl. Rajawali No. 75	00943
+PB00162	Media Ilmu	bumiaksara162@gmail.com	Jl. Kenanga No. 72	00943
+PB00163	Intan Sejati	intansejati163@gmail.com	Jl. Dahlia No. 9	00943
+PB00164	Cendekia Pustaka	sinarpustaka164@gmail.com	Jl. Bougenville No. 192	00943
+PB00165	Nusantara Press	nusantarapress165@gmail.com	Jl. Melati No. 2	00943
+PB00166	Media Ilmu	globalpress166@gmail.com	Jl. Dahlia No. 166	00943
+PB00167	Gramedia Group	mitrabuku167@gmail.com	Jl. Flamboyan No. 82	00943
+PB00168	Global Press	sinarpustaka168@gmail.com	Jl. Nuri No. 68	00943
+PB00169	Edukasi Mandiri	mitrabuku169@gmail.com	Jl. Mawar No. 177	00943
+PB00170	Pustaka Utama	megapustaka170@gmail.com	Jl. Merpati No. 143	00943
+PB00171	Indo Pustaka	pustakautama171@gmail.com	Jl. Bougenville No. 61	00943
+PB00172	Edukasi Mandiri	cendekiapustaka172@gmail.com	Jl. Mawar No. 189	00943
+PB00173	Pelangi Cendekia	indopustaka173@gmail.com	Jl. Nuri No. 78	00943
+PB00174	Mitra Buku	kreatifindo174@gmail.com	Jl. Melati No. 197	00943
+PB00175	Edukasi Mandiri	arunikamedia175@gmail.com	Jl. Flamboyan No. 83	00943
+PB00176	Arunika Media	intansejati176@gmail.com	Jl. Cendana No. 166	00943
+PB00177	Global Press	indopustaka177@gmail.com	Jl. Rajawali No. 120	00943
+PB00178	Pelangi Cendekia	prestasipustaka178@gmail.com	Jl. Garuda No. 178	00943
+PB00179	Indo Pustaka	mitrabuku179@gmail.com	Jl. Sakura No. 129	00943
+PB00180	Media Ilmu	kreatifindo180@gmail.com	Jl. Cendana No. 65	00943
+PB00181	Edukasi Mandiri	lenterahati181@gmail.com	Jl. Dahlia No. 18	00943
+PB00182	Mitra Buku	sinarpustaka182@gmail.com	Jl. Garuda No. 147	00943
+PB00183	Global Press	gramediagroup183@gmail.com	Jl. Kamboja No. 64	00943
+PB00184	Indo Pustaka	prestasipustaka184@gmail.com	Jl. Nuri No. 196	00943
+PB00185	Arunika Media	sinarpustaka185@gmail.com	Jl. Flamboyan No. 197	00943
+PB00186	Pelangi Cendekia	nusantarapress186@gmail.com	Jl. Anggrek No. 112	00943
+PB00187	Mega Pustaka	sinarpustaka187@gmail.com	Jl. Melati No. 76	00943
+PB00188	Mitra Buku	bumiaksara188@gmail.com	Jl. Trembesi No. 65	00943
+PB00189	Kreatifindo	pelangicendekia189@gmail.com	Jl. Dahlia No. 93	00943
+PB00190	Media Ilmu	cendekiapustaka190@gmail.com	Jl. Bougenville No. 149	00943
+PB00191	Intan Sejati	pustakautama191@gmail.com	Jl. Trembesi No. 178	00943
+PB00192	Gramedia Group	pustakautama192@gmail.com	Jl. Elang No. 25	00943
+PB00193	Cendekia Pustaka	sinarpustaka193@gmail.com	Jl. Flamboyan No. 154	00943
+PB00194	Sinar Pustaka	globalpress194@gmail.com	Jl. Seruni No. 131	00943
+PB00195	Sinar Pustaka	globalpress195@gmail.com	Jl. Melati No. 96	00943
+PB00196	Indo Pustaka	pustakautama196@gmail.com	Jl. Anggrek No. 126	00943
+PB00197	Kreatifindo	globalpress197@gmail.com	Jl. Elang No. 101	00943
+PB00198	SmartBook	kreatifindo198@gmail.com	Jl. Seruni No. 165	00943
+PB00199	Sinar Pustaka	nusantarapress199@gmail.com	Jl. Dahlia No. 117	00943
+PB00200	Lentera Hati	gramediagroup200@gmail.com	Jl. Dahlia No. 65	00943
+PB00201	Intan Sejati	prestasipustaka201@gmail.com	Jl. Merak No. 74	00943
+PB00202	Kreatifindo	mitrabuku202@gmail.com	Jl. Elang No. 28	00943
+PB00203	Mega Pustaka	kreatifindo203@gmail.com	Jl. Dahlia No. 192	00943
+PB00204	Intan Sejati	arunikamedia204@gmail.com	Jl. Kamboja No. 135	00943
+PB00205	Mega Pustaka	mediailmu205@gmail.com	Jl. Merak No. 95	00943
+PB00206	Intan Sejati	bumiaksara206@gmail.com	Jl. Kenanga No. 30	00943
+PB00207	Global Press	smartbook207@gmail.com	Jl. Dahlia No. 129	00943
+PB00208	Nusantara Press	sinarpustaka208@gmail.com	Jl. Seruni No. 192	00943
+PB00209	SmartBook	nusantarapress209@gmail.com	Jl. Melati No. 188	00943
+PB00210	Media Ilmu	prestasipustaka210@gmail.com	Jl. Nuri No. 110	00943
+PB00211	Sinar Pustaka	indopustaka211@gmail.com	Jl. Seruni No. 146	00943
+PB00212	Prestasi Pustaka	kreatifindo212@gmail.com	Jl. Seruni No. 63	00943
+PB00213	Mitra Buku	mediailmu213@gmail.com	Jl. Seruni No. 91	00943
+PB00214	Lentera Hati	mitrabuku214@gmail.com	Jl. Trembesi No. 179	00943
+PB00215	Citra Media	globalpress215@gmail.com	Jl. Anggrek No. 191	00943
+PB00216	Kreatifindo	bumiaksara216@gmail.com	Jl. Bougenville No. 87	00943
+PB00217	Edukasi Mandiri	prestasipustaka217@gmail.com	Jl. Bougenville No. 163	00943
+PB00218	Pelangi Cendekia	arunikamedia218@gmail.com	Jl. Merpati No. 61	00943
+PB00219	Global Press	smartbook219@gmail.com	Jl. Nuri No. 65	00943
+PB00220	Lentera Hati	indopustaka220@gmail.com	Jl. Mawar No. 181	00943
+PB00221	Pelangi Cendekia	citramedia221@gmail.com	Jl. Flamboyan No. 26	00943
+PB00222	Arunika Media	bumiaksara222@gmail.com	Jl. Dahlia No. 17	00943
+PB00223	Media Ilmu	pelangicendekia223@gmail.com	Jl. Dahlia No. 5	00943
+PB00224	Gramedia Group	mitrabuku224@gmail.com	Jl. Pinus No. 51	00943
+PB00225	Mitra Buku	indopustaka225@gmail.com	Jl. Sakura No. 135	00943
+PB00226	Sinar Pustaka	intansejati226@gmail.com	Jl. Dahlia No. 10	00943
+PB00227	Gramedia Group	prestasipustaka227@gmail.com	Jl. Kenanga No. 44	00943
+PB00228	Lentera Hati	pustakautama228@gmail.com	Jl. Sakura No. 59	00943
+PB00229	Cendekia Pustaka	mitrabuku229@gmail.com	Jl. Sakura No. 9	00943
+PB00230	Media Ilmu	mediailmu230@gmail.com	Jl. Dahlia No. 160	00943
+PB00231	Mitra Buku	indopustaka231@gmail.com	Jl. Seruni No. 110	00943
+PB00232	Cendekia Pustaka	sinarpustaka232@gmail.com	Jl. Merak No. 168	00943
+PB00233	Bumi Aksara	sinarpustaka233@gmail.com	Jl. Kenanga No. 147	00943
+PB00234	Mega Pustaka	mediailmu234@gmail.com	Jl. Elang No. 144	00943
+PB00235	Bumi Aksara	intansejati235@gmail.com	Jl. Elang No. 56	00943
+PB00236	Intan Sejati	sinarpustaka236@gmail.com	Jl. Melati No. 147	00943
+PB00237	Mitra Buku	intansejati237@gmail.com	Jl. Anggrek No. 1	00943
+PB00238	Cendekia Pustaka	lenterahati238@gmail.com	Jl. Pinus No. 63	00943
+PB00239	Gramedia Group	mitrabuku239@gmail.com	Jl. Melati No. 18	00943
+PB00240	Lentera Hati	citramedia240@gmail.com	Jl. Kamboja No. 164	00943
+PB00241	Sinar Pustaka	smartbook241@gmail.com	Jl. Elang No. 81	00943
+PB00242	Prestasi Pustaka	edukasimandiri242@gmail.com	Jl. Merak No. 59	00943
+PB00243	Pustaka Utama	lenterahati243@gmail.com	Jl. Melati No. 124	00943
+PB00244	Edukasi Mandiri	cendekiapustaka244@gmail.com	Jl. Kenanga No. 26	00943
+PB00245	Media Ilmu	prestasipustaka245@gmail.com	Jl. Bougenville No. 47	00943
+PB00246	Arunika Media	edukasimandiri246@gmail.com	Jl. Bougenville No. 160	00943
+PB00247	Intan Sejati	nusantarapress247@gmail.com	Jl. Garuda No. 74	00943
+PB00248	Indo Pustaka	globalpress248@gmail.com	Jl. Nuri No. 18	00943
+PB00249	Kreatifindo	pelangicendekia249@gmail.com	Jl. Mawar No. 87	00943
+PB00250	Global Press	globalpress250@gmail.com	Jl. Kamboja No. 45	00943
+PB00251	Lentera Hati	arunikamedia251@gmail.com	Jl. Anggrek No. 36	00943
+PB00252	Global Press	cendekiapustaka252@gmail.com	Jl. Sakura No. 39	00943
+PB00253	Global Press	lenterahati253@gmail.com	Jl. Elang No. 94	00943
+PB00254	Lentera Hati	cendekiapustaka254@gmail.com	Jl. Flamboyan No. 101	00943
+PB00255	Gramedia Group	edukasimandiri255@gmail.com	Jl. Jati No. 115	00943
+PB00256	Mega Pustaka	megapustaka256@gmail.com	Jl. Dahlia No. 132	00943
+PB00257	Kreatifindo	globalpress257@gmail.com	Jl. Merpati No. 172	00943
+PB00258	Kreatifindo	mediailmu258@gmail.com	Jl. Elang No. 8	00943
+PB00259	Prestasi Pustaka	citramedia259@gmail.com	Jl. Seruni No. 166	00943
+PB00260	Arunika Media	indopustaka260@gmail.com	Jl. Garuda No. 77	00943
+PB00261	Kreatifindo	mediailmu261@gmail.com	Jl. Sakura No. 18	00943
+PB00262	Gramedia Group	mitrabuku262@gmail.com	Jl. Garuda No. 2	00943
+PB00263	Global Press	globalpress263@gmail.com	Jl. Garuda No. 24	00943
+PB00264	Prestasi Pustaka	bumiaksara264@gmail.com	Jl. Flamboyan No. 13	00943
+PB00265	Mitra Buku	pelangicendekia265@gmail.com	Jl. Mawar No. 73	00943
+PB00266	Sinar Pustaka	pustakautama266@gmail.com	Jl. Elang No. 171	00943
+PB00267	Nusantara Press	indopustaka267@gmail.com	Jl. Sakura No. 162	00943
+PB00268	Kreatifindo	bumiaksara268@gmail.com	Jl. Kenanga No. 23	00943
+PB00269	Indo Pustaka	cendekiapustaka269@gmail.com	Jl. Kamboja No. 136	00943
+PB00270	Nusantara Press	lenterahati270@gmail.com	Jl. Pinus No. 147	00943
+PB00271	Cendekia Pustaka	indopustaka271@gmail.com	Jl. Anggrek No. 121	00943
+PB00272	Cendekia Pustaka	edukasimandiri272@gmail.com	Jl. Dahlia No. 49	00943
+PB00273	Intan Sejati	sinarpustaka273@gmail.com	Jl. Elang No. 95	00943
+PB00274	Gramedia Group	nusantarapress274@gmail.com	Jl. Melati No. 128	00943
+PB00275	Mitra Buku	globalpress275@gmail.com	Jl. Rajawali No. 199	00943
+PB00276	Pustaka Utama	kreatifindo276@gmail.com	Jl. Sakura No. 86	00943
+PB00277	Mitra Buku	intansejati277@gmail.com	Jl. Jati No. 63	00943
+PB00278	Pelangi Cendekia	megapustaka278@gmail.com	Jl. Rajawali No. 94	00943
+PB00279	Pustaka Utama	globalpress279@gmail.com	Jl. Mawar No. 46	00943
+PB00280	Nusantara Press	pelangicendekia280@gmail.com	Jl. Rajawali No. 40	00943
+PB00281	Media Ilmu	cendekiapustaka281@gmail.com	Jl. Cendana No. 55	00943
+PB00282	Sinar Pustaka	lenterahati282@gmail.com	Jl. Elang No. 163	00943
+PB00283	Global Press	gramediagroup283@gmail.com	Jl. Flamboyan No. 90	00943
+PB00284	Nusantara Press	cendekiapustaka284@gmail.com	Jl. Pinus No. 3	00943
+PB00285	Pustaka Utama	lenterahati285@gmail.com	Jl. Pinus No. 121	00943
+PB00286	Prestasi Pustaka	kreatifindo286@gmail.com	Jl. Rajawali No. 25	00943
+PB00287	Gramedia Group	smartbook287@gmail.com	Jl. Cendana No. 77	00943
+PB00288	Lentera Hati	arunikamedia288@gmail.com	Jl. Merak No. 98	00943
+PB00289	Lentera Hati	megapustaka289@gmail.com	Jl. Kenanga No. 173	00943
+PB00290	Media Ilmu	cendekiapustaka290@gmail.com	Jl. Merpati No. 14	00943
+PB00291	Media Ilmu	globalpress291@gmail.com	Jl. Garuda No. 148	00943
+PB00292	Pelangi Cendekia	nusantarapress292@gmail.com	Jl. Melati No. 24	00943
+PB00293	Cendekia Pustaka	globalpress293@gmail.com	Jl. Jati No. 41	00943
+PB00294	Lentera Hati	smartbook294@gmail.com	Jl. Trembesi No. 26	00943
+PB00295	Gramedia Group	megapustaka295@gmail.com	Jl. Dahlia No. 122	00943
+PB00296	Lentera Hati	sinarpustaka296@gmail.com	Jl. Pinus No. 34	00943
+PB00297	Gramedia Group	nusantarapress297@gmail.com	Jl. Cendana No. 157	00943
+PB00298	Media Ilmu	mediailmu298@gmail.com	Jl. Bougenville No. 108	00943
+PB00299	Intan Sejati	kreatifindo299@gmail.com	Jl. Trembesi No. 9	00943
+PB00300	Mega Pustaka	mediailmu300@gmail.com	Jl. Sakura No. 52	00943
+PB00301	Indo Pustaka	kreatifindo301@gmail.com	Jl. Mawar No. 46	00943
+PB00302	Cendekia Pustaka	sinarpustaka302@gmail.com	Jl. Flamboyan No. 160	00943
+PB00303	Global Press	bumiaksara303@gmail.com	Jl. Garuda No. 137	00943
+PB00304	Nusantara Press	lenterahati304@gmail.com	Jl. Rajawali No. 4	00943
+PB00305	Sinar Pustaka	citramedia305@gmail.com	Jl. Kenanga No. 98	00943
+PB00306	Global Press	globalpress306@gmail.com	Jl. Flamboyan No. 31	00943
+PB00307	Kreatifindo	arunikamedia307@gmail.com	Jl. Flamboyan No. 200	00943
+PB00308	Prestasi Pustaka	lenterahati308@gmail.com	Jl. Trembesi No. 147	00943
+PB00309	Kreatifindo	sinarpustaka309@gmail.com	Jl. Mawar No. 180	00943
+PB00310	Gramedia Group	smartbook310@gmail.com	Jl. Jati No. 33	00943
+PB00311	Mega Pustaka	prestasipustaka311@gmail.com	Jl. Elang No. 85	00943
+PB00312	Edukasi Mandiri	lenterahati312@gmail.com	Jl. Melati No. 10	00943
+PB00313	Lentera Hati	globalpress313@gmail.com	Jl. Trembesi No. 36	00943
+PB00314	Edukasi Mandiri	megapustaka314@gmail.com	Jl. Nuri No. 127	00943
+PB00315	Arunika Media	citramedia315@gmail.com	Jl. Merpati No. 132	00943
+PB00316	Prestasi Pustaka	pustakautama316@gmail.com	Jl. Dahlia No. 89	00943
+PB00317	Edukasi Mandiri	sinarpustaka317@gmail.com	Jl. Sakura No. 58	00943
+PB00318	Indo Pustaka	bumiaksara318@gmail.com	Jl. Cendana No. 35	00943
+PB00319	Pelangi Cendekia	nusantarapress319@gmail.com	Jl. Elang No. 170	00943
+PB00320	Media Ilmu	prestasipustaka320@gmail.com	Jl. Cendana No. 73	00943
+PB00321	Edukasi Mandiri	cendekiapustaka321@gmail.com	Jl. Kamboja No. 116	00943
+PB00322	Indo Pustaka	bumiaksara322@gmail.com	Jl. Merpati No. 2	00943
+PB00323	Pelangi Cendekia	arunikamedia323@gmail.com	Jl. Sakura No. 29	00943
+PB00324	Prestasi Pustaka	smartbook324@gmail.com	Jl. Merak No. 34	00943
+PB00325	Bumi Aksara	mitrabuku325@gmail.com	Jl. Merpati No. 47	00943
+PB00326	Kreatifindo	cendekiapustaka326@gmail.com	Jl. Kenanga No. 31	00943
+PB00327	Gramedia Group	prestasipustaka327@gmail.com	Jl. Cendana No. 148	00943
+PB00328	Indo Pustaka	cendekiapustaka328@gmail.com	Jl. Garuda No. 167	00943
+PB00329	Cendekia Pustaka	cendekiapustaka329@gmail.com	Jl. Kamboja No. 119	00943
+PB00330	Citra Media	nusantarapress330@gmail.com	Jl. Dahlia No. 104	00943
+PB00331	Citra Media	arunikamedia331@gmail.com	Jl. Trembesi No. 160	00943
+PB00332	Arunika Media	edukasimandiri332@gmail.com	Jl. Kenanga No. 15	00943
+PB00333	Prestasi Pustaka	smartbook333@gmail.com	Jl. Trembesi No. 90	00943
+PB00334	SmartBook	edukasimandiri334@gmail.com	Jl. Dahlia No. 129	00943
+PB00335	Citra Media	indopustaka335@gmail.com	Jl. Melati No. 95	00943
+PB00336	SmartBook	megapustaka336@gmail.com	Jl. Merak No. 6	00943
+PB00337	Indo Pustaka	pustakautama337@gmail.com	Jl. Flamboyan No. 177	00943
+PB00338	Arunika Media	kreatifindo338@gmail.com	Jl. Dahlia No. 104	00943
+PB00339	Indo Pustaka	citramedia339@gmail.com	Jl. Bougenville No. 37	00943
+PB00340	Edukasi Mandiri	kreatifindo340@gmail.com	Jl. Garuda No. 33	00943
+PB00341	Pustaka Utama	indopustaka341@gmail.com	Jl. Nuri No. 149	00943
+PB00342	Arunika Media	lenterahati342@gmail.com	Jl. Kamboja No. 33	00943
+PB00343	Indo Pustaka	gramediagroup343@gmail.com	Jl. Flamboyan No. 36	00943
+PB00344	Global Press	bumiaksara344@gmail.com	Jl. Trembesi No. 103	00943
+PB00345	Mitra Buku	lenterahati345@gmail.com	Jl. Merpati No. 70	00943
+PB00346	Nusantara Press	bumiaksara346@gmail.com	Jl. Merak No. 47	00943
+PB00347	Gramedia Group	gramediagroup347@gmail.com	Jl. Dahlia No. 16	00943
+PB00348	Gramedia Group	gramediagroup348@gmail.com	Jl. Rajawali No. 108	00943
+PB00349	Kreatifindo	arunikamedia349@gmail.com	Jl. Jati No. 178	00943
+PB00350	Intan Sejati	globalpress350@gmail.com	Jl. Merpati No. 79	00943
+PB00351	Citra Media	lenterahati351@gmail.com	Jl. Sakura No. 58	00943
+PB00352	Lentera Hati	lenterahati352@gmail.com	Jl. Pinus No. 115	00943
+PB00353	Lentera Hati	mitrabuku353@gmail.com	Jl. Pinus No. 169	00943
+PB00354	Pustaka Utama	arunikamedia354@gmail.com	Jl. Kamboja No. 63	00943
+PB00355	Intan Sejati	mediailmu355@gmail.com	Jl. Anggrek No. 84	00943
+PB00356	Mitra Buku	edukasimandiri356@gmail.com	Jl. Dahlia No. 52	00943
+PB00357	Pustaka Utama	intansejati357@gmail.com	Jl. Mawar No. 195	00943
+PB00358	Indo Pustaka	globalpress358@gmail.com	Jl. Merak No. 10	00943
+PB00359	Intan Sejati	bumiaksara359@gmail.com	Jl. Garuda No. 94	00943
+PB00360	Sinar Pustaka	globalpress360@gmail.com	Jl. Bougenville No. 192	00943
+PB00361	Mega Pustaka	intansejati361@gmail.com	Jl. Sakura No. 113	00943
+PB00362	Indo Pustaka	pustakautama362@gmail.com	Jl. Sakura No. 2	00943
+PB00363	Mega Pustaka	megapustaka363@gmail.com	Jl. Rajawali No. 139	00943
+PB00364	Citra Media	lenterahati364@gmail.com	Jl. Anggrek No. 35	00943
+PB00365	Global Press	bumiaksara365@gmail.com	Jl. Trembesi No. 199	00943
+PB00366	SmartBook	bumiaksara366@gmail.com	Jl. Dahlia No. 105	00943
+PB00367	Indo Pustaka	megapustaka367@gmail.com	Jl. Elang No. 199	00943
+PB00368	Media Ilmu	kreatifindo368@gmail.com	Jl. Rajawali No. 38	00943
+PB00369	Pelangi Cendekia	prestasipustaka369@gmail.com	Jl. Melati No. 179	00943
+PB00370	Nusantara Press	pustakautama370@gmail.com	Jl. Merak No. 132	00943
+PB00371	Mitra Buku	prestasipustaka371@gmail.com	Jl. Jati No. 12	00943
+PB00372	SmartBook	arunikamedia372@gmail.com	Jl. Nuri No. 107	00943
+PB00373	Edukasi Mandiri	pelangicendekia373@gmail.com	Jl. Cendana No. 170	00943
+PB00374	Pelangi Cendekia	indopustaka374@gmail.com	Jl. Seruni No. 200	00943
+PB00375	Global Press	edukasimandiri375@gmail.com	Jl. Pinus No. 78	00943
+PB00376	Kreatifindo	kreatifindo376@gmail.com	Jl. Cendana No. 131	00943
+PB00377	Pustaka Utama	mitrabuku377@gmail.com	Jl. Flamboyan No. 70	00943
+PB00378	Cendekia Pustaka	nusantarapress378@gmail.com	Jl. Jati No. 132	00943
+PB00379	Pelangi Cendekia	kreatifindo379@gmail.com	Jl. Bougenville No. 171	00943
+PB00380	Indo Pustaka	intansejati380@gmail.com	Jl. Elang No. 53	00943
+PB00381	Arunika Media	citramedia381@gmail.com	Jl. Merak No. 45	00943
+PB00382	Citra Media	lenterahati382@gmail.com	Jl. Mawar No. 24	00943
+PB00383	Intan Sejati	smartbook383@gmail.com	Jl. Mawar No. 104	00943
+PB00384	Prestasi Pustaka	edukasimandiri384@gmail.com	Jl. Trembesi No. 94	00943
+PB00385	Indo Pustaka	globalpress385@gmail.com	Jl. Seruni No. 119	00943
+PB00386	Edukasi Mandiri	smartbook386@gmail.com	Jl. Dahlia No. 153	00943
+PB00387	Edukasi Mandiri	globalpress387@gmail.com	Jl. Merak No. 49	00943
+PB00388	Pustaka Utama	smartbook388@gmail.com	Jl. Dahlia No. 96	00943
+PB00389	Mitra Buku	cendekiapustaka389@gmail.com	Jl. Cendana No. 1	00943
+PB00390	Global Press	mitrabuku390@gmail.com	Jl. Bougenville No. 145	00943
+PB00391	Kreatifindo	kreatifindo391@gmail.com	Jl. Garuda No. 8	00943
+PB00392	Mega Pustaka	pustakautama392@gmail.com	Jl. Nuri No. 81	00943
+PB00393	Arunika Media	megapustaka393@gmail.com	Jl. Jati No. 90	00943
+PB00394	Media Ilmu	pustakautama394@gmail.com	Jl. Pinus No. 22	00943
+PB00395	Citra Media	gramediagroup395@gmail.com	Jl. Cendana No. 117	00943
+PB00396	Nusantara Press	edukasimandiri396@gmail.com	Jl. Elang No. 141	00943
+PB00397	Lentera Hati	citramedia397@gmail.com	Jl. Elang No. 23	00943
+PB00398	Kreatifindo	gramediagroup398@gmail.com	Jl. Nuri No. 150	00943
+PB00399	SmartBook	mitrabuku399@gmail.com	Jl. Kenanga No. 57	00943
+PB00400	Kreatifindo	kreatifindo400@gmail.com	Jl. Kamboja No. 27	00943
+PB00401	Bumi Aksara	arunikamedia401@gmail.com	Jl. Rajawali No. 112	00943
+PB00402	Prestasi Pustaka	indopustaka402@gmail.com	Jl. Rajawali No. 118	00943
+PB00403	SmartBook	intansejati403@gmail.com	Jl. Elang No. 128	00943
+PB00404	Prestasi Pustaka	cendekiapustaka404@gmail.com	Jl. Pinus No. 186	00943
+PB00405	Arunika Media	intansejati405@gmail.com	Jl. Pinus No. 39	00943
+PB00406	Pustaka Utama	intansejati406@gmail.com	Jl. Mawar No. 61	00943
+PB00407	Mitra Buku	arunikamedia407@gmail.com	Jl. Flamboyan No. 97	00943
+PB00408	Indo Pustaka	megapustaka408@gmail.com	Jl. Pinus No. 72	00943
+PB00409	Bumi Aksara	bumiaksara409@gmail.com	Jl. Nuri No. 199	00943
+PB00410	Pustaka Utama	gramediagroup410@gmail.com	Jl. Kamboja No. 65	00943
+PB00411	Media Ilmu	smartbook411@gmail.com	Jl. Flamboyan No. 92	00943
+PB00412	Mega Pustaka	gramediagroup412@gmail.com	Jl. Cendana No. 16	00943
+PB00413	Lentera Hati	prestasipustaka413@gmail.com	Jl. Sakura No. 14	00943
+PB00414	Prestasi Pustaka	intansejati414@gmail.com	Jl. Mawar No. 183	00943
+PB00415	Lentera Hati	gramediagroup415@gmail.com	Jl. Dahlia No. 180	00943
+PB00416	Global Press	gramediagroup416@gmail.com	Jl. Elang No. 12	00943
+PB00417	Gramedia Group	citramedia417@gmail.com	Jl. Merpati No. 31	00943
+PB00418	Mega Pustaka	lenterahati418@gmail.com	Jl. Kamboja No. 95	00943
+PB00419	Intan Sejati	nusantarapress419@gmail.com	Jl. Kenanga No. 112	00943
+PB00420	Arunika Media	pelangicendekia420@gmail.com	Jl. Trembesi No. 39	00943
+PB00421	Nusantara Press	arunikamedia421@gmail.com	Jl. Merpati No. 51	00943
+PB00422	Mitra Buku	intansejati422@gmail.com	Jl. Sakura No. 196	00943
+PB00423	Nusantara Press	prestasipustaka423@gmail.com	Jl. Merpati No. 77	00943
+PB00424	Indo Pustaka	indopustaka424@gmail.com	Jl. Kenanga No. 126	00943
+PB00425	Lentera Hati	gramediagroup425@gmail.com	Jl. Elang No. 137	00943
+PB00426	Cendekia Pustaka	citramedia426@gmail.com	Jl. Sakura No. 103	00943
+PB00427	Lentera Hati	edukasimandiri427@gmail.com	Jl. Garuda No. 65	00943
+PB00428	SmartBook	nusantarapress428@gmail.com	Jl. Mawar No. 103	00943
+PB00429	Cendekia Pustaka	intansejati429@gmail.com	Jl. Trembesi No. 110	00943
+PB00430	Citra Media	intansejati430@gmail.com	Jl. Merak No. 93	00943
+PB00431	Mitra Buku	pustakautama431@gmail.com	Jl. Merak No. 41	00943
+PB00432	Pustaka Utama	citramedia432@gmail.com	Jl. Sakura No. 57	00943
+PB00433	Bumi Aksara	mitrabuku433@gmail.com	Jl. Jati No. 18	00943
+PB00434	Nusantara Press	prestasipustaka434@gmail.com	Jl. Jati No. 66	00943
+PB00435	Indo Pustaka	mediailmu435@gmail.com	Jl. Kenanga No. 111	00943
+PB00436	Lentera Hati	intansejati436@gmail.com	Jl. Nuri No. 35	00943
+PB00437	Nusantara Press	mediailmu437@gmail.com	Jl. Flamboyan No. 181	00943
+PB00438	Citra Media	mitrabuku438@gmail.com	Jl. Jati No. 176	00943
+PB00439	Media Ilmu	globalpress439@gmail.com	Jl. Merak No. 71	00943
+PB00440	SmartBook	pustakautama440@gmail.com	Jl. Anggrek No. 43	00943
+PB00441	Intan Sejati	pelangicendekia441@gmail.com	Jl. Nuri No. 121	00943
+PB00442	Global Press	indopustaka442@gmail.com	Jl. Pinus No. 97	00943
+PB00443	Nusantara Press	indopustaka443@gmail.com	Jl. Nuri No. 20	00943
+PB00444	Prestasi Pustaka	indopustaka444@gmail.com	Jl. Kamboja No. 31	00943
+PB00445	SmartBook	pelangicendekia445@gmail.com	Jl. Bougenville No. 150	00943
+PB00446	Bumi Aksara	mediailmu446@gmail.com	Jl. Sakura No. 77	00943
+PB00447	Arunika Media	intansejati447@gmail.com	Jl. Cendana No. 10	00943
+PB00448	Nusantara Press	megapustaka448@gmail.com	Jl. Rajawali No. 98	00943
+PB00449	Mitra Buku	nusantarapress449@gmail.com	Jl. Anggrek No. 132	00943
+PB00450	Media Ilmu	pelangicendekia450@gmail.com	Jl. Bougenville No. 48	00943
+PB00451	Mitra Buku	pustakautama451@gmail.com	Jl. Kenanga No. 86	00943
+PB00452	Intan Sejati	globalpress452@gmail.com	Jl. Pinus No. 188	00943
+PB00453	Mitra Buku	prestasipustaka453@gmail.com	Jl. Mawar No. 106	00943
+PB00454	SmartBook	arunikamedia454@gmail.com	Jl. Rajawali No. 132	00943
+PB00455	Prestasi Pustaka	lenterahati455@gmail.com	Jl. Kamboja No. 113	00943
+PB00456	Indo Pustaka	lenterahati456@gmail.com	Jl. Bougenville No. 150	00943
+PB00457	Mega Pustaka	globalpress457@gmail.com	Jl. Mawar No. 15	00943
+PB00458	Prestasi Pustaka	lenterahati458@gmail.com	Jl. Bougenville No. 31	00943
+PB00459	Pelangi Cendekia	citramedia459@gmail.com	Jl. Seruni No. 26	00943
+PB00460	Cendekia Pustaka	mitrabuku460@gmail.com	Jl. Merpati No. 156	00943
+PB00461	Cendekia Pustaka	edukasimandiri461@gmail.com	Jl. Merpati No. 74	00943
+PB00462	Lentera Hati	prestasipustaka462@gmail.com	Jl. Dahlia No. 175	00943
+PB00463	Mega Pustaka	indopustaka463@gmail.com	Jl. Merak No. 75	00943
+PB00464	Nusantara Press	pelangicendekia464@gmail.com	Jl. Cendana No. 71	00943
+PB00465	Pelangi Cendekia	kreatifindo465@gmail.com	Jl. Jati No. 66	00943
+PB00466	Mega Pustaka	pelangicendekia466@gmail.com	Jl. Jati No. 124	00943
+PB00467	Lentera Hati	edukasimandiri467@gmail.com	Jl. Rajawali No. 48	00943
+PB00468	Indo Pustaka	sinarpustaka468@gmail.com	Jl. Seruni No. 133	00943
+PB00469	Cendekia Pustaka	kreatifindo469@gmail.com	Jl. Kenanga No. 179	00943
+PB00470	Cendekia Pustaka	lenterahati470@gmail.com	Jl. Merak No. 85	00943
+PB00471	Nusantara Press	megapustaka471@gmail.com	Jl. Jati No. 48	00943
+PB00472	Media Ilmu	pelangicendekia472@gmail.com	Jl. Seruni No. 161	00943
+PB00473	Sinar Pustaka	sinarpustaka473@gmail.com	Jl. Sakura No. 35	00943
+PB00474	Pelangi Cendekia	pelangicendekia474@gmail.com	Jl. Bougenville No. 175	00943
+PB00475	Gramedia Group	cendekiapustaka475@gmail.com	Jl. Flamboyan No. 13	00943
+PB00476	Kreatifindo	pelangicendekia476@gmail.com	Jl. Garuda No. 69	00943
+PB00477	Nusantara Press	sinarpustaka477@gmail.com	Jl. Jati No. 136	00943
+PB00478	Nusantara Press	intansejati478@gmail.com	Jl. Rajawali No. 136	00943
+PB00479	Media Ilmu	smartbook479@gmail.com	Jl. Dahlia No. 50	00943
+PB00480	Pustaka Utama	gramediagroup480@gmail.com	Jl. Flamboyan No. 82	00943
+PB00481	Mega Pustaka	sinarpustaka481@gmail.com	Jl. Pinus No. 21	00943
+PB00482	Arunika Media	mitrabuku482@gmail.com	Jl. Seruni No. 192	00943
+PB00483	Nusantara Press	mitrabuku483@gmail.com	Jl. Melati No. 119	00943
+PB00484	Nusantara Press	gramediagroup484@gmail.com	Jl. Anggrek No. 142	00943
+PB00485	SmartBook	mitrabuku485@gmail.com	Jl. Merpati No. 125	00943
+PB00486	Kreatifindo	lenterahati486@gmail.com	Jl. Sakura No. 138	00943
+PB00487	Sinar Pustaka	arunikamedia487@gmail.com	Jl. Anggrek No. 55	00943
+PB00488	SmartBook	kreatifindo488@gmail.com	Jl. Sakura No. 26	00943
+PB00489	Kreatifindo	mitrabuku489@gmail.com	Jl. Flamboyan No. 115	00943
+PB00490	SmartBook	mediailmu490@gmail.com	Jl. Kamboja No. 157	00943
+PB00491	Intan Sejati	mediailmu491@gmail.com	Jl. Melati No. 81	00943
+PB00492	Indo Pustaka	pustakautama492@gmail.com	Jl. Elang No. 121	00943
+PB00493	Mega Pustaka	lenterahati493@gmail.com	Jl. Dahlia No. 103	00943
+PB00494	Global Press	smartbook494@gmail.com	Jl. Merak No. 14	00943
+PB00495	Intan Sejati	megapustaka495@gmail.com	Jl. Trembesi No. 130	00943
+PB00496	Mega Pustaka	sinarpustaka496@gmail.com	Jl. Bougenville No. 27	00943
+PB00497	Media Ilmu	smartbook497@gmail.com	Jl. Jati No. 132	00943
+PB00498	Citra Media	nusantarapress498@gmail.com	Jl. Kamboja No. 15	00943
+PB00499	Nusantara Press	gramediagroup499@gmail.com	Jl. Elang No. 48	00943
+PB00500	Lentera Hati	citramedia500@gmail.com	Jl. Bougenville No. 84	00943
+PB00501	Cendekia Pustaka	edukasimandiri501@gmail.com	Jl. Anggrek No. 198	00943
+PB00502	Mega Pustaka	mediailmu502@gmail.com	Jl. Garuda No. 22	00943
+PB00503	Pelangi Cendekia	intansejati503@gmail.com	Jl. Trembesi No. 137	00943
+PB00504	Pelangi Cendekia	kreatifindo504@gmail.com	Jl. Rajawali No. 41	00943
+PB00505	Bumi Aksara	citramedia505@gmail.com	Jl. Mawar No. 116	00943
+PB00506	Prestasi Pustaka	gramediagroup506@gmail.com	Jl. Merpati No. 168	00943
+PB00507	Kreatifindo	intansejati507@gmail.com	Jl. Melati No. 129	00943
+PB00508	Mega Pustaka	intansejati508@gmail.com	Jl. Nuri No. 20	00943
+PB00509	Pelangi Cendekia	pustakautama509@gmail.com	Jl. Bougenville No. 108	00943
+PB00510	Gramedia Group	lenterahati510@gmail.com	Jl. Cendana No. 87	00943
+PB00511	Kreatifindo	indopustaka511@gmail.com	Jl. Merpati No. 165	00943
+PB00512	Mega Pustaka	lenterahati512@gmail.com	Jl. Sakura No. 184	00943
+PB00513	Bumi Aksara	nusantarapress513@gmail.com	Jl. Elang No. 13	00943
+PB00514	Global Press	sinarpustaka514@gmail.com	Jl. Trembesi No. 39	00943
+PB00515	SmartBook	mediailmu515@gmail.com	Jl. Garuda No. 128	00943
+PB00516	Nusantara Press	edukasimandiri516@gmail.com	Jl. Merak No. 20	00943
+PB00517	Kreatifindo	intansejati517@gmail.com	Jl. Rajawali No. 182	00943
+PB00518	Lentera Hati	cendekiapustaka518@gmail.com	Jl. Kenanga No. 82	00943
+PB00519	Media Ilmu	smartbook519@gmail.com	Jl. Melati No. 169	00943
+PB00520	Media Ilmu	globalpress520@gmail.com	Jl. Sakura No. 33	00943
+PB00521	Mega Pustaka	nusantarapress521@gmail.com	Jl. Kenanga No. 125	00943
+PB00522	Cendekia Pustaka	cendekiapustaka522@gmail.com	Jl. Elang No. 86	00943
+PB00523	Citra Media	citramedia523@gmail.com	Jl. Anggrek No. 25	00943
+PB00524	Mitra Buku	sinarpustaka524@gmail.com	Jl. Mawar No. 110	00943
+PB00525	Pelangi Cendekia	lenterahati525@gmail.com	Jl. Jati No. 131	00943
+PB00526	Intan Sejati	kreatifindo526@gmail.com	Jl. Cendana No. 152	00943
+PB00527	Mega Pustaka	pustakautama527@gmail.com	Jl. Pinus No. 93	00943
+PB00528	Media Ilmu	arunikamedia528@gmail.com	Jl. Anggrek No. 141	00943
+PB00529	Media Ilmu	sinarpustaka529@gmail.com	Jl. Seruni No. 33	00943
+PB00530	SmartBook	mitrabuku530@gmail.com	Jl. Rajawali No. 20	00943
+PB00531	Kreatifindo	sinarpustaka531@gmail.com	Jl. Trembesi No. 198	00943
+PB00532	Indo Pustaka	globalpress532@gmail.com	Jl. Bougenville No. 179	00943
+PB00533	Mega Pustaka	nusantarapress533@gmail.com	Jl. Mawar No. 16	00943
+PB00534	Pelangi Cendekia	prestasipustaka534@gmail.com	Jl. Kenanga No. 129	00943
+PB00535	Prestasi Pustaka	nusantarapress535@gmail.com	Jl. Rajawali No. 105	00943
+PB00536	Prestasi Pustaka	indopustaka536@gmail.com	Jl. Nuri No. 156	00943
+PB00537	SmartBook	mediailmu537@gmail.com	Jl. Kamboja No. 161	00943
+PB00538	Kreatifindo	prestasipustaka538@gmail.com	Jl. Kenanga No. 34	00943
+PB00539	Arunika Media	mediailmu539@gmail.com	Jl. Dahlia No. 187	00943
+PB00540	Lentera Hati	edukasimandiri540@gmail.com	Jl. Jati No. 35	00943
+PB00541	Nusantara Press	smartbook541@gmail.com	Jl. Melati No. 70	00943
+PB00542	Global Press	citramedia542@gmail.com	Jl. Bougenville No. 92	00943
+PB00543	Kreatifindo	mitrabuku543@gmail.com	Jl. Cendana No. 43	00943
+PB00544	Edukasi Mandiri	gramediagroup544@gmail.com	Jl. Melati No. 20	00943
+PB00545	Nusantara Press	smartbook545@gmail.com	Jl. Cendana No. 163	00943
+PB00546	Pelangi Cendekia	arunikamedia546@gmail.com	Jl. Seruni No. 199	00943
+PB00547	Gramedia Group	indopustaka547@gmail.com	Jl. Merpati No. 165	00943
+PB00548	Bumi Aksara	prestasipustaka548@gmail.com	Jl. Anggrek No. 97	00943
+PB00549	Intan Sejati	kreatifindo549@gmail.com	Jl. Kenanga No. 38	00943
+PB00550	Sinar Pustaka	pelangicendekia550@gmail.com	Jl. Flamboyan No. 48	00943
+PB00551	Global Press	cendekiapustaka551@gmail.com	Jl. Garuda No. 142	00943
+PB00552	Global Press	sinarpustaka552@gmail.com	Jl. Melati No. 102	00943
+PB00553	Indo Pustaka	gramediagroup553@gmail.com	Jl. Pinus No. 87	00943
+PB00554	Media Ilmu	globalpress554@gmail.com	Jl. Sakura No. 28	00943
+PB00555	Media Ilmu	pustakautama555@gmail.com	Jl. Seruni No. 76	00943
+PB00556	Pelangi Cendekia	kreatifindo556@gmail.com	Jl. Merpati No. 117	00943
+PB00557	Citra Media	nusantarapress557@gmail.com	Jl. Elang No. 16	00943
+PB00558	Indo Pustaka	lenterahati558@gmail.com	Jl. Melati No. 46	00943
+PB00559	Sinar Pustaka	pelangicendekia559@gmail.com	Jl. Kamboja No. 55	00943
+PB00560	Pustaka Utama	citramedia560@gmail.com	Jl. Dahlia No. 46	00943
+PB00561	Lentera Hati	bumiaksara561@gmail.com	Jl. Pinus No. 85	00943
+PB00562	Edukasi Mandiri	kreatifindo562@gmail.com	Jl. Jati No. 114	00943
+PB00563	Citra Media	kreatifindo563@gmail.com	Jl. Rajawali No. 164	00943
+PB00564	Gramedia Group	bumiaksara564@gmail.com	Jl. Cendana No. 77	00943
+PB00565	Media Ilmu	pelangicendekia565@gmail.com	Jl. Flamboyan No. 134	00943
+PB00566	Citra Media	nusantarapress566@gmail.com	Jl. Mawar No. 125	00943
+PB00567	Edukasi Mandiri	prestasipustaka567@gmail.com	Jl. Dahlia No. 113	00943
+PB00568	Kreatifindo	kreatifindo568@gmail.com	Jl. Seruni No. 175	00943
+PB00569	SmartBook	intansejati569@gmail.com	Jl. Pinus No. 67	00943
+PB00570	Lentera Hati	edukasimandiri570@gmail.com	Jl. Nuri No. 40	00943
+PB00571	Media Ilmu	pustakautama571@gmail.com	Jl. Elang No. 44	00943
+PB00572	Arunika Media	intansejati572@gmail.com	Jl. Anggrek No. 13	00943
+PB00573	Kreatifindo	megapustaka573@gmail.com	Jl. Sakura No. 123	00943
+PB00574	Sinar Pustaka	pelangicendekia574@gmail.com	Jl. Flamboyan No. 97	00943
+PB00575	Citra Media	megapustaka575@gmail.com	Jl. Merak No. 80	00943
+PB00576	Edukasi Mandiri	arunikamedia576@gmail.com	Jl. Merpati No. 194	00943
+PB00577	Pustaka Utama	indopustaka577@gmail.com	Jl. Kamboja No. 105	00943
+PB00578	Intan Sejati	bumiaksara578@gmail.com	Jl. Kamboja No. 76	00943
+PB00579	Prestasi Pustaka	globalpress579@gmail.com	Jl. Rajawali No. 149	00943
+PB00580	Kreatifindo	pelangicendekia580@gmail.com	Jl. Flamboyan No. 135	00943
+PB00581	Media Ilmu	indopustaka581@gmail.com	Jl. Kenanga No. 35	00943
+PB00582	Bumi Aksara	lenterahati582@gmail.com	Jl. Flamboyan No. 27	00943
+PB00583	Intan Sejati	bumiaksara583@gmail.com	Jl. Merpati No. 163	00943
+PB00584	Prestasi Pustaka	mitrabuku584@gmail.com	Jl. Flamboyan No. 158	00943
+PB00585	Indo Pustaka	pustakautama585@gmail.com	Jl. Kenanga No. 138	00943
+PB00586	Prestasi Pustaka	mitrabuku586@gmail.com	Jl. Cendana No. 97	00943
+PB00587	Arunika Media	lenterahati587@gmail.com	Jl. Dahlia No. 167	00943
+PB00588	Citra Media	lenterahati588@gmail.com	Jl. Seruni No. 99	00943
+PB00589	Media Ilmu	bumiaksara589@gmail.com	Jl. Bougenville No. 30	00943
+PB00590	Nusantara Press	megapustaka590@gmail.com	Jl. Merak No. 85	00943
+PB00591	Citra Media	megapustaka591@gmail.com	Jl. Anggrek No. 175	00943
+PB00592	Intan Sejati	kreatifindo592@gmail.com	Jl. Merak No. 35	00943
+PB00593	Indo Pustaka	mediailmu593@gmail.com	Jl. Sakura No. 192	00943
+PB00594	Prestasi Pustaka	intansejati594@gmail.com	Jl. Merak No. 13	00943
+PB00595	Nusantara Press	sinarpustaka595@gmail.com	Jl. Mawar No. 190	00943
+PB00596	Mitra Buku	citramedia596@gmail.com	Jl. Melati No. 94	00943
+PB00597	Kreatifindo	sinarpustaka597@gmail.com	Jl. Merpati No. 18	00943
+PB00598	Cendekia Pustaka	arunikamedia598@gmail.com	Jl. Cendana No. 19	00943
+PB00599	Cendekia Pustaka	mitrabuku599@gmail.com	Jl. Sakura No. 92	00943
+PB00600	Kreatifindo	gramediagroup600@gmail.com	Jl. Bougenville No. 63	00943
+PB00601	Gramedia Group	mediailmu601@gmail.com	Jl. Pinus No. 83	00943
+PB00602	Nusantara Press	cendekiapustaka602@gmail.com	Jl. Jati No. 34	00943
+PB00603	Sinar Pustaka	pelangicendekia603@gmail.com	Jl. Cendana No. 58	00943
+PB00604	Mitra Buku	edukasimandiri604@gmail.com	Jl. Dahlia No. 187	00943
+PB00605	Pustaka Utama	gramediagroup605@gmail.com	Jl. Elang No. 82	00943
+PB00606	Kreatifindo	prestasipustaka606@gmail.com	Jl. Rajawali No. 2	00943
+PB00607	Citra Media	pelangicendekia607@gmail.com	Jl. Merak No. 54	00943
+PB00608	Kreatifindo	globalpress608@gmail.com	Jl. Kenanga No. 4	00943
+PB00609	Gramedia Group	nusantarapress609@gmail.com	Jl. Seruni No. 63	00943
+PB00610	Intan Sejati	sinarpustaka610@gmail.com	Jl. Sakura No. 60	00943
+PB00611	Pelangi Cendekia	gramediagroup611@gmail.com	Jl. Sakura No. 27	00943
+PB00612	Indo Pustaka	citramedia612@gmail.com	Jl. Pinus No. 104	00943
+PB00613	SmartBook	bumiaksara613@gmail.com	Jl. Flamboyan No. 62	00943
+PB00614	Media Ilmu	sinarpustaka614@gmail.com	Jl. Elang No. 30	00943
+PB00615	Lentera Hati	mitrabuku615@gmail.com	Jl. Anggrek No. 155	00943
+PB00616	Gramedia Group	mediailmu616@gmail.com	Jl. Anggrek No. 196	00943
+PB00617	Nusantara Press	pustakautama617@gmail.com	Jl. Flamboyan No. 90	00943
+PB00618	Indo Pustaka	indopustaka618@gmail.com	Jl. Garuda No. 140	00943
+PB00619	Mega Pustaka	prestasipustaka619@gmail.com	Jl. Flamboyan No. 43	00943
+PB00620	Gramedia Group	smartbook620@gmail.com	Jl. Dahlia No. 181	00943
+PB00621	Sinar Pustaka	edukasimandiri621@gmail.com	Jl. Kenanga No. 173	00943
+PB00622	Arunika Media	megapustaka622@gmail.com	Jl. Rajawali No. 52	00943
+PB00623	Kreatifindo	smartbook623@gmail.com	Jl. Flamboyan No. 188	00943
+PB00624	Kreatifindo	smartbook624@gmail.com	Jl. Bougenville No. 21	00943
+PB00625	Sinar Pustaka	smartbook625@gmail.com	Jl. Mawar No. 131	00943
+PB00626	Mitra Buku	edukasimandiri626@gmail.com	Jl. Kenanga No. 88	00943
+PB00627	Lentera Hati	globalpress627@gmail.com	Jl. Merpati No. 100	00943
+PB00628	Prestasi Pustaka	gramediagroup628@gmail.com	Jl. Kamboja No. 131	00943
+PB00629	Nusantara Press	prestasipustaka629@gmail.com	Jl. Kamboja No. 145	00943
+PB00630	Cendekia Pustaka	kreatifindo630@gmail.com	Jl. Rajawali No. 53	00943
+PB00631	Gramedia Group	mitrabuku631@gmail.com	Jl. Merpati No. 100	00943
+PB00632	Bumi Aksara	mitrabuku632@gmail.com	Jl. Mawar No. 74	00943
+PB00633	SmartBook	intansejati633@gmail.com	Jl. Anggrek No. 119	00943
+PB00634	Cendekia Pustaka	gramediagroup634@gmail.com	Jl. Rajawali No. 31	00943
+PB00635	Citra Media	cendekiapustaka635@gmail.com	Jl. Bougenville No. 144	00943
+PB00636	Global Press	smartbook636@gmail.com	Jl. Merpati No. 102	00943
+PB00637	Nusantara Press	nusantarapress637@gmail.com	Jl. Mawar No. 93	00943
+PB00638	Bumi Aksara	citramedia638@gmail.com	Jl. Sakura No. 154	00943
+PB00639	Mitra Buku	edukasimandiri639@gmail.com	Jl. Nuri No. 110	00943
+PB00640	Intan Sejati	indopustaka640@gmail.com	Jl. Merpati No. 98	00943
+PB00641	Media Ilmu	citramedia641@gmail.com	Jl. Dahlia No. 180	00943
+PB00642	Lentera Hati	citramedia642@gmail.com	Jl. Mawar No. 79	00943
+PB00643	Cendekia Pustaka	smartbook643@gmail.com	Jl. Sakura No. 110	00943
+PB00644	Prestasi Pustaka	gramediagroup644@gmail.com	Jl. Nuri No. 16	00943
+PB00645	Arunika Media	intansejati645@gmail.com	Jl. Cendana No. 63	00943
+PB00646	Bumi Aksara	kreatifindo646@gmail.com	Jl. Rajawali No. 159	00943
+PB00647	Pelangi Cendekia	arunikamedia647@gmail.com	Jl. Seruni No. 64	00943
+PB00648	Prestasi Pustaka	indopustaka648@gmail.com	Jl. Nuri No. 135	00943
+PB00649	Pustaka Utama	mediailmu649@gmail.com	Jl. Kenanga No. 43	00943
+PB00650	Indo Pustaka	edukasimandiri650@gmail.com	Jl. Melati No. 148	00943
+PB00651	Nusantara Press	sinarpustaka651@gmail.com	Jl. Rajawali No. 148	00943
+PB00652	Intan Sejati	cendekiapustaka652@gmail.com	Jl. Garuda No. 132	00943
+PB00653	Indo Pustaka	globalpress653@gmail.com	Jl. Cendana No. 169	00943
+PB00654	Sinar Pustaka	arunikamedia654@gmail.com	Jl. Sakura No. 174	00943
+PB00655	Mega Pustaka	intansejati655@gmail.com	Jl. Merpati No. 34	00943
+PB00656	Global Press	smartbook656@gmail.com	Jl. Kamboja No. 50	00943
+PB00657	Media Ilmu	edukasimandiri657@gmail.com	Jl. Merpati No. 187	00943
+PB00658	Cendekia Pustaka	nusantarapress658@gmail.com	Jl. Cendana No. 90	00943
+PB00659	Prestasi Pustaka	globalpress659@gmail.com	Jl. Melati No. 147	00943
+PB00660	Sinar Pustaka	sinarpustaka660@gmail.com	Jl. Merak No. 77	00943
+PB00661	Global Press	gramediagroup661@gmail.com	Jl. Bougenville No. 111	00943
+PB00662	Pustaka Utama	intansejati662@gmail.com	Jl. Pinus No. 151	00943
+PB00663	Intan Sejati	gramediagroup663@gmail.com	Jl. Kamboja No. 196	00943
+PB00664	Pelangi Cendekia	mediailmu664@gmail.com	Jl. Kenanga No. 46	00943
+PB00665	Gramedia Group	mitrabuku665@gmail.com	Jl. Sakura No. 8	00943
+PB00666	Nusantara Press	megapustaka666@gmail.com	Jl. Anggrek No. 154	00943
+PB00667	Prestasi Pustaka	prestasipustaka667@gmail.com	Jl. Mawar No. 80	00943
+PB00668	Kreatifindo	nusantarapress668@gmail.com	Jl. Garuda No. 167	00943
+PB00669	Edukasi Mandiri	edukasimandiri669@gmail.com	Jl. Kamboja No. 184	00943
+PB00670	Indo Pustaka	sinarpustaka670@gmail.com	Jl. Jati No. 100	00943
+PB00671	Nusantara Press	lenterahati671@gmail.com	Jl. Rajawali No. 86	00943
+PB00672	Mega Pustaka	lenterahati672@gmail.com	Jl. Merpati No. 56	00943
+PB00673	Arunika Media	mitrabuku673@gmail.com	Jl. Seruni No. 133	00943
+PB00674	Gramedia Group	pelangicendekia674@gmail.com	Jl. Seruni No. 120	00943
+PB00675	Gramedia Group	prestasipustaka675@gmail.com	Jl. Garuda No. 59	00943
+PB00676	Gramedia Group	mitrabuku676@gmail.com	Jl. Flamboyan No. 159	00943
+PB00677	SmartBook	intansejati677@gmail.com	Jl. Jati No. 181	00943
+PB00678	Cendekia Pustaka	citramedia678@gmail.com	Jl. Dahlia No. 106	00943
+PB00679	Arunika Media	mediailmu679@gmail.com	Jl. Merpati No. 99	00943
+PB00680	SmartBook	indopustaka680@gmail.com	Jl. Melati No. 108	00943
+PB00681	Pustaka Utama	gramediagroup681@gmail.com	Jl. Bougenville No. 156	00943
+PB00682	Edukasi Mandiri	bumiaksara682@gmail.com	Jl. Flamboyan No. 194	00943
+PB00683	Pustaka Utama	edukasimandiri683@gmail.com	Jl. Merpati No. 15	00943
+PB00684	Cendekia Pustaka	globalpress684@gmail.com	Jl. Pinus No. 176	00943
+PB00685	Prestasi Pustaka	megapustaka685@gmail.com	Jl. Nuri No. 177	00943
+PB00686	Prestasi Pustaka	megapustaka686@gmail.com	Jl. Anggrek No. 185	00943
+PB00687	Mitra Buku	mitrabuku687@gmail.com	Jl. Dahlia No. 64	00943
+PB00688	Mega Pustaka	sinarpustaka688@gmail.com	Jl. Garuda No. 99	00943
+PB00689	Lentera Hati	mitrabuku689@gmail.com	Jl. Bougenville No. 155	00943
+PB00690	Citra Media	cendekiapustaka690@gmail.com	Jl. Anggrek No. 193	00943
+PB00691	Kreatifindo	mediailmu691@gmail.com	Jl. Nuri No. 91	00943
+PB00692	Mitra Buku	pustakautama692@gmail.com	Jl. Dahlia No. 125	00943
+PB00693	Global Press	cendekiapustaka693@gmail.com	Jl. Melati No. 5	00943
+PB00694	Edukasi Mandiri	mediailmu694@gmail.com	Jl. Merak No. 163	00943
+PB00695	Bumi Aksara	pelangicendekia695@gmail.com	Jl. Anggrek No. 195	00943
+PB00696	Lentera Hati	mitrabuku696@gmail.com	Jl. Seruni No. 106	00943
+PB00697	Edukasi Mandiri	indopustaka697@gmail.com	Jl. Kamboja No. 134	00943
+PB00698	Edukasi Mandiri	lenterahati698@gmail.com	Jl. Dahlia No. 136	00943
+PB00699	Edukasi Mandiri	pustakautama699@gmail.com	Jl. Sakura No. 6	00943
+PB00700	Global Press	edukasimandiri700@gmail.com	Jl. Seruni No. 89	00943
+PB00701	Nusantara Press	citramedia701@gmail.com	Jl. Elang No. 121	00943
+PB00702	Nusantara Press	pelangicendekia702@gmail.com	Jl. Trembesi No. 58	00943
+PB00703	SmartBook	globalpress703@gmail.com	Jl. Melati No. 33	00943
+PB00704	Cendekia Pustaka	mediailmu704@gmail.com	Jl. Melati No. 117	00943
+PB00705	Mega Pustaka	globalpress705@gmail.com	Jl. Merak No. 49	00943
+PB00706	Sinar Pustaka	gramediagroup706@gmail.com	Jl. Mawar No. 117	00943
+PB00707	Citra Media	edukasimandiri707@gmail.com	Jl. Flamboyan No. 27	00943
+PB00708	Prestasi Pustaka	lenterahati708@gmail.com	Jl. Merpati No. 17	00943
+PB00709	Media Ilmu	edukasimandiri709@gmail.com	Jl. Kamboja No. 8	00943
+PB00710	Kreatifindo	globalpress710@gmail.com	Jl. Elang No. 19	00943
+PB00711	Lentera Hati	intansejati711@gmail.com	Jl. Elang No. 84	00943
+PB00712	Arunika Media	lenterahati712@gmail.com	Jl. Bougenville No. 98	00943
+PB00713	Mega Pustaka	kreatifindo713@gmail.com	Jl. Kamboja No. 47	00943
+PB00714	Pustaka Utama	nusantarapress714@gmail.com	Jl. Pinus No. 46	00943
+PB00715	Lentera Hati	pelangicendekia715@gmail.com	Jl. Merpati No. 111	00943
+PB00716	Lentera Hati	gramediagroup716@gmail.com	Jl. Melati No. 50	00943
+PB00717	SmartBook	indopustaka717@gmail.com	Jl. Seruni No. 18	00943
+PB00718	Nusantara Press	kreatifindo718@gmail.com	Jl. Dahlia No. 63	00943
+PB00719	Mitra Buku	bumiaksara719@gmail.com	Jl. Trembesi No. 66	00943
+PB00720	Edukasi Mandiri	arunikamedia720@gmail.com	Jl. Kamboja No. 23	00943
+PB00721	Indo Pustaka	pelangicendekia721@gmail.com	Jl. Mawar No. 147	00943
+PB00722	Media Ilmu	prestasipustaka722@gmail.com	Jl. Anggrek No. 101	00943
+PB00723	Mega Pustaka	megapustaka723@gmail.com	Jl. Elang No. 180	00943
+PB00724	Citra Media	lenterahati724@gmail.com	Jl. Dahlia No. 48	00943
+PB00725	Global Press	arunikamedia725@gmail.com	Jl. Nuri No. 141	00943
+PB00726	Prestasi Pustaka	lenterahati726@gmail.com	Jl. Seruni No. 14	00943
+PB00727	Arunika Media	indopustaka727@gmail.com	Jl. Rajawali No. 55	00943
+PB00728	Lentera Hati	gramediagroup728@gmail.com	Jl. Dahlia No. 73	00943
+PB00729	Global Press	globalpress729@gmail.com	Jl. Elang No. 127	00943
+PB00730	Media Ilmu	mitrabuku730@gmail.com	Jl. Seruni No. 29	00943
+PB00731	Sinar Pustaka	mitrabuku731@gmail.com	Jl. Pinus No. 119	00943
+PB00732	Bumi Aksara	nusantarapress732@gmail.com	Jl. Pinus No. 51	00943
+PB00733	Cendekia Pustaka	citramedia733@gmail.com	Jl. Merpati No. 200	00943
+PB00734	Pustaka Utama	indopustaka734@gmail.com	Jl. Bougenville No. 25	00943
+PB00735	Bumi Aksara	intansejati735@gmail.com	Jl. Merpati No. 163	00943
+PB00736	SmartBook	lenterahati736@gmail.com	Jl. Pinus No. 131	00943
+PB00737	Bumi Aksara	citramedia737@gmail.com	Jl. Bougenville No. 5	00943
+PB00738	Media Ilmu	mediailmu738@gmail.com	Jl. Trembesi No. 181	00943
+PB00739	Gramedia Group	cendekiapustaka739@gmail.com	Jl. Anggrek No. 113	00943
+PB00740	Gramedia Group	prestasipustaka740@gmail.com	Jl. Kamboja No. 170	00943
+PB00741	Bumi Aksara	intansejati741@gmail.com	Jl. Merak No. 136	00943
+PB00742	Mitra Buku	cendekiapustaka742@gmail.com	Jl. Jati No. 102	00943
+PB00743	Bumi Aksara	cendekiapustaka743@gmail.com	Jl. Jati No. 108	00943
+PB00744	Prestasi Pustaka	pelangicendekia744@gmail.com	Jl. Pinus No. 47	00943
+PB00745	Kreatifindo	pustakautama745@gmail.com	Jl. Pinus No. 39	00943
+PB00746	Intan Sejati	indopustaka746@gmail.com	Jl. Nuri No. 151	00943
+PB00747	Cendekia Pustaka	mitrabuku747@gmail.com	Jl. Sakura No. 72	00943
+PB00748	Pelangi Cendekia	bumiaksara748@gmail.com	Jl. Anggrek No. 117	00943
+PB00749	Pustaka Utama	intansejati749@gmail.com	Jl. Melati No. 145	00943
+PB00750	Prestasi Pustaka	sinarpustaka750@gmail.com	Jl. Trembesi No. 166	00943
+PB00751	Sinar Pustaka	bumiaksara751@gmail.com	Jl. Kamboja No. 99	00943
+PB00752	Pelangi Cendekia	smartbook752@gmail.com	Jl. Cendana No. 122	00943
+PB00753	Mitra Buku	bumiaksara753@gmail.com	Jl. Kamboja No. 66	00943
+PB00754	Kreatifindo	nusantarapress754@gmail.com	Jl. Kamboja No. 186	00943
+PB00755	Mega Pustaka	globalpress755@gmail.com	Jl. Garuda No. 77	00943
+PB00756	Media Ilmu	gramediagroup756@gmail.com	Jl. Merak No. 160	00943
+PB00757	Intan Sejati	bumiaksara757@gmail.com	Jl. Dahlia No. 98	00943
+PB00758	Cendekia Pustaka	pustakautama758@gmail.com	Jl. Jati No. 183	00943
+PB00759	Intan Sejati	globalpress759@gmail.com	Jl. Kenanga No. 120	00943
+PB00760	Lentera Hati	kreatifindo760@gmail.com	Jl. Seruni No. 48	00943
+PB00761	Lentera Hati	citramedia761@gmail.com	Jl. Anggrek No. 167	00943
+PB00762	Prestasi Pustaka	pelangicendekia762@gmail.com	Jl. Flamboyan No. 68	00943
+PB00763	Lentera Hati	arunikamedia763@gmail.com	Jl. Elang No. 79	00943
+PB00764	Mitra Buku	sinarpustaka764@gmail.com	Jl. Flamboyan No. 66	00943
+PB00765	Indo Pustaka	indopustaka765@gmail.com	Jl. Seruni No. 7	00943
+PB00766	Bumi Aksara	gramediagroup766@gmail.com	Jl. Elang No. 165	00943
+PB00767	Indo Pustaka	arunikamedia767@gmail.com	Jl. Pinus No. 19	00943
+PB00768	Prestasi Pustaka	pustakautama768@gmail.com	Jl. Elang No. 1	00943
+PB00769	Lentera Hati	pustakautama769@gmail.com	Jl. Anggrek No. 31	00943
+PB00770	Nusantara Press	gramediagroup770@gmail.com	Jl. Cendana No. 68	00943
+PB00771	SmartBook	indopustaka771@gmail.com	Jl. Trembesi No. 21	00943
+PB00772	Pelangi Cendekia	cendekiapustaka772@gmail.com	Jl. Mawar No. 127	00943
+PB00773	Intan Sejati	gramediagroup773@gmail.com	Jl. Anggrek No. 145	00943
+PB00774	Mitra Buku	mitrabuku774@gmail.com	Jl. Melati No. 185	00943
+PB00775	Indo Pustaka	mitrabuku775@gmail.com	Jl. Merpati No. 75	00943
+PB00776	Nusantara Press	mediailmu776@gmail.com	Jl. Bougenville No. 104	00943
+PB00777	Pustaka Utama	kreatifindo777@gmail.com	Jl. Anggrek No. 67	00943
+PB00778	Gramedia Group	smartbook778@gmail.com	Jl. Garuda No. 110	00943
+PB00779	Edukasi Mandiri	mediailmu779@gmail.com	Jl. Nuri No. 160	00943
+PB00780	SmartBook	citramedia780@gmail.com	Jl. Mawar No. 152	00943
+PB00781	Nusantara Press	edukasimandiri781@gmail.com	Jl. Jati No. 86	00943
+PB00782	Sinar Pustaka	pelangicendekia782@gmail.com	Jl. Mawar No. 6	00943
+PB00783	Pustaka Utama	nusantarapress783@gmail.com	Jl. Rajawali No. 185	00943
+PB00784	Lentera Hati	pelangicendekia784@gmail.com	Jl. Elang No. 105	00943
+PB00785	Citra Media	citramedia785@gmail.com	Jl. Dahlia No. 99	00943
+PB00786	Sinar Pustaka	sinarpustaka786@gmail.com	Jl. Seruni No. 72	00943
+PB00787	Intan Sejati	lenterahati787@gmail.com	Jl. Seruni No. 145	00943
+PB00788	SmartBook	megapustaka788@gmail.com	Jl. Seruni No. 26	00943
+PB00789	Cendekia Pustaka	citramedia789@gmail.com	Jl. Garuda No. 32	00943
+PB00790	Edukasi Mandiri	globalpress790@gmail.com	Jl. Rajawali No. 131	00943
+PB00791	Mega Pustaka	sinarpustaka791@gmail.com	Jl. Flamboyan No. 42	00943
+PB00792	Sinar Pustaka	globalpress792@gmail.com	Jl. Nuri No. 148	00943
+PB00793	Nusantara Press	bumiaksara793@gmail.com	Jl. Kenanga No. 111	00943
+PB00794	Global Press	indopustaka794@gmail.com	Jl. Kamboja No. 9	00943
+PB00795	Arunika Media	arunikamedia795@gmail.com	Jl. Mawar No. 156	00943
+PB00796	Global Press	sinarpustaka796@gmail.com	Jl. Seruni No. 197	00943
+PB00797	Media Ilmu	gramediagroup797@gmail.com	Jl. Mawar No. 29	00943
+PB00798	Edukasi Mandiri	kreatifindo798@gmail.com	Jl. Merak No. 174	00943
+PB00799	Prestasi Pustaka	cendekiapustaka799@gmail.com	Jl. Pinus No. 69	00943
+PB00800	Global Press	nusantarapress800@gmail.com	Jl. Trembesi No. 122	00943
+PB00801	Pelangi Cendekia	megapustaka801@gmail.com	Jl. Bougenville No. 50	00943
+PB00802	Media Ilmu	pustakautama802@gmail.com	Jl. Kenanga No. 113	00943
+PB00803	Mitra Buku	arunikamedia803@gmail.com	Jl. Anggrek No. 194	00943
+PB00804	Nusantara Press	mediailmu804@gmail.com	Jl. Pinus No. 90	00943
+PB00805	Cendekia Pustaka	edukasimandiri805@gmail.com	Jl. Nuri No. 75	00943
+PB00806	Pelangi Cendekia	edukasimandiri806@gmail.com	Jl. Seruni No. 45	00943
+PB00807	Sinar Pustaka	pelangicendekia807@gmail.com	Jl. Merak No. 114	00943
+PB00808	Lentera Hati	globalpress808@gmail.com	Jl. Rajawali No. 199	00943
+PB00809	Pustaka Utama	lenterahati809@gmail.com	Jl. Flamboyan No. 145	00943
+PB00810	Arunika Media	pelangicendekia810@gmail.com	Jl. Melati No. 18	00943
+PB00811	Arunika Media	lenterahati811@gmail.com	Jl. Merpati No. 128	00943
+PB00812	Edukasi Mandiri	edukasimandiri812@gmail.com	Jl. Cendana No. 114	00943
+PB00813	Indo Pustaka	arunikamedia813@gmail.com	Jl. Kamboja No. 195	00943
+PB00814	Bumi Aksara	globalpress814@gmail.com	Jl. Jati No. 183	00943
+PB00815	Media Ilmu	gramediagroup815@gmail.com	Jl. Elang No. 117	00943
+PB00816	Mitra Buku	lenterahati816@gmail.com	Jl. Melati No. 85	00943
+PB00817	Sinar Pustaka	mediailmu817@gmail.com	Jl. Melati No. 168	00943
+PB00818	Lentera Hati	arunikamedia818@gmail.com	Jl. Elang No. 175	00943
+PB00819	Bumi Aksara	pustakautama819@gmail.com	Jl. Seruni No. 49	00943
+PB00820	Edukasi Mandiri	indopustaka820@gmail.com	Jl. Dahlia No. 52	00943
+PB00821	Edukasi Mandiri	gramediagroup821@gmail.com	Jl. Garuda No. 49	00943
+PB00822	SmartBook	prestasipustaka822@gmail.com	Jl. Garuda No. 197	00943
+PB00823	Pustaka Utama	gramediagroup823@gmail.com	Jl. Flamboyan No. 168	00943
+PB00824	Global Press	mediailmu824@gmail.com	Jl. Merpati No. 179	00943
+PB00825	Bumi Aksara	edukasimandiri825@gmail.com	Jl. Merak No. 127	00943
+PB00826	Media Ilmu	smartbook826@gmail.com	Jl. Mawar No. 150	00943
+PB00827	Media Ilmu	pelangicendekia827@gmail.com	Jl. Flamboyan No. 15	00943
+PB00828	Lentera Hati	mediailmu828@gmail.com	Jl. Merak No. 53	00943
+PB00829	Indo Pustaka	indopustaka829@gmail.com	Jl. Melati No. 120	00943
+PB00830	Cendekia Pustaka	prestasipustaka830@gmail.com	Jl. Nuri No. 34	00943
+PB00831	Pustaka Utama	nusantarapress831@gmail.com	Jl. Merak No. 88	00943
+PB00832	Prestasi Pustaka	pustakautama832@gmail.com	Jl. Dahlia No. 182	00943
+PB00833	Kreatifindo	megapustaka833@gmail.com	Jl. Pinus No. 92	00943
+PB00834	Media Ilmu	edukasimandiri834@gmail.com	Jl. Melati No. 41	00943
+PB00835	Pelangi Cendekia	gramediagroup835@gmail.com	Jl. Nuri No. 32	00943
+PB00836	Intan Sejati	nusantarapress836@gmail.com	Jl. Garuda No. 187	00943
+PB00837	Indo Pustaka	prestasipustaka837@gmail.com	Jl. Flamboyan No. 39	00943
+PB00838	Mitra Buku	edukasimandiri838@gmail.com	Jl. Kamboja No. 117	00943
+PB00839	Bumi Aksara	lenterahati839@gmail.com	Jl. Nuri No. 56	00943
+PB00840	Kreatifindo	megapustaka840@gmail.com	Jl. Merak No. 184	00943
+PB00841	Sinar Pustaka	arunikamedia841@gmail.com	Jl. Dahlia No. 33	00943
+PB00842	Pelangi Cendekia	mediailmu842@gmail.com	Jl. Kamboja No. 77	00943
+PB00843	Citra Media	citramedia843@gmail.com	Jl. Rajawali No. 32	00943
+PB00844	Pustaka Utama	arunikamedia844@gmail.com	Jl. Dahlia No. 184	00943
+PB00845	Pustaka Utama	nusantarapress845@gmail.com	Jl. Bougenville No. 110	00943
+PB00846	Lentera Hati	intansejati846@gmail.com	Jl. Kamboja No. 169	00943
+PB00847	Arunika Media	indopustaka847@gmail.com	Jl. Trembesi No. 144	00943
+PB00848	Sinar Pustaka	prestasipustaka848@gmail.com	Jl. Dahlia No. 187	00943
+PB00849	Edukasi Mandiri	smartbook849@gmail.com	Jl. Mawar No. 20	00943
+PB00850	Arunika Media	intansejati850@gmail.com	Jl. Anggrek No. 107	00943
+PB00851	Kreatifindo	kreatifindo851@gmail.com	Jl. Cendana No. 109	00943
+PB00852	Media Ilmu	pelangicendekia852@gmail.com	Jl. Dahlia No. 101	00943
+PB00853	Cendekia Pustaka	kreatifindo853@gmail.com	Jl. Elang No. 113	00943
+PB00854	SmartBook	kreatifindo854@gmail.com	Jl. Anggrek No. 143	00943
+PB00855	Kreatifindo	mitrabuku855@gmail.com	Jl. Dahlia No. 141	00943
+PB00856	Citra Media	bumiaksara856@gmail.com	Jl. Anggrek No. 128	00943
+PB00857	Nusantara Press	pelangicendekia857@gmail.com	Jl. Elang No. 151	00943
+PB00858	SmartBook	kreatifindo858@gmail.com	Jl. Rajawali No. 152	00943
+PB00859	Pelangi Cendekia	arunikamedia859@gmail.com	Jl. Elang No. 98	00943
+PB00860	Bumi Aksara	mitrabuku860@gmail.com	Jl. Anggrek No. 28	00943
+PB00861	Mega Pustaka	nusantarapress861@gmail.com	Jl. Dahlia No. 199	00943
+PB00862	Bumi Aksara	citramedia862@gmail.com	Jl. Flamboyan No. 67	00943
+PB00863	Mitra Buku	bumiaksara863@gmail.com	Jl. Melati No. 21	00943
+PB00864	Media Ilmu	mitrabuku864@gmail.com	Jl. Garuda No. 197	00943
+PB00865	Bumi Aksara	smartbook865@gmail.com	Jl. Kenanga No. 138	00943
+PB00866	Lentera Hati	sinarpustaka866@gmail.com	Jl. Melati No. 182	00943
+PB00867	Indo Pustaka	globalpress867@gmail.com	Jl. Melati No. 67	00943
+PB00868	Sinar Pustaka	citramedia868@gmail.com	Jl. Melati No. 173	00943
+PB00869	Pustaka Utama	gramediagroup869@gmail.com	Jl. Kamboja No. 15	00943
+PB00870	Pustaka Utama	pelangicendekia870@gmail.com	Jl. Pinus No. 95	00943
+PB00871	Prestasi Pustaka	mediailmu871@gmail.com	Jl. Flamboyan No. 80	00943
+PB00872	Edukasi Mandiri	bumiaksara872@gmail.com	Jl. Rajawali No. 192	00943
+PB00873	Indo Pustaka	bumiaksara873@gmail.com	Jl. Cendana No. 82	00943
+PB00874	Citra Media	cendekiapustaka874@gmail.com	Jl. Nuri No. 64	00943
+PB00875	Mega Pustaka	pustakautama875@gmail.com	Jl. Rajawali No. 167	00943
+PB00876	Lentera Hati	pustakautama876@gmail.com	Jl. Elang No. 20	00943
+PB00877	Kreatifindo	indopustaka877@gmail.com	Jl. Jati No. 59	00943
+PB00878	Sinar Pustaka	kreatifindo878@gmail.com	Jl. Dahlia No. 69	00943
+PB00879	Gramedia Group	prestasipustaka879@gmail.com	Jl. Jati No. 31	00943
+PB00880	Citra Media	pustakautama880@gmail.com	Jl. Kamboja No. 141	00943
+PB00881	Lentera Hati	nusantarapress881@gmail.com	Jl. Mawar No. 181	00943
+PB00882	Kreatifindo	lenterahati882@gmail.com	Jl. Merak No. 169	00943
+PB00883	Mitra Buku	arunikamedia883@gmail.com	Jl. Kenanga No. 167	00943
+PB00884	Intan Sejati	mitrabuku884@gmail.com	Jl. Kamboja No. 127	00943
+PB00885	Gramedia Group	gramediagroup885@gmail.com	Jl. Jati No. 48	00943
+PB00886	Mitra Buku	gramediagroup886@gmail.com	Jl. Anggrek No. 106	00943
+PB00887	Media Ilmu	nusantarapress887@gmail.com	Jl. Jati No. 85	00943
+PB00888	Cendekia Pustaka	citramedia888@gmail.com	Jl. Mawar No. 152	00943
+PB00889	Mitra Buku	kreatifindo889@gmail.com	Jl. Nuri No. 90	00943
+PB00890	Arunika Media	bumiaksara890@gmail.com	Jl. Elang No. 200	00943
+PB00891	Cendekia Pustaka	globalpress891@gmail.com	Jl. Kenanga No. 56	00943
+PB00892	Media Ilmu	kreatifindo892@gmail.com	Jl. Flamboyan No. 85	00943
+PB00893	Mega Pustaka	kreatifindo893@gmail.com	Jl. Mawar No. 195	00943
+PB00894	Arunika Media	pustakautama894@gmail.com	Jl. Elang No. 88	00943
+PB00895	Global Press	edukasimandiri895@gmail.com	Jl. Kamboja No. 71	00943
+PB00896	Mega Pustaka	intansejati896@gmail.com	Jl. Mawar No. 133	00943
+PB00897	Kreatifindo	intansejati897@gmail.com	Jl. Melati No. 90	00943
+PB00898	Nusantara Press	mediailmu898@gmail.com	Jl. Dahlia No. 173	00943
+PB00899	Pelangi Cendekia	citramedia899@gmail.com	Jl. Merpati No. 154	00943
+PB00900	Nusantara Press	lenterahati900@gmail.com	Jl. Bougenville No. 108	00943
+PB00901	Cendekia Pustaka	kreatifindo901@gmail.com	Jl. Melati No. 145	00943
+PB00902	Mitra Buku	kreatifindo902@gmail.com	Jl. Flamboyan No. 38	00943
+PB00903	Nusantara Press	bumiaksara903@gmail.com	Jl. Rajawali No. 102	00943
+PB00904	Global Press	intansejati904@gmail.com	Jl. Flamboyan No. 102	00943
+PB00905	Cendekia Pustaka	nusantarapress905@gmail.com	Jl. Seruni No. 49	00943
+PB00906	Mitra Buku	citramedia906@gmail.com	Jl. Nuri No. 186	00943
+PB00907	Media Ilmu	arunikamedia907@gmail.com	Jl. Kamboja No. 149	00943
+PB00908	Kreatifindo	intansejati908@gmail.com	Jl. Mawar No. 95	00943
+PB00909	Arunika Media	megapustaka909@gmail.com	Jl. Rajawali No. 150	00943
+PB00910	Prestasi Pustaka	edukasimandiri910@gmail.com	Jl. Anggrek No. 96	00943
+PB00911	Intan Sejati	pelangicendekia911@gmail.com	Jl. Kamboja No. 107	00943
+PB00912	Indo Pustaka	mitrabuku912@gmail.com	Jl. Rajawali No. 5	00943
+PB00913	Sinar Pustaka	megapustaka913@gmail.com	Jl. Jati No. 52	00943
+PB00914	Arunika Media	pelangicendekia914@gmail.com	Jl. Sakura No. 177	00943
+PB00915	Pustaka Utama	bumiaksara915@gmail.com	Jl. Pinus No. 150	00943
+PB00916	Kreatifindo	megapustaka916@gmail.com	Jl. Bougenville No. 6	00943
+PB00917	Bumi Aksara	megapustaka917@gmail.com	Jl. Cendana No. 120	00943
+PB00918	Edukasi Mandiri	pelangicendekia918@gmail.com	Jl. Rajawali No. 158	00943
+PB00919	Mitra Buku	megapustaka919@gmail.com	Jl. Sakura No. 142	00943
+PB00920	Lentera Hati	pelangicendekia920@gmail.com	Jl. Elang No. 69	00943
+PB00921	Mega Pustaka	mediailmu921@gmail.com	Jl. Merpati No. 32	00943
+PB00922	Prestasi Pustaka	cendekiapustaka922@gmail.com	Jl. Merpati No. 115	00943
+PB00923	Cendekia Pustaka	intansejati923@gmail.com	Jl. Merpati No. 15	00943
+PB00924	Pelangi Cendekia	globalpress924@gmail.com	Jl. Rajawali No. 113	00943
+PB00925	Gramedia Group	globalpress925@gmail.com	Jl. Kenanga No. 155	00943
+PB00926	Edukasi Mandiri	megapustaka926@gmail.com	Jl. Seruni No. 94	00943
+PB00927	Media Ilmu	kreatifindo927@gmail.com	Jl. Bougenville No. 142	00943
+PB00928	Intan Sejati	kreatifindo928@gmail.com	Jl. Sakura No. 10	00943
+PB00929	Mitra Buku	sinarpustaka929@gmail.com	Jl. Cendana No. 182	00943
+PB00930	Global Press	globalpress930@gmail.com	Jl. Trembesi No. 44	00943
+PB00931	Pelangi Cendekia	intansejati931@gmail.com	Jl. Mawar No. 2	00943
+PB00932	Global Press	pustakautama932@gmail.com	Jl. Anggrek No. 176	00943
+PB00933	Cendekia Pustaka	prestasipustaka933@gmail.com	Jl. Flamboyan No. 76	00943
+PB00934	Media Ilmu	globalpress934@gmail.com	Jl. Mawar No. 28	00943
+PB00935	Mitra Buku	gramediagroup935@gmail.com	Jl. Seruni No. 67	00943
+PB00936	Media Ilmu	megapustaka936@gmail.com	Jl. Jati No. 74	00943
+PB00937	Pelangi Cendekia	bumiaksara937@gmail.com	Jl. Mawar No. 88	00943
+PB00938	Gramedia Group	globalpress938@gmail.com	Jl. Cendana No. 42	00943
+PB00939	Intan Sejati	mitrabuku939@gmail.com	Jl. Flamboyan No. 120	00943
+PB00940	Global Press	citramedia940@gmail.com	Jl. Sakura No. 101	00943
+PB00941	Nusantara Press	globalpress941@gmail.com	Jl. Nuri No. 61	00943
+PB00942	Kreatifindo	lenterahati942@gmail.com	Jl. Dahlia No. 123	00943
+PB00943	Mega Pustaka	indopustaka943@gmail.com	Jl. Pinus No. 180	00943
+PB00944	Arunika Media	prestasipustaka944@gmail.com	Jl. Nuri No. 112	00943
+PB00945	Global Press	pelangicendekia945@gmail.com	Jl. Kamboja No. 74	00943
+PB00946	Intan Sejati	sinarpustaka946@gmail.com	Jl. Rajawali No. 17	00943
+PB00947	Global Press	prestasipustaka947@gmail.com	Jl. Pinus No. 172	00943
+PB00948	Gramedia Group	mitrabuku948@gmail.com	Jl. Cendana No. 15	00943
+PB00949	Arunika Media	gramediagroup949@gmail.com	Jl. Merpati No. 113	00943
+PB00950	Citra Media	arunikamedia950@gmail.com	Jl. Dahlia No. 170	00943
+PB00951	Edukasi Mandiri	citramedia951@gmail.com	Jl. Elang No. 125	00943
+PB00952	Pelangi Cendekia	prestasipustaka952@gmail.com	Jl. Sakura No. 164	00943
+PB00953	Edukasi Mandiri	arunikamedia953@gmail.com	Jl. Garuda No. 142	00943
+PB00954	Intan Sejati	pelangicendekia954@gmail.com	Jl. Kenanga No. 174	00943
+PB00955	Kreatifindo	arunikamedia955@gmail.com	Jl. Flamboyan No. 34	00943
+PB00956	Global Press	pustakautama956@gmail.com	Jl. Melati No. 156	00943
+PB00957	Prestasi Pustaka	globalpress957@gmail.com	Jl. Dahlia No. 105	00943
+PB00958	Arunika Media	arunikamedia958@gmail.com	Jl. Cendana No. 94	00943
+PB00959	Bumi Aksara	mediailmu959@gmail.com	Jl. Sakura No. 163	00943
+PB00960	Mitra Buku	pustakautama960@gmail.com	Jl. Flamboyan No. 199	00943
+PB00961	Citra Media	mediailmu961@gmail.com	Jl. Merak No. 143	00943
+PB00962	Mitra Buku	arunikamedia962@gmail.com	Jl. Merak No. 67	00943
+PB00963	Intan Sejati	mediailmu963@gmail.com	Jl. Trembesi No. 190	00943
+PB00964	Gramedia Group	lenterahati964@gmail.com	Jl. Bougenville No. 85	00943
+PB00965	Edukasi Mandiri	lenterahati965@gmail.com	Jl. Kamboja No. 56	00943
+PB00966	Kreatifindo	indopustaka966@gmail.com	Jl. Merak No. 11	00943
+PB00967	Mega Pustaka	arunikamedia967@gmail.com	Jl. Kamboja No. 159	00943
+PB00968	Citra Media	nusantarapress968@gmail.com	Jl. Merak No. 3	00943
+PB00969	Pustaka Utama	sinarpustaka969@gmail.com	Jl. Elang No. 146	00943
+PB00970	Bumi Aksara	prestasipustaka970@gmail.com	Jl. Bougenville No. 5	00943
+PB00971	Kreatifindo	megapustaka971@gmail.com	Jl. Kenanga No. 57	00943
+PB00972	Mega Pustaka	nusantarapress972@gmail.com	Jl. Sakura No. 14	00943
+PB00973	Mitra Buku	mitrabuku973@gmail.com	Jl. Elang No. 2	00943
+PB00974	Global Press	sinarpustaka974@gmail.com	Jl. Cendana No. 73	00943
+PB00975	Gramedia Group	arunikamedia975@gmail.com	Jl. Jati No. 143	00943
+PB00976	Prestasi Pustaka	cendekiapustaka976@gmail.com	Jl. Rajawali No. 114	00943
+PB00977	Citra Media	nusantarapress977@gmail.com	Jl. Cendana No. 142	00943
+PB00978	Global Press	edukasimandiri978@gmail.com	Jl. Kenanga No. 111	00943
+PB00979	Mega Pustaka	prestasipustaka979@gmail.com	Jl. Trembesi No. 81	00943
+PB00980	Nusantara Press	cendekiapustaka980@gmail.com	Jl. Mawar No. 144	00943
+PB00981	Lentera Hati	gramediagroup981@gmail.com	Jl. Kamboja No. 118	00943
+PB00982	Lentera Hati	gramediagroup982@gmail.com	Jl. Mawar No. 153	00943
+PB00983	Indo Pustaka	sinarpustaka983@gmail.com	Jl. Bougenville No. 46	00943
+PB00984	Pelangi Cendekia	pelangicendekia984@gmail.com	Jl. Mawar No. 149	00943
+PB00985	Sinar Pustaka	nusantarapress985@gmail.com	Jl. Jati No. 52	00943
+PB00986	Prestasi Pustaka	cendekiapustaka986@gmail.com	Jl. Cendana No. 169	00943
+PB00987	Nusantara Press	nusantarapress987@gmail.com	Jl. Kamboja No. 30	00943
+PB00988	Citra Media	arunikamedia988@gmail.com	Jl. Nuri No. 21	00943
+PB00989	Sinar Pustaka	sinarpustaka989@gmail.com	Jl. Seruni No. 102	00943
+PB00990	Mitra Buku	arunikamedia990@gmail.com	Jl. Trembesi No. 184	00943
+PB00991	Gramedia Group	smartbook991@gmail.com	Jl. Sakura No. 42	00943
+PB00992	SmartBook	cendekiapustaka992@gmail.com	Jl. Melati No. 37	00943
+PB00993	Arunika Media	smartbook993@gmail.com	Jl. Rajawali No. 80	00943
+PB00994	SmartBook	pustakautama994@gmail.com	Jl. Melati No. 63	00943
+PB00995	Pustaka Utama	smartbook995@gmail.com	Jl. Nuri No. 96	00943
+PB00996	Citra Media	indopustaka996@gmail.com	Jl. Mawar No. 60	00943
+PB00997	Gramedia Group	arunikamedia997@gmail.com	Jl. Sakura No. 158	00943
+PB00998	Pelangi Cendekia	edukasimandiri998@gmail.com	Jl. Bougenville No. 85	00943
+PB00999	Intan Sejati	kreatifindo999@gmail.com	Jl. Merak No. 44	00943
+PB01000	Cendekia Pustaka	intansejati1000@gmail.com	Jl. Pinus No. 196	00943
+PB00079	Sinar Pustaka	pelangicendekia79@gmail.com	Jl. Melati No. 71	00043
+PB00082	Indo Pustaka	smartbook82@gmail.com	Jl. Mawar No. 66	00043
+PB00085	Edukasi Mandiri	bumiaksara85@gmail.com	Jl. Anggrek No. 28	00043
+PB00096	Nusantara Press	kreatifindo96@gmail.com	Jl. Jati No. 108	00043
+\.
+
+
+--
+-- TOC entry 5024 (class 0 OID 18547)
+-- Dependencies: 233
+-- Data for Name: Penulis; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Penulis" (id_penulis, nama_depan, nama_belakang) FROM stdin;
+P00106	Andrea	kuyub
+P00007	Andrea	ahmad
+P00001	Eko	Khalimah
+P00002	Indah	Putri
+P00003	Andi	Santoso
+P00004	Citra	Nurhaliza
+P00005	Dewi	Maulana
+P00006	Maya	Putri
+P00008	Rian	Kurniawati
+P00009	Wahyu	Khalimah
+P00010	Vina	Aulia
+P00011	Citra	Nurhaliza
+P00012	Dewi	Firmansyah
+P00013	Citra	Wijayanto
+P00014	Eko	Hidayat
+P00015	Siti	Hidayat
+P00016	Gita	Wijayanto
+P00017	Maya	Lestari
+P00018	Joko	Firmansyah
+P00019	Rian	Permata
+P00020	Zahra	Anggraini
+P00021	Indah	Rahmawati
+P00022	Oka	Putri
+P00023	Tono	Santoso
+P00024	Rian	Lestari
+P00025	Indah	Kurniawati
+P00026	Indah	Pratama
+P00027	Gita	Lestari
+P00028	Yusuf	Kurniawati
+P00029	Dewi	Sari
+P00030	Tono	Pratama
+P00031	Maya	Anggraini
+P00032	Lukman	Hadi
+P00033	Siti	Saputra
+P00034	Hendra	Sari
+P00035	Wahyu	Permata
+P00036	Joko	Kurniawati
+P00037	Zahra	Putri
+P00038	Tono	Sari
+P00039	Eko	Maulana
+P00040	Joko	Ramadhan
+P00041	Eko	Anggraini
+P00042	Tono	Maulana
+P00043	Qori	Nurhaliza
+P00044	Hendra	Santoso
+P00045	Fajar	Prasetyo
+P00046	Putri	Wijayanto
+P00047	Fajar	Fitriani
+P00048	Citra	Rahmawati
+P00049	Vina	Nurhaliza
+P00050	Hendra	Wijayanto
+P00051	Nanda	Wulandari
+P00052	Nanda	Maulana
+P00053	Maya	Pratama
+P00054	Rian	Kurniawati
+P00055	Tono	Hadi
+P00056	Yusuf	Susanto
+P00057	Vina	Ramadhan
+P00058	Siti	Saputra
+P00059	Citra	Pratama
+P00060	Oka	Anggraini
+P00061	Siti	Wulandari
+P00062	Hendra	Ramadhan
+P00063	Indah	Susanto
+P00064	Joko	Aulia
+P00065	Qori	Aulia
+P00066	Umi	Amalia
+P00067	Fajar	Khalimah
+P00068	Lukman	Lestari
+P00069	Siti	Wijayanto
+P00070	Dewi	Saputra
+P00071	Gita	Rahmawati
+P00072	Maya	Kurniawati
+P00073	Oka	Hadi
+P00074	Oka	Anggraini
+P00075	Vina	Wijayanto
+P00076	Putri	Susanto
+P00077	Maya	Pratama
+P00078	Hendra	Saputra
+P00079	Budi	Anggraini
+P00080	Putri	Putri
+P00081	Lukman	Kurniawati
+P00082	Indah	Saputra
+P00083	Indah	Rahmawati
+P00084	Citra	Aulia
+P00085	Joko	Amalia
+P00086	Putri	Saputra
+P00087	Maya	Hadi
+P00088	Nanda	Santoso
+P00089	Citra	Hidayat
+P00090	Oka	Khalimah
+P00091	Umi	Fitriani
+P00092	Hendra	Hadi
+P00093	Qori	Lestari
+P00094	Budi	Rahmawati
+P00095	Nanda	Saputra
+P00096	Vina	Ramadhan
+P00097	Maya	Putri
+P00098	Budi	Permata
+P00099	Fajar	Firmansyah
+P00100	Fajar	Lestari
+P00101	Joko	Lestari
+P00102	Maya	Hadi
+P00103	Hendra	Susanto
+P00104	Lukman	Saputra
+P00105	Lukman	Khalimah
+P00107	Indah	Santoso
+P00108	Citra	Putri
+P00109	Vina	Maulana
+P00110	Lukman	Amalia
+P00111	Dewi	Hidayat
+P00112	Karin	Permata
+P00113	Putri	Nurhaliza
+P00114	Siti	Wijaya
+P00115	Indah	Kurniawati
+P00116	Nanda	Santoso
+P00117	Eko	Wijayanto
+P00118	Tono	Putri
+P00119	Vina	Nurhaliza
+P00120	Nanda	Ramadhan
+P00121	Eko	Hadi
+P00122	Hendra	Susanto
+P00123	Nanda	Maulana
+P00124	Lukman	Wijaya
+P00125	Umi	Fitriani
+P00126	Fajar	Wijayanto
+P00127	Tono	Pratama
+P00128	Gita	Maulana
+P00129	Eko	Maulana
+P00130	Indah	Saputra
+P00131	Indah	Susanto
+P00132	Siti	Susanto
+P00133	Karin	Amalia
+P00134	Rian	Susanto
+P00135	Tono	Susanto
+P00136	Dewi	Hidayat
+P00137	Hendra	Wulandari
+P00138	Gita	Amalia
+P00139	Umi	Saputra
+P00140	Nanda	Firmansyah
+P00141	Karin	Anggraini
+P00142	Oka	Putri
+P00143	Fajar	Sari
+P00144	Gita	Nurhaliza
+P00145	Fajar	Prasetyo
+P00146	Yusuf	Sari
+P00147	Fajar	Sari
+P00148	Karin	Prasetyo
+P00149	Wahyu	Khalimah
+P00150	Rian	Susanto
+P00151	Siti	Sari
+P00152	Maya	Kurniawati
+P00153	Joko	Prasetyo
+P00154	Maya	Hadi
+P00155	Qori	Kurniawati
+P00156	Eko	Nurhaliza
+P00157	Joko	Hadi
+P00158	Qori	Wijayanto
+P00159	Maya	Hidayat
+P00160	Eko	Lestari
+P00161	Vina	Khalimah
+P00162	Tono	Fitriani
+P00163	Citra	Santoso
+P00164	Qori	Wijayanto
+P00165	Gita	Lestari
+P00166	Vina	Hidayat
+P00167	Wahyu	Sari
+P00168	Yusuf	Kurniawati
+P00169	Lukman	Wulandari
+P00170	Siti	Ramadhan
+P00171	Fajar	Firmansyah
+P00172	Wahyu	Prasetyo
+P00173	Citra	Firmansyah
+P00174	Gita	Hadi
+P00175	Vina	Santoso
+P00176	Lukman	Pratama
+P00177	Siti	Prasetyo
+P00178	Gita	Anggraini
+P00179	Umi	Fitriani
+P00180	Hendra	Kurniawati
+P00181	Karin	Wijayanto
+P00182	Nanda	Wijaya
+P00183	Yusuf	Sari
+P00184	Fajar	Pratama
+P00185	Yusuf	Wulandari
+P00186	Eko	Wijayanto
+P00187	Dewi	Lestari
+P00188	Fajar	Prasetyo
+P00189	Lukman	Firmansyah
+P00190	Zahra	Nurhaliza
+P00191	Oka	Wijaya
+P00192	Maya	Santoso
+P00193	Oka	Kurniawati
+P00194	Citra	Ramadhan
+P00195	Karin	Saputra
+P00196	Tono	Hadi
+P00197	Eko	Santoso
+P00198	Budi	Saputra
+P00199	Maya	Kurniawati
+P00200	Oka	Susanto
+P00201	Tono	Lestari
+P00202	Wahyu	Pratama
+P00203	Wahyu	Sari
+P00204	Indah	Hadi
+P00205	Siti	Amalia
+P00206	Zahra	Hadi
+P00207	Qori	Wulandari
+P00208	Maya	Lestari
+P00209	Vina	Pratama
+P00210	Nanda	Prasetyo
+P00211	Eko	Prasetyo
+P00212	Maya	Kurniawati
+P00213	Gita	Kurniawati
+P00214	Karin	Amalia
+P00215	Qori	Hadi
+P00216	Rian	Santoso
+P00217	Karin	Pratama
+P00218	Hendra	Putri
+P00219	Citra	Wulandari
+P00220	Gita	Hidayat
+P00221	Yusuf	Santoso
+P00222	Andi	Susanto
+P00223	Karin	Kurniawati
+P00224	Joko	Hidayat
+P00225	Siti	Fitriani
+P00226	Joko	Susanto
+P00227	Tono	Wulandari
+P00228	Nanda	Khalimah
+P00229	Indah	Prasetyo
+P00230	Citra	Maulana
+P00231	Yusuf	Susanto
+P00232	Fajar	Rahmawati
+P00233	Karin	Susanto
+P00234	Vina	Susanto
+P00235	Lukman	Khalimah
+P00236	Zahra	Kurniawati
+P00237	Qori	Nurhaliza
+P00238	Nanda	Amalia
+P00239	Joko	Amalia
+P00240	Dewi	Fitriani
+P00241	Karin	Putri
+P00242	Maya	Sari
+P00243	Lukman	Sari
+P00244	Gita	Fitriani
+P00245	Qori	Prasetyo
+P00246	Nanda	Nurhaliza
+P00247	Hendra	Fitriani
+P00248	Andi	Susanto
+P00249	Karin	Saputra
+P00250	Nanda	Hadi
+P00251	Siti	Sari
+P00252	Qori	Hidayat
+P00253	Nanda	Ramadhan
+P00254	Tono	Prasetyo
+P00255	Lukman	Maulana
+P00256	Fajar	Rahmawati
+P00257	Qori	Wijayanto
+P00258	Tono	Kurniawati
+P00259	Fajar	Anggraini
+P00260	Karin	Putri
+P00261	Gita	Prasetyo
+P00262	Tono	Santoso
+P00263	Lukman	Permata
+P00264	Indah	Anggraini
+P00265	Hendra	Kurniawati
+P00266	Tono	Khalimah
+P00267	Wahyu	Santoso
+P00268	Hendra	Lestari
+P00269	Vina	Sari
+P00270	Joko	Hadi
+P00271	Siti	Rahmawati
+P00272	Vina	Amalia
+P00273	Wahyu	Wulandari
+P00274	Maya	Maulana
+P00275	Putri	Maulana
+P00276	Budi	Rahmawati
+P00277	Karin	Nurhaliza
+P00278	Indah	Khalimah
+P00279	Fajar	Firmansyah
+P00280	Gita	Hadi
+P00281	Nanda	Aulia
+P00282	Nanda	Wijayanto
+P00283	Joko	Nurhaliza
+P00284	Wahyu	Prasetyo
+P00285	Yusuf	Putri
+P00286	Yusuf	Prasetyo
+P00287	Maya	Fitriani
+P00288	Umi	Susanto
+P00289	Gita	Khalimah
+P00290	Indah	Sari
+P00291	Vina	Lestari
+P00292	Vina	Wijaya
+P00293	Putri	Nurhaliza
+P00294	Wahyu	Susanto
+P00295	Qori	Lestari
+P00296	Putri	Sari
+P00297	Nanda	Santoso
+P00298	Eko	Wijaya
+P00299	Nanda	Anggraini
+P00300	Maya	Lestari
+P00301	Lukman	Hidayat
+P00302	Lukman	Prasetyo
+P00303	Vina	Rahmawati
+P00304	Putri	Saputra
+P00305	Joko	Firmansyah
+P00306	Citra	Nurhaliza
+P00307	Fajar	Putri
+P00308	Fajar	Hidayat
+P00309	Maya	Wijayanto
+P00310	Gita	Amalia
+P00311	Oka	Amalia
+P00312	Qori	Wulandari
+P00313	Wahyu	Fitriani
+P00314	Qori	Hadi
+P00315	Qori	Wulandari
+P00316	Hendra	Maulana
+P00317	Citra	Sari
+P00318	Siti	Sari
+P00319	Dewi	Wijaya
+P00320	Maya	Maulana
+P00321	Siti	Sari
+P00322	Oka	Lestari
+P00323	Nanda	Putri
+P00324	Fajar	Hadi
+P00325	Indah	Santoso
+P00326	Oka	Firmansyah
+P00327	Tono	Fitriani
+P00328	Citra	Permata
+P00329	Maya	Aulia
+P00330	Indah	Anggraini
+P00331	Eko	Firmansyah
+P00332	Nanda	Permata
+P00333	Rian	Amalia
+P00334	Budi	Pratama
+P00335	Karin	Putri
+P00336	Hendra	Saputra
+P00337	Lukman	Saputra
+P00338	Tono	Permata
+P00339	Nanda	Ramadhan
+P00340	Zahra	Wulandari
+P00341	Siti	Permata
+P00342	Qori	Wijaya
+P00343	Qori	Pratama
+P00344	Gita	Permata
+P00345	Fajar	Prasetyo
+P00346	Maya	Putri
+P00347	Siti	Fitriani
+P00348	Nanda	Susanto
+P00349	Citra	Kurniawati
+P00350	Wahyu	Santoso
+P00351	Fajar	Amalia
+P00352	Joko	Hidayat
+P00353	Dewi	Sari
+P00354	Budi	Firmansyah
+P00355	Vina	Ramadhan
+P00356	Putri	Firmansyah
+P00357	Gita	Fitriani
+P00358	Dewi	Hadi
+P00359	Fajar	Maulana
+P00360	Fajar	Nurhaliza
+P00361	Siti	Santoso
+P00362	Eko	Saputra
+P00363	Rian	Kurniawati
+P00364	Dewi	Ramadhan
+P00365	Oka	Susanto
+P00366	Dewi	Wijaya
+P00367	Qori	Anggraini
+P00368	Nanda	Wijayanto
+P00369	Joko	Anggraini
+P00370	Indah	Saputra
+P00371	Umi	Maulana
+P00372	Eko	Kurniawati
+P00373	Umi	Sari
+P00374	Eko	Susanto
+P00375	Rian	Ramadhan
+P00376	Gita	Aulia
+P00377	Rian	Firmansyah
+P00378	Eko	Prasetyo
+P00379	Siti	Wijayanto
+P00380	Gita	Wulandari
+P00381	Oka	Saputra
+P00382	Citra	Wulandari
+P00383	Siti	Firmansyah
+P00384	Lukman	Pratama
+P00385	Maya	Saputra
+P00386	Wahyu	Nurhaliza
+P00387	Umi	Firmansyah
+P00388	Budi	Santoso
+P00389	Vina	Lestari
+P00390	Indah	Maulana
+P00391	Zahra	Pratama
+P00392	Lukman	Hidayat
+P00393	Indah	Wulandari
+P00394	Joko	Aulia
+P00395	Hendra	Fitriani
+P00396	Maya	Fitriani
+P00397	Siti	Wijaya
+P00398	Maya	Wijaya
+P00399	Fajar	Lestari
+P00400	Citra	Hadi
+P00401	Karin	Permata
+P00402	Budi	Amalia
+P00403	Dewi	Nurhaliza
+P00404	Tono	Lestari
+P00405	Zahra	Wulandari
+P00406	Lukman	Saputra
+P00407	Maya	Nurhaliza
+P00408	Gita	Fitriani
+P00409	Citra	Santoso
+P00410	Siti	Rahmawati
+P00411	Citra	Saputra
+P00412	Indah	Saputra
+P00413	Indah	Maulana
+P00414	Maya	Santoso
+P00415	Siti	Firmansyah
+P00416	Citra	Maulana
+P00417	Siti	Hadi
+P00418	Tono	Rahmawati
+P00419	Wahyu	Kurniawati
+P00420	Joko	Hidayat
+P00421	Vina	Putri
+P00422	Maya	Firmansyah
+P00423	Siti	Rahmawati
+P00424	Indah	Sari
+P00425	Gita	Rahmawati
+P00426	Lukman	Hadi
+P00427	Hendra	Rahmawati
+P00428	Yusuf	Wulandari
+P00429	Indah	Fitriani
+P00430	Putri	Hadi
+P00431	Maya	Pratama
+P00432	Budi	Maulana
+P00433	Gita	Amalia
+P00434	Budi	Hidayat
+P00435	Karin	Amalia
+P00436	Citra	Rahmawati
+P00437	Nanda	Firmansyah
+P00438	Tono	Rahmawati
+P00439	Karin	Maulana
+P00440	Eko	Wijaya
+P00441	Oka	Nurhaliza
+P00442	Tono	Permata
+P00443	Karin	Kurniawati
+P00444	Karin	Wijaya
+P00445	Gita	Wulandari
+P00446	Nanda	Wijayanto
+P00447	Citra	Nurhaliza
+P00448	Citra	Wijaya
+P00449	Putri	Pratama
+P00450	Indah	Wulandari
+P00451	Nanda	Firmansyah
+P00452	Siti	Hidayat
+P00453	Wahyu	Saputra
+P00454	Indah	Santoso
+P00455	Eko	Amalia
+P00456	Putri	Putri
+P00457	Gita	Fitriani
+P00458	Wahyu	Susanto
+P00459	Budi	Anggraini
+P00460	Dewi	Hadi
+P00461	Vina	Permata
+P00462	Maya	Hidayat
+P00463	Wahyu	Lestari
+P00464	Gita	Wijayanto
+P00465	Joko	Prasetyo
+P00466	Vina	Hidayat
+P00467	Karin	Susanto
+P00468	Yusuf	Fitriani
+P00469	Indah	Amalia
+P00470	Eko	Permata
+P00471	Umi	Rahmawati
+P00472	Hendra	Kurniawati
+P00473	Oka	Wijaya
+P00474	Eko	Khalimah
+P00475	Vina	Sari
+P00476	Budi	Wijayanto
+P00477	Joko	Ramadhan
+P00478	Vina	Firmansyah
+P00479	Gita	Khalimah
+P00480	Joko	Fitriani
+P00481	Siti	Saputra
+P00482	Qori	Wijayanto
+P00483	Wahyu	Santoso
+P00484	Siti	Permata
+P00485	Wahyu	Putri
+P00486	Nanda	Ramadhan
+P00487	Siti	Maulana
+P00488	Umi	Permata
+P00489	Siti	Pratama
+P00490	Karin	Lestari
+P00491	Lukman	Santoso
+P00492	Karin	Wulandari
+P00493	Siti	Nurhaliza
+P00494	Maya	Saputra
+P00495	Zahra	Hadi
+P00496	Dewi	Hadi
+P00497	Eko	Fitriani
+P00498	Nanda	Firmansyah
+P00499	Rian	Sari
+P00500	Putri	Maulana
+P00501	Fajar	Hidayat
+P00502	Umi	Santoso
+P00503	Hendra	Rahmawati
+P00504	Maya	Lestari
+P00505	Maya	Wijaya
+P00506	Vina	Wijaya
+P00507	Qori	Maulana
+P00508	Citra	Amalia
+P00509	Rian	Putri
+P00510	Yusuf	Wijaya
+P00511	Eko	Putri
+P00512	Rian	Pratama
+P00513	Oka	Hidayat
+P00514	Tono	Hadi
+P00515	Rian	Santoso
+P00516	Lukman	Wulandari
+P00517	Fajar	Lestari
+P00518	Maya	Hidayat
+P00519	Maya	Nurhaliza
+P00520	Putri	Anggraini
+P00521	Dewi	Susanto
+P00522	Zahra	Susanto
+P00523	Oka	Rahmawati
+P00524	Hendra	Anggraini
+P00525	Maya	Anggraini
+P00526	Zahra	Maulana
+P00527	Tono	Wulandari
+P00528	Tono	Putri
+P00529	Vina	Wulandari
+P00530	Wahyu	Putri
+P00531	Joko	Sari
+P00532	Umi	Hadi
+P00533	Citra	Anggraini
+P00534	Rian	Rahmawati
+P00535	Rian	Lestari
+P00536	Oka	Firmansyah
+P00537	Gita	Hidayat
+P00538	Nanda	Putri
+P00539	Qori	Nurhaliza
+P00540	Lukman	Nurhaliza
+P00541	Andi	Wijayanto
+P00542	Budi	Khalimah
+P00543	Karin	Anggraini
+P00544	Citra	Wijayanto
+P00545	Dewi	Hadi
+P00546	Maya	Firmansyah
+P00547	Oka	Nurhaliza
+P00548	Putri	Sari
+P00549	Citra	Maulana
+P00550	Dewi	Pratama
+P00551	Wahyu	Khalimah
+P00552	Fajar	Wijaya
+P00553	Nanda	Firmansyah
+P00554	Putri	Hidayat
+P00555	Umi	Maulana
+P00556	Oka	Khalimah
+P00557	Maya	Kurniawati
+P00558	Qori	Sari
+P00559	Citra	Ramadhan
+P00560	Qori	Khalimah
+P00561	Gita	Saputra
+P00562	Gita	Pratama
+P00563	Gita	Lestari
+P00564	Oka	Prasetyo
+P00565	Siti	Prasetyo
+P00566	Tono	Maulana
+P00567	Maya	Prasetyo
+P00568	Hendra	Hidayat
+P00569	Lukman	Permata
+P00570	Fajar	Ramadhan
+P00571	Hendra	Amalia
+P00572	Putri	Khalimah
+P00573	Putri	Fitriani
+P00574	Rian	Kurniawati
+P00575	Yusuf	Wijaya
+P00576	Lukman	Putri
+P00577	Tono	Wijayanto
+P00578	Nanda	Prasetyo
+P00579	Rian	Santoso
+P00580	Citra	Khalimah
+P00581	Lukman	Santoso
+P00582	Gita	Prasetyo
+P00583	Dewi	Amalia
+P00584	Joko	Maulana
+P00585	Joko	Anggraini
+P00586	Indah	Hidayat
+P00587	Fajar	Anggraini
+P00588	Vina	Saputra
+P00589	Umi	Khalimah
+P00590	Indah	Prasetyo
+P00591	Karin	Nurhaliza
+P00592	Rian	Santoso
+P00593	Dewi	Ramadhan
+P00594	Gita	Nurhaliza
+P00595	Yusuf	Lestari
+P00596	Fajar	Pratama
+P00597	Wahyu	Lestari
+P00598	Oka	Hadi
+P00599	Yusuf	Wulandari
+P00600	Joko	Aulia
+P00601	Lukman	Lestari
+P00602	Umi	Wijaya
+P00603	Andi	Lestari
+P00604	Putri	Saputra
+P00605	Nanda	Saputra
+P00606	Andi	Firmansyah
+P00607	Vina	Wijayanto
+P00608	Citra	Nurhaliza
+P00609	Oka	Permata
+P00610	Siti	Permata
+P00611	Vina	Kurniawati
+P00612	Andi	Hidayat
+P00613	Dewi	Saputra
+P00614	Putri	Susanto
+P00615	Vina	Maulana
+P00616	Umi	Santoso
+P00617	Lukman	Pratama
+P00618	Joko	Amalia
+P00619	Eko	Putri
+P00620	Qori	Anggraini
+P00621	Hendra	Anggraini
+P00622	Maya	Rahmawati
+P00623	Yusuf	Permata
+P00624	Lukman	Wijaya
+P00625	Budi	Susanto
+P00626	Nanda	Maulana
+P00627	Budi	Hadi
+P00628	Gita	Prasetyo
+P00629	Fajar	Wijayanto
+P00630	Dewi	Anggraini
+P00631	Hendra	Khalimah
+P00632	Oka	Firmansyah
+P00633	Siti	Lestari
+P00634	Maya	Maulana
+P00635	Qori	Ramadhan
+P00636	Putri	Nurhaliza
+P00637	Dewi	Nurhaliza
+P00638	Joko	Putri
+P00639	Andi	Anggraini
+P00640	Vina	Khalimah
+P00641	Gita	Saputra
+P00642	Qori	Wijayanto
+P00643	Rian	Wijaya
+P00644	Hendra	Susanto
+P00645	Budi	Anggraini
+P00646	Yusuf	Wulandari
+P00647	Oka	Permata
+P00648	Umi	Wijaya
+P00649	Nanda	Nurhaliza
+P00650	Joko	Wijaya
+P00651	Wahyu	Putri
+P00652	Rian	Lestari
+P00653	Putri	Hidayat
+P00654	Siti	Amalia
+P00655	Joko	Khalimah
+P00656	Putri	Firmansyah
+P00657	Maya	Wijayanto
+P00658	Oka	Nurhaliza
+P00659	Dewi	Kurniawati
+P00660	Karin	Ramadhan
+P00661	Budi	Santoso
+P00662	Indah	Hidayat
+P00663	Tono	Wulandari
+P00664	Citra	Wijayanto
+P00665	Yusuf	Hidayat
+P00666	Yusuf	Nurhaliza
+P00667	Fajar	Susanto
+P00668	Lukman	Amalia
+P00669	Putri	Susanto
+P00670	Indah	Susanto
+P00671	Wahyu	Putri
+P00672	Gita	Hadi
+P00673	Oka	Susanto
+P00674	Karin	Wulandari
+P00675	Siti	Ramadhan
+P00676	Joko	Lestari
+P00677	Putri	Wijaya
+P00678	Joko	Wijayanto
+P00679	Qori	Nurhaliza
+P00680	Eko	Permata
+P00681	Tono	Khalimah
+P00682	Hendra	Wijayanto
+P00683	Tono	Hidayat
+P00684	Karin	Hidayat
+P00685	Wahyu	Anggraini
+P00686	Joko	Wijayanto
+P00687	Lukman	Rahmawati
+P00688	Citra	Permata
+P00689	Andi	Ramadhan
+P00690	Wahyu	Lestari
+P00691	Qori	Wulandari
+P00692	Maya	Anggraini
+P00693	Oka	Wulandari
+P00694	Wahyu	Wulandari
+P00695	Budi	Kurniawati
+P00696	Yusuf	Susanto
+P00697	Umi	Amalia
+P00698	Budi	Fitriani
+P00699	Tono	Maulana
+P00700	Wahyu	Wijaya
+P00701	Qori	Saputra
+P00702	Eko	Amalia
+P00703	Rian	Amalia
+P00704	Rian	Susanto
+P00705	Yusuf	Putri
+P00706	Maya	Saputra
+P00707	Nanda	Hadi
+P00708	Rian	Prasetyo
+P00709	Citra	Permata
+P00710	Lukman	Wijaya
+P00711	Vina	Permata
+P00712	Fajar	Ramadhan
+P00713	Fajar	Fitriani
+P00714	Wahyu	Hadi
+P00715	Qori	Nurhaliza
+P00716	Nanda	Hidayat
+P00717	Vina	Anggraini
+P00718	Andi	Kurniawati
+P00719	Indah	Wulandari
+P00720	Fajar	Ramadhan
+P00721	Citra	Fitriani
+P00722	Eko	Prasetyo
+P00723	Dewi	Saputra
+P00724	Qori	Hidayat
+P00725	Nanda	Amalia
+P00726	Indah	Hadi
+P00727	Putri	Lestari
+P00728	Tono	Khalimah
+P00729	Indah	Fitriani
+P00730	Budi	Nurhaliza
+P00731	Umi	Permata
+P00732	Tono	Santoso
+P00733	Budi	Hidayat
+P00734	Budi	Wijaya
+P00735	Indah	Wijaya
+P00736	Nanda	Rahmawati
+P00737	Eko	Firmansyah
+P00738	Nanda	Sari
+P00739	Budi	Kurniawati
+P00740	Dewi	Ramadhan
+P00741	Yusuf	Fitriani
+P00742	Yusuf	Firmansyah
+P00743	Eko	Lestari
+P00744	Vina	Anggraini
+P00745	Maya	Rahmawati
+P00746	Indah	Wulandari
+P00747	Indah	Prasetyo
+P00748	Qori	Susanto
+P00749	Gita	Saputra
+P00750	Joko	Sari
+P00751	Vina	Kurniawati
+P00752	Hendra	Putri
+P00753	Rian	Wulandari
+P00754	Budi	Putri
+P00755	Tono	Maulana
+P00756	Vina	Wijaya
+P00757	Zahra	Sari
+P00758	Zahra	Wijaya
+P00759	Umi	Santoso
+P00760	Budi	Putri
+P00761	Oka	Saputra
+P00762	Dewi	Putri
+P00763	Vina	Fitriani
+P00764	Fajar	Santoso
+P00765	Tono	Nurhaliza
+P00766	Yusuf	Firmansyah
+P00767	Lukman	Nurhaliza
+P00768	Indah	Maulana
+P00769	Gita	Kurniawati
+P00770	Putri	Pratama
+P00771	Karin	Khalimah
+P00772	Siti	Saputra
+P00773	Rian	Putri
+P00774	Tono	Amalia
+P00775	Tono	Putri
+P00776	Siti	Permata
+P00777	Andi	Lestari
+P00778	Citra	Ramadhan
+P00779	Oka	Anggraini
+P00780	Citra	Hadi
+P00781	Indah	Prasetyo
+P00782	Wahyu	Anggraini
+P00783	Hendra	Saputra
+P00784	Qori	Wijaya
+P00785	Maya	Fitriani
+P00786	Indah	Putri
+P00787	Fajar	Lestari
+P00788	Lukman	Wulandari
+P00789	Budi	Fitriani
+P00790	Qori	Kurniawati
+P00791	Indah	Susanto
+P00792	Nanda	Anggraini
+P00793	Qori	Sari
+P00794	Dewi	Kurniawati
+P00795	Gita	Maulana
+P00796	Maya	Rahmawati
+P00797	Rian	Saputra
+P00798	Eko	Kurniawati
+P00799	Karin	Firmansyah
+P00800	Zahra	Maulana
+P00801	Tono	Wijaya
+P00802	Gita	Ramadhan
+P00803	Oka	Fitriani
+P00804	Maya	Maulana
+P00805	Rian	Wulandari
+P00806	Dewi	Hadi
+P00807	Maya	Amalia
+P00808	Tono	Lestari
+P00809	Nanda	Permata
+P00810	Yusuf	Putri
+P00811	Putri	Pratama
+P00812	Indah	Wijayanto
+P00813	Vina	Permata
+P00814	Vina	Rahmawati
+P00815	Tono	Firmansyah
+P00816	Oka	Wijayanto
+P00817	Hendra	Sari
+P00818	Citra	Fitriani
+P00819	Fajar	Wijayanto
+P00820	Citra	Wijayanto
+P00821	Putri	Nurhaliza
+P00822	Putri	Prasetyo
+P00823	Tono	Sari
+P00824	Maya	Susanto
+P00825	Yusuf	Khalimah
+P00826	Indah	Rahmawati
+P00827	Oka	Permata
+P00828	Umi	Hidayat
+P00829	Budi	Rahmawati
+P00830	Siti	Maulana
+P00831	Dewi	Prasetyo
+P00832	Vina	Kurniawati
+P00833	Indah	Amalia
+P00834	Tono	Hidayat
+P00835	Nanda	Sari
+P00836	Gita	Khalimah
+P00837	Dewi	Maulana
+P00838	Umi	Nurhaliza
+P00839	Siti	Khalimah
+P00840	Nanda	Hadi
+P00841	Putri	Sari
+P00842	Hendra	Wijayanto
+P00843	Lukman	Susanto
+P00844	Citra	Wijayanto
+P00845	Hendra	Fitriani
+P00846	Siti	Wijayanto
+P00847	Karin	Hadi
+P00848	Nanda	Hidayat
+P00849	Maya	Firmansyah
+P00850	Budi	Hadi
+P00851	Dewi	Santoso
+P00852	Gita	Hidayat
+P00853	Oka	Rahmawati
+P00854	Indah	Susanto
+P00855	Karin	Nurhaliza
+P00856	Indah	Hadi
+P00857	Gita	Aulia
+P00858	Lukman	Anggraini
+P00859	Qori	Hidayat
+P00860	Lukman	Susanto
+P00861	Budi	Anggraini
+P00862	Eko	Permata
+P00863	Tono	Santoso
+P00864	Zahra	Nurhaliza
+P00865	Hendra	Anggraini
+P00866	Oka	Khalimah
+P00867	Siti	Hadi
+P00868	Yusuf	Firmansyah
+P00869	Oka	Wijayanto
+P00870	Siti	Wijayanto
+P00871	Wahyu	Maulana
+P00872	Hendra	Permata
+P00873	Hendra	Prasetyo
+P00874	Nanda	Wijaya
+P00875	Indah	Wijaya
+P00876	Qori	Saputra
+P00877	Eko	Khalimah
+P00878	Dewi	Susanto
+P00879	Putri	Wulandari
+P00880	Siti	Khalimah
+P00881	Budi	Santoso
+P00882	Oka	Hidayat
+P00883	Oka	Fitriani
+P00884	Vina	Hidayat
+P00885	Oka	Khalimah
+P00886	Dewi	Permata
+P00887	Nanda	Wulandari
+P00888	Yusuf	Ramadhan
+P00889	Vina	Kurniawati
+P00890	Nanda	Nurhaliza
+P00891	Siti	Khalimah
+P00892	Dewi	Susanto
+P00893	Nanda	Putri
+P00894	Fajar	Rahmawati
+P00895	Dewi	Hidayat
+P00896	Wahyu	Lestari
+P00897	Putri	Saputra
+P00898	Vina	Fitriani
+P00899	Wahyu	Permata
+P00900	Yusuf	Putri
+P00901	Karin	Prasetyo
+P00902	Budi	Fitriani
+P00903	Hendra	Saputra
+P00904	Dewi	Prasetyo
+P00905	Rian	Permata
+P00906	Tono	Susanto
+P00907	Indah	Nurhaliza
+P00908	Eko	Prasetyo
+P00909	Maya	Maulana
+P00910	Eko	Susanto
+P00911	Fajar	Wulandari
+P00912	Joko	Susanto
+P00913	Lukman	Firmansyah
+P00914	Budi	Nurhaliza
+P00915	Umi	Kurniawati
+P00916	Wahyu	Putri
+P00917	Gita	Lestari
+P00918	Putri	Kurniawati
+P00919	Vina	Khalimah
+P00920	Siti	Maulana
+P00921	Dewi	Saputra
+P00922	Citra	Fitriani
+P00923	Indah	Pratama
+P00924	Maya	Wijaya
+P00925	Nanda	Susanto
+P00926	Gita	Susanto
+P00927	Citra	Rahmawati
+P00928	Rian	Hidayat
+P00929	Citra	Anggraini
+P00930	Indah	Firmansyah
+P00931	Tono	Permata
+P00932	Wahyu	Santoso
+P00933	Putri	Firmansyah
+P00934	Vina	Wulandari
+P00935	Yusuf	Pratama
+P00936	Siti	Wulandari
+P00937	Eko	Sari
+P00938	Joko	Amalia
+P00939	Zahra	Wijayanto
+P00940	Maya	Santoso
+P00941	Umi	Saputra
+P00942	Zahra	Khalimah
+P00943	Tono	Wijaya
+P00944	Gita	Pratama
+P00945	Vina	Wijayanto
+P00946	Yusuf	Susanto
+P00947	Putri	Khalimah
+P00948	Joko	Putri
+P00949	Budi	Santoso
+P00950	Oka	Amalia
+P00951	Dewi	Rahmawati
+P00952	Joko	Wijayanto
+P00953	Nanda	Ramadhan
+P00954	Maya	Wulandari
+P00955	Lukman	Nurhaliza
+P00956	Yusuf	Susanto
+P00957	Vina	Hadi
+P00958	Hendra	Permata
+P00959	Putri	Fitriani
+P00960	Karin	Permata
+P00961	Wahyu	Maulana
+P00962	Joko	Permata
+P00963	Fajar	Putri
+P00964	Rian	Khalimah
+P00965	Zahra	Aulia
+P00966	Dewi	Santoso
+P00967	Vina	Hadi
+P00968	Gita	Fitriani
+P00969	Citra	Fitriani
+P00970	Yusuf	Anggraini
+P00971	Indah	Permata
+P00972	Gita	Nurhaliza
+P00973	Fajar	Wulandari
+P00974	Umi	Maulana
+P00975	Putri	Anggraini
+P00976	Hendra	Kurniawati
+P00977	Rian	Putri
+P00978	Nanda	Hidayat
+P00979	Eko	Aulia
+P00980	Umi	Rahmawati
+P00981	Citra	Wulandari
+P00982	Zahra	Prasetyo
+P00983	Citra	Anggraini
+P00984	Andi	Putri
+P00985	Karin	Santoso
+P00986	Maya	Kurniawati
+P00987	Gita	Firmansyah
+P00988	Citra	Wulandari
+P00989	Qori	Santoso
+P00990	Lukman	Susanto
+P00991	Nanda	Wijayanto
+P00992	Wahyu	Amalia
+P00993	Budi	Fitriani
+P00994	Tono	Prasetyo
+P00995	Budi	Khalimah
+P00996	Dewi	Prasetyo
+P00997	Umi	Saputra
+P00998	Yusuf	Maulana
+P00999	Zahra	Aulia
+P01000	Budi	Lestari
+\.
+
+
+--
+-- TOC entry 5025 (class 0 OID 18550)
+-- Dependencies: 234
+-- Data for Name: Transaksi; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."Transaksi" (id_transaksi, tanggal_transaksi, metode_pembayaran, id_pelanggan, id_karyawan) FROM stdin;
+T00001	2024-12-09	GoPay	C06057	K00279
+T00002	2022-03-21	Kartu Debit	C06057	K00279
+T00003	2020-06-13	ShopeePay	C06057	K00279
+T00004	2020-05-10	Dana	C06057	K00279
+T00005	2021-06-19	Kartu Kredit	C06057	K00279
+T00006	2022-09-03	Debit BCA	C06057	K00279
+T00007	2025-08-21	Debit BCA	C06057	K00279
+T00008	2022-07-13	Transfer Bank	C06057	K00279
+T00009	2024-06-28	Tunai	C06057	K00279
+T00010	2021-12-21	Debit BCA	C06057	K00279
+T00011	2025-09-01	Dana	C06057	K00279
+T00012	2021-02-03	OVO	C06057	K00279
+T00013	2025-09-15	Kartu Kredit	C06057	K00279
+T00014	2021-05-18	Kartu Debit	C06057	K00279
+T00015	2023-02-10	OVO	C06057	K00279
+T00016	2022-09-01	OVO	C06057	K00279
+T00017	2025-11-10	Dana	C06057	K00279
+T00018	2025-01-16	Dana	C06057	K00279
+T00019	2024-11-08	Debit BCA	C06057	K00279
+T00020	2022-09-15	Kartu Kredit	C06057	K00279
+T00021	2024-04-27	Debit BCA	C06057	K00279
+T00022	2024-02-29	OVO	C06057	K00279
+T00023	2025-10-02	ShopeePay	C06057	K00279
+T00024	2022-08-31	Dana	C06057	K00279
+T00025	2021-03-15	QRIS	C06057	K00279
+T00026	2020-08-26	GoPay	C06057	K00279
+T00027	2021-01-02	GoPay	C06057	K00279
+T00028	2023-06-09	QRIS	C06057	K00279
+T00029	2025-05-21	ShopeePay	C06057	K00279
+T00030	2021-11-18	Dana	C06057	K00279
+T00031	2021-09-25	Debit BCA	C06057	K00279
+T00032	2021-08-08	Tunai	C06057	K00279
+T00033	2022-07-05	ShopeePay	C06057	K00279
+T00034	2022-05-10	OVO	C06057	K00279
+T00035	2024-07-26	Tunai	C06057	K00279
+T00036	2023-02-06	OVO	C06057	K00279
+T00037	2022-08-08	OVO	C06057	K00279
+T00038	2020-06-17	QRIS	C06057	K00279
+T00039	2025-07-03	Transfer Bank	C06057	K00279
+T00040	2021-07-16	OVO	C06057	K00279
+T00041	2021-01-21	Transfer Bank	C06057	K00279
+T00042	2022-11-09	QRIS	C06057	K00279
+T00043	2020-08-04	Kartu Debit	C06057	K00279
+T00044	2022-11-28	Dana	C06057	K00279
+T00045	2020-06-02	OVO	C06057	K00279
+T00046	2020-11-22	Tunai	C06057	K00279
+T00047	2024-05-01	Tunai	C06057	K00279
+T00048	2025-08-04	ShopeePay	C06057	K00279
+T00049	2020-01-25	Kartu Debit	C06057	K00279
+T00050	2024-12-30	Transfer Bank	C06057	K00279
+T00051	2024-10-28	ShopeePay	C06057	K00279
+T00052	2023-06-14	OVO	C06057	K00279
+T00053	2024-03-28	QRIS	C06057	K00279
+T00054	2023-03-11	Dana	C06057	K00279
+T00055	2021-12-17	Tunai	C06057	K00279
+T00056	2020-05-12	Debit BCA	C06057	K00279
+T00057	2021-11-16	ShopeePay	C06057	K00279
+T00058	2024-02-21	Kartu Kredit	C06057	K00279
+T00059	2020-04-26	Transfer Bank	C06057	K00279
+T00060	2020-08-11	OVO	C06057	K00279
+T00061	2025-11-25	QRIS	C06057	K00279
+T00062	2021-11-17	OVO	C06057	K00279
+T00063	2024-09-17	Dana	C06057	K00279
+T00064	2022-11-18	Dana	C06057	K00279
+T00065	2023-06-10	QRIS	C06057	K00279
+T00066	2025-10-14	GoPay	C06057	K00279
+T00067	2020-09-15	Kartu Kredit	C06057	K00279
+T00068	2025-04-27	Kartu Debit	C06057	K00279
+T00069	2025-02-11	Kartu Debit	C06057	K00279
+T00070	2021-07-13	Dana	C06057	K00279
+T00071	2021-11-08	OVO	C06057	K00279
+T00072	2021-05-19	Kartu Debit	C06057	K00279
+T00073	2024-08-18	QRIS	C06057	K00279
+T00074	2025-03-06	QRIS	C06057	K00279
+T00075	2021-07-17	GoPay	C06057	K00279
+T00076	2020-10-14	GoPay	C06057	K00279
+T00077	2020-03-21	Kartu Kredit	C06057	K00279
+T00078	2020-04-05	Dana	C06057	K00279
+T00079	2023-04-06	Debit BCA	C06057	K00279
+T00080	2024-11-21	GoPay	C06057	K00279
+T00081	2020-08-23	ShopeePay	C06057	K00279
+T00083	2024-03-28	QRIS	C06057	K00279
+T00084	2022-04-28	QRIS	C06057	K00279
+T00085	2022-02-01	GoPay	C06057	K00279
+T00086	2024-08-25	GoPay	C06057	K00279
+T00087	2020-05-19	Transfer Bank	C06057	K00279
+T00088	2023-09-04	QRIS	C06057	K00279
+T00089	2020-07-15	Tunai	C06057	K00279
+T00090	2025-03-21	Tunai	C06057	K00279
+T00091	2022-09-05	Tunai	C06057	K00279
+T00092	2025-08-09	Transfer Bank	C06057	K00279
+T00093	2021-11-04	Transfer Bank	C06057	K00279
+T00094	2020-07-02	Dana	C06057	K00279
+T00095	2023-05-17	GoPay	C06057	K00279
+T00096	2024-06-01	Tunai	C06057	K00279
+T00097	2022-05-18	ShopeePay	C06057	K00279
+T00098	2022-02-04	Dana	C06057	K00279
+T00099	2020-03-17	Kartu Debit	C06057	K00279
+T00100	2020-02-05	OVO	C06057	K00279
+T00101	2023-03-20	OVO	C06057	K00279
+T00102	2020-03-10	GoPay	C06057	K00279
+T00103	2021-07-27	Kartu Debit	C06057	K00279
+T00104	2023-05-16	Kartu Kredit	C06057	K00279
+T00105	2020-12-09	ShopeePay	C06057	K00279
+T00106	2024-10-10	OVO	C06057	K00279
+T00107	2022-12-21	Kartu Kredit	C06057	K00279
+T00108	2020-08-07	Transfer Bank	C06057	K00279
+T00109	2022-03-16	Kartu Kredit	C06057	K00279
+T00110	2023-04-12	Debit BCA	C06057	K00279
+T00111	2024-02-01	GoPay	C06057	K00279
+T00112	2024-11-02	ShopeePay	C06057	K00279
+T00113	2024-02-01	Kartu Debit	C06057	K00279
+T00114	2022-08-23	Debit BCA	C06057	K00279
+T00115	2024-07-04	ShopeePay	C06057	K00279
+T00116	2021-05-30	Dana	C06057	K00279
+T00117	2022-03-26	Dana	C06057	K00279
+T00118	2023-02-12	Dana	C06057	K00279
+T00119	2023-05-14	ShopeePay	C06057	K00279
+T00120	2023-12-24	Dana	C06057	K00279
+T00121	2024-12-07	Transfer Bank	C06057	K00279
+T00122	2024-07-18	GoPay	C06057	K00279
+T00123	2025-03-22	Debit BCA	C06057	K00279
+T00124	2020-09-14	QRIS	C06057	K00279
+T00125	2024-01-31	OVO	C06057	K00279
+T00126	2023-04-07	Tunai	C06057	K00279
+T00127	2022-12-15	Kartu Kredit	C06057	K00279
+T00128	2020-05-15	Debit BCA	C06057	K00279
+T00129	2021-09-07	GoPay	C06057	K00279
+T00130	2023-04-26	GoPay	C06057	K00279
+T00131	2022-11-04	Kartu Kredit	C06057	K00279
+T00132	2021-04-25	Kartu Debit	C06057	K00279
+T00133	2025-06-05	QRIS	C06057	K00279
+T00134	2025-09-28	ShopeePay	C06057	K00279
+T00135	2023-10-08	Debit BCA	C06057	K00279
+T00136	2021-05-24	ShopeePay	C06057	K00279
+T00137	2021-06-07	GoPay	C06057	K00279
+T00138	2022-12-19	Kartu Kredit	C06057	K00279
+T00139	2023-09-15	Dana	C06057	K00279
+T00140	2022-05-23	Debit BCA	C06057	K00279
+T00141	2023-06-21	QRIS	C06057	K00279
+T00142	2023-01-13	OVO	C06057	K00279
+T00143	2021-12-28	Debit BCA	C06057	K00279
+T00144	2020-04-28	Transfer Bank	C06057	K00279
+T00145	2020-07-21	Tunai	C06057	K00279
+T00146	2020-03-31	Dana	C06057	K00279
+T00147	2024-06-21	GoPay	C06057	K00279
+T00148	2021-11-01	GoPay	C06057	K00279
+T00149	2022-02-01	OVO	C06057	K00279
+T00150	2022-06-17	OVO	C06057	K00279
+T00151	2020-12-21	GoPay	C06057	K00279
+T00152	2025-11-09	Debit BCA	C06057	K00279
+T00153	2020-09-19	Kartu Debit	C06057	K00279
+T00154	2022-03-17	Dana	C06057	K00279
+T00155	2022-02-18	GoPay	C06057	K00279
+T00156	2022-12-01	GoPay	C06057	K00279
+T00157	2024-11-18	Debit BCA	C06057	K00279
+T00158	2021-12-17	Debit BCA	C06057	K00279
+T00159	2023-08-16	GoPay	C06057	K00279
+T00160	2024-07-09	GoPay	C06057	K00279
+T00161	2025-07-02	Tunai	C06057	K00279
+T00162	2024-10-20	Transfer Bank	C06057	K00279
+T00163	2025-02-01	Transfer Bank	C06057	K00279
+T00164	2025-04-24	Kartu Debit	C06057	K00279
+T00165	2025-07-15	Kartu Debit	C06057	K00279
+T00166	2023-12-21	OVO	C06057	K00279
+T00167	2023-03-24	Dana	C06057	K00279
+T00168	2023-09-08	OVO	C06057	K00279
+T00169	2024-01-29	Kartu Debit	C06057	K00279
+T00170	2025-12-12	Kartu Debit	C06057	K00279
+T00171	2023-06-29	OVO	C06057	K00279
+T00172	2025-05-07	Dana	C06057	K00279
+T00173	2025-08-09	Tunai	C06057	K00279
+T00174	2024-02-04	Debit BCA	C06057	K00279
+T00175	2020-08-25	Kartu Kredit	C06057	K00279
+T00176	2021-09-16	Kartu Debit	C06057	K00279
+T00177	2022-01-31	OVO	C06057	K00279
+T00178	2024-05-07	Tunai	C06057	K00279
+T00179	2022-10-01	Tunai	C06057	K00279
+T00180	2022-01-29	ShopeePay	C06057	K00279
+T00181	2023-04-09	Debit BCA	C06057	K00279
+T00182	2025-04-12	GoPay	C06057	K00279
+T00183	2022-05-07	Kartu Kredit	C06057	K00279
+T00184	2021-03-25	ShopeePay	C06057	K00279
+T00185	2025-04-17	Debit BCA	C06057	K00279
+T00186	2023-01-15	Tunai	C06057	K00279
+T00187	2020-11-22	Tunai	C06057	K00279
+T00188	2025-11-15	Kartu Debit	C06057	K00279
+T00189	2023-02-08	QRIS	C06057	K00279
+T00190	2022-11-17	Tunai	C06057	K00279
+T00191	2022-03-17	Dana	C06057	K00279
+T00192	2022-03-21	ShopeePay	C06057	K00279
+T00193	2020-12-02	Transfer Bank	C06057	K00279
+T00194	2024-01-15	Tunai	C06057	K00279
+T00195	2022-09-19	GoPay	C06057	K00279
+T00196	2020-03-23	Dana	C06057	K00279
+T00197	2023-03-09	Kartu Debit	C06057	K00279
+T00198	2025-04-28	Kartu Debit	C06057	K00279
+T00199	2025-07-21	ShopeePay	C06057	K00279
+T00200	2021-06-08	GoPay	C06057	K00279
+T00201	2025-09-06	Debit BCA	C06057	K00279
+T00202	2025-11-20	OVO	C06057	K00279
+T00203	2022-01-10	GoPay	C06057	K00279
+T00204	2024-01-04	Kartu Debit	C06057	K00279
+T00205	2022-03-02	GoPay	C06057	K00279
+T00206	2023-08-26	QRIS	C06057	K00279
+T00207	2024-08-25	Tunai	C06057	K00279
+T00208	2020-12-02	OVO	C06057	K00279
+T00209	2025-07-14	ShopeePay	C06057	K00279
+T00210	2022-01-09	Transfer Bank	C06057	K00279
+T00211	2020-04-08	Transfer Bank	C06057	K00279
+T00212	2020-10-15	Debit BCA	C06057	K00279
+T00213	2021-11-11	Transfer Bank	C06057	K00279
+T00214	2020-07-11	ShopeePay	C06057	K00279
+T00215	2020-03-31	GoPay	C06057	K00279
+T00216	2025-03-18	Debit BCA	C06057	K00279
+T00217	2021-04-04	Transfer Bank	C06057	K00279
+T00218	2022-07-30	Kartu Debit	C06057	K00279
+T00219	2021-08-18	Transfer Bank	C06057	K00279
+T00220	2020-06-10	Transfer Bank	C06057	K00279
+T00221	2023-07-22	ShopeePay	C06057	K00279
+T00222	2020-12-15	Kartu Kredit	C06057	K00279
+T00223	2022-07-17	OVO	C06057	K00279
+T00224	2025-09-27	ShopeePay	C06057	K00279
+T00225	2023-07-05	Debit BCA	C06057	K00279
+T00226	2021-12-22	Kartu Debit	C06057	K00279
+T00227	2020-06-28	Transfer Bank	C06057	K00279
+T00228	2023-12-08	QRIS	C06057	K00279
+T00229	2020-06-26	Kartu Kredit	C06057	K00279
+T00230	2023-12-01	QRIS	C06057	K00279
+T00231	2023-02-10	Dana	C06057	K00279
+T00232	2024-04-23	QRIS	C06057	K00279
+T00233	2025-03-07	ShopeePay	C06057	K00279
+T00234	2022-08-30	OVO	C06057	K00279
+T00235	2023-03-07	OVO	C06057	K00279
+T00236	2024-05-03	GoPay	C06057	K00279
+T00237	2022-04-08	Kartu Kredit	C06057	K00279
+T00238	2021-04-01	OVO	C06057	K00279
+T00239	2020-03-04	Transfer Bank	C06057	K00279
+T00240	2023-10-03	Kartu Kredit	C06057	K00279
+T00241	2025-07-07	Tunai	C06057	K00279
+T00242	2022-05-08	QRIS	C06057	K00279
+T00243	2025-03-04	GoPay	C06057	K00279
+T00244	2021-03-17	Kartu Kredit	C06057	K00279
+T00245	2024-04-24	GoPay	C06057	K00279
+T00246	2024-12-19	ShopeePay	C06057	K00279
+T00247	2021-11-25	Dana	C06057	K00279
+T00248	2020-08-07	Kartu Kredit	C06057	K00279
+T00249	2021-01-09	Dana	C06057	K00279
+T00250	2020-09-10	Kartu Debit	C06057	K00279
+T00251	2021-08-29	Kartu Kredit	C06057	K00279
+T00252	2022-03-20	QRIS	C06057	K00279
+T00253	2021-07-03	Dana	C06057	K00279
+T00254	2024-08-25	OVO	C06057	K00279
+T00255	2020-05-08	Tunai	C06057	K00279
+T00256	2025-11-17	Kartu Kredit	C06057	K00279
+T00257	2023-04-08	Debit BCA	C06057	K00279
+T00258	2023-09-17	ShopeePay	C06057	K00279
+T00259	2023-08-28	Transfer Bank	C06057	K00279
+T00260	2025-02-22	Tunai	C06057	K00279
+T00261	2022-05-23	GoPay	C06057	K00279
+T00262	2023-11-22	Kartu Debit	C06057	K00279
+T00263	2020-07-25	GoPay	C06057	K00279
+T00264	2025-11-30	Kartu Kredit	C06057	K00279
+T00265	2023-01-04	ShopeePay	C06057	K00279
+T00266	2020-03-16	Tunai	C06057	K00279
+T00267	2023-10-10	Debit BCA	C06057	K00279
+T00268	2022-02-03	Tunai	C06057	K00279
+T00269	2020-10-15	Dana	C06057	K00279
+T00270	2024-03-13	GoPay	C06057	K00279
+T00271	2022-05-11	Kartu Kredit	C06057	K00279
+T00272	2020-01-06	Dana	C06057	K00279
+T00273	2025-02-21	OVO	C06057	K00279
+T00274	2024-05-25	Tunai	C06057	K00279
+T00275	2021-05-09	OVO	C06057	K00279
+T00276	2022-05-22	Kartu Debit	C06057	K00279
+T00277	2024-09-14	OVO	C06057	K00279
+T00278	2025-03-23	Kartu Kredit	C06057	K00279
+T00279	2025-08-07	Dana	C06057	K00279
+T00280	2020-06-17	Transfer Bank	C06057	K00279
+T00281	2022-11-02	OVO	C06057	K00279
+T00282	2025-07-09	GoPay	C06057	K00279
+T00283	2023-07-13	OVO	C06057	K00279
+T00284	2023-10-29	Debit BCA	C06057	K00279
+T00285	2023-05-09	Dana	C06057	K00279
+T00286	2024-12-08	Dana	C06057	K00279
+T00287	2025-04-23	GoPay	C06057	K00279
+T00288	2025-10-25	ShopeePay	C06057	K00279
+T00289	2022-07-21	Kartu Kredit	C06057	K00279
+T00290	2024-12-10	ShopeePay	C06057	K00279
+T00291	2023-01-05	Debit BCA	C06057	K00279
+T00292	2023-04-28	Tunai	C06057	K00279
+T00293	2022-04-23	Tunai	C06057	K00279
+T00294	2024-04-16	Debit BCA	C06057	K00279
+T00295	2023-01-04	QRIS	C06057	K00279
+T00296	2023-11-24	Debit BCA	C06057	K00279
+T00297	2021-02-13	OVO	C06057	K00279
+T00298	2025-12-16	Dana	C06057	K00279
+T00299	2022-07-23	GoPay	C06057	K00279
+T00300	2025-02-24	Debit BCA	C06057	K00279
+T00301	2021-01-10	QRIS	C06057	K00279
+T00302	2021-03-21	GoPay	C06057	K00279
+T00303	2020-09-18	Debit BCA	C06057	K00279
+T00304	2024-08-23	Dana	C06057	K00279
+T00305	2021-07-19	Tunai	C06057	K00279
+T00306	2020-01-29	Kartu Kredit	C06057	K00279
+T00307	2020-05-24	Debit BCA	C06057	K00279
+T00308	2025-02-27	Tunai	C06057	K00279
+T00309	2021-04-29	ShopeePay	C06057	K00279
+T00310	2023-10-06	Debit BCA	C06057	K00279
+T00311	2025-04-15	QRIS	C06057	K00279
+T00312	2022-05-06	ShopeePay	C06057	K00279
+T00313	2025-05-25	Transfer Bank	C06057	K00279
+T00314	2023-06-13	Tunai	C06057	K00279
+T00315	2025-07-31	Kartu Kredit	C06057	K00279
+T00316	2024-04-29	GoPay	C06057	K00279
+T00317	2022-11-06	Kartu Debit	C06057	K00279
+T00318	2023-10-13	Kartu Debit	C06057	K00279
+T00319	2021-07-08	Dana	C06057	K00279
+T00320	2022-02-20	QRIS	C06057	K00279
+T00321	2024-07-11	Transfer Bank	C06057	K00279
+T00322	2024-03-20	Dana	C06057	K00279
+T00323	2024-07-29	OVO	C06057	K00279
+T00324	2022-09-15	Transfer Bank	C06057	K00279
+T00325	2023-02-16	Dana	C06057	K00279
+T00326	2023-01-21	GoPay	C06057	K00279
+T00327	2024-11-18	Kartu Debit	C06057	K00279
+T00328	2022-07-08	ShopeePay	C06057	K00279
+T00329	2025-07-16	Kartu Kredit	C06057	K00279
+T00330	2024-08-21	Kartu Kredit	C06057	K00279
+T00331	2023-12-23	Debit BCA	C06057	K00279
+T00332	2023-03-30	OVO	C06057	K00279
+T00333	2022-08-28	OVO	C06057	K00279
+T00334	2024-05-23	OVO	C06057	K00279
+T00335	2022-02-16	Kartu Debit	C06057	K00279
+T00336	2020-10-04	Kartu Kredit	C06057	K00279
+T00337	2025-07-24	Transfer Bank	C06057	K00279
+T00338	2025-07-21	OVO	C06057	K00279
+T00339	2024-11-05	QRIS	C06057	K00279
+T00340	2025-05-05	QRIS	C06057	K00279
+T00341	2022-12-05	ShopeePay	C06057	K00279
+T00342	2021-01-02	Transfer Bank	C06057	K00279
+T00343	2022-04-02	Kartu Kredit	C06057	K00279
+T00344	2023-01-17	Kartu Debit	C06057	K00279
+T00345	2023-06-04	Dana	C06057	K00279
+T00346	2022-08-11	Tunai	C06057	K00279
+T00347	2024-06-27	Transfer Bank	C06057	K00279
+T00348	2024-12-01	Debit BCA	C06057	K00279
+T00349	2020-01-14	Kartu Debit	C06057	K00279
+T00350	2020-11-26	ShopeePay	C06057	K00279
+T00351	2020-02-27	Transfer Bank	C06057	K00279
+T00352	2021-09-26	ShopeePay	C06057	K00279
+T00353	2020-09-11	Dana	C06057	K00279
+T00354	2024-11-05	Kartu Debit	C06057	K00279
+T00355	2024-11-16	QRIS	C06057	K00279
+T00356	2022-07-31	QRIS	C06057	K00279
+T00357	2022-08-25	Tunai	C06057	K00279
+T00358	2023-08-18	OVO	C06057	K00279
+T00359	2023-12-26	Debit BCA	C06057	K00279
+T00360	2023-02-07	Tunai	C06057	K00279
+T00361	2024-01-30	Kartu Kredit	C06057	K00279
+T00362	2025-06-12	QRIS	C06057	K00279
+T00363	2025-03-21	Tunai	C06057	K00279
+T00364	2024-04-14	Tunai	C06057	K00279
+T00365	2020-02-25	Tunai	C06057	K00279
+T00366	2025-06-12	OVO	C06057	K00279
+T00367	2023-05-22	Dana	C06057	K00279
+T00368	2022-09-12	QRIS	C06057	K00279
+T00369	2020-06-19	QRIS	C06057	K00279
+T00370	2023-08-17	Kartu Kredit	C06057	K00279
+T00371	2025-07-03	Tunai	C06057	K00279
+T00372	2024-01-15	Debit BCA	C06057	K00279
+T00373	2020-09-19	GoPay	C06057	K00279
+T00374	2022-08-29	Transfer Bank	C06057	K00279
+T00375	2024-08-20	Kartu Kredit	C06057	K00279
+T00376	2025-04-11	Kartu Debit	C06057	K00279
+T00377	2023-12-21	ShopeePay	C06057	K00279
+T00378	2022-04-28	Debit BCA	C06057	K00279
+T00379	2023-02-25	Kartu Debit	C06057	K00279
+T00380	2025-11-18	Tunai	C06057	K00279
+T00381	2023-10-07	QRIS	C06057	K00279
+T00382	2025-05-20	Transfer Bank	C06057	K00279
+T00383	2021-01-09	ShopeePay	C06057	K00279
+T00384	2021-04-11	OVO	C06057	K00279
+T00385	2023-07-10	GoPay	C06057	K00279
+T00386	2025-09-12	GoPay	C06057	K00279
+T00387	2021-12-03	Debit BCA	C06057	K00279
+T00388	2021-12-27	OVO	C06057	K00279
+T00389	2024-04-12	QRIS	C06057	K00279
+T00390	2025-06-08	OVO	C06057	K00279
+T00391	2021-02-07	GoPay	C06057	K00279
+T00392	2025-03-08	Kartu Kredit	C06057	K00279
+T00393	2022-08-07	QRIS	C06057	K00279
+T00394	2023-10-24	Kartu Debit	C06057	K00279
+T00395	2024-04-14	Kartu Debit	C06057	K00279
+T00396	2024-10-06	Debit BCA	C06057	K00279
+T00397	2021-05-17	Dana	C06057	K00279
+T00398	2021-11-01	ShopeePay	C06057	K00279
+T00399	2021-11-17	Kartu Debit	C06057	K00279
+T00400	2023-08-01	GoPay	C06057	K00279
+T00401	2022-12-15	OVO	C06057	K00279
+T00402	2020-04-21	GoPay	C06057	K00279
+T00403	2023-08-06	QRIS	C06057	K00279
+T00404	2024-02-06	Kartu Debit	C06057	K00279
+T00405	2022-10-06	Tunai	C06057	K00279
+T00406	2020-06-09	GoPay	C06057	K00279
+T00407	2024-04-05	Debit BCA	C06057	K00279
+T00408	2024-05-24	OVO	C06057	K00279
+T00409	2022-01-28	GoPay	C06057	K00279
+T00410	2021-06-27	OVO	C06057	K00279
+T00411	2022-11-30	Debit BCA	C06057	K00279
+T00412	2022-02-19	QRIS	C06057	K00279
+T00413	2021-08-25	Kartu Kredit	C06057	K00279
+T00414	2020-06-26	Debit BCA	C06057	K00279
+T00415	2025-09-10	Debit BCA	C06057	K00279
+T00416	2024-12-18	Tunai	C06057	K00279
+T00417	2022-01-26	Transfer Bank	C06057	K00279
+T00418	2021-10-21	Kartu Debit	C06057	K00279
+T00419	2022-09-08	GoPay	C06057	K00279
+T00420	2022-04-19	QRIS	C06057	K00279
+T00421	2021-12-08	Transfer Bank	C06057	K00279
+T00422	2022-02-12	Tunai	C06057	K00279
+T00423	2025-09-11	Dana	C06057	K00279
+T00424	2022-01-04	Tunai	C06057	K00279
+T00425	2022-02-09	Tunai	C06057	K00279
+T00426	2021-06-14	Kartu Kredit	C06057	K00279
+T00427	2023-06-11	Tunai	C06057	K00279
+T00428	2022-01-23	Kartu Kredit	C06057	K00279
+T00429	2024-05-01	QRIS	C06057	K00279
+T00430	2022-03-23	ShopeePay	C06057	K00279
+T00431	2023-07-19	Transfer Bank	C06057	K00279
+T00432	2022-03-03	QRIS	C06057	K00279
+T00433	2020-08-01	Tunai	C06057	K00279
+T00434	2022-10-29	Debit BCA	C06057	K00279
+T00435	2022-09-04	GoPay	C06057	K00279
+T00436	2025-04-07	Transfer Bank	C06057	K00279
+T00437	2021-03-20	GoPay	C06057	K00279
+T00438	2023-05-17	OVO	C06057	K00279
+T00439	2022-07-24	Tunai	C06057	K00279
+T00440	2024-04-02	GoPay	C06057	K00279
+T00441	2023-12-20	OVO	C06057	K00279
+T00442	2022-04-09	QRIS	C06057	K00279
+T00443	2022-11-01	GoPay	C06057	K00279
+T00444	2022-10-02	Transfer Bank	C06057	K00279
+T00445	2024-07-02	GoPay	C06057	K00279
+T00446	2025-01-08	Kartu Debit	C06057	K00279
+T00447	2024-09-25	Kartu Kredit	C06057	K00279
+T00448	2022-02-21	ShopeePay	C06057	K00279
+T00449	2024-07-10	Transfer Bank	C06057	K00279
+T00450	2025-08-27	QRIS	C06057	K00279
+T00451	2021-04-15	ShopeePay	C06057	K00279
+T00452	2025-02-24	OVO	C06057	K00279
+T00453	2021-07-12	GoPay	C06057	K00279
+T00454	2021-02-15	Kartu Debit	C06057	K00279
+T00455	2024-07-23	ShopeePay	C06057	K00279
+T00456	2023-11-25	Tunai	C06057	K00279
+T00457	2020-07-08	Debit BCA	C06057	K00279
+T00458	2020-09-10	QRIS	C06057	K00279
+T00459	2022-08-21	Tunai	C06057	K00279
+T00460	2024-05-27	Debit BCA	C06057	K00279
+T00461	2025-04-23	QRIS	C06057	K00279
+T00462	2023-09-25	Transfer Bank	C06057	K00279
+T00463	2025-05-26	ShopeePay	C06057	K00279
+T00464	2023-03-15	Tunai	C06057	K00279
+T00465	2020-01-25	Transfer Bank	C06057	K00279
+T00466	2020-07-01	Transfer Bank	C06057	K00279
+T00467	2023-08-02	Transfer Bank	C06057	K00279
+T00468	2023-11-17	Kartu Debit	C06057	K00279
+T00469	2023-03-24	Debit BCA	C06057	K00279
+T00470	2023-04-02	GoPay	C06057	K00279
+T00471	2023-09-06	GoPay	C06057	K00279
+T00472	2020-02-05	Transfer Bank	C06057	K00279
+T00473	2024-06-12	Transfer Bank	C06057	K00279
+T00474	2020-06-06	QRIS	C06057	K00279
+T00475	2021-09-06	OVO	C06057	K00279
+T00476	2025-04-13	GoPay	C06057	K00279
+T00477	2023-03-18	Dana	C06057	K00279
+T00478	2020-07-31	QRIS	C06057	K00279
+T00479	2020-06-05	ShopeePay	C06057	K00279
+T00480	2021-01-21	Kartu Debit	C06057	K00279
+T00481	2021-07-24	Kartu Debit	C06057	K00279
+T00482	2025-11-23	OVO	C06057	K00279
+T00483	2021-06-06	QRIS	C06057	K00279
+T00484	2020-03-06	Tunai	C06057	K00279
+T00485	2022-10-05	GoPay	C06057	K00279
+T00486	2021-12-17	Dana	C06057	K00279
+T00487	2025-02-04	Tunai	C06057	K00279
+T00488	2022-05-08	ShopeePay	C06057	K00279
+T00489	2024-07-27	Dana	C06057	K00279
+T00490	2023-07-23	ShopeePay	C06057	K00279
+T00491	2025-04-28	ShopeePay	C06057	K00279
+T00492	2021-08-17	Kartu Kredit	C06057	K00279
+T00493	2020-10-02	Transfer Bank	C06057	K00279
+T00494	2025-10-11	GoPay	C06057	K00279
+T00495	2023-12-24	Kartu Debit	C06057	K00279
+T00496	2020-10-01	Debit BCA	C06057	K00279
+T00497	2024-08-12	OVO	C06057	K00279
+T00498	2024-09-14	QRIS	C06057	K00279
+T00499	2021-12-23	ShopeePay	C06057	K00279
+T00500	2022-05-06	Transfer Bank	C06057	K00279
+T00501	2025-11-04	Kartu Kredit	C06057	K00279
+T00502	2021-08-30	Debit BCA	C06057	K00279
+T00503	2024-01-13	Debit BCA	C06057	K00279
+T00504	2024-02-26	Dana	C06057	K00279
+T00505	2023-02-27	Kartu Kredit	C06057	K00279
+T00506	2024-10-30	Dana	C06057	K00279
+T00507	2023-12-10	Debit BCA	C06057	K00279
+T00508	2020-11-02	Debit BCA	C06057	K00279
+T00509	2024-01-21	Transfer Bank	C06057	K00279
+T00510	2023-10-25	Debit BCA	C06057	K00279
+T00511	2020-06-04	Kartu Debit	C06057	K00279
+T00512	2022-05-23	Transfer Bank	C06057	K00279
+T00513	2022-07-26	QRIS	C06057	K00279
+T00514	2023-05-26	Debit BCA	C06057	K00279
+T00515	2020-04-02	Debit BCA	C06057	K00279
+T00516	2024-12-17	ShopeePay	C06057	K00279
+T00517	2022-09-27	OVO	C06057	K00279
+T00518	2025-04-09	ShopeePay	C06057	K00279
+T00519	2022-06-20	Transfer Bank	C06057	K00279
+T00520	2022-05-27	Transfer Bank	C06057	K00279
+T00521	2023-04-20	Transfer Bank	C06057	K00279
+T00522	2025-09-17	GoPay	C06057	K00279
+T00523	2023-12-23	Transfer Bank	C06057	K00279
+T00524	2021-12-22	Kartu Kredit	C06057	K00279
+T00525	2021-09-26	ShopeePay	C06057	K00279
+T00526	2021-05-26	Kartu Kredit	C06057	K00279
+T00527	2024-05-02	Tunai	C06057	K00279
+T00528	2020-04-29	Transfer Bank	C06057	K00279
+T00529	2023-06-22	Kartu Debit	C06057	K00279
+T00530	2022-01-19	ShopeePay	C06057	K00279
+T00531	2023-06-12	ShopeePay	C06057	K00279
+T00532	2022-11-16	ShopeePay	C06057	K00279
+T00533	2024-05-31	QRIS	C06057	K00279
+T00534	2021-06-02	Transfer Bank	C06057	K00279
+T00535	2022-08-16	QRIS	C06057	K00279
+T00536	2025-11-13	QRIS	C06057	K00279
+T00537	2020-08-12	Transfer Bank	C06057	K00279
+T00538	2022-07-18	Debit BCA	C06057	K00279
+T00539	2025-11-04	ShopeePay	C06057	K00279
+T00540	2023-05-06	Kartu Debit	C06057	K00279
+T00541	2022-05-20	Kartu Kredit	C06057	K00279
+T00542	2020-05-04	Tunai	C06057	K00279
+T00543	2025-08-16	QRIS	C06057	K00279
+T00544	2021-07-13	Debit BCA	C06057	K00279
+T00545	2021-06-22	Debit BCA	C06057	K00279
+T00546	2022-05-04	OVO	C06057	K00279
+T00547	2021-04-22	Tunai	C06057	K00279
+T00548	2024-01-11	QRIS	C06057	K00279
+T00549	2025-06-07	Kartu Kredit	C06057	K00279
+T00550	2023-01-21	Debit BCA	C06057	K00279
+T00551	2022-12-10	Kartu Debit	C06057	K00279
+T00552	2025-05-26	Dana	C06057	K00279
+T00553	2025-02-14	ShopeePay	C06057	K00279
+T00554	2021-02-07	Tunai	C06057	K00279
+T00555	2025-11-29	Debit BCA	C06057	K00279
+T00556	2023-08-24	Dana	C06057	K00279
+T00557	2024-03-20	Tunai	C06057	K00279
+T00558	2022-04-22	Kartu Kredit	C06057	K00279
+T00559	2023-02-07	Dana	C06057	K00279
+T00560	2021-05-19	Dana	C06057	K00279
+T00561	2022-12-02	OVO	C06057	K00279
+T00562	2021-03-14	Dana	C06057	K00279
+T00563	2023-01-09	OVO	C06057	K00279
+T00564	2023-06-25	Transfer Bank	C06057	K00279
+T00565	2021-05-22	Dana	C06057	K00279
+T00566	2024-04-17	Tunai	C06057	K00279
+T00567	2024-02-26	OVO	C06057	K00279
+T00568	2025-06-24	QRIS	C06057	K00279
+T00569	2020-09-19	Transfer Bank	C06057	K00279
+T00570	2022-01-23	Kartu Kredit	C06057	K00279
+T00571	2025-09-23	OVO	C06057	K00279
+T00572	2021-09-10	OVO	C06057	K00279
+T00573	2024-08-19	Tunai	C06057	K00279
+T00574	2020-04-01	Debit BCA	C06057	K00279
+T00575	2023-11-07	Debit BCA	C06057	K00279
+T00576	2021-01-05	GoPay	C06057	K00279
+T00577	2024-03-11	Dana	C06057	K00279
+T00578	2025-07-28	GoPay	C06057	K00279
+T00579	2024-02-22	Dana	C06057	K00279
+T00580	2022-03-30	Kartu Kredit	C06057	K00279
+T00581	2024-07-06	Tunai	C06057	K00279
+T00582	2023-06-01	Transfer Bank	C06057	K00279
+T00583	2023-02-16	QRIS	C06057	K00279
+T00584	2022-05-19	QRIS	C06057	K00279
+T00585	2023-08-31	Kartu Kredit	C06057	K00279
+T00586	2021-11-18	OVO	C06057	K00279
+T00587	2024-01-22	GoPay	C06057	K00279
+T00588	2023-08-28	Transfer Bank	C06057	K00279
+T00589	2025-12-28	Dana	C06057	K00279
+T00590	2020-05-10	OVO	C06057	K00279
+T00591	2024-12-26	QRIS	C06057	K00279
+T00592	2024-05-16	QRIS	C06057	K00279
+T00593	2020-05-30	GoPay	C06057	K00279
+T00594	2023-05-01	Kartu Kredit	C06057	K00279
+T00595	2022-05-10	Kartu Kredit	C06057	K00279
+T00596	2025-07-10	Kartu Kredit	C06057	K00279
+T00597	2023-10-05	ShopeePay	C06057	K00279
+T00598	2022-05-07	Debit BCA	C06057	K00279
+T00599	2020-11-06	ShopeePay	C06057	K00279
+T00600	2024-09-20	Tunai	C06057	K00279
+T00601	2024-04-02	ShopeePay	C06057	K00279
+T00602	2025-08-12	Transfer Bank	C06057	K00279
+T00603	2024-12-12	QRIS	C06057	K00279
+T00604	2023-06-06	Debit BCA	C06057	K00279
+T00605	2025-08-12	Transfer Bank	C06057	K00279
+T00606	2025-02-15	Kartu Kredit	C06057	K00279
+T00607	2023-01-08	Kartu Debit	C06057	K00279
+T00608	2024-06-23	Tunai	C06057	K00279
+T00609	2024-03-06	OVO	C06057	K00279
+T00610	2022-02-28	Debit BCA	C06057	K00279
+T00611	2023-01-18	QRIS	C06057	K00279
+T00612	2021-06-21	Debit BCA	C06057	K00279
+T00613	2024-03-06	QRIS	C06057	K00279
+T00614	2025-04-29	Dana	C06057	K00279
+T00615	2024-07-06	Tunai	C06057	K00279
+T00616	2024-06-16	QRIS	C06057	K00279
+T00617	2024-09-08	QRIS	C06057	K00279
+T00618	2021-01-17	Tunai	C06057	K00279
+T00619	2022-03-17	Dana	C06057	K00279
+T00620	2023-05-23	Kartu Kredit	C06057	K00279
+T00621	2020-12-16	Debit BCA	C06057	K00279
+T00622	2021-12-09	Tunai	C06057	K00279
+T00623	2020-06-20	ShopeePay	C06057	K00279
+T00624	2024-06-03	OVO	C06057	K00279
+T00625	2020-07-10	Debit BCA	C06057	K00279
+T00626	2020-12-29	OVO	C06057	K00279
+T00627	2022-02-07	Kartu Debit	C06057	K00279
+T00628	2022-03-16	Dana	C06057	K00279
+T00629	2021-05-26	Kartu Kredit	C06057	K00279
+T00630	2020-04-24	Tunai	C06057	K00279
+T00631	2020-11-18	Debit BCA	C06057	K00279
+T00632	2021-10-18	GoPay	C06057	K00279
+T00633	2023-02-07	Debit BCA	C06057	K00279
+T00634	2022-07-05	Kartu Kredit	C06057	K00279
+T00635	2020-01-15	GoPay	C06057	K00279
+T00636	2021-07-25	Kartu Kredit	C06057	K00279
+T00637	2023-03-26	QRIS	C06057	K00279
+T00638	2024-02-12	Transfer Bank	C06057	K00279
+T00639	2022-05-31	ShopeePay	C06057	K00279
+T00640	2021-03-13	Tunai	C06057	K00279
+T00641	2023-12-02	QRIS	C06057	K00279
+T00642	2020-08-14	QRIS	C06057	K00279
+T00643	2022-02-09	Kartu Debit	C06057	K00279
+T00644	2020-11-22	QRIS	C06057	K00279
+T00645	2022-09-08	Dana	C06057	K00279
+T00646	2023-05-10	Dana	C06057	K00279
+T00647	2024-02-03	ShopeePay	C06057	K00279
+T00648	2021-05-03	Kartu Kredit	C06057	K00279
+T00649	2020-07-09	Kartu Kredit	C06057	K00279
+T00650	2025-12-17	Transfer Bank	C06057	K00279
+T00651	2021-07-01	Transfer Bank	C06057	K00279
+T00652	2024-11-23	Transfer Bank	C06057	K00279
+T00653	2024-07-02	Debit BCA	C06057	K00279
+T00654	2022-11-17	Tunai	C06057	K00279
+T00655	2020-12-06	Debit BCA	C06057	K00279
+T00656	2024-07-14	Tunai	C06057	K00279
+T00657	2020-03-09	OVO	C06057	K00279
+T00658	2024-07-31	ShopeePay	C06057	K00279
+T00659	2022-12-21	Dana	C06057	K00279
+T00660	2020-09-18	QRIS	C06057	K00279
+T00661	2025-05-29	Transfer Bank	C06057	K00279
+T00662	2023-05-04	QRIS	C06057	K00279
+T00663	2020-04-13	GoPay	C06057	K00279
+T00664	2020-01-14	Debit BCA	C06057	K00279
+T00665	2024-12-01	Transfer Bank	C06057	K00279
+T00666	2022-04-24	Kartu Debit	C06057	K00279
+T00667	2022-11-25	Transfer Bank	C06057	K00279
+T00668	2020-05-09	OVO	C06057	K00279
+T00669	2024-07-04	Tunai	C06057	K00279
+T00670	2021-04-24	ShopeePay	C06057	K00279
+T00671	2024-09-14	QRIS	C06057	K00279
+T00672	2023-10-30	GoPay	C06057	K00279
+T00673	2021-12-18	Tunai	C06057	K00279
+T00674	2023-03-09	OVO	C06057	K00279
+T00675	2022-09-08	Dana	C06057	K00279
+T00676	2021-10-12	Kartu Kredit	C06057	K00279
+T00677	2025-12-08	OVO	C06057	K00279
+T00678	2023-11-07	Tunai	C06057	K00279
+T00679	2023-10-04	GoPay	C06057	K00279
+T00680	2022-05-31	Kartu Debit	C06057	K00279
+T00681	2022-11-30	ShopeePay	C06057	K00279
+T00682	2023-12-28	Debit BCA	C06057	K00279
+T00683	2020-12-13	Tunai	C06057	K00279
+T00684	2022-12-04	Transfer Bank	C06057	K00279
+T00685	2025-09-11	Debit BCA	C06057	K00279
+T00686	2025-01-19	Kartu Kredit	C06057	K00279
+T00687	2023-08-27	Kartu Debit	C06057	K00279
+T00688	2023-04-02	GoPay	C06057	K00279
+T00689	2020-12-17	GoPay	C06057	K00279
+T00690	2021-02-17	Kartu Kredit	C06057	K00279
+T00691	2024-04-15	Kartu Kredit	C06057	K00279
+T00692	2025-12-04	ShopeePay	C06057	K00279
+T00693	2024-06-26	Transfer Bank	C06057	K00279
+T00694	2024-07-07	Kartu Kredit	C06057	K00279
+T00695	2021-05-10	ShopeePay	C06057	K00279
+T00696	2024-02-18	QRIS	C06057	K00279
+T00697	2020-05-25	Kartu Debit	C06057	K00279
+T00698	2025-02-14	Kartu Debit	C06057	K00279
+T00699	2024-12-03	Dana	C06057	K00279
+T00700	2024-05-09	GoPay	C06057	K00279
+T00701	2020-08-01	QRIS	C06057	K00279
+T00702	2025-08-05	Kartu Kredit	C06057	K00279
+T00703	2021-11-17	Kartu Debit	C06057	K00279
+T00704	2025-02-17	GoPay	C06057	K00279
+T00705	2025-11-06	Transfer Bank	C06057	K00279
+T00706	2024-10-28	OVO	C06057	K00279
+T00707	2020-10-02	Tunai	C06057	K00279
+T00708	2022-10-14	Kartu Kredit	C06057	K00279
+T00709	2023-02-19	GoPay	C06057	K00279
+T00710	2021-01-05	Kartu Debit	C06057	K00279
+T00711	2025-08-13	Debit BCA	C06057	K00279
+T00712	2022-02-22	QRIS	C06057	K00279
+T00713	2023-08-10	Kartu Debit	C06057	K00279
+T00714	2020-05-17	Transfer Bank	C06057	K00279
+T00715	2020-08-22	Tunai	C06057	K00279
+T00716	2022-12-27	OVO	C06057	K00279
+T00717	2024-07-15	QRIS	C06057	K00279
+T00718	2025-11-20	Debit BCA	C06057	K00279
+T00719	2021-01-19	Debit BCA	C06057	K00279
+T00720	2025-08-05	OVO	C06057	K00279
+T00721	2024-02-19	GoPay	C06057	K00279
+T00722	2024-11-17	Debit BCA	C06057	K00279
+T00723	2021-09-29	GoPay	C06057	K00279
+T00724	2020-04-11	QRIS	C06057	K00279
+T00725	2022-10-14	Kartu Kredit	C06057	K00279
+T00726	2022-06-29	GoPay	C06057	K00279
+T00727	2024-12-30	Debit BCA	C06057	K00279
+T00728	2024-02-20	OVO	C06057	K00279
+T00729	2020-12-18	Kartu Debit	C06057	K00279
+T00730	2025-01-02	Transfer Bank	C06057	K00279
+T00731	2025-08-29	Transfer Bank	C06057	K00279
+T00732	2025-06-12	Kartu Debit	C06057	K00279
+T00733	2020-02-24	ShopeePay	C06057	K00279
+T00734	2020-11-01	Dana	C06057	K00279
+T00735	2021-08-29	Debit BCA	C06057	K00279
+T00736	2022-04-21	Kartu Debit	C06057	K00279
+T00737	2024-03-26	Transfer Bank	C06057	K00279
+T00738	2020-12-02	GoPay	C06057	K00279
+T00739	2023-11-06	Tunai	C06057	K00279
+T00740	2024-09-14	GoPay	C06057	K00279
+T00741	2020-09-18	GoPay	C06057	K00279
+T00742	2025-03-24	Kartu Debit	C06057	K00279
+T00743	2025-05-16	Transfer Bank	C06057	K00279
+T00744	2023-05-21	GoPay	C06057	K00279
+T00745	2020-04-18	GoPay	C06057	K00279
+T00746	2022-08-18	Dana	C06057	K00279
+T00747	2020-11-30	QRIS	C06057	K00279
+T00748	2025-12-07	Debit BCA	C06057	K00279
+T00749	2024-12-16	Debit BCA	C06057	K00279
+T00750	2020-03-30	Kartu Kredit	C06057	K00279
+T00751	2022-05-22	Debit BCA	C06057	K00279
+T00752	2024-01-28	Kartu Debit	C06057	K00279
+T00753	2020-02-16	Debit BCA	C06057	K00279
+T00754	2020-02-26	GoPay	C06057	K00279
+T00755	2023-12-22	ShopeePay	C06057	K00279
+T00756	2024-10-27	Kartu Debit	C06057	K00279
+T00757	2020-11-16	Kartu Debit	C06057	K00279
+T00758	2021-04-10	GoPay	C06057	K00279
+T00759	2024-07-13	Kartu Debit	C06057	K00279
+T00760	2024-05-08	Kartu Kredit	C06057	K00279
+T00761	2022-10-16	Kartu Kredit	C06057	K00279
+T00762	2023-11-18	Tunai	C06057	K00279
+T00763	2022-07-30	Transfer Bank	C06057	K00279
+T00764	2023-01-31	QRIS	C06057	K00279
+T00765	2024-05-10	GoPay	C06057	K00279
+T00766	2025-01-25	Transfer Bank	C06057	K00279
+T00767	2024-11-24	ShopeePay	C06057	K00279
+T00768	2020-04-19	Debit BCA	C06057	K00279
+T00769	2020-03-08	Dana	C06057	K00279
+T00770	2023-12-16	Transfer Bank	C06057	K00279
+T00771	2020-11-15	Kartu Debit	C06057	K00279
+T00772	2023-02-20	ShopeePay	C06057	K00279
+T00773	2023-11-13	Dana	C06057	K00279
+T00774	2020-08-25	ShopeePay	C06057	K00279
+T00775	2022-07-13	ShopeePay	C06057	K00279
+T00776	2025-01-09	Tunai	C06057	K00279
+T00777	2023-02-09	QRIS	C06057	K00279
+T00778	2021-03-01	Kartu Debit	C06057	K00279
+T00779	2023-06-30	Transfer Bank	C06057	K00279
+T00780	2025-04-25	Debit BCA	C06057	K00279
+T00781	2021-12-31	QRIS	C06057	K00279
+T00782	2023-01-28	ShopeePay	C06057	K00279
+T00783	2022-08-02	Transfer Bank	C06057	K00279
+T00784	2022-02-25	Transfer Bank	C06057	K00279
+T00785	2020-05-19	Kartu Kredit	C06057	K00279
+T00786	2022-04-11	Transfer Bank	C06057	K00279
+T00787	2024-09-13	GoPay	C06057	K00279
+T00788	2024-02-21	Debit BCA	C06057	K00279
+T00789	2021-12-10	GoPay	C06057	K00279
+T00790	2025-08-23	Transfer Bank	C06057	K00279
+T00791	2021-01-24	Transfer Bank	C06057	K00279
+T00792	2022-03-23	Dana	C06057	K00279
+T00793	2020-05-09	Kartu Kredit	C06057	K00279
+T00794	2022-04-09	Transfer Bank	C06057	K00279
+T00795	2022-10-26	Kartu Kredit	C06057	K00279
+T00796	2021-04-24	GoPay	C06057	K00279
+T00797	2023-03-14	GoPay	C06057	K00279
+T00798	2022-06-28	Tunai	C06057	K00279
+T00799	2023-08-12	Debit BCA	C06057	K00279
+T00800	2021-07-27	Transfer Bank	C06057	K00279
+T00801	2025-12-15	Dana	C06057	K00279
+T00802	2021-09-16	GoPay	C06057	K00279
+T00803	2021-09-18	OVO	C06057	K00279
+T00804	2022-01-01	Dana	C06057	K00279
+T00805	2023-11-30	Tunai	C06057	K00279
+T00806	2022-02-23	QRIS	C06057	K00279
+T00807	2024-02-29	Tunai	C06057	K00279
+T00808	2023-01-14	Transfer Bank	C06057	K00279
+T00809	2024-11-04	ShopeePay	C06057	K00279
+T00810	2020-08-24	Dana	C06057	K00279
+T00811	2024-12-08	Transfer Bank	C06057	K00279
+T00812	2021-10-24	QRIS	C06057	K00279
+T00813	2024-01-12	Kartu Kredit	C06057	K00279
+T00814	2025-05-30	QRIS	C06057	K00279
+T00815	2022-11-28	Debit BCA	C06057	K00279
+T00816	2022-03-22	ShopeePay	C06057	K00279
+T00817	2025-12-02	ShopeePay	C06057	K00279
+T00818	2022-08-31	OVO	C06057	K00279
+T00819	2022-09-07	Tunai	C06057	K00279
+T00820	2020-10-07	GoPay	C06057	K00279
+T00821	2023-10-22	ShopeePay	C06057	K00279
+T00822	2025-11-10	Debit BCA	C06057	K00279
+T00823	2020-03-11	Tunai	C06057	K00279
+T00824	2023-07-17	GoPay	C06057	K00279
+T00825	2022-04-21	Dana	C06057	K00279
+T00826	2024-10-10	Tunai	C06057	K00279
+T00827	2022-05-15	OVO	C06057	K00279
+T00828	2021-11-28	Transfer Bank	C06057	K00279
+T00829	2020-08-10	Kartu Kredit	C06057	K00279
+T00830	2024-05-14	OVO	C06057	K00279
+T00831	2025-05-23	ShopeePay	C06057	K00279
+T00832	2020-05-18	Dana	C06057	K00279
+T00833	2020-06-06	Tunai	C06057	K00279
+T00834	2024-09-22	QRIS	C06057	K00279
+T00835	2021-06-12	Transfer Bank	C06057	K00279
+T00836	2021-11-21	OVO	C06057	K00279
+T00837	2020-09-14	Tunai	C06057	K00279
+T00838	2025-07-09	Dana	C06057	K00279
+T00839	2024-12-07	Kartu Debit	C06057	K00279
+T00840	2022-04-04	Dana	C06057	K00279
+T00841	2024-07-03	Debit BCA	C06057	K00279
+T00842	2020-01-04	Kartu Debit	C06057	K00279
+T00843	2024-09-07	Tunai	C06057	K00279
+T00844	2022-05-29	OVO	C06057	K00279
+T00845	2020-06-26	GoPay	C06057	K00279
+T00846	2020-08-25	Debit BCA	C06057	K00279
+T00847	2024-12-06	Dana	C06057	K00279
+T00848	2023-05-02	Transfer Bank	C06057	K00279
+T00849	2022-12-21	Tunai	C06057	K00279
+T00850	2022-08-18	OVO	C06057	K00279
+T00851	2025-09-08	Kartu Kredit	C06057	K00279
+T00852	2021-10-10	Kartu Kredit	C06057	K00279
+T00853	2022-06-12	Kartu Debit	C06057	K00279
+T00854	2024-06-05	Transfer Bank	C06057	K00279
+T00855	2023-06-26	Tunai	C06057	K00279
+T00856	2020-07-30	QRIS	C06057	K00279
+T00857	2024-05-16	Tunai	C06057	K00279
+T00858	2022-10-20	Transfer Bank	C06057	K00279
+T00859	2023-12-23	Kartu Kredit	C06057	K00279
+T00860	2023-03-04	OVO	C06057	K00279
+T00861	2025-07-05	OVO	C06057	K00279
+T00862	2023-09-07	Transfer Bank	C06057	K00279
+T00863	2020-08-17	GoPay	C06057	K00279
+T00864	2021-09-01	GoPay	C06057	K00279
+T00865	2025-01-14	Dana	C06057	K00279
+T00866	2025-01-04	ShopeePay	C06057	K00279
+T00867	2022-07-03	GoPay	C06057	K00279
+T00868	2024-08-10	Dana	C06057	K00279
+T00869	2024-01-09	Dana	C06057	K00279
+T00870	2025-10-25	OVO	C06057	K00279
+T00871	2025-08-25	Debit BCA	C06057	K00279
+T00872	2022-07-17	Debit BCA	C06057	K00279
+T00873	2020-05-04	Transfer Bank	C06057	K00279
+T00874	2021-12-27	GoPay	C06057	K00279
+T00875	2023-01-27	Kartu Kredit	C06057	K00279
+T00876	2025-05-19	OVO	C06057	K00279
+T00877	2021-06-20	Transfer Bank	C06057	K00279
+T00878	2022-09-24	Tunai	C06057	K00279
+T00879	2022-09-10	Debit BCA	C06057	K00279
+T00880	2024-07-25	Kartu Kredit	C06057	K00279
+T00881	2025-08-03	Transfer Bank	C06057	K00279
+T00882	2021-08-13	Kartu Debit	C06057	K00279
+T00883	2024-02-05	ShopeePay	C06057	K00279
+T00884	2021-08-22	OVO	C06057	K00279
+T00885	2023-09-21	Transfer Bank	C06057	K00279
+T00886	2024-10-05	Kartu Kredit	C06057	K00279
+T00887	2023-05-09	Kartu Debit	C06057	K00279
+T00888	2025-11-07	Transfer Bank	C06057	K00279
+T00889	2025-06-23	Tunai	C06057	K00279
+T00890	2022-07-02	Debit BCA	C06057	K00279
+T00891	2025-03-22	QRIS	C06057	K00279
+T00892	2020-07-09	Debit BCA	C06057	K00279
+T00893	2020-07-04	OVO	C06057	K00279
+T00894	2022-05-28	Transfer Bank	C06057	K00279
+T00895	2025-11-02	Dana	C06057	K00279
+T00896	2023-01-18	Dana	C06057	K00279
+T00897	2023-06-05	Dana	C06057	K00279
+T00898	2025-09-03	Transfer Bank	C06057	K00279
+T00899	2025-11-02	Debit BCA	C06057	K00279
+T00900	2025-05-12	Transfer Bank	C06057	K00279
+T00901	2021-07-26	Tunai	C06057	K00279
+T00902	2021-03-05	Debit BCA	C06057	K00279
+T00903	2023-08-20	Transfer Bank	C06057	K00279
+T00904	2021-04-22	Kartu Kredit	C06057	K00279
+T00905	2022-01-10	Transfer Bank	C06057	K00279
+T00906	2024-06-14	Kartu Debit	C06057	K00279
+T00907	2025-07-30	ShopeePay	C06057	K00279
+T00908	2022-09-18	OVO	C06057	K00279
+T00909	2025-09-03	Dana	C06057	K00279
+T00910	2023-03-28	Kartu Kredit	C06057	K00279
+T00911	2024-04-17	QRIS	C06057	K00279
+T00912	2025-07-04	GoPay	C06057	K00279
+T00913	2025-11-14	Transfer Bank	C06057	K00279
+T00914	2024-05-17	Debit BCA	C06057	K00279
+T00915	2025-01-14	Tunai	C06057	K00279
+T00916	2020-09-17	QRIS	C06057	K00279
+T00917	2022-04-01	ShopeePay	C06057	K00279
+T00918	2021-05-25	OVO	C06057	K00279
+T00919	2020-02-11	Kartu Debit	C06057	K00279
+T00920	2024-08-02	Debit BCA	C06057	K00279
+T00921	2024-03-17	Kartu Kredit	C06057	K00279
+T00922	2025-12-06	Dana	C06057	K00279
+T00923	2022-11-30	QRIS	C06057	K00279
+T00924	2020-11-09	Kartu Kredit	C06057	K00279
+T00925	2025-09-15	Dana	C06057	K00279
+T00926	2023-05-04	Kartu Debit	C06057	K00279
+T00927	2022-08-22	Debit BCA	C06057	K00279
+T00928	2025-07-22	OVO	C06057	K00279
+T00929	2025-06-05	OVO	C06057	K00279
+T00930	2020-02-27	Kartu Kredit	C06057	K00279
+T00931	2022-01-16	Kartu Kredit	C06057	K00279
+T00932	2023-05-25	Kartu Debit	C06057	K00279
+T00933	2023-05-05	Transfer Bank	C06057	K00279
+T00934	2023-03-04	Debit BCA	C06057	K00279
+T00935	2025-04-13	Kartu Debit	C06057	K00279
+T00936	2024-03-25	Kartu Debit	C06057	K00279
+T00937	2021-12-06	Kartu Kredit	C06057	K00279
+T00938	2020-05-19	OVO	C06057	K00279
+T00939	2025-04-22	Kartu Debit	C06057	K00279
+T00940	2022-12-09	Tunai	C06057	K00279
+T00941	2021-11-13	OVO	C06057	K00279
+T00942	2020-11-11	Debit BCA	C06057	K00279
+T00943	2023-06-07	Transfer Bank	C06057	K00279
+T00944	2023-08-04	Kartu Kredit	C06057	K00279
+T00945	2025-06-05	Debit BCA	C06057	K00279
+T00946	2024-05-01	ShopeePay	C06057	K00279
+T00947	2025-12-16	Kartu Debit	C06057	K00279
+T00948	2020-05-07	Tunai	C06057	K00279
+T00949	2024-10-28	Dana	C06057	K00279
+T00950	2021-01-02	OVO	C06057	K00279
+T00951	2021-12-03	GoPay	C06057	K00279
+T00952	2023-05-08	Transfer Bank	C06057	K00279
+T00953	2024-02-28	GoPay	C06057	K00279
+T00954	2023-04-09	Dana	C06057	K00279
+T00955	2022-07-13	Dana	C06057	K00279
+T00956	2023-12-25	Kartu Debit	C06057	K00279
+T00957	2025-09-29	Kartu Kredit	C06057	K00279
+T00958	2024-05-01	Dana	C06057	K00279
+T00959	2020-11-05	OVO	C06057	K00279
+T00960	2021-01-02	QRIS	C06057	K00279
+T00961	2021-06-15	Transfer Bank	C06057	K00279
+T00962	2023-07-28	Transfer Bank	C06057	K00279
+T00963	2020-07-25	QRIS	C06057	K00279
+T00964	2023-08-28	QRIS	C06057	K00279
+T00965	2025-02-02	GoPay	C06057	K00279
+T00966	2025-01-08	QRIS	C06057	K00279
+T00967	2024-07-06	OVO	C06057	K00279
+T00968	2024-09-23	Debit BCA	C06057	K00279
+T00969	2020-12-15	Dana	C06057	K00279
+T00970	2021-02-10	GoPay	C06057	K00279
+T00971	2022-02-02	Transfer Bank	C06057	K00279
+T00972	2022-08-30	Dana	C06057	K00279
+T00973	2020-01-27	Kartu Debit	C06057	K00279
+T00974	2024-12-31	GoPay	C06057	K00279
+T00975	2020-09-16	Kartu Debit	C06057	K00279
+T00976	2023-01-29	ShopeePay	C06057	K00279
+T00977	2023-09-27	Kartu Debit	C06057	K00279
+T00978	2022-04-25	Kartu Debit	C06057	K00279
+T00979	2021-07-21	Debit BCA	C06057	K00279
+T00980	2020-01-15	ShopeePay	C06057	K00279
+T00981	2022-02-25	GoPay	C06057	K00279
+T00982	2022-02-20	GoPay	C06057	K00279
+T00983	2022-12-24	OVO	C06057	K00279
+T00984	2021-04-30	ShopeePay	C06057	K00279
+T00985	2024-03-14	GoPay	C06057	K00279
+T00986	2021-11-26	OVO	C06057	K00279
+T00987	2020-06-19	Transfer Bank	C06057	K00279
+T00988	2023-04-25	Kartu Debit	C06057	K00279
+T00989	2024-06-29	Tunai	C06057	K00279
+T00990	2020-08-17	GoPay	C06057	K00279
+T00991	2024-02-07	Dana	C06057	K00279
+T00992	2023-03-21	OVO	C06057	K00279
+T00993	2021-09-06	Dana	C06057	K00279
+T00994	2021-02-07	Dana	C06057	K00279
+T00995	2023-07-21	QRIS	C06057	K00279
+T00996	2024-03-06	Transfer Bank	C06057	K00279
+T00997	2024-02-05	Kartu Debit	C06057	K00279
+T00998	2024-10-02	Tunai	C06057	K00279
+T00999	2020-10-31	Tunai	C06057	K00279
+T01000	2022-04-29	Dana	C06057	K00279
+T00082	2022-06-17	ShopeePay	C00222	K00279
+\.
+
+
+--
+-- TOC entry 4810 (class 2606 OID 18554)
+-- Name: Akun Akun_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Akun"
+    ADD CONSTRAINT "Akun_pkey" PRIMARY KEY (id);
+
+
+--
+-- TOC entry 4812 (class 2606 OID 18556)
+-- Name: Buku Buku_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Buku"
+    ADD CONSTRAINT "Buku_pkey" PRIMARY KEY (isbn);
+
+
+--
+-- TOC entry 4814 (class 2606 OID 18558)
+-- Name: Ditulis Ditulis_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Ditulis"
+    ADD CONSTRAINT "Ditulis_pkey" PRIMARY KEY (isbn, id_penulis);
+
+
+--
+-- TOC entry 4816 (class 2606 OID 18560)
+-- Name: Karyawan Karyawan_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Karyawan"
+    ADD CONSTRAINT "Karyawan_pkey" PRIMARY KEY (id_karyawan);
+
+
+--
+-- TOC entry 4818 (class 2606 OID 18562)
+-- Name: Kategori Kategori_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Kategori"
+    ADD CONSTRAINT "Kategori_pkey" PRIMARY KEY (id_kategori);
+
+
+--
+-- TOC entry 4822 (class 2606 OID 18564)
+-- Name: Memiliki (Buku_Kategori) Memiliki (Buku_Kategori)_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Memiliki (Buku_Kategori)"
+    ADD CONSTRAINT "Memiliki (Buku_Kategori)_pkey" PRIMARY KEY (isbn, id_kategori);
+
+
+--
+-- TOC entry 4824 (class 2606 OID 18566)
+-- Name: Memiliki (Pembelian_Buku) Memiliki (Pembelian_Buku)_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Memiliki (Pembelian_Buku)"
+    ADD CONSTRAINT "Memiliki (Pembelian_Buku)_pkey" PRIMARY KEY (id_pembelian, isbn);
+
+
+--
+-- TOC entry 4826 (class 2606 OID 18568)
+-- Name: Memiliki (Transaksi_Buku) Memiliki (Transaksi_Buku)_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Memiliki (Transaksi_Buku)"
+    ADD CONSTRAINT "Memiliki (Transaksi_Buku)_pkey" PRIMARY KEY (id_transaksi, isbn);
+
+
+--
+-- TOC entry 4828 (class 2606 OID 18570)
+-- Name: Nomor_Hp_Karyawan Nomor_Hp_Karyawan_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Nomor_Hp_Karyawan"
+    ADD CONSTRAINT "Nomor_Hp_Karyawan_pkey" PRIMARY KEY (id_karyawan, nomor_hp);
+
+
+--
+-- TOC entry 4830 (class 2606 OID 18572)
+-- Name: Nomor_Hp_Pelanggan Nomor_Hp_Pelanggan_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Nomor_Hp_Pelanggan"
+    ADD CONSTRAINT "Nomor_Hp_Pelanggan_pkey" PRIMARY KEY (id_pelanggan, nomor_hp);
+
+
+--
+-- TOC entry 4832 (class 2606 OID 18574)
+-- Name: Nomor_Hp_Penulis Nomor_Hp_Penulis_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Nomor_Hp_Penulis"
+    ADD CONSTRAINT "Nomor_Hp_Penulis_pkey" PRIMARY KEY (id_penulis, nomor_hp);
+
+
+--
+-- TOC entry 4834 (class 2606 OID 18576)
+-- Name: Pelanggan Pelanggan_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Pelanggan"
+    ADD CONSTRAINT "Pelanggan_pkey" PRIMARY KEY (id_pelanggan);
+
+
+--
+-- TOC entry 4836 (class 2606 OID 18578)
+-- Name: Pemasok Pemasok_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Pemasok"
+    ADD CONSTRAINT "Pemasok_pkey" PRIMARY KEY (id_pemasok);
+
+
+--
+-- TOC entry 4838 (class 2606 OID 18580)
+-- Name: Pembelian Pembelian_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Pembelian"
+    ADD CONSTRAINT "Pembelian_pkey" PRIMARY KEY (id_pembelian);
+
+
+--
+-- TOC entry 4840 (class 2606 OID 18582)
+-- Name: Penerbit Penerbit_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Penerbit"
+    ADD CONSTRAINT "Penerbit_pkey" PRIMARY KEY (id_penerbit);
+
+
+--
+-- TOC entry 4842 (class 2606 OID 18584)
+-- Name: Penulis Penulis_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Penulis"
+    ADD CONSTRAINT "Penulis_pkey" PRIMARY KEY (id_penulis);
+
+
+--
+-- TOC entry 4844 (class 2606 OID 18586)
+-- Name: Transaksi Transaksi_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Transaksi"
+    ADD CONSTRAINT "Transaksi_pkey" PRIMARY KEY (id_transaksi);
+
+
+--
+-- TOC entry 4820 (class 2606 OID 18588)
+-- Name: Kode_Pos kode_pos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Kode_Pos"
+    ADD CONSTRAINT kode_pos_pkey PRIMARY KEY (kode_pos);
+
+
+--
+-- TOC entry 4846 (class 2606 OID 18589)
+-- Name: Ditulis buku_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Ditulis"
+    ADD CONSTRAINT buku_fk FOREIGN KEY (isbn) REFERENCES public."Buku"(isbn) NOT VALID;
+
+
+--
+-- TOC entry 4851 (class 2606 OID 18594)
+-- Name: Memiliki (Buku_Kategori) buku_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Memiliki (Buku_Kategori)"
+    ADD CONSTRAINT buku_fk FOREIGN KEY (isbn) REFERENCES public."Buku"(isbn) NOT VALID;
+
+
+--
+-- TOC entry 4852 (class 2606 OID 18599)
+-- Name: Memiliki (Pembelian_Buku) buku_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Memiliki (Pembelian_Buku)"
+    ADD CONSTRAINT buku_fk FOREIGN KEY (isbn) REFERENCES public."Buku"(isbn) NOT VALID;
+
+
+--
+-- TOC entry 4854 (class 2606 OID 18604)
+-- Name: Memiliki (Transaksi_Buku) buku_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Memiliki (Transaksi_Buku)"
+    ADD CONSTRAINT buku_fk FOREIGN KEY (isbn) REFERENCES public."Buku"(isbn) NOT VALID;
+
+
+--
+-- TOC entry 4847 (class 2606 OID 18609)
+-- Name: Ditulis fk_ditulis_buku; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Ditulis"
+    ADD CONSTRAINT fk_ditulis_buku FOREIGN KEY (isbn) REFERENCES public."Buku"(isbn) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 4848 (class 2606 OID 18614)
+-- Name: Ditulis fk_ditulis_penulis; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Ditulis"
+    ADD CONSTRAINT fk_ditulis_penulis FOREIGN KEY (id_penulis) REFERENCES public."Penulis"(id_penulis) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 4856 (class 2606 OID 18619)
+-- Name: Nomor_Hp_Karyawan karyawan_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Nomor_Hp_Karyawan"
+    ADD CONSTRAINT karyawan_fk FOREIGN KEY (id_karyawan) REFERENCES public."Karyawan"(id_karyawan) NOT VALID;
+
+
+--
+-- TOC entry 4861 (class 2606 OID 18624)
+-- Name: Transaksi karyawan_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Transaksi"
+    ADD CONSTRAINT karyawan_fk FOREIGN KEY (id_karyawan) REFERENCES public."Karyawan"(id_karyawan) NOT VALID;
+
+
+--
+-- TOC entry 4850 (class 2606 OID 18629)
+-- Name: Karyawan kodepos_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Karyawan"
+    ADD CONSTRAINT kodepos_fk FOREIGN KEY (kode_pos) REFERENCES public."Kode_Pos"(kode_pos) NOT VALID;
+
+
+--
+-- TOC entry 4860 (class 2606 OID 18634)
+-- Name: Penerbit kodepos_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Penerbit"
+    ADD CONSTRAINT kodepos_fk FOREIGN KEY (kode_pos) REFERENCES public."Kode_Pos"(kode_pos) NOT VALID;
+
+
+--
+-- TOC entry 4857 (class 2606 OID 18639)
+-- Name: Nomor_Hp_Pelanggan pelanggan_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Nomor_Hp_Pelanggan"
+    ADD CONSTRAINT pelanggan_fk FOREIGN KEY (id_pelanggan) REFERENCES public."Pelanggan"(id_pelanggan) NOT VALID;
+
+
+--
+-- TOC entry 4862 (class 2606 OID 18644)
+-- Name: Transaksi pelanggan_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Transaksi"
+    ADD CONSTRAINT pelanggan_fk FOREIGN KEY (id_pelanggan) REFERENCES public."Pelanggan"(id_pelanggan) NOT VALID;
+
+
+--
+-- TOC entry 4859 (class 2606 OID 18649)
+-- Name: Pembelian pemasok_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Pembelian"
+    ADD CONSTRAINT pemasok_fk FOREIGN KEY (id_pemasok) REFERENCES public."Pemasok"(id_pemasok) NOT VALID;
+
+
+--
+-- TOC entry 4853 (class 2606 OID 18654)
+-- Name: Memiliki (Pembelian_Buku) pembelian_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Memiliki (Pembelian_Buku)"
+    ADD CONSTRAINT pembelian_fk FOREIGN KEY (id_pembelian) REFERENCES public."Pembelian"(id_pembelian) NOT VALID;
+
+
+--
+-- TOC entry 4845 (class 2606 OID 18659)
+-- Name: Buku penerbit_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Buku"
+    ADD CONSTRAINT penerbit_fk FOREIGN KEY (id_penerbit) REFERENCES public."Penerbit"(id_penerbit) NOT VALID;
+
+
+--
+-- TOC entry 4849 (class 2606 OID 18664)
+-- Name: Ditulis penulis_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Ditulis"
+    ADD CONSTRAINT penulis_fk FOREIGN KEY (id_penulis) REFERENCES public."Penulis"(id_penulis) NOT VALID;
+
+
+--
+-- TOC entry 4858 (class 2606 OID 18669)
+-- Name: Nomor_Hp_Penulis penulis_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Nomor_Hp_Penulis"
+    ADD CONSTRAINT penulis_fk FOREIGN KEY (id_penulis) REFERENCES public."Penulis"(id_penulis) NOT VALID;
+
+
+--
+-- TOC entry 4855 (class 2606 OID 18674)
+-- Name: Memiliki (Transaksi_Buku) transaksi_fk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."Memiliki (Transaksi_Buku)"
+    ADD CONSTRAINT transaksi_fk FOREIGN KEY (id_transaksi) REFERENCES public."Transaksi"(id_transaksi) NOT VALID;
+
+
+-- Completed on 2025-10-21 11:04:09
+
+--
+-- PostgreSQL database dump complete
+--
+
+\unrestrict bgxSr524R1EUbrA4MbfC7DZa1U9IJN2sJF0Iq2hlH7sdMgcCqzzfk4tsO5KJyEn
+
